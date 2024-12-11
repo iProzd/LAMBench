@@ -1,4 +1,5 @@
 from lambench.databases.base_table import BaseRecord
+from sqlalchemy import Column, String, Float
 
 class DirectPredictRecord(BaseRecord):
     __tablename__ = "direct_predict"
