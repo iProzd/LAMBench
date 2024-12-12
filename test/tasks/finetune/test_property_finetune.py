@@ -7,13 +7,8 @@ def test_load_direct_predict_task(finetune_yml_data):
         model_id, step = "TEST_DP_v1", 1000
         record_name = f"{model_id}#{step}#{task_name}"
         task = PropertyFinetuneTask(record_name=record_name,**task_param)
-        assert task.property_name == task_param["property_name"]
-        assert task.intensive == task_param["intensive"]
-        assert task.property_dim == task_param.get("property_dim")
-        assert task.train_data == task_param["train_data"]
-        assert task.test_data == task_param["test_data"]
-        assert task.train_steps == task_param["train_steps"]
-        assert task.property_weight == task_param["property_weight"]
+        for key, value in task_param.items():
+            assert getattr(task, key) == value
 
 
 def test_fetch_result_single_record(mock_finetune_record, finetune_task_data):

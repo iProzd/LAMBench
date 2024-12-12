@@ -3,6 +3,8 @@ from unittest.mock import patch
 from lambench.tasks.direct.direct_predict import DirectPredictTask
 from lambench.databases.direct_predict_table import DirectPredictRecord
 
+
+# Fixtures for TASKS
 @pytest.fixture
 def direct_yml_data():
     return {
@@ -59,4 +61,31 @@ def finetune_task_data():
         "test_data": "oss://lambench/Example_task/test/1",
         "train_steps": 1000,
         "property_weight": 1.0
+    }
+
+
+# Fixtures for MODELS
+@pytest.fixture
+def valid_model_data():
+    return {
+        "model_id": "model1",
+        "model_type": "DP",
+        "model_path": "oss://lambench/DP/model1",
+        "virtualenv": "oss://lambench/DP/model1/venv",
+        "model_metadata": {
+            "author": "author1",
+            "description": "description1"
+        }
+    }
+    
+@pytest.fixture
+def invalid_model_data():
+    return {
+        "model_id": "model1",
+        "model_type": "Unknown",
+        "model_path": "oss://lambench/DP/model1",
+        "model_metadata": {
+            "author": "author1",
+            "description": "description1"
+        }
     }

@@ -5,6 +5,11 @@ from typing import Optional
 import logging
 
 class PropertyFinetuneTask(BaseTask):
+    """
+    Support property finetuning and testing for DP interface.
+    Currently does not support ASE interface.
+    """
+
     property_name: str = None
     intensive: bool = True
     property_dim: int = 1
@@ -21,7 +26,7 @@ class PropertyFinetuneTask(BaseTask):
         self.train_steps = kwargs.get("train_steps", None) 
         self.property_weight = kwargs.get("property_weight", None)  
         
-    def run_task(self):
+    def run_task(self, model):
         pass
         
 

@@ -4,6 +4,11 @@ from typing import Dict, List
 from typing import Optional
 import logging
 class DirectPredictTask(BaseTask):
+    """
+    Support direct energy force prediction for DP interface, and zero-shot energy force prediciton for DP interface.
+    For models using the ASE interface, should use `DirectPredictASETask` instead.
+    """
+
     energy_weight: Optional[float] = None
     force_weight: Optional[float] = None
     virial_weight: Optional[float] = None  
@@ -14,7 +19,7 @@ class DirectPredictTask(BaseTask):
         self.force_weight = kwargs.get("force_weight",None)
         self.virial_weight = kwargs.get("virial_weight", None)  
         
-    def run_task(self):
+    def run_task(self, model):
         pass
         
 

@@ -1,4 +1,4 @@
-from lambench.tasks.direct.direct_predict import DirectPredictTask
+from lambench.tasks.direct.direct_predict_ase import DirectPredictASETask
 from unittest.mock import MagicMock, patch
 import logging
 
@@ -6,7 +6,7 @@ def test_load_direct_predict_task(direct_yml_data):
     for task_name, task_param in direct_yml_data.items():
         model_id, step = "TEST_DP_v1", 1000
         record_name = f"{model_id}#{step}#{task_name}"
-        task = DirectPredictTask(record_name=record_name,**task_param)
+        task = DirectPredictASETask(record_name=record_name,**task_param)
         for key, value in task_param.items():
             assert getattr(task, key) == value
 
@@ -15,7 +15,7 @@ def test_fetch_result_single_record(mock_direct_predict_record, direct_task_data
     mock_record_instance = MagicMock()
     mock_direct_predict_record.query_by_name.return_value = [mock_record_instance]
     
-    task = DirectPredictTask(**direct_task_data)
+    task = DirectPredictASETask(**direct_task_data)
     result = task.fetch_result()
     mock_direct_predict_record.query_by_name.assert_called_once_with(direct_task_data["record_name"])
     assert result == mock_record_instance
@@ -26,7 +26,7 @@ def test_fetch_result_multiple_records(mock_direct_predict_record, direct_task_d
     record2 = MagicMock()
     mock_direct_predict_record.query_by_name.return_value = [record1, record2]
     
-    task = DirectPredictTask(**direct_task_data)
+    task = DirectPredictASETask(**direct_task_data)
     with caplog.at_level(logging.WARNING):
         result = task.fetch_result()
     
@@ -37,7 +37,7 @@ def test_fetch_result_multiple_records(mock_direct_predict_record, direct_task_d
 def test_fetch_result_no_records(mock_direct_predict_record, direct_task_data):
     mock_direct_predict_record.query_by_name.return_value = []
     
-    task = DirectPredictTask(**direct_task_data)
+    task = DirectPredictASETask(**direct_task_data)
     result = task.fetch_result()
     
     mock_direct_predict_record.query_by_name.assert_called_once_with(direct_task_data["record_name"])
@@ -47,7 +47,7 @@ def test_sync_result_existing_record(mock_direct_predict_record, direct_task_dat
     existing_record = MagicMock()
     mock_direct_predict_record.query_by_name.return_value = [existing_record]
     
-    task = DirectPredictTask(**direct_task_data)
+    task = DirectPredictASETask(**direct_task_data)
     with caplog.at_level(logging.INFO):
         task.sync_result()
     
@@ -59,8 +59,8 @@ def test_sync_result_no_existing_record(mock_direct_predict_record, direct_task_
     mock_direct_predict_record.query_by_name.return_value = []
     
     # Mock the run_task method
-    with patch.object(DirectPredictTask, "run_task", return_value={"some_field": "some_value"}) as mock_run_task, caplog.at_level(logging.INFO):
-        task = DirectPredictTask(**direct_task_data)
+    with patch.object(DirectPredictASETask, "run_task", return_value={"some_field": "some_value"}) as mock_run_task, caplog.at_level(logging.INFO):
+        task = DirectPredictASETask(**direct_task_data)
         task.sync_result()
     
     mock_run_task.assert_called_once()
