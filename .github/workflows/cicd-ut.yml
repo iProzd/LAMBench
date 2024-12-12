@@ -22,5 +22,4 @@ jobs:
 
     - name: Run tests
       run: |
-        ls
         python -m pytest ${{ github.workspace }}/test -vv
