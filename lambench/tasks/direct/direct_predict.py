@@ -2,28 +2,45 @@ from lambench.tasks.base_task import BaseTask
 from lambench.databases.direct_predict_table import DirectPredictRecord
 from typing import Dict, List 
 from typing import Optional
-
+import logging
 class DirectPredictTask(BaseTask):
     energy_weight: Optional[float] = None
     force_weight: Optional[float] = None
     virial_weight: Optional[float] = None  
-    result: Optional[DirectPredictRecord] = None 
 
-    def __init__(self, task_name: str, **kwargs):
-        super().__init__(task_name=task_name, test_data=kwargs['test_data'])
+    def __init__(self, record_name: str, **kwargs):
+        super().__init__(record_name=record_name, test_data=kwargs['test_data'])
         self.energy_weight = kwargs.get("energy_weight", None)
         self.force_weight = kwargs.get("force_weight",None)
         self.virial_weight = kwargs.get("virial_weight", None)  
-        self.result = None
         
     def run_task(self):
-        self.result = self.database.predict(self.test_data)
+        pass
+        
 
     def fetch_result(self) -> DirectPredictRecord:
-        return self.result
+        records = DirectPredictRecord.query_by_name(self.record_name)
+        if len(records) == 1:
+            return records[0]
+        elif len(records) > 1:
+            logging.warning(f"Multiple records found for task {self.record_name}")
+            return records[0]
+        else:
+            return None
 
-    def sync_result(self):
-        pass
-
-    def show_result(self):
-        pass
+    def sync_result(self) -> None:
+        result = self.fetch_result()
+        if result is not None:
+            logging.info(f"TASK {self.record_name} record found in database, SKIPPING.")
+            return
+        else:
+            task_output = self.run_task()
+            logging.info(f"TASK {self.record_name} OUTPUT: {task_output}, INSERTING.")
+            model_id, step, task_name = self.record_name.split("#")
+            DirectPredictRecord(
+                model_id=model_id,
+                record_name=self.record_name,
+                step=step,
+                task_name=task_name,
+                **task_output
+            ).insert()

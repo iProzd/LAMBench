@@ -1,10 +1,10 @@
 from abc import abstractmethod
 from pydantic import BaseModel
 from lambench.databases.base_table import BaseRecord
-from typing import List, Dict
+from typing import List, Dict, Any
 from pydantic import validator
 class BaseTask(BaseModel):
-    task_name: str
+    record_name: str
     test_data: List[str]
 
     @validator('test_data')
@@ -17,7 +17,7 @@ class BaseTask(BaseModel):
         arbitrary_types_allowed=True
         
     @abstractmethod
-    def run_task(self):
+    def run_task(self) -> Dict[str, Any]:
         pass
 
     @abstractmethod
@@ -26,8 +26,4 @@ class BaseTask(BaseModel):
 
     @abstractmethod
     def sync_result(self):
-        pass
-
-    @abstractmethod
-    def show_result(self):
         pass
