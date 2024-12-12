@@ -22,4 +22,5 @@ jobs:
 
     - name: Run tests
       run: |
+        echo $(pwd)
         python -m pytest test -vv
