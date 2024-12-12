@@ -1,0 +1,8 @@
+Example_task:
+  property_name: dipole_moment
+  intensive: true
+  property_dim: 1
+  train_data: "oss://lambench/property/Example_task/train/1"
+  test_data: "oss://lambench/property/Example_task/test/1"
+  train_steps: 100000
+  property_weight: 1.0
