@@ -1,11 +1,12 @@
-from lambench.tasks.direct.direct_predict_ase import DirectPredictASETask
+from lambench.tasks import DirectPredictASETask
 from unittest.mock import MagicMock, patch
+from lambench.models import ASEModel
 import logging
 
 def test_load_direct_predict_task(direct_yml_data):
     for task_name, task_param in direct_yml_data.items():
-        model_id, step = "TEST_DP_v1", 1000
-        record_name = f"{model_id}#{step}#{task_name}"
+        model_id = "TEST_DP_v1"
+        record_name = f"{model_id}#{task_name}"
         task = DirectPredictASETask(record_name=record_name,**task_param)
         for key, value in task_param.items():
             assert getattr(task, key) == value
@@ -43,25 +44,29 @@ def test_fetch_result_no_records(mock_direct_predict_record, direct_task_data):
     mock_direct_predict_record.query_by_name.assert_called_once_with(direct_task_data["record_name"])
     assert result is None
 
-def test_sync_result_existing_record(mock_direct_predict_record, direct_task_data, caplog):
+def test_sync_result_existing_record(mock_direct_predict_record, valid_model_data, direct_task_data, caplog):
     existing_record = MagicMock()
     mock_direct_predict_record.query_by_name.return_value = [existing_record]
     
+    valid_model_data.update({"model_type": "ASE"})
     task = DirectPredictASETask(**direct_task_data)
+    model = ASEModel(**valid_model_data)
     with caplog.at_level(logging.INFO):
-        task.sync_result()
+        task.sync_result(model)
     
     assert f"TASK {direct_task_data['record_name']} record found in database, SKIPPING." in caplog.text
     mock_direct_predict_record.query_by_name.assert_called_once_with(direct_task_data["record_name"])
 
 
-def test_sync_result_no_existing_record(mock_direct_predict_record, direct_task_data, caplog):
+def test_sync_result_no_existing_record(mock_direct_predict_record, valid_model_data, direct_task_data, caplog):
     mock_direct_predict_record.query_by_name.return_value = []
     
     # Mock the run_task method
+    valid_model_data.update({"model_type": "ASE"})
+    model = ASEModel(**valid_model_data)
     with patch.object(DirectPredictASETask, "run_task", return_value={"some_field": "some_value"}) as mock_run_task, caplog.at_level(logging.INFO):
         task = DirectPredictASETask(**direct_task_data)
-        task.sync_result()
+        task.sync_result(model)
     
     mock_run_task.assert_called_once()
     assert f"TASK {direct_task_data['record_name']} OUTPUT: {{'some_field': 'some_value'}}, INSERTING." in caplog.text
@@ -69,7 +74,6 @@ def test_sync_result_no_existing_record(mock_direct_predict_record, direct_task_
     mock_direct_predict_record.assert_called_with(
         model_id="model1",
         record_name=direct_task_data["record_name"],
-        step="1000",
         task_name="taskA",
         some_field="some_value"
     )

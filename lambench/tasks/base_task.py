@@ -17,5 +17,5 @@ class BaseTask(BaseModel):
         pass
 
     @abstractmethod
-    def sync_result(self):
+    def sync_result(self, model):
         pass

@@ -24,7 +24,6 @@ class BaseRecord(Base):
     id = Column(Integer, primary_key=True)
     model_id = Column(String(256), index=True)
     record_name = Column(String(256))
-    step = Column(Integer)
     
 
     def insert(self) -> int:
@@ -37,7 +36,7 @@ class BaseRecord(Base):
     @classmethod
     def query(cls, **kwargs) -> List["BaseRecord"]:
         session = Session()
-        records = session.query(cls).filter_by(**kwargs).order_by(asc(cls.step)).all()
+        records = session.query(cls).filter_by(**kwargs).all()
         session.close()
         return records
 

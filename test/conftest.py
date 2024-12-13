@@ -43,7 +43,7 @@ def mock_finetune_record():
 @pytest.fixture
 def direct_task_data():
     return {
-        "record_name": "model1#1000#taskA",
+        "record_name": "model1#taskA",
         "test_data":"test1",
         "energy_weight": 1.0,
         "force_weight": 2.0,
@@ -53,7 +53,7 @@ def direct_task_data():
 @pytest.fixture
 def finetune_task_data():
     return {
-        "record_name": "model1#1000#taskA",
+        "record_name": "model1#taskA",
         "property_name": "dipole_moment",
         "intensive": False,
         "property_dim": 1,

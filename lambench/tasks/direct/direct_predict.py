@@ -33,19 +33,24 @@ class DirectPredictTask(BaseTask):
         else:
             return None
 
-    def sync_result(self) -> None:
+    def sync_result(self, model) -> None:
         result = self.fetch_result()
         if result is not None:
             logging.info(f"TASK {self.record_name} record found in database, SKIPPING.")
             return
         else:
-            task_output = self.run_task()
+            task_output = self.run_task(model)
             logging.info(f"TASK {self.record_name} OUTPUT: {task_output}, INSERTING.")
-            model_id, step, task_name = self.record_name.split("#")
+            model_id, task_name = self.record_name.split("#")
             DirectPredictRecord(
                 model_id=model_id,
                 record_name=self.record_name,
-                step=step,
                 task_name=task_name,
                 **task_output
             ).insert()
+    
+    def prepare_test_data(self):
+        """
+        This function should preare a `test_data_{task_name}.txt` in the 
+        """
+        pass
