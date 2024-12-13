@@ -20,8 +20,13 @@ class DirectPredictTask(BaseTask):
         self.virial_weight = kwargs.get("virial_weight", None)  
         
     def run_task(self, model):
-        pass
-        
+        test_data_file: str = self.prepare_test_data()
+        task_output: Dict = model.evaluate(
+            task_name=self.record_name.split("#")[1],
+            test_file_path=test_data_file,
+            target_name="standard",
+        )
+        return task_output
 
     def fetch_result(self) -> DirectPredictRecord:
         records = DirectPredictRecord.query_by_name(self.record_name)
@@ -48,9 +53,3 @@ class DirectPredictTask(BaseTask):
                 task_name=task_name,
                 **task_output
             ).insert()
-    
-    def prepare_test_data(self):
-        """
-        This function should preare a `test_data_{task_name}.txt` in the 
-        """
-        pass

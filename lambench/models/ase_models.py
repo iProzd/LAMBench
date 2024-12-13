@@ -5,5 +5,5 @@ class ASEModel(BaseLargeAtomModel):
         if self.model_type != "ASE":
             raise ValueError(f"Model type {self.model_type} is not supported by ASEModel")
 
-    def evaluate(self, datapath: str, target_name: str):
+    def evaluate(self, task_name:str, test_file_path: str, target_name: str):
         pass

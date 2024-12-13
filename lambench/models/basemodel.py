@@ -14,5 +14,5 @@ class BaseLargeAtomModel(BaseModel):
     model_metadata: Dict[str, str]
 
     @abstractmethod
-    def evaluate(self, datapath: str, target_name: str) -> Dict[str, float]:
+    def evaluate(self, task_name:str, test_file_path: str, target_name: str) -> Dict[str, float]:
         pass
