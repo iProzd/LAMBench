@@ -1,0 +1,5 @@
+Example_task:
+  test_data: "oss://lambench/direct/Example_task/testdata/1"
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null

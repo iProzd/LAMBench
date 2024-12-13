@@ -1,13 +1,15 @@
-from abc import ABC, abstractmethod
-from pydantic import BaseModel
+from abc import abstractmethod
+from pydantic import BaseModel, ConfigDict
 from lambench.databases.base_table import BaseRecord
-from typing import List
-class BaseTask(BaseModel, ABC):
-    database: BaseRecord
-    test_data: List[str]
-
+from typing import List, Dict, Any
+from pydantic import validator
+class BaseTask(BaseModel):
+    record_name: str
+    test_data: str
+    model_config = ConfigDict(extra='allow')
+        
     @abstractmethod
-    def run_task(self):
+    def run_task(self) -> Dict[str, Any]:
         pass
 
     @abstractmethod
@@ -16,8 +18,4 @@ class BaseTask(BaseModel, ABC):
 
     @abstractmethod
     def sync_result(self):
-        pass
-
-    @abstractmethod
-    def show_result(self):
         pass

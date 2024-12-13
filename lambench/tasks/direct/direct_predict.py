@@ -1,18 +1,51 @@
 from lambench.tasks.base_task import BaseTask
-
+from lambench.databases.direct_predict_table import DirectPredictRecord
+from typing import Dict, List 
+from typing import Optional
+import logging
 class DirectPredictTask(BaseTask):
-    def __init__(self, database, test_data):
-        super().__init__(database, test_data)
-        self.result = None
+    """
+    Support direct energy force prediction for DP interface, and zero-shot energy force prediciton for DP interface.
+    For models using the ASE interface, should use `DirectPredictASETask` instead.
+    """
 
-    def run_task(self, task_params=None):
-        self.result = self.database.predict(self.test_data)
+    energy_weight: Optional[float] = None
+    force_weight: Optional[float] = None
+    virial_weight: Optional[float] = None  
 
-    def fetch_result(self, task_params=None):
-        return self.result
-
-    def sync_result(self, task_params=None):
+    def __init__(self, record_name: str, **kwargs):
+        super().__init__(record_name=record_name, test_data=kwargs['test_data'])
+        self.energy_weight = kwargs.get("energy_weight", None)
+        self.force_weight = kwargs.get("force_weight",None)
+        self.virial_weight = kwargs.get("virial_weight", None)  
+        
+    def run_task(self, model):
         pass
+        
 
-    def show_result(self):
-        pass
+    def fetch_result(self) -> DirectPredictRecord:
+        records = DirectPredictRecord.query_by_name(self.record_name)
+        if len(records) == 1:
+            return records[0]
+        elif len(records) > 1:
+            logging.warning(f"Multiple records found for task {self.record_name}")
+            return records[0]
+        else:
+            return None
+
+    def sync_result(self) -> None:
+        result = self.fetch_result()
+        if result is not None:
+            logging.info(f"TASK {self.record_name} record found in database, SKIPPING.")
+            return
+        else:
+            task_output = self.run_task()
+            logging.info(f"TASK {self.record_name} OUTPUT: {task_output}, INSERTING.")
+            model_id, step, task_name = self.record_name.split("#")
+            DirectPredictRecord(
+                model_id=model_id,
+                record_name=self.record_name,
+                step=step,
+                task_name=task_name,
+                **task_output
+            ).insert()
