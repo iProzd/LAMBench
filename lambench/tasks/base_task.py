@@ -22,7 +22,6 @@ class BaseTask(BaseModel):
     def sync_result(self, model):
         pass
 
-    @classmethod
     def prepare_test_data(self):
         """
         This function should prepare a `test_data_{task_name}.txt` in the current working directory.

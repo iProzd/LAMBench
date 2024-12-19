@@ -1,4 +1,13 @@
 from lambench.models.basemodel import BaseLargeAtomModel
+import logging
+from pymatgen.core import Structure
+from pymatgen.io.ase import AseAtomsAdaptor
+from ase.calculators.calculator import Calculator
+import numpy as np
+import dpdata
+import glob
+from typing import Dict
+
 class ASEModel(BaseLargeAtomModel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -6,4 +15,99 @@ class ASEModel(BaseLargeAtomModel):
             raise ValueError(f"Model type {self.model_type} is not supported by ASEModel")
 
     def evaluate(self, task_name:str, test_file_path: str, target_name: str):
-        pass
+        if target_name != "standard":
+            logging.error(f"ASEModel does not support target_name {target_name}")
+            return {}
+        else:
+            #TODO: Load ASE calculators, run ASE dptest
+            pass
+    
+    @staticmethod
+    def run_ase_dptest(calc: Calculator,test_file_path: str) -> Dict:
+        adptor = AseAtomsAdaptor()
+
+        energy_err = []
+        energy_pre = []
+        energy_lab = []
+        atom_num = []
+        energy_err_per_atom = []
+        force_err = []
+        virial_err = []
+        virial_err_per_atom = []
+        max_ele_num = 120
+
+        systems = []
+        for path in testpath:
+            systems.extend(glob.glob(f"{path}/*"))
+        # check if the system is mixed type
+        if len(glob.glob(systems[0] + '/**/real_atom_types.npy', recursive=True)) == 0:
+            mix_type = False
+        else:
+            mix_type = True
+
+
+        for filepth in systems:
+            if mix_type:
+                sys = dpdata.MultiSystems()
+                sys.load_systems_from_file(filepth, fmt='deepmd/npy/mixed')
+            else:
+                sys = dpdata.LabeledSystem(filepth, fmt='deepmd/npy')
+
+            for ls in sys:
+                for frame in ls:
+                    atoms = frame.to_ase_structure()[0]
+                    atoms.calc = calc
+                    force_pred = atoms.get_forces()
+
+                    energy_predict = np.array(atoms.get_potential_energy())
+                    if not np.isnan(energy_predict):
+                        atomic_numbers = atoms.get_atomic_numbers()
+                        atom_num.append(np.bincount(atomic_numbers, minlength=max_ele_num))
+
+                        energy_pre.append(energy_predict)
+                        energy_lab.append(frame.data["energies"])
+                        energy_err.append(energy_predict - frame.data["energies"])
+                        force_err.append(frame.data["forces"].squeeze(0) - np.array(force_pred))
+                        energy_err_per_atom.append(energy_err[-1]/force_err[-1].shape[0])
+                        try:
+                            stress = atoms.get_stress()
+                            stress_tensor = - np.array(
+                            [[stress[0],stress[5],stress[4]],
+                            [stress[5],stress[1],stress[3]],
+                            [stress[4],stress[3], stress[2]]]
+                            )* atoms.get_volume()
+                            virial_err.append(frame.data['virials'] - stress_tensor)
+                            virial_err_per_atom.append(virial_err[-1]/force_err[-1].shape[0])
+                        except:
+                            pass
+                    else:
+                        pass
+
+
+        atom_num = np.array(atom_num)
+        energy_err = np.array(energy_err)
+        energy_pre = np.array(energy_pre)
+        energy_lab = np.array(energy_lab)
+        shift_bias, _, _, _ = np.linalg.lstsq(atom_num, energy_err, rcond=1e-10)
+        unbiased_energy = energy_pre - (atom_num @ shift_bias.reshape(max_ele_num, -1)).reshape(-1) - energy_lab.squeeze()
+        unbiased_energy_err_per_a = unbiased_energy / atom_num.sum(-1)
+
+
+        res = {
+        "Energy MAE": [np.mean(np.abs(np.stack(unbiased_energy)))],
+        "Energy RMSE": [np.sqrt(np.mean(np.square(unbiased_energy)))],
+        "Energy MAE/Natoms": [np.mean(np.abs(np.stack(unbiased_energy_err_per_a)))],
+        "Energy RMSE/Natoms":  [np.sqrt(np.mean(np.square(unbiased_energy_err_per_a)))],
+        "Force MAE": [np.mean(np.abs(np.concatenate(force_err)))],
+        "Force RMSE": [np.sqrt(np.mean(np.square(np.concatenate(force_err))))],
+        }
+        if virial_err_per_atom != []:
+            res.update(
+                {
+            "Virial MAE": [np.mean(np.abs(np.stack(virial_err)))],
+            "Virial RMSE": [np.sqrt(np.mean(np.square(np.stack(virial_err))))],
+            "Virial MAE/Natoms": [np.mean(np.abs(np.stack(virial_err_per_atom)))],
+            "Virial RMSE/Natoms": [np.sqrt(np.mean(np.square(np.stack(virial_err_per_atom))))]}
+            )
+        return res
+
