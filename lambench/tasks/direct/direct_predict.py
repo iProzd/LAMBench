@@ -20,8 +20,13 @@ class DirectPredictTask(BaseTask):
         self.virial_weight = kwargs.get("virial_weight", None)  
         
     def run_task(self, model):
-        pass
-        
+        test_data_file: str = self.prepare_test_data()
+        task_output: Dict = model.evaluate(
+            task_name=self.record_name.split("#")[1],
+            test_file_path=test_data_file,
+            target_name="standard",
+        )
+        return task_output
 
     def fetch_result(self) -> DirectPredictRecord:
         records = DirectPredictRecord.query_by_name(self.record_name)
@@ -33,19 +38,18 @@ class DirectPredictTask(BaseTask):
         else:
             return None
 
-    def sync_result(self) -> None:
+    def sync_result(self, model) -> None:
         result = self.fetch_result()
         if result is not None:
             logging.info(f"TASK {self.record_name} record found in database, SKIPPING.")
             return
         else:
-            task_output = self.run_task()
+            task_output = self.run_task(model)
             logging.info(f"TASK {self.record_name} OUTPUT: {task_output}, INSERTING.")
-            model_id, step, task_name = self.record_name.split("#")
+            model_id, task_name = self.record_name.split("#")
             DirectPredictRecord(
                 model_id=model_id,
                 record_name=self.record_name,
-                step=step,
                 task_name=task_name,
                 **task_output
             ).insert()

@@ -1,0 +1,68 @@
+from lambench.tasks import DirectPredictTask, PropertyFinetuneTask
+from lambench.models import DPModel, ASEModel
+import yaml
+import logging
+from typing import List, Union, Tuple
+
+DIRECT_TASKS = "lambench/tasks/direct/direct_tasks.yml"
+FINETUNE_TASKS = "lambench/tasks/finetune/finetune_tasks.yml"
+MODELS = "lambench/models/models_config.yml"
+
+
+def gather_models() -> List[Union[DPModel, ASEModel]]:
+    """
+    Gather models from the models_config.yml file.
+    """
+
+    models = []
+    with open(MODELS, "r") as f:
+        model_config = yaml.safe_load(f)
+    for model_name, model_param in model_config.items():
+        if model_param["model_type"] == "DP":
+            models.append(DPModel(**model_param))
+        elif model_param["model_type"] == "ASE":
+            models.append(ASEModel(**model_param))
+        else:
+            raise ValueError(f"Model type {model_param['model_type']} is not supported.")
+    return models
+
+def gather_task_type(models, task_file, task_class) -> List[Tuple[Union[DirectPredictTask, PropertyFinetuneTask], Union[DPModel, ASEModel]]]:
+    """
+    Gather tasks of a specific type from the task file.
+    """
+    tasks = []
+    with open(task_file, "r") as f:
+        task_configs = yaml.safe_load(f)
+    for model in models:
+        for task_name, task_param in task_configs.items():
+            task = task_class(f"{model.model_id}#{task_name}", **task_param)
+            if task.fetch_result() is None:
+                tasks.append((task, model))
+    return tasks
+
+def gather_jobs():
+    jobs = []
+
+    models = gather_models()
+    if not models:
+        logging.warning("No models found, skipping task gathering.")
+        return jobs
+
+    logging.info(f"Found {len(models)} models, gathering tasks.")
+    jobs.extend(gather_task_type(models, DIRECT_TASKS, DirectPredictTask))
+    jobs.extend(gather_task_type(models, FINETUNE_TASKS, PropertyFinetuneTask))
+
+    return jobs
+
+def main():
+    """
+    TODO: wrap as dflow OP
+    """
+    jobs = gather_jobs()
+    for task, model in jobs:
+        logging.info(f"Running task {task.record_name}")
+        task.sync_result(model)
+
+    
+if __name__ == "__main__":
+    main()
