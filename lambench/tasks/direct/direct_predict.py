@@ -1,4 +1,4 @@
-from LAMBench.lambench.models.basemodel import BaseLargeAtomModel
+from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
 from lambench.databases.direct_predict_table import DirectPredictRecord
 from typing import Optional

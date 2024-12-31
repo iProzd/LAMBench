@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from enum import Enum
 from abc import abstractmethod
 
-from LAMBench.lambench.tasks.base_task import BaseTask
+from lambench.tasks.base_task import BaseTask
 class ModelType(str, Enum):
     DP = "DP"
     ASE = "ASE"
