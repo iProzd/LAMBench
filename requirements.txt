@@ -51,3 +51,4 @@ tzdata==2024.2
 uncertainties==3.2.2
 urllib3==2.2.3
 wcmatch==10.0
+-e git+https://github.com/iProzd/deepmd-kit.git@1224_dpa3_alpha_mulg1mess#egg=deepmd-kit
