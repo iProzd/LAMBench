@@ -1,6 +1,6 @@
 from lambench.tasks import DirectPredictTask
+from lambench.models.dp_models import DPModel
 from unittest.mock import MagicMock, patch
-from lambench.models import DPModel
 import logging
 
 def test_load_direct_predict_task(direct_yml_data):

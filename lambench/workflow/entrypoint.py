@@ -1,5 +1,6 @@
 from lambench.tasks import DirectPredictTask, PropertyFinetuneTask
-from lambench.models import DPModel, ASEModel
+from lambench.models.ase_models import ASEModel
+from lambench.models.dp_models import DPModel
 import yaml
 import logging
 
