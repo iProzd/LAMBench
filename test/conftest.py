@@ -1,3 +1,4 @@
+from pathlib import Path
 import pytest
 from unittest.mock import patch
 
@@ -6,7 +7,7 @@ from unittest.mock import patch
 def direct_yml_data():
     return {
         "Example_task": {
-            "test_data": "data/dummy/test/1",
+            "test_data": Path("data/dummy/test/1"),
             "energy_weight": 1.0,
             "force_weight": 1.0,
             "virial_weight": None
@@ -20,8 +21,8 @@ def finetune_yml_data():
             "property_name": "dipole_moment",
             "intensive": False,
             "property_dim": 1,
-            "train_data": "data/dummy/train/1",
-            "test_data": "data/dummy/test/1",
+            "train_data": Path("data/dummy/train/1"),
+            "test_data": Path("data/dummy/test/1"),
             "train_steps": 1000,
             "property_weight": 1.0,
         }
@@ -41,10 +42,10 @@ def mock_finetune_record():
 def direct_task_data():
     return {
         "record_name": "model1#taskA",
-        "test_data":"test1",
+        "test_data": Path("data/dummy/test/1"),
         "energy_weight": 1.0,
         "force_weight": 2.0,
-        "virial_weight": None
+        "virial_weight": None,
     }
 
 @pytest.fixture
@@ -54,8 +55,8 @@ def finetune_task_data():
         "property_name": "dipole_moment",
         "intensive": False,
         "property_dim": 1,
-        "train_data": "data/dummy/train/1",
-        "test_data": "data/dummy/test/1",
+        "train_data": Path("data/dummy/train/1"),
+        "test_data": Path("data/dummy/test/1"),
         "train_steps": 1000,
         "property_weight": 1.0,
     }
