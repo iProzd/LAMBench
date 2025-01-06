@@ -2,9 +2,15 @@ from pathlib import Path
 import pytest
 from unittest.mock import patch
 
+
+def make_dummy_data():
+    Path("data/dummy/test/1").mkdir(parents=True, exist_ok=True)
+    Path("data/dummy/train/1").mkdir(parents=True, exist_ok=True)
+
 # Fixtures for TASKS
 @pytest.fixture
 def direct_yml_data():
+    make_dummy_data()
     return {
         "Example_task": {
             "test_data": Path("data/dummy/test/1"),
@@ -16,6 +22,7 @@ def direct_yml_data():
 
 @pytest.fixture
 def finetune_yml_data():
+    make_dummy_data()
     return {
         "Example_task": {
             "property_name": "dipole_moment",
@@ -40,6 +47,7 @@ def mock_finetune_record():
 
 @pytest.fixture
 def direct_task_data():
+    make_dummy_data()
     return {
         "record_name": "model1#taskA",
         "test_data": Path("data/dummy/test/1"),
@@ -50,6 +58,7 @@ def direct_task_data():
 
 @pytest.fixture
 def finetune_task_data():
+    make_dummy_data()
     return {
         "record_name": "model1#taskA",
         "property_name": "dipole_moment",
