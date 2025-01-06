@@ -1,5 +1,5 @@
 from lambench.tasks import PropertyFinetuneTask
-from lambench.models import DPModel
+from lambench.models.dp_models import DPModel
 from unittest.mock import MagicMock, patch
 import logging
 
