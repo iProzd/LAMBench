@@ -6,7 +6,7 @@ from unittest.mock import patch
 def direct_yml_data():
     return {
         "Example_task": {
-            "test_data": "oss://lambench/direct/Example_task/testdata/1",
+            "test_data": "data/dummy/test/1",
             "energy_weight": 1.0,
             "force_weight": 1.0,
             "virial_weight": None
@@ -20,10 +20,10 @@ def finetune_yml_data():
             "property_name": "dipole_moment",
             "intensive": False,
             "property_dim": 1,
-            "train_data": "oss://lambench/Example_task/train/1",
-            "test_data": "oss://lambench/Example_task/test/1",
+            "train_data": "data/dummy/train/1",
+            "test_data": "data/dummy/test/1",
             "train_steps": 1000,
-            "property_weight": 1.0
+            "property_weight": 1.0,
         }
     }
 
@@ -54,10 +54,10 @@ def finetune_task_data():
         "property_name": "dipole_moment",
         "intensive": False,
         "property_dim": 1,
-        "train_data": "oss://lambench/Example_task/train/1",
-        "test_data": "oss://lambench/Example_task/test/1",
+        "train_data": "data/dummy/train/1",
+        "test_data": "data/dummy/test/1",
         "train_steps": 1000,
-        "property_weight": 1.0
+        "property_weight": 1.0,
     }
 
 
