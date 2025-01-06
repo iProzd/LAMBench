@@ -1,4 +1,4 @@
-from pathlib import Path
+from typing import Optional
 from pydantic import BaseModel
 from enum import Enum
 from abc import abstractmethod
@@ -11,7 +11,7 @@ class ModelType(str, Enum):
 class BaseLargeAtomModel(BaseModel):
     model_id: str
     model_type: ModelType
-    model_path: Path
+    model_path: Optional[str]
     virtualenv: str
     model_metadata: dict[str, str]
 

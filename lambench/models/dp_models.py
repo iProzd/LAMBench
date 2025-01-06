@@ -24,7 +24,7 @@ class DPModel(BaseLargeAtomModel):
             raise ValueError(
                 f"Model type {self.model_type} is not supported by DPModel"
             )
-
+        assert self.model_path is not None, "model_path should be specified"
     def evaluate(
         self, task: BaseTask
     ) -> Optional[dict[str, float]]:
