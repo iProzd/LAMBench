@@ -1,8 +1,5 @@
 import pytest
 from unittest.mock import patch
-from lambench.tasks.direct.direct_predict import DirectPredictTask
-from lambench.databases.direct_predict_table import DirectPredictRecord
-
 
 # Fixtures for TASKS
 @pytest.fixture
@@ -77,7 +74,7 @@ def valid_model_data():
             "description": "description1"
         }
     }
-    
+
 @pytest.fixture
 def invalid_model_data():
     return {
