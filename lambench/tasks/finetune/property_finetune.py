@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
 from lambench.databases.property_table import PropertyRecord
@@ -14,18 +16,12 @@ class PropertyFinetuneTask(BaseTask):
     property_name: str
     intensive: bool = True
     property_dim: int = 1
-    train_data: str
+    train_data: Path
     train_steps: int = 1000
     property_weight:float
 
     def __init__(self, record_name: str, **kwargs):
-        super().__init__(record_name=record_name, test_data=kwargs['test_data'])
-        self.property_name = kwargs.get("property_name", None)
-        self.intensive = kwargs.get("intensive",None)
-        self.property_dim = kwargs.get("property_dim", None)
-        self.train_data = kwargs.get("train_data", None)
-        self.train_steps = kwargs.get("train_steps", None)
-        self.property_weight = kwargs.get("property_weight", None)
+        super().__init__(record_name=record_name, **kwargs)
 
     def evaluate(self, model: BaseLargeAtomModel):
         self.get_property_json()
