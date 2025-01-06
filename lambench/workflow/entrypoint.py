@@ -1,15 +1,15 @@
 from lambench.tasks import DirectPredictTask, PropertyFinetuneTask
-from lambench.models import DPModel, ASEModel
+from lambench.models.ase_models import ASEModel
+from lambench.models.dp_models import DPModel
 import yaml
 import logging
-from typing import List, Union, Tuple
 
 DIRECT_TASKS = "lambench/tasks/direct/direct_tasks.yml"
 FINETUNE_TASKS = "lambench/tasks/finetune/finetune_tasks.yml"
 MODELS = "lambench/models/models_config.yml"
 
 
-def gather_models() -> List[Union[DPModel, ASEModel]]:
+def gather_models() -> list[DPModel | ASEModel]:
     """
     Gather models from the models_config.yml file.
     """
@@ -26,7 +26,7 @@ def gather_models() -> List[Union[DPModel, ASEModel]]:
             raise ValueError(f"Model type {model_param['model_type']} is not supported.")
     return models
 
-def gather_task_type(models, task_file, task_class) -> List[Tuple[Union[DirectPredictTask, PropertyFinetuneTask], Union[DPModel, ASEModel]]]:
+def gather_task_type(models, task_file, task_class) -> list[tuple[DirectPredictTask | PropertyFinetuneTask, DPModel | ASEModel]]:
     """
     Gather tasks of a specific type from the task file.
     """
@@ -61,8 +61,11 @@ def main():
     jobs = gather_jobs()
     for task, model in jobs:
         logging.info(f"Running task {task.record_name}")
-        task.sync_result(model)
+        submit_job(task, model)
 
-    
+# TODO: wrap as an OP
+def submit_job(task, model):
+    task.run_task(model)
+
 if __name__ == "__main__":
     main()

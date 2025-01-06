@@ -1,17 +1,15 @@
 from abc import abstractmethod
+import tempfile
 from pydantic import BaseModel, ConfigDict
-from lambench.databases.base_table import BaseRecord
-from typing import List, Dict, Any
-from pydantic import validator
+from typing import Any
 from pathlib import Path
-import logging
 class BaseTask(BaseModel):
     record_name: str
-    test_data: str
+    test_data: Path
     model_config = ConfigDict(extra='allow')
-        
+    workdir: Path = Path(tempfile.gettempdir()) / "lambench" # TODO: double-check if this path is OK
     @abstractmethod
-    def run_task(self) -> Dict[str, Any]:
+    def evaluate(self) -> dict[str, Any]:
         pass
 
     @abstractmethod
@@ -19,19 +17,18 @@ class BaseTask(BaseModel):
         pass
 
     @abstractmethod
-    def sync_result(self, model):
+    def run_task(self, model):
         pass
 
-    def prepare_test_data(self):
+    def prepare_test_data(self) -> Path:
         """
         This function should prepare a `test_data_{task_name}.txt` in the current working directory.
         """
-        if not self.test_data or not Path(self.test_data).exists():
-            logging.error(f"Test data {self.test_data} does not exist.")
-            return None
-        
+        if not self.test_data or not self.test_data.exists():
+            raise RuntimeError(f"Test data {self.test_data} does not exist.")
+
         temp_file_path = Path(f"{self.record_name}_test_file.txt")
         with temp_file_path.open('w') as f:
-            for sys in Path(self.test_data).rglob("type_map.raw"):
+            for sys in self.test_data.rglob("type_map.raw"):
                 f.write(f"{sys.parent}\n")
-        return str(temp_file_path)
+        return temp_file_path

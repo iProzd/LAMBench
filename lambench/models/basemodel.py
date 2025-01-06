@@ -1,7 +1,9 @@
+from typing import Optional
 from pydantic import BaseModel
-from typing import Dict, Optional
 from enum import Enum
 from abc import abstractmethod
+
+from lambench.tasks.base_task import BaseTask
 class ModelType(str, Enum):
     DP = "DP"
     ASE = "ASE"
@@ -11,8 +13,8 @@ class BaseLargeAtomModel(BaseModel):
     model_type: ModelType
     model_path: Optional[str]
     virtualenv: str
-    model_metadata: Dict[str, str]
+    model_metadata: dict[str, str]
 
     @abstractmethod
-    def evaluate(self, task_name:str, test_file_path: str, target_name: str) -> Dict[str, float]:
+    def evaluate(self, task: BaseTask) -> dict[str, float]:
         pass
