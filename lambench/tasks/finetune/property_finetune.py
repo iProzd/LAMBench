@@ -1,5 +1,5 @@
 import os
-from LAMBench.lambench.models.basemodel import BaseLargeAtomModel
+from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
 from lambench.databases.property_table import PropertyRecord
 from typing import Optional
