@@ -46,9 +46,7 @@ class DPModel(BaseLargeAtomModel):
             model = self._change_bias(model, task.test_data, head)
         model = self._freeze(model, head)
         test_output = self._test(task.test_data, head)
-        result = parse_dptest_log_file(
-            dataset_name=task.record_name, filepath=test_output
-        )
+        result = parse_dptest_log_file(filepath=test_output)
         return result
 
     def _finetune(self, model: Path):
