@@ -18,9 +18,9 @@ class DirectPredictTask(BaseTask):
         self.energy_weight = kwargs.get("energy_weight", None)
         self.force_weight = kwargs.get("force_weight",None)
         self.virial_weight = kwargs.get("virial_weight", None)
-        self.name=self.record_name.split("#")[1],
-        self.test_file_path=self.prepare_test_data(),
-        self.target_name="standard",
+        self.name=self.record_name.split("#")[1]
+        self.test_file_path=self.prepare_test_data()
+        self.target_name="standard"
 
     def evaluate(self, model: BaseLargeAtomModel):
         task_output: dict = model.evaluate(self)
