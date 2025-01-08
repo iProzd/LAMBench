@@ -1,75 +1,30 @@
 ANI:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/ANI"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 HEA25_S:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/HEA25_S"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 HEA25_bulk:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/HEA25_bulk"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 HEMC_HEMB:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/HEMC_HEMB"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: 1.0
 MD22:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/MD22"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 Collision:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/collision"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 H_nature_2022:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/H_nature_2022"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 REANN_CO2_Ni100:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/REANN_CO2_Ni100"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 NequIP_NC_2022:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/NequIP_NC_2022"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 AIMD-Chig:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/AIMD-Chig"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 CGM_MLP_NC2023:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/CGM_MLP_NC2023"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 Cu_MgO_catalysts:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/Cu_MgO_catalysts"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 Subalex_9k:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/subalex_downsample_9k"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
 WBM_downsampled:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/WBM_downsampled"
-  energy_weight: 1.0
-  force_weight: null
-  virial_weight: null
-Torsionnet500k:
+Torsionnet500:
   test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/raw_torsionnet500"
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: 1.0
