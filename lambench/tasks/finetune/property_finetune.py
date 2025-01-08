@@ -7,6 +7,7 @@ from lambench.databases.property_table import PropertyRecord
 from typing import Optional
 import logging
 
+
 class PropertyFinetuneTask(BaseTask):
     """
     Support property finetuning and testing for DP interface.
@@ -18,7 +19,6 @@ class PropertyFinetuneTask(BaseTask):
     property_dim: int = 1
     train_data: Path
     train_steps: int = 1000
-    property_weight:float
 
     def __init__(self, record_name: str, **kwargs):
         super().__init__(record_name=record_name, **kwargs)
@@ -30,7 +30,9 @@ class PropertyFinetuneTask(BaseTask):
     def get_property_json(self):
         # Generate an input.json file
         # FIXME: needs to ensure workdir is created somewhere else, e.g. in dflow
-        os.chdir(self.workdir) # Needs to change here to ensure the model eval part is correct
+        os.chdir(
+            self.workdir
+        )  # Needs to change here to ensure the model eval part is correct
         with open("input.json", "w") as _:
             # TODO: migrate from lamstare.utils.property.get_property_json
             raise NotImplementedError
@@ -58,6 +60,6 @@ class PropertyFinetuneTask(BaseTask):
                 model_id=model_id,
                 record_name=self.record_name,
                 task_name=task_name,
-                **task_output
+                **task_output,
             ).insert()
             # TODO: return the working dir to dflow containing trained mode

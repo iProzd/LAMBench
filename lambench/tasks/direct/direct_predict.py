@@ -3,24 +3,19 @@ from lambench.tasks.base_task import BaseTask
 from lambench.databases.direct_predict_table import DirectPredictRecord
 from typing import Optional
 import logging
+
+
 class DirectPredictTask(BaseTask):
     """
     Support direct energy force prediction for DP interface, and zero-shot energy force prediciton for DP interface.
     For models using the ASE interface, should use `DirectPredictASETask` instead.
     """
 
-    energy_weight: Optional[float] = None
-    force_weight: Optional[float] = None
-    virial_weight: Optional[float] = None
-
     def __init__(self, record_name: str, **kwargs):
-        super().__init__(record_name=record_name, test_data=kwargs['test_data'])
-        self.energy_weight = kwargs.get("energy_weight", None)
-        self.force_weight = kwargs.get("force_weight",None)
-        self.virial_weight = kwargs.get("virial_weight", None)
-        self.name=self.record_name.split("#")[1]
-        self.test_file_path=self.prepare_test_data()
-        self.target_name="standard"
+        super().__init__(record_name=record_name, test_data=kwargs["test_data"])
+        self.name = self.record_name.split("#")[1]
+        self.test_file_path = self.prepare_test_data()
+        self.target_name = "standard"
 
     def evaluate(self, model: BaseLargeAtomModel):
         task_output: dict = model.evaluate(self)
@@ -49,5 +44,5 @@ class DirectPredictTask(BaseTask):
                 model_id=model_id,
                 record_name=self.record_name,
                 task_name=task_name,
-                **task_output
+                **task_output,
             ).insert()
