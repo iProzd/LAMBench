@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Optional
 from pydantic import BaseModel
 from enum import Enum
@@ -11,7 +12,7 @@ class ModelType(str, Enum):
 class BaseLargeAtomModel(BaseModel):
     model_id: str
     model_type: ModelType
-    model_path: Optional[str]
+    model_path: Optional[Path]
     virtualenv: str
     model_metadata: dict[str, str]
 
