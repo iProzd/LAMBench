@@ -7,14 +7,12 @@ def prepare_dptest_input_file():
 def prepare_finetune_input_file():
     raise NotImplementedError
 
-def parse_dptest_log_file(dataset_name:str, filepath:Path, txt_type:str="standard") -> dict[str,float]:
+def parse_dptest_log_file(filepath:Path, txt_type:str="standard") -> dict[str,float]:
     """
     Parse dptest results to a dict
 
     Parameters:
     ----------
-        dataset_name: str
-            The name of the dataset being tested on.
         filepath: str
             The path to the dptest output logfile.
         txt_type: str
@@ -28,7 +26,15 @@ def parse_dptest_log_file(dataset_name:str, filepath:Path, txt_type:str="standar
         metrics = {}
         for line in content[-11:-1]:
             line = line.split("deepmd.entrypoints.test")[-1].strip()
-            metrics[f"{dataset_name} " + line.split(":")[0].strip()] = float(line.split(":")[-1].strip().split(" ")[0])
+            # Force  MAE/natoms -> force_mae_natoms in compliance with DirectPredictRecord
+            metrics[
+                line.split(":")[0]
+                .strip()
+                .replace("  ", " ")
+                .replace(" ", "_")
+                .replace("/", "_")
+                .lower()
+            ] = float(line.split(":")[-1].strip().split(" ")[0])
     elif txt_type == "property":
         metrics = {}
         metrics["PROPERTY MAE"] = float(content[-3].split(":")[-1].split("units")[0].strip())
