@@ -69,7 +69,7 @@ WBM_downsampled:
   force_weight: null
   virial_weight: null
 Torsionnet500k:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/raw_torsionnet500k"
+  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/raw_torsionnet500"
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: 1.0
