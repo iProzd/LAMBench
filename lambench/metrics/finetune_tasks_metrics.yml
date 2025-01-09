@@ -1,0 +1,65 @@
+# may need a way to aggregate metrics across tasks.
+Matbench_dielectric:
+  subtasks:
+    - matbench_dielectric_fold0
+    - matbench_dielectric_fold1
+    - matbench_dielectric_fold2
+    - matbench_dielectric_fold3
+    - matbench_dielectric_fold4
+  metric: mae
+Matbench_jdft2d:
+  subtasks:
+    - matbench_jdft2d_fold0
+    - matbench_jdft2d_fold1
+    - matbench_jdft2d_fold2
+    - matbench_jdft2d_fold3
+    - matbench_jdft2d_fold4
+  metric: mae
+Matbench_log_gvrh:
+  subtasks:
+    - matbench_log_gvrh_fold0
+    - matbench_log_gvrh_fold1
+    - matbench_log_gvrh_fold2
+    - matbench_log_gvrh_fold3
+    - matbench_log_gvrh_fold4
+  metric: mae
+Matbench_log_kvrh:
+  subtasks:
+    - matbench_log_kvrh_fold0
+    - matbench_log_kvrh_fold1
+    - matbench_log_kvrh_fold2
+    - matbench_log_kvrh_fold3
+    - matbench_log_kvrh_fold4
+  metric: mae
+Matbench_perovskites:
+  subtasks:
+    - matbench_perovskites_fold0
+    - matbench_perovskites_fold1
+    - matbench_perovskites_fold2
+    - matbench_perovskites_fold3
+    - matbench_perovskites_fold4
+  metric: mae
+Matbench_phonons:
+  subtasks:
+    - matbench_phonons_fold0
+    - matbench_phonons_fold1
+    - matbench_phonons_fold2
+    - matbench_phonons_fold3
+    - matbench_phonons_fold4
+  metric: mae
+Matbench_mp_gap:
+  subtasks:
+    - matbench_mp_gap_fold0
+    - matbench_mp_gap_fold1
+    - matbench_mp_gap_fold2
+    - matbench_mp_gap_fold3
+    - matbench_mp_gap_fold4
+  metric: mae
+Matbench_mp_e_form:
+  subtasks:
+    - matbench_mp_e_form_fold0
+    - matbench_mp_e_form_fold1
+    - matbench_mp_e_form_fold2
+    - matbench_mp_e_form_fold3
+    - matbench_mp_e_form_fold4
+  metric: mae

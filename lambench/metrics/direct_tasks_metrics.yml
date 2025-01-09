@@ -1,0 +1,60 @@
+ANI:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+HEA25_S:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+HEA25_bulk:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+HEMC_HEMB:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: 1.0
+MD22:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+Collision:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+H_nature_2022:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+REANN_CO2_Ni100:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+NequIP_NC_2022:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+AIMD-Chig:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+CGM_MLP_NC2023:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+Cu_MgO_catalysts:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+Subalex_9k:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: null
+WBM_downsampled:
+  energy_weight: 1.0
+  force_weight: null
+  virial_weight: null
+Torsionnet500:
+  energy_weight: 1.0
+  force_weight: 1.0
+  virial_weight: 1.0
