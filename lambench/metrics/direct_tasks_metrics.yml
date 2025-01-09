@@ -2,59 +2,104 @@ ANI:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.19852160741116331
+  dataset_lstsq_std_force: 2.1346504447862467
+  dataset_lstsq_std_virial: null
 HEA25_S:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.4030134885402307
+  dataset_lstsq_std_force: 1.547935906005218
+  dataset_lstsq_std_virial: null
 HEA25_bulk:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.3915534935785154
+  dataset_lstsq_std_force: 2.0282929631352595
+  dataset_lstsq_std_virial: null
 HEMC_HEMB:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: 1.0
+  dataset_lstsq_std_energy: 0.4747620729960006
+  dataset_lstsq_std_force: 1.8364064815279475
+  dataset_lstsq_std_virial: 0.46794153820403517
 MD22:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.007933722948473606
+  dataset_lstsq_std_force: 1.1408107903449518
+  dataset_lstsq_std_virial: null
 Collision:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.46905055129776263
+  dataset_lstsq_std_force: 1.9436163958502828
+  dataset_lstsq_std_virial: null
 H_nature_2022:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.3866962525278814
+  dataset_lstsq_std_force: 2.038498926750271
+  dataset_lstsq_std_virial: null
 REANN_CO2_Ni100:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.007410380917403982
+  dataset_lstsq_std_force: 0.6333957228116258
+  dataset_lstsq_std_virial: null
 NequIP_NC_2022:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.006640637887476306
+  dataset_lstsq_std_force: 0.9421629142611048
+  dataset_lstsq_std_virial: null
 AIMD-Chig:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.012594134644011467
+  dataset_lstsq_std_force: 0.8599492186937476
+  dataset_lstsq_std_virial: null
 CGM_MLP_NC2023:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.9985195007897916
+  dataset_lstsq_std_force: 2.0217020563415375
+  dataset_lstsq_std_virial: null
 Cu_MgO_catalysts:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.014304435776268616
+  dataset_lstsq_std_force: 0.18909695700558055
+  dataset_lstsq_std_virial: null
 Subalex_9k:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
+  dataset_lstsq_std_energy: 0.7749643377228373
+  dataset_lstsq_std_force: 1.1503770816187873
+  dataset_lstsq_std_virial: 0.8678699239404155
 WBM_downsampled:
   energy_weight: 1.0
   force_weight: null
   virial_weight: null
+  dataset_lstsq_std_energy: 0.374831692072961
+  dataset_lstsq_std_force: null
+  dataset_lstsq_std_virial: null
 Torsionnet500:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: 1.0
+  dataset_lstsq_std_energy: 0.03387935785428199
+  dataset_lstsq_std_force: 0.05088788030453556
+  dataset_lstsq_std_virial: null
