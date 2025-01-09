@@ -5,10 +5,6 @@ from pymatgen.io.ase import AseAtomsAdaptor
 from ase.calculators.calculator import Calculator
 import numpy as np
 import dpdata
-from dpdata.data_type import (
-    Axis,
-    DataType,
-)
 import glob
 from typing import Dict
 
@@ -58,10 +54,10 @@ class ASEModel(BaseLargeAtomModel):
             else:
                 logging.error(f"Model {self.model_id} is not supported by ASEModel")
                 return {}
-            return self.run_ase_dptest(CALC, task_name, test_file_path)
+            return self.run_ase_dptest(CALC, test_file_path)
 
     @staticmethod
-    def run_ase_dptest(calc: Calculator, task_name: str, test_file_path: str) -> Dict:
+    def run_ase_dptest(calc: Calculator, test_file_path: str) -> Dict:
         adptor = AseAtomsAdaptor()
 
         energy_err = []
@@ -84,7 +80,6 @@ class ASEModel(BaseLargeAtomModel):
             mix_type = True
 
         for filepth in systems:
-            deregister_data_type(task_name)
             if mix_type:
                 sys = dpdata.MultiSystems()
                 sys.load_systems_from_file(filepth, fmt="deepmd/npy/mixed")
@@ -170,19 +165,3 @@ class ASEModel(BaseLargeAtomModel):
                 }
             )
         return res
-
-    @staticmethod
-    def deregister_data_type(task_name: str):
-        """
-        Deregister data type to avoid conflict.
-        This should only be used in the WBM dataset which does not have force labels.
-        """
-        if task_name == "WBM_downsampled":
-            datatype = DataType(
-                "forces",
-                np.ndarray,
-                shape=(Axis.NFRAMES, Axis.NATOMS, 1),
-                required=False,
-            )
-            dpdata.System.register_data_type(datatype)
-            dpdata.LabeledSystem.register_data_type(datatype)

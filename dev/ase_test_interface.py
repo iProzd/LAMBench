@@ -2,28 +2,9 @@ from pymatgen.core import Structure
 from pymatgen.io.ase import AseAtomsAdaptor
 import numpy as np
 import dpdata
-from dpdata.data_type import (
-    Axis,
-    DataType,
-)
 import glob
 from pathlib import Path
 from lamstare.infra.ood_database import OODRecord
-
-
-def deregister_data_type():
-    """
-    Deregister data type to avoid conflict.
-    This should only be used in the WBM dataset which does not have force labels.
-    """
-    datatype = DataType(
-        "forces",
-        np.ndarray,
-        shape=(Axis.NFRAMES, Axis.NATOMS, 1),
-        required=False,
-    )
-    dpdata.System.register_data_type(datatype)
-    dpdata.LabeledSystem.register_data_type(datatype)
 
 
 def run_ase_dptest(
@@ -55,8 +36,6 @@ def run_ase_dptest(
         mix_type = True
 
     for filepth in systems:
-        if "WBM" in filepth:
-            deregister_data_type()
         if mix_type:
             sys = dpdata.MultiSystems()
             sys.load_systems_from_file(filepth, fmt="deepmd/npy/mixed")
