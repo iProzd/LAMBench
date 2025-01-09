@@ -1,12 +1,13 @@
+from pathlib import Path
 from lambench.models.basemodel import BaseLargeAtomModel
 import logging
-from pymatgen.core import Structure
 from pymatgen.io.ase import AseAtomsAdaptor
 from ase.calculators.calculator import Calculator
 import numpy as np
 import dpdata
-import glob
-from typing import Dict
+from typing import Optional
+
+from lambench.tasks.direct.direct_predict import DirectPredictTask
 
 class ASEModel(BaseLargeAtomModel):
     def __init__(self, *args, **kwargs):
@@ -14,10 +15,10 @@ class ASEModel(BaseLargeAtomModel):
         if self.model_type != "ASE":
             raise ValueError(f"Model type {self.model_type} is not supported by ASEModel")
 
-    def evaluate(self, task_name:str, test_file_path: str, target_name: str):
-        if target_name != "standard":
-            logging.error(f"ASEModel does not support target_name {target_name}")
-            return {}
+    def evaluate(self, task: DirectPredictTask) -> Optional[dict[str, float]]:
+        if task.target_name != "standard":
+            logging.error(f"ASEModel does not support target_name {task.target_name}")
+            return
         else:
             if self.model_id.lower().startswith("mace"):
                 from mace.calculators import mace_mp
@@ -40,18 +41,17 @@ class ASEModel(BaseLargeAtomModel):
                 from mattersim.forcefield import MatterSimCalculator
                 CALC = MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
             elif self.model_id.lower().startswith("dp"):
-                logging.error(f"Please use DPModel for DP models.")
-                return {}
+                logging.error("Please use DPModel for DP models.")
+                return
             else:
                 logging.error(f"Model {self.model_id} is not supported by ASEModel")
-                return {}
-            return self.run_ase_dptest(CALC, test_file_path)
+                return
+            return self.run_ase_dptest(CALC, task.test_data)
 
-    
+
     @staticmethod
-    def run_ase_dptest(calc: Calculator,test_file_path: str) -> Dict:
-        adptor = AseAtomsAdaptor()
-
+    def run_ase_dptest(calc: Calculator, test_data: Path) -> dict:
+        adaptor = AseAtomsAdaptor() # FIXME: this is not used
         energy_err = []
         energy_pre = []
         energy_lab = []
@@ -62,14 +62,9 @@ class ASEModel(BaseLargeAtomModel):
         virial_err_per_atom = []
         max_ele_num = 120
 
-        systems = []
-        for path in testpath:
-            systems.extend(glob.glob(f"{path}/*"))
-        # check if the system is mixed type
-        if len(glob.glob(systems[0] + '/**/real_atom_types.npy', recursive=True)) == 0:
-            mix_type = False
-        else:
-            mix_type = True
+        systems=[i.parent for i in test_data.rglob("type_map.raw")]
+        assert systems, f"No systems found in the test data {test_data}."
+        mix_type = any(systems[0].rglob('real_atom_types.npy'))
 
 
         for filepth in systems:
@@ -93,6 +88,7 @@ class ASEModel(BaseLargeAtomModel):
                         energy_pre.append(energy_predict)
                         energy_lab.append(frame.data["energies"])
                         energy_err.append(energy_predict - frame.data["energies"])
+                        # TODO: handle the datasets without force labels
                         force_err.append(frame.data["forces"].squeeze(0) - np.array(force_pred))
                         energy_err_per_atom.append(energy_err[-1]/force_err[-1].shape[0])
                         try:
@@ -105,9 +101,7 @@ class ASEModel(BaseLargeAtomModel):
                             virial_err.append(frame.data['virials'] - stress_tensor)
                             virial_err_per_atom.append(virial_err[-1]/force_err[-1].shape[0])
                         except:
-                            pass
-                    else:
-                        pass
+                            pass # no virial in the data
 
 
         atom_num = np.array(atom_num)
@@ -136,4 +130,3 @@ class ASEModel(BaseLargeAtomModel):
             "Virial RMSE/Natoms": [np.sqrt(np.mean(np.square(np.stack(virial_err_per_atom))))]}
             )
         return res
-
