@@ -2,8 +2,8 @@ matbench_dielectric_fold0:
   property_name: dielectric
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/dielectric_0/valid
-  train_path: /property_finetune_data/dielectric_0/train
+  test_data: /property_finetune_data/dielectric_0/valid
+  train_data: /property_finetune_data/dielectric_0/train
   train_steps: 200000
   start_lr: 3e-4
   stop_lr: 1e-5
@@ -11,8 +11,8 @@ matbench_dielectric_fold1:
   property_name: dielectric
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/dielectric_1/valid
-  train_path: /property_finetune_data/dielectric_1/train
+  test_data: /property_finetune_data/dielectric_1/valid
+  train_data: /property_finetune_data/dielectric_1/train
   train_steps: 200000
   start_lr: 3e-4
   stop_lr: 1e-5
@@ -20,8 +20,8 @@ matbench_dielectric_fold2:
   property_name: dielectric
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/dielectric_2/valid
-  train_path: /property_finetune_data/dielectric_2/train
+  test_data: /property_finetune_data/dielectric_2/valid
+  train_data: /property_finetune_data/dielectric_2/train
   train_steps: 200000
   start_lr: 3e-4
   stop_lr: 1e-5
@@ -29,8 +29,8 @@ matbench_dielectric_fold3:
   property_name: dielectric
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/dielectric_3/valid
-  train_path: /property_finetune_data/dielectric_3/train
+  test_data: /property_finetune_data/dielectric_3/valid
+  train_data: /property_finetune_data/dielectric_3/train
   train_steps: 200000
   start_lr: 3e-4
   stop_lr: 1e-5
@@ -38,8 +38,8 @@ matbench_dielectric_fold4:
   property_name: dielectric
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/dielectric_4/valid
-  train_path: /property_finetune_data/dielectric_4/train
+  test_data: /property_finetune_data/dielectric_4/valid
+  train_data: /property_finetune_data/dielectric_4/train
   train_steps: 200000
   start_lr: 3e-4
   stop_lr: 1e-5
@@ -47,8 +47,8 @@ matbench_jdft2d_fold0:
   property_name: jdft2d
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/jdft2d_0/valid
-  train_path: /property_finetune_data/jdft2d_0/train
+  test_data: /property_finetune_data/jdft2d_0/valid
+  train_data: /property_finetune_data/jdft2d_0/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 3e-8
@@ -56,8 +56,8 @@ matbench_jdft2d_fold1:
   property_name: jdft2d
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/jdft2d_1/valid
-  train_path: /property_finetune_data/jdft2d_1/train
+  test_data: /property_finetune_data/jdft2d_1/valid
+  train_data: /property_finetune_data/jdft2d_1/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 3e-8
@@ -65,8 +65,8 @@ matbench_jdft2d_fold2:
   property_name: jdft2d
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/jdft2d_2/valid
-  train_path: /property_finetune_data/jdft2d_2/train
+  test_data: /property_finetune_data/jdft2d_2/valid
+  train_data: /property_finetune_data/jdft2d_2/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 3e-8
@@ -74,8 +74,8 @@ matbench_jdft2d_fold3:
   property_name: jdft2d
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/jdft2d_3/valid
-  train_path: /property_finetune_data/jdft2d_3/train
+  test_data: /property_finetune_data/jdft2d_3/valid
+  train_data: /property_finetune_data/jdft2d_3/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 3e-8
@@ -83,8 +83,8 @@ matbench_jdft2d_fold4:
   property_name: jdft2d
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/jdft2d_4/valid
-  train_path: /property_finetune_data/jdft2d_4/train
+  test_data: /property_finetune_data/jdft2d_4/valid
+  train_data: /property_finetune_data/jdft2d_4/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 3e-8
@@ -92,8 +92,8 @@ matbench_log_gvrh_fold0:
   property_name: log_gvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_gvrh_0/valid
-  train_path: /property_finetune_data/log_gvrh_0/train
+  test_data: /property_finetune_data/log_gvrh_0/valid
+  train_data: /property_finetune_data/log_gvrh_0/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -101,8 +101,8 @@ matbench_log_gvrh_fold1:
   property_name: log_gvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_gvrh_1/valid
-  train_path: /property_finetune_data/log_gvrh_1/train
+  test_data: /property_finetune_data/log_gvrh_1/valid
+  train_data: /property_finetune_data/log_gvrh_1/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -110,8 +110,8 @@ matbench_log_gvrh_fold2:
   property_name: log_gvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_gvrh_2/valid
-  train_path: /property_finetune_data/log_gvrh_2/train
+  test_data: /property_finetune_data/log_gvrh_2/valid
+  train_data: /property_finetune_data/log_gvrh_2/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -119,8 +119,8 @@ matbench_log_gvrh_fold3:
   property_name: log_gvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_gvrh_3/valid
-  train_path: /property_finetune_data/log_gvrh_3/train
+  test_data: /property_finetune_data/log_gvrh_3/valid
+  train_data: /property_finetune_data/log_gvrh_3/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -128,8 +128,8 @@ matbench_log_gvrh_fold4:
   property_name: log_gvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_gvrh_4/valid
-  train_path: /property_finetune_data/log_gvrh_4/train
+  test_data: /property_finetune_data/log_gvrh_4/valid
+  train_data: /property_finetune_data/log_gvrh_4/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -137,8 +137,8 @@ matbench_log_kvrh_fold0:
   property_name: log_kvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_kvrh_0/valid
-  train_path: /property_finetune_data/log_kvrh_0/train
+  test_data: /property_finetune_data/log_kvrh_0/valid
+  train_data: /property_finetune_data/log_kvrh_0/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -146,8 +146,8 @@ matbench_log_kvrh_fold1:
   property_name: log_kvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_kvrh_1/valid
-  train_path: /property_finetune_data/log_kvrh_1/train
+  test_data: /property_finetune_data/log_kvrh_1/valid
+  train_data: /property_finetune_data/log_kvrh_1/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -155,8 +155,8 @@ matbench_log_kvrh_fold2:
   property_name: log_kvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_kvrh_2/valid
-  train_path: /property_finetune_data/log_kvrh_2/train
+  test_data: /property_finetune_data/log_kvrh_2/valid
+  train_data: /property_finetune_data/log_kvrh_2/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -164,8 +164,8 @@ matbench_log_kvrh_fold3:
   property_name: log_kvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_kvrh_3/valid
-  train_path: /property_finetune_data/log_kvrh_3/train
+  test_data: /property_finetune_data/log_kvrh_3/valid
+  train_data: /property_finetune_data/log_kvrh_3/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -173,8 +173,8 @@ matbench_log_kvrh_fold4:
   property_name: log_kvrh
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/log_kvrh_4/valid
-  train_path: /property_finetune_data/log_kvrh_4/train
+  test_data: /property_finetune_data/log_kvrh_4/valid
+  train_data: /property_finetune_data/log_kvrh_4/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -182,8 +182,8 @@ matbench_mp_e_form_fold0:
   property_name: mp_e_form
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_e_form_0/valid
-  train_path: /property_finetune_data/mp_e_form_0/train
+  test_data: /property_finetune_data/mp_e_form_0/valid
+  train_data: /property_finetune_data/mp_e_form_0/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -191,8 +191,8 @@ matbench_mp_e_form_fold1:
   property_name: mp_e_form
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_e_form_1/valid
-  train_path: /property_finetune_data/mp_e_form_1/train
+  test_data: /property_finetune_data/mp_e_form_1/valid
+  train_data: /property_finetune_data/mp_e_form_1/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -200,8 +200,8 @@ matbench_mp_e_form_fold2:
   property_name: mp_e_form
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_e_form_2/valid
-  train_path: /property_finetune_data/mp_e_form_2/train
+  test_data: /property_finetune_data/mp_e_form_2/valid
+  train_data: /property_finetune_data/mp_e_form_2/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -209,8 +209,8 @@ matbench_mp_e_form_fold3:
   property_name: mp_e_form
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_e_form_3/valid
-  train_path: /property_finetune_data/mp_e_form_3/train
+  test_data: /property_finetune_data/mp_e_form_3/valid
+  train_data: /property_finetune_data/mp_e_form_3/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -218,8 +218,8 @@ matbench_mp_e_form_fold4:
   property_name: mp_e_form
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_e_form_4/valid
-  train_path: /property_finetune_data/mp_e_form_4/train
+  test_data: /property_finetune_data/mp_e_form_4/valid
+  train_data: /property_finetune_data/mp_e_form_4/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -227,8 +227,8 @@ matbench_mp_gap_fold0:
   property_name: mp_gap
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_gap_0/valid
-  train_path: /property_finetune_data/mp_gap_0/train
+  test_data: /property_finetune_data/mp_gap_0/valid
+  train_data: /property_finetune_data/mp_gap_0/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -236,8 +236,8 @@ matbench_mp_gap_fold1:
   property_name: mp_gap
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_gap_1/valid
-  train_path: /property_finetune_data/mp_gap_1/train
+  test_data: /property_finetune_data/mp_gap_1/valid
+  train_data: /property_finetune_data/mp_gap_1/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -245,8 +245,8 @@ matbench_mp_gap_fold2:
   property_name: mp_gap
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_gap_2/valid
-  train_path: /property_finetune_data/mp_gap_2/train
+  test_data: /property_finetune_data/mp_gap_2/valid
+  train_data: /property_finetune_data/mp_gap_2/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -254,8 +254,8 @@ matbench_mp_gap_fold3:
   property_name: mp_gap
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_gap_3/valid
-  train_path: /property_finetune_data/mp_gap_3/train
+  test_data: /property_finetune_data/mp_gap_3/valid
+  train_data: /property_finetune_data/mp_gap_3/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -263,8 +263,8 @@ matbench_mp_gap_fold4:
   property_name: mp_gap
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/mp_gap_4/valid
-  train_path: /property_finetune_data/mp_gap_4/train
+  test_data: /property_finetune_data/mp_gap_4/valid
+  train_data: /property_finetune_data/mp_gap_4/train
   train_steps: 500000
   start_lr: 1e-3
   stop_lr: 1e-6
@@ -272,43 +272,43 @@ matbench_perovskites_fold0:
   property_name: perovskites
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/perovskites_0/valid
-  train_path: /property_finetune_data/perovskites_0/train
+  test_data: /property_finetune_data/perovskites_0/valid
+  train_data: /property_finetune_data/perovskites_0/train
   train_steps: 100000
 matbench_perovskites_fold1:
   property_name: perovskites
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/perovskites_1/valid
-  train_path: /property_finetune_data/perovskites_1/train
+  test_data: /property_finetune_data/perovskites_1/valid
+  train_data: /property_finetune_data/perovskites_1/train
   train_steps: 100000
 matbench_perovskites_fold2:
   property_name: perovskites
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/perovskites_2/valid
-  train_path: /property_finetune_data/perovskites_2/train
+  test_data: /property_finetune_data/perovskites_2/valid
+  train_data: /property_finetune_data/perovskites_2/train
   train_steps: 100000
 matbench_perovskites_fold3:
   property_name: perovskites
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/perovskites_3/valid
-  train_path: /property_finetune_data/perovskites_3/train
+  test_data: /property_finetune_data/perovskites_3/valid
+  train_data: /property_finetune_data/perovskites_3/train
   train_steps: 100000
 matbench_perovskites_fold4:
   property_name: perovskites
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/perovskites_4/valid
-  train_path: /property_finetune_data/perovskites_4/train
+  test_data: /property_finetune_data/perovskites_4/valid
+  train_data: /property_finetune_data/perovskites_4/train
   train_steps: 100000
 matbench_phonons_fold0:
   property_name: phonons
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/phonons_0/valid
-  train_path: /property_finetune_data/phonons_0/train
+  test_data: /property_finetune_data/phonons_0/valid
+  train_data: /property_finetune_data/phonons_0/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -316,8 +316,8 @@ matbench_phonons_fold1:
   property_name: phonons
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/phonons_1/valid
-  train_path: /property_finetune_data/phonons_1/train
+  test_data: /property_finetune_data/phonons_1/valid
+  train_data: /property_finetune_data/phonons_1/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -325,8 +325,8 @@ matbench_phonons_fold2:
   property_name: phonons
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/phonons_2/valid
-  train_path: /property_finetune_data/phonons_2/train
+  test_data: /property_finetune_data/phonons_2/valid
+  train_data: /property_finetune_data/phonons_2/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -334,8 +334,8 @@ matbench_phonons_fold3:
   property_name: phonons
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/phonons_3/valid
-  train_path: /property_finetune_data/phonons_3/train
+  test_data: /property_finetune_data/phonons_3/valid
+  train_data: /property_finetune_data/phonons_3/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
@@ -343,8 +343,8 @@ matbench_phonons_fold4:
   property_name: phonons
   intensive: true
   property_dim: 1
-  test_path: /property_finetune_data/phonons_4/valid
-  train_path: /property_finetune_data/phonons_4/train
+  test_data: /property_finetune_data/phonons_4/valid
+  train_data: /property_finetune_data/phonons_4/train
   train_steps: 100000
   start_lr: 1e-3
   stop_lr: 1e-4
