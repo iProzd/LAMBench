@@ -42,10 +42,10 @@ class ASEModel(BaseLargeAtomModel):
                 CALC = MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
             elif self.model_id.lower().startswith("dp"):
                 logging.error("Please use DPModel for DP models.")
-                return {}
+                return
             else:
                 logging.error(f"Model {self.model_id} is not supported by ASEModel")
-                return {}
+                return
             return self.run_ase_dptest(CALC, task.test_data)
 
 
