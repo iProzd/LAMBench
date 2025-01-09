@@ -14,7 +14,6 @@ class DirectPredictTask(BaseTask):
     def __init__(self, record_name: str, **kwargs):
         super().__init__(record_name=record_name, test_data=kwargs["test_data"])
         self.name = self.record_name.split("#")[1]
-        self.test_file_path = self.prepare_test_data()
         self.target_name = "standard"
 
     def evaluate(self, model: BaseLargeAtomModel):
