@@ -26,14 +26,9 @@ def run_ase_dptest(
     virial_err_per_atom = []
     max_ele_num = 120
 
-    systems = []
-    for path in testpath:
-        systems.extend(glob.glob(f"{path}/*"))
-    # check if the system is mixed type
-    if len(glob.glob(systems[0] + "/**/real_atom_types.npy", recursive=True)) == 0:
-        mix_type = False
-    else:
-        mix_type = True
+    systems = [i.parent for i in testpath.rglob("type_map.raw")]
+    assert systems, f"No systems found in the test data {testpath}."
+    mix_type = any(systems[0].rglob("real_atom_types.npy"))
 
     for filepth in systems:
         if mix_type:
