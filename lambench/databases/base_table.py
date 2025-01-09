@@ -1,4 +1,4 @@
-from __future__ import annotations
+from __future__ import annotations # classmethod return type hinting
 import os
 from typing import Sequence
 from sqlalchemy import Column, Integer, String, Float, create_engine, asc
