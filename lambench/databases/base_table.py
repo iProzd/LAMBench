@@ -26,12 +26,11 @@ class BaseRecord(Base):
     model_name = Column(String(256), index=True)
     task_name = Column(String(256))
     # NOTE: record_name = model_name + "#" + task_name
+
     def insert(self):
-        session = Session()
-        session.add(self)
-        session.flush()
-        session.commit()
-        session.close()
+        with Session() as session:
+            session.add(self)
+            session.commit()
 
     @classmethod
     def query(cls, **kwargs) -> Sequence[BaseRecord]:
