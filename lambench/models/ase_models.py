@@ -19,35 +19,35 @@ class ASEModel(BaseLargeAtomModel):
             logging.error(f"ASEModel does not support target_name {target_name}")
             return {}
         else:
-            if self.model_id.lower().startswith("mace"):
+            if self.model_name.lower().startswith("mace"):
                 from mace.calculators import mace_mp
                 CALC = mace_mp(model="medium", device="cuda", default_dtype="float64")
-            elif self.model_id.lower().startswith("orb"):
+            elif self.model_name.lower().startswith("orb"):
                 from orb_models.forcefield import pretrained
                 from orb_models.forcefield.calculator import ORBCalculator
                 orbff = pretrained.orb_v2(device="cuda") # orb-v2-20241011.ckpt
                 CALC = ORBCalculator(orbff, device="cuda")
-            elif self.model_id.lower().startswith("7net"):
+            elif self.model_name.lower().startswith("7net"):
                 from sevenn.sevennet_calculator import SevenNetCalculator
                 CALC = SevenNetCalculator("7net-0_11July2024", device='cuda')
-            elif self.model_id.lower().startswith("eqv2"):
+            elif self.model_name.lower().startswith("eqv2"):
                 from fairchem.core import OCPCalculator
                 CALC = OCPCalculator(
                     checkpoint_path="eqV2_153M_omat_mp_salex.pt",
                     cpu=False
                 )
-            elif self.model_id.lower().startswith("mattersim"):
+            elif self.model_name.lower().startswith("mattersim"):
                 from mattersim.forcefield import MatterSimCalculator
                 CALC = MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
-            elif self.model_id.lower().startswith("dp"):
+            elif self.model_name.lower().startswith("dp"):
                 logging.error(f"Please use DPModel for DP models.")
                 return {}
             else:
-                logging.error(f"Model {self.model_id} is not supported by ASEModel")
+                logging.error(f"Model {self.model_name} is not supported by ASEModel")
                 return {}
             return self.run_ase_dptest(CALC, test_file_path)
 
-    
+
     @staticmethod
     def run_ase_dptest(calc: Calculator,test_file_path: str) -> Dict:
         adptor = AseAtomsAdaptor()
@@ -136,4 +136,3 @@ class ASEModel(BaseLargeAtomModel):
             "Virial RMSE/Natoms": [np.sqrt(np.mean(np.square(np.stack(virial_err_per_atom))))]}
             )
         return res
-

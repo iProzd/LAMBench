@@ -39,9 +39,9 @@ class DirectPredictTask(BaseTask):
         else:
             task_output = self.evaluate(model)
             logging.info(f"TASK {self.record_name} OUTPUT: {task_output}, INSERTING.")
-            model_id, task_name = self.record_name.split("#")
+            model_name, task_name = self.record_name.split("#")
             DirectPredictRecord(
-                model_id=model_id,
+                model_name=model_name,
                 record_name=self.record_name,
                 task_name=task_name,
                 **task_output,

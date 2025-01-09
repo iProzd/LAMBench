@@ -7,7 +7,7 @@ class BaseTask(BaseModel):
     record_name: str
     test_data: Path
     model_config = ConfigDict(extra='allow')
-    workdir: Path = Path(tempfile.gettempdir()) / "lambench" # TODO: double-check if this path is OK
+    workdir: Path = Path(tempfile.gettempdir()) / "lambench"
     @abstractmethod
     def evaluate(self) -> dict[str, Any]:
         pass

@@ -22,10 +22,9 @@ Session = sessionmaker(db)
 class BaseRecord(Base):
     __abstract__ = True
 
-    id = Column(Integer, primary_key=True)
-    model_id = Column(String(256), index=True)
-    record_name = Column(String(256))
-
+    id = Column(Integer, primary_key=True) # index
+    model_name = Column(String(256), index=True)
+    record_name = Column(String(256)) # model_name#task_name
 
     def insert(self):
         session = Session()
@@ -40,9 +39,8 @@ class BaseRecord(Base):
             return session.query(cls).filter_by(**kwargs).all()
 
     @classmethod
-    def query_by_run(cls, model_id: str) -> Sequence[BaseRecord]:
-        return cls.query(model_id=model_id)
-
+    def query_by_run(cls, model_name: str) -> Sequence[BaseRecord]:
+        return cls.query(model_name=model_name)
     @classmethod
     def query_by_name(cls, record_name: str) -> Sequence[BaseRecord]:
         return cls.query(record_name=record_name)

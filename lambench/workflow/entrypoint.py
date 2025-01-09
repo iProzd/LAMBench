@@ -35,7 +35,7 @@ def gather_task_type(models, task_file, task_class) -> list[tuple[DirectPredictT
         task_configs = yaml.safe_load(f)
     for model in models:
         for task_name, task_param in task_configs.items():
-            task = task_class(f"{model.model_id}#{task_name}", **task_param)
+            task = task_class(f"{model.model_name}#{task_name}", **task_param)
             if task.fetch_result() is None:
                 tasks.append((task, model))
     return tasks

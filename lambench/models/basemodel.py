@@ -10,7 +10,7 @@ class ModelType(str, Enum):
     ASE = "ASE"
 
 class BaseLargeAtomModel(BaseModel):
-    model_id: str
+    model_name: str
     model_type: ModelType
     model_path: Optional[Path]
     virtualenv: str

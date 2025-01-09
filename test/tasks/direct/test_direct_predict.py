@@ -5,8 +5,8 @@ import logging
 
 def test_load_direct_predict_task(direct_yml_data):
     for task_name, task_param in direct_yml_data.items():
-        model_id = "TEST_DP_v1"
-        record_name = f"{model_id}#{task_name}"
+        model_name = "TEST_DP_v1"
+        record_name = f"{model_name}#{task_name}"
         task = DirectPredictTask(record_name=record_name,**task_param)
         for key, value in task_param.items():
             assert getattr(task, key) == value
@@ -70,7 +70,7 @@ def test_run_task_no_existing_record(mock_direct_predict_record, valid_model_dat
     assert f"TASK {direct_task_data['record_name']} OUTPUT: {{'some_field': 'some_value'}}, INSERTING." in caplog.text
     mock_direct_predict_record.query_by_name.assert_called_once_with(direct_task_data["record_name"])
     mock_direct_predict_record.assert_called_with(
-        model_id="model1",
+        model_name="model1",
         record_name=direct_task_data["record_name"],
         task_name="taskA",
         some_field="some_value"
