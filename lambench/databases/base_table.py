@@ -35,9 +35,12 @@ class BaseRecord(Base):
 
     @classmethod
     def query(cls, **kwargs) -> Sequence[BaseRecord]:
+        """Query records by keyword arguments.
+        Input:
+            model_name: str
+            task_name: str
+        Example:
+            >>> PropertyRecord.query(model_name="TEST_DP_v1", task_name="task1")
+        """
         with Session() as session:
             return session.query(cls).filter_by(**kwargs).all()
-
-    @classmethod
-    def query_by_run(cls, model_name: str) -> Sequence[BaseRecord]:
-        return cls.query(model_name=model_name)
