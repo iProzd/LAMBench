@@ -1,8 +1,11 @@
+from typing import Type
 from lambench.tasks import DirectPredictTask, PropertyFinetuneTask
 from lambench.models.ase_models import ASEModel
 from lambench.models.dp_models import DPModel
 import yaml
 import logging
+
+from lambench.tasks.base_task import BaseTask
 
 DIRECT_TASKS = "lambench/tasks/direct/direct_tasks.yml"
 FINETUNE_TASKS = "lambench/tasks/finetune/finetune_tasks.yml"
@@ -26,7 +29,7 @@ def gather_models() -> list[DPModel | ASEModel]:
             raise ValueError(f"Model type {model_param['model_type']} is not supported.")
     return models
 
-def gather_task_type(models, task_file, task_class) -> list[tuple[DirectPredictTask | PropertyFinetuneTask, DPModel | ASEModel]]:
+def gather_task_type(models, task_file: str, task_class: Type[BaseTask]) -> list[tuple[DirectPredictTask | PropertyFinetuneTask, DPModel | ASEModel]]:
     """
     Gather tasks of a specific type from the task file.
     """
