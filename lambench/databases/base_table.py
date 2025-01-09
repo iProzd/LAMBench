@@ -1,12 +1,13 @@
+from __future__ import annotations
 import os
-from typing import List
+from typing import Sequence
 from sqlalchemy import Column, Integer, String, Float, create_engine, asc
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
 Base = declarative_base()
-load_dotenv()
+load_dotenv(override=True)
 
 db_username = os.environ.get("MYSQL_USERNAME")
 db_password = os.environ.get("MYSQL_PASSWORD")
@@ -24,9 +25,9 @@ class BaseRecord(Base):
     id = Column(Integer, primary_key=True)
     model_id = Column(String(256), index=True)
     record_name = Column(String(256))
-    
 
-    def insert(self) -> int:
+
+    def insert(self):
         session = Session()
         session.add(self)
         session.flush()
@@ -34,16 +35,14 @@ class BaseRecord(Base):
         session.close()
 
     @classmethod
-    def query(cls, **kwargs) -> List["BaseRecord"]:
-        session = Session()
-        records = session.query(cls).filter_by(**kwargs).all()
-        session.close()
-        return records
+    def query(cls, **kwargs) -> Sequence[BaseRecord]:
+        with Session() as session:
+            return session.query(cls).filter_by(**kwargs).all()
 
     @classmethod
-    def query_by_run(cls, model_id: str) -> List["BaseRecord"]:
+    def query_by_run(cls, model_id: str) -> Sequence[BaseRecord]:
         return cls.query(model_id=model_id)
 
     @classmethod
-    def query_by_name(cls, record_name: str) -> List["BaseRecord"]:
+    def query_by_name(cls, record_name: str) -> Sequence[BaseRecord]:
         return cls.query(record_name=record_name)
