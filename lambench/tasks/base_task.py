@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict
 from typing import Any
 from pathlib import Path
 class BaseTask(BaseModel):
-    record_name: str
+    task_name: str
     test_data: Path
     model_config = ConfigDict(extra='allow')
     workdir: Path = Path(tempfile.gettempdir()) / "lambench"
@@ -27,7 +27,7 @@ class BaseTask(BaseModel):
         if not self.test_data or not self.test_data.exists():
             raise RuntimeError(f"Test data {self.test_data} does not exist.")
 
-        temp_file_path = Path(f"{self.record_name}_test_file.txt")
+        temp_file_path = Path(f"{self.task_name}_test_file.txt")
         with temp_file_path.open('w') as f:
             for sys in self.test_data.rglob("type_map.raw"):
                 f.write(f"{sys.parent}\n")

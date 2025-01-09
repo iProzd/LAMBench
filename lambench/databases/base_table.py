@@ -41,6 +41,3 @@ class BaseRecord(Base):
     @classmethod
     def query_by_run(cls, model_name: str) -> Sequence[BaseRecord]:
         return cls.query(model_name=model_name)
-    @classmethod
-    def query_by_name(cls, record_name: str) -> Sequence[BaseRecord]:
-        return cls.query(record_name=record_name)
