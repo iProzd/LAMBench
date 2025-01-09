@@ -4,8 +4,7 @@ from pathlib import Path
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
 from lambench.databases.property_table import PropertyRecord
-from typing import Optional
-import logging
+from typing import override
 
 
 class PropertyFinetuneTask(BaseTask):
@@ -14,6 +13,7 @@ class PropertyFinetuneTask(BaseTask):
     Currently does not support ASE interface.
     """
 
+    record_type:type = PropertyRecord
     property_name: str
     intensive: bool = True
     property_dim: int = 1
@@ -23,6 +23,7 @@ class PropertyFinetuneTask(BaseTask):
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, **kwargs)
 
+    @override
     def evaluate(self, model: BaseLargeAtomModel):
         self.get_property_json()
         return model.evaluate(self)
@@ -36,30 +37,3 @@ class PropertyFinetuneTask(BaseTask):
         with open("input.json", "w") as _:
             # TODO: migrate from lamstare.utils.property.get_property_json
             raise NotImplementedError
-
-    def fetch_result(self) -> Optional[PropertyRecord]:
-        records = PropertyRecord.query_by_name(self.task_name)
-        if len(records) == 1:
-            return records[0]
-        elif len(records) > 1:
-            logging.warning(f"Multiple records found for task {self.task_name}")
-            return records[0]
-        else:
-            return None
-
-    def run_task(self, model) -> None:
-        result = self.fetch_result()
-        if result is not None:
-            logging.info(f"TASK {self.task_name} record found in database, SKIPPING.")
-            return
-        else:
-            task_output = self.evaluate(model)
-            logging.info(f"TASK {self.record_name} OUTPUT: {task_output}, INSERTING.")
-            model_name, task_name = self.record_name.split("#")
-            PropertyRecord(
-                model_name=model_name,
-                record_name=self.record_name,
-                task_name=task_name,
-                **task_output,
-            ).insert()
-            # TODO: return the working dir to dflow containing trained mode

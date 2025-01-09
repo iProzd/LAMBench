@@ -1,24 +1,44 @@
-from abc import abstractmethod
+import logging
 import tempfile
 from pydantic import BaseModel, ConfigDict
-from typing import Any
 from pathlib import Path
+
+from lambench.databases.base_table import BaseRecord
+from lambench.models.basemodel import BaseLargeAtomModel
 class BaseTask(BaseModel):
     task_name: str
     test_data: Path
     model_config = ConfigDict(extra='allow')
     workdir: Path = Path(tempfile.gettempdir()) / "lambench"
-    @abstractmethod
-    def evaluate(self) -> dict[str, Any]:
-        pass
+    record_type: type[BaseRecord] = BaseRecord
 
-    @abstractmethod
-    def fetch_result(self):
-        pass
+    def evaluate(self, model: BaseLargeAtomModel):
+        task_output: dict = model.evaluate(self)
+        return task_output
 
-    @abstractmethod
-    def run_task(self, model):
-        pass
+    def exist(self, model_name: str) -> bool:
+        num_records = self.record_type.count(
+            task_name=self.task_name, model_name=model_name
+        )  # FIXME: by model name and task name
+        if num_records > 1:
+            logging.warning(f"Multiple records found for task {self.task_name}")
+        if num_records >= 1:
+            return True
+        else:
+            return False
+
+    def run_task(self, model: BaseLargeAtomModel) -> None:
+        if self.exist(model.model_name):
+            logging.info(f"TASK {self.task_name} record found in database, SKIPPING.")
+            return
+        else:
+            task_output = self.evaluate(model)
+            logging.info(f"TASK {self.task_name} OUTPUT: {task_output}, INSERTING.")
+            self.record_type(
+                task_name=self.task_name,
+                model_name=model.model_name,
+                **task_output,
+            ).insert()
 
     def prepare_test_data(self) -> Path:
         """

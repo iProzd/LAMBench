@@ -36,7 +36,7 @@ def gather_task_type(models, task_file, task_class) -> list[tuple[DirectPredictT
     for model in models:
         for task_name, task_param in task_configs.items():
             task = task_class(task_name=task_name, **task_param)
-            if task.fetch_result() is None:
+            if not task.exist(model.model_name):
                 tasks.append((task, model))
     return tasks
 

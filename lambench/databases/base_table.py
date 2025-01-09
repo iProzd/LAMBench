@@ -1,6 +1,4 @@
-from __future__ import annotations # classmethod return type hinting
 import os
-from typing import Sequence
 from sqlalchemy import Column, Integer, String, Float, create_engine, asc
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -33,13 +31,15 @@ class BaseRecord(Base):
             session.commit()
 
     @classmethod
-    def query(cls, **kwargs) -> Sequence[BaseRecord]:
+    def count(cls, **kwargs) -> int:
         """Query records by keyword arguments.
         Input:
             model_name: str
             task_name: str
+        Return:
+            int: number of records found
         Example:
-            >>> PropertyRecord.query(model_name="TEST_DP_v1", task_name="task1")
+            >>> PropertyRecord.count(model_name="TEST_DP_v1", task_name="task1")
         """
         with Session() as session:
-            return session.query(cls).filter_by(**kwargs).all()
+            return session.query(cls).filter_by(**kwargs).count()
