@@ -1,10 +1,9 @@
 from lambench.databases.base_table import BaseRecord
-from sqlalchemy import Column, String, Float
+from sqlalchemy import Column, Float
 
 class DirectPredictRecord(BaseRecord):
     __tablename__ = "direct_predict"
 
-    task_name = Column(String(100))
     energy_rmse = Column(Float)
     energy_mae = Column(Float)
     energy_rmse_natoms = Column(Float)

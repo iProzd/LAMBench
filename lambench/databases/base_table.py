@@ -24,8 +24,8 @@ class BaseRecord(Base):
 
     id = Column(Integer, primary_key=True) # index
     model_name = Column(String(256), index=True)
-    record_name = Column(String(256)) # model_name#task_name
-
+    task_name = Column(String(256))
+    # NOTE: record_name = model_name + "#" + task_name
     def insert(self):
         session = Session()
         session.add(self)
