@@ -29,9 +29,9 @@ class DPModel(BaseLargeAtomModel):
 
     def evaluate(self, task: BaseTask) -> Optional[dict[str, float]]:
         if isinstance(task, DirectPredictTask):
-            if task.name not in self.DP_TASK_CONFIG:
-                raise ValueError(f"Task {task.name} is not specified by DPModel")
-            head, change_bias = self.DP_TASK_CONFIG[task.name]
+            if task.task_name not in self.DP_TASK_CONFIG:
+                raise ValueError(f"Task {task.task_name} is not specified by DPModel")
+            head, change_bias = self.DP_TASK_CONFIG[task.task_name]
         elif isinstance(task, PropertyFinetuneTask):
             head, change_bias = None, False
         else:
