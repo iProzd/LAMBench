@@ -64,25 +64,29 @@ class DPModel(BaseLargeAtomModel):
         result = parse_dptest_log_file(filepath=test_output)
         return result
 
-    def _finetune(self, model: Path):
+    @staticmethod
+    def _finetune(model: Path):
         # Note: the input.json file is created under task.workdir
         command = f"dp --pt train input.json --finetune {model} --skip-neighbor-stat"
         deepmd_main(command.split()[1:])
         return Path("model.ckpt.pt")  # hard coded in deepmd-kit
 
-    def _freeze(self, model: Path, head=None):
+    @staticmethod
+    def _freeze(model: Path, head=None):
         frozen_model = Path.cwd() / model.with_suffix(".pth").name
         command = f"dp --pt freeze -c {model} -o {frozen_model} {f'--head {head}' if head else ''}"
         deepmd_main(command.split()[1:])
         return frozen_model
 
-    def _change_bias(self, model: Path, test_data: Path, head: Optional[str] = None):
+    @staticmethod
+    def _change_bias(model: Path, test_data: Path, head: Optional[str] = None):
         change_bias_model = Path.cwd() / f"change-bias-{model.name}"
         command = f"dp --pt change-bias {model} -o {change_bias_model} -s {test_data} {f'--model-branch {head}' if head else ''}"
         deepmd_main(command.split()[1:])
         return change_bias_model
 
-    def _test(self, model:Path, test_data: Path, head: Optional[str] = None):
+    @staticmethod
+    def _test(model:Path, test_data: Path, head: Optional[str] = None):
         test_output = Path("dptest_output.txt")
         command = f"dp --pt test -m {model} -s {test_data} -l {test_output} {f'--head {head}' if head else ''}"
         deepmd_main(command.split()[1:])
