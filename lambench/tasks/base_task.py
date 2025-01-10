@@ -19,7 +19,7 @@ class BaseTask(BaseModel):
     def exist(self, model_name: str) -> bool:
         num_records = self.record_type.count(
             task_name=self.task_name, model_name=model_name
-        )  # FIXME: by model name and task name
+        )
         if num_records > 1:
             logging.warning(f"Multiple records found for task {self.task_name}")
         if num_records >= 1:
