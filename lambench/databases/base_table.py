@@ -1,4 +1,6 @@
+from __future__ import annotations # For class method return type hinting
 import os
+from typing import Sequence
 from sqlalchemy import Column, Integer, String, Float, create_engine, asc
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -29,6 +31,13 @@ class BaseRecord(Base):
         with Session() as session:
             session.add(self)
             session.commit()
+
+    @classmethod
+    def query(cls, **kwargs) -> Sequence[BaseRecord]:
+        session = Session()
+        records = session.query(cls).filter_by(**kwargs).all()
+        session.close()
+        return records
 
     @classmethod
     def count(cls, **kwargs) -> int:
