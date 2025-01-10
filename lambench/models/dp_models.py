@@ -41,7 +41,7 @@ class DPModel(BaseLargeAtomModel):
                 f"Model type {self.model_type} is not supported by DPModel"
             )
 
-    def evaluate(self, task: BaseTask) -> Optional[dict[str, float]]:
+    def evaluate(self, task: BaseTask) -> Optional[dict[str, Optional[float]]]:
         if isinstance(task, DirectPredictTask):
             if task.task_name not in self.DP_TASK_CONFIG:
                 raise ValueError(f"Task {task.task_name} is not specified by DPModel")
