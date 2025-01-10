@@ -134,7 +134,7 @@ class ASEModel(BaseLargeAtomModel):
         unbiased_energy_err_per_a = unbiased_energy / atom_num.sum(-1)
 
         res = {
-            "Energy MAE": [np.mean(np.abs(np.stack(unbiased_energy)))],
+            "Energy MAE": [np.mean(np.abs(np.stack(unbiased_energy)))], # type: ignore
             "Energy RMSE": [np.sqrt(np.mean(np.square(unbiased_energy)))],
             "Energy MAE/Natoms": [np.mean(np.abs(np.stack(unbiased_energy_err_per_a)))],
             "Energy RMSE/Natoms": [
