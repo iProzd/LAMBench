@@ -4,7 +4,7 @@
 DP_2024Q4:
   model_name: dp_demo_20241212_v1
   model_type: DP
-  model_path: lambench/models/DP/dp_demo_20241212_v1/model.ckpt-1000.pt
+  model_path: /bohr/lambench-model-55c1/v2/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
   virtualenv: dp_v3.0.0b4
   model_metadata:
       model_description: "DP 2024 Q4, 37head share fitting 120GPU pretrain"

@@ -1,3 +1,4 @@
+import logging
 import os
 from pathlib import Path
 from typing import Optional
@@ -15,7 +16,7 @@ class DPModel(BaseLargeAtomModel):
     # this need to be modified based on tasks
     DP_TASK_CONFIG: dict[str, tuple[str, bool]] = {
         # dataaset name: (head name, whether to change_bias)
-        "ANI": ("Domains_Drug", False),
+        "ANI": ("Domains_Drug", True),
         # ...
     }
     model_path: Path
@@ -45,7 +46,7 @@ class DPModel(BaseLargeAtomModel):
         elif change_bias:
             model = self._change_bias(model, task.test_data, head)
         model = self._freeze(model, head)
-        test_output = self._test(task.test_data, head)
+        test_output = self._test(model, task.test_data, head)
         result = parse_dptest_log_file(filepath=test_output)
         return result
 
@@ -56,19 +57,19 @@ class DPModel(BaseLargeAtomModel):
         return Path("model.ckpt.pt")  # hard coded in deepmd-kit
 
     def _freeze(self, model: Path, head=None):
-        frozen_model = model.with_suffix(".pth")
+        frozen_model = Path.cwd() / model.with_suffix(".pth").name
         command = f"dp --pt freeze -c {model} -o {frozen_model} {f'--head {head}' if head else ''}"
         deepmd_main(command.split()[1:])
         return frozen_model
 
-    def _change_bias(self, model: Path, test_file: Path, head: Optional[str] = None):
-        change_bias_model = model.with_name(f"change-bias-{model.name}")
-        command = f"dp --pt change-bias {model.name} -o {change_bias_model} -f {test_file} {f'--model-branch {head}' if head else ''}"
+    def _change_bias(self, model: Path, test_data: Path, head: Optional[str] = None):
+        change_bias_model = Path.cwd() / f"change-bias-{model.name}"
+        command = f"dp --pt change-bias {model} -o {change_bias_model} -s {test_data} {f'--model-branch {head}' if head else ''}"
         deepmd_main(command.split()[1:])
         return change_bias_model
 
-    def _test(self, test_file: Path, head: Optional[str] = None):
+    def _test(self, model:Path, test_data: Path, head: Optional[str] = None):
         test_output = Path("dptest_output.txt")
-        command = f"dp --pt test -m {self.model_path} -s {test_file} -l {test_output} {f'--head {head}' if head else ''}"
+        command = f"dp --pt test -m {model} -s {test_data} -l {test_output} {f'--head {head}' if head else ''}"
         deepmd_main(command.split()[1:])
         return test_output
