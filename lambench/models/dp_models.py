@@ -17,7 +17,20 @@ class DPModel(BaseLargeAtomModel):
     DP_TASK_CONFIG: dict[str, tuple[str, bool]] = {
         # dataaset name: (head name, whether to change_bias)
         "ANI": ("Domains_Drug", True),
-        # ...
+        "HEMC_HEMB": ("Domains_Alloy", True),
+        "HEA25_S": ("Domains_Alloy", True),
+        "HEA25_bulk": ("Domains_Alloy", True),
+        "MD22": ("Domains_Drug", True),
+        "Collision": ("Organic_Reactions", True),
+        "H_nature_2022": ("Organic_Reactions", True),
+        "REANN_CO2_Ni100": ("ODAC23", True),
+        "NequIP_NC_2022": ("Domains_SSE_PBE", True),
+        "AIMD-Chig": ("Domains_Drug", True),
+        "CGM_MLP_NC2023": ("OC20M", True),
+        "Cu_MgO_catalysts": ("OC20M", True),
+        "Subalex_9k": ("MP_traj_v024_alldata_mixu", True),
+        "WBM_downsampled": ("MP_traj_v024_alldata_mixu", True),
+        "Torsionnet500": ("Domains_Drug", True),
     }
     model_path: Path
 
