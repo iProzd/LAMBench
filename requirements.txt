@@ -5,7 +5,6 @@ certifi==2024.8.30
 charset-normalizer==3.4.0
 contourpy==1.3.1
 cycler==0.12.1
-dpdata==0.2.21
 fonttools==4.55.3
 h5py==3.12.1
 idna==3.10
@@ -53,3 +52,4 @@ uncertainties==3.2.2
 urllib3==2.2.3
 wcmatch==10.0
 -e git+https://github.com/iProzd/deepmd-kit.git@1224_dpa3_alpha_mulg1mess#egg=deepmd-kit
+-e git+https://github.com/anyangml/dpdata.git@feat/set-force-label-optional#egg=dpdata
