@@ -34,10 +34,8 @@ class BaseRecord(Base):
 
     @classmethod
     def query(cls, **kwargs) -> Sequence[BaseRecord]:
-        session = Session()
-        records = session.query(cls).filter_by(**kwargs).all()
-        session.close()
-        return records
+        with Session() as session:
+            return session.query(cls).filter_by(**kwargs).all()
 
     @classmethod
     def count(cls, **kwargs) -> int:
