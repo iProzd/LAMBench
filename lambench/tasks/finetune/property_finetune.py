@@ -4,7 +4,6 @@ from pathlib import Path
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
 from lambench.databases.property_table import PropertyRecord
-from typing import override
 
 
 class PropertyFinetuneTask(BaseTask):
@@ -23,7 +22,6 @@ class PropertyFinetuneTask(BaseTask):
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, **kwargs)
 
-    @override
     def evaluate(self, model: BaseLargeAtomModel):
         self.get_property_json()
         return model.evaluate(self)
