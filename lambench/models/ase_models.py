@@ -6,7 +6,6 @@ import ase
 import dpdata
 import numpy as np
 from ase.calculators.calculator import Calculator
-from pymatgen.io.ase import AseAtomsAdaptor
 
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.direct.direct_predict import DirectPredictTask
@@ -47,9 +46,13 @@ class ASEModel(BaseLargeAtomModel):
                 )
             elif self.model_name.lower().startswith("mattersim"):
                 from mattersim.forcefield import MatterSimCalculator
-                CALC = MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
+
+                CALC = MatterSimCalculator(
+                    load_path="MatterSim-v1.0.0-5M.pth", device="cuda"
+                )
             elif self.model_name.lower().startswith("dp"):
                 from deepmd.calculator import DP
+
                 CALC = DP(
                     model="/bohr/lambench-model-55c1/v2/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt",  # TODO: replace with self.model_path
                     head="Domains_Drug",  # FIXME: should select a head w.r.t. the data
@@ -59,10 +62,8 @@ class ASEModel(BaseLargeAtomModel):
                 return
             return self.run_ase_dptest(CALC, task.test_data)
 
-
     @staticmethod
     def run_ase_dptest(calc: Calculator, test_data: Path) -> dict:
-        adaptor = AseAtomsAdaptor() # FIXME: this is not used
         energy_err = []
         energy_pre = []
         energy_lab = []
@@ -73,9 +74,9 @@ class ASEModel(BaseLargeAtomModel):
         virial_err_per_atom = []
         max_ele_num = 120
 
-        systems=[i.parent for i in test_data.rglob("type_map.raw")]
+        systems = [i.parent for i in test_data.rglob("type_map.raw")]
         assert systems, f"No systems found in the test data {test_data}."
-        mix_type = any(systems[0].rglob('real_atom_types.npy'))
+        mix_type = any(systems[0].rglob("real_atom_types.npy"))
 
         for filepth in systems:
             if mix_type:
@@ -86,7 +87,7 @@ class ASEModel(BaseLargeAtomModel):
 
             for ls in sys:
                 for frame in ls:
-                    atoms:ase.Atoms = frame.to_ase_structure()[0] # type: ignore
+                    atoms: ase.Atoms = frame.to_ase_structure()[0]  # type: ignore
                     atoms.calc = calc
                     force_pred = atoms.get_forces()
 
@@ -124,7 +125,7 @@ class ASEModel(BaseLargeAtomModel):
                                 virial_err[-1] / force_err[-1].shape[0]
                             )
                         except KeyError:
-                            pass # no virial in the data
+                            pass  # no virial in the data
 
         atom_num = np.array(atom_num)
         energy_err = np.array(energy_err)
@@ -139,24 +140,24 @@ class ASEModel(BaseLargeAtomModel):
         unbiased_energy_err_per_a = unbiased_energy / atom_num.sum(-1)
 
         res = {
-            "Energy MAE": [np.mean(np.abs(np.stack(unbiased_energy)))], # type: ignore
-            "Energy RMSE": [np.sqrt(np.mean(np.square(unbiased_energy)))],
-            "Energy MAE/Natoms": [np.mean(np.abs(np.stack(unbiased_energy_err_per_a)))],
-            "Energy RMSE/Natoms": [
+            "energy_mae": [np.mean(np.abs(np.stack(unbiased_energy)))],  # type: ignore
+            "energy_rmse": [np.sqrt(np.mean(np.square(unbiased_energy)))],
+            "energy_mae_natoms": [np.mean(np.abs(np.stack(unbiased_energy_err_per_a)))],
+            "energy_rmse_natoms": [
                 np.sqrt(np.mean(np.square(unbiased_energy_err_per_a)))
             ],
-            "Force MAE": [np.mean(np.abs(np.concatenate(force_err)))],
-            "Force RMSE": [np.sqrt(np.mean(np.square(np.concatenate(force_err))))],
+            "force_mae": [np.mean(np.abs(np.concatenate(force_err)))],
+            "force_rmse": [np.sqrt(np.mean(np.square(np.concatenate(force_err))))],
         }
         if virial_err_per_atom != []:
             res.update(
                 {
-                    "Virial MAE": [np.mean(np.abs(np.stack(virial_err)))],
-                    "Virial RMSE": [np.sqrt(np.mean(np.square(np.stack(virial_err))))],
-                    "Virial MAE/Natoms": [
+                    "virial_mae": [np.mean(np.abs(np.stack(virial_err)))],
+                    "virial_rmse": [np.sqrt(np.mean(np.square(np.stack(virial_err))))],
+                    "virial_mae_natoms": [
                         np.mean(np.abs(np.stack(virial_err_per_atom)))
                     ],
-                    "Virial RMSE/Natoms": [
+                    "virial_rmse_natoms": [
                         np.sqrt(np.mean(np.square(np.stack(virial_err_per_atom))))
                     ],
                 }
