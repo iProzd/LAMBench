@@ -3,75 +3,88 @@ from lambench.models.dp_models import DPModel
 from unittest.mock import MagicMock, patch
 import logging
 
-def test_load_direct_predict_task(finetune_yml_data):
+def test_load_finetune_task(finetune_yml_data):
     for task_name, task_param in finetune_yml_data.items():
         model_name = "TEST_DP_v1"
-        record_name = f"{model_name}#{task_name}"
-        task = PropertyFinetuneTask(record_name=record_name,**task_param)
+        task = PropertyFinetuneTask(
+            model_name=model_name, task_name=task_name, **task_param
+        )
         for key, value in task_param.items():
             assert getattr(task, key) == value
 
 
-def test_fetch_result_single_record(mock_finetune_record, finetune_task_data):
-    mock_record_instance = MagicMock()
-    mock_finetune_record.query_by_name.return_value = [mock_record_instance]
+def test_record_count_none(mock_record_count, finetune_task_data):
+    mock_record_count.return_value = 0
 
     task = PropertyFinetuneTask(**finetune_task_data)
-    result = task.fetch_result()
-    mock_finetune_record.query_by_name.assert_called_once_with(finetune_task_data["record_name"])
-    assert result == mock_record_instance
+    result = task.exist(model_name="model1")
+    assert result is False
 
 
-def test_fetch_result_multiple_records(mock_finetune_record, finetune_task_data, caplog):
-    record1 = MagicMock()
-    record2 = MagicMock()
-    mock_finetune_record.query_by_name.return_value = [record1, record2]
+def test_record_count_single(mock_record_count, finetune_task_data):
+    mock_record_count.return_value = 1
+    task = PropertyFinetuneTask(**finetune_task_data)
+    result = task.exist(model_name="model1")
+    assert result is True
+
+
+def test_record_count_multiple(mock_record_count, finetune_task_data, caplog):
+    mock_record_count.return_value = 2
 
     task = PropertyFinetuneTask(**finetune_task_data)
     with caplog.at_level(logging.WARNING):
-        result = task.fetch_result()
+        result = task.exist(model_name="model1")
+        assert result is True
+    mock_record_count.assert_called_once_with(
+        task_name=finetune_task_data["task_name"], model_name="model1"
+    )
+    assert (
+        f"Multiple records found for task {finetune_task_data['task_name']}"
+        in caplog.text
+    )
 
-    mock_finetune_record.query_by_name.assert_called_once_with(finetune_task_data["record_name"])
-    assert result == record1
-    assert f"Multiple records found for task {finetune_task_data['record_name']}" in caplog.text
 
-def test_fetch_result_no_records(mock_finetune_record, finetune_task_data):
-    mock_finetune_record.query_by_name.return_value = []
-
-    task = PropertyFinetuneTask(**finetune_task_data)
-    result = task.fetch_result()
-
-    mock_finetune_record.query_by_name.assert_called_once_with(finetune_task_data["record_name"])
-    assert result is None
-
-def test_run_task_existing_record(mock_finetune_record, valid_model_data, finetune_task_data, caplog):
-    existing_record = MagicMock()
-    mock_finetune_record.query_by_name.return_value = [existing_record]
+def test_run_task_existing_record(
+    mock_record_count, valid_model_data, finetune_task_data, caplog
+):
+    mock_record_count.return_value = 1
 
     task = PropertyFinetuneTask(**finetune_task_data)
     model = DPModel(**valid_model_data)
     with caplog.at_level(logging.INFO):
         task.run_task(model)
 
-    assert f"TASK {finetune_task_data['record_name']} record found in database, SKIPPING." in caplog.text
-    mock_finetune_record.query_by_name.assert_called_once_with(finetune_task_data["record_name"])
+    assert (
+        f"TASK {finetune_task_data['task_name']} record found in database, SKIPPING."
+        in caplog.text
+    )
+    mock_record_count.assert_called_once_with(
+        task_name=finetune_task_data["task_name"], model_name="model1"
+    )
 
 
-def test_run_task_no_existing_record(mock_finetune_record, valid_model_data, finetune_task_data, caplog):
-    mock_finetune_record.query_by_name.return_value = []
+def test_run_task_no_existing_record(
+    mock_record_count, valid_model_data, finetune_task_data, caplog
+):
+    mock_record_count.return_value = 0
 
     # Mock the evaluate method
     model = DPModel(**valid_model_data)
-    with patch.object(PropertyFinetuneTask, "evaluate", return_value={"some_field": "some_value"}) as mock_evaluate, caplog.at_level(logging.INFO):
+    with (
+        patch.object(
+            PropertyFinetuneTask, "evaluate", return_value={"property_rmse": 0.42}
+        ) as mock_evaluate,
+        caplog.at_level(logging.INFO),
+    ):
         task = PropertyFinetuneTask(**finetune_task_data)
         task.run_task(model)
 
     mock_evaluate.assert_called_once()
-    assert f"TASK {finetune_task_data['record_name']} OUTPUT: {{'some_field': 'some_value'}}, INSERTING." in caplog.text
-    mock_finetune_record.query_by_name.assert_called_once_with(finetune_task_data["record_name"])
-    mock_finetune_record.assert_called_with(
-        model_name="model1",
-        record_name=finetune_task_data["record_name"],
-        task_name="taskA",
-        some_field="some_value"
+    assert (
+        f"TASK {finetune_task_data['task_name']}"
+        + " OUTPUT: {'property_rmse': 0.42}, INSERTING."
+        in caplog.text
+    )
+    mock_record_count.assert_called_once_with(
+        task_name=finetune_task_data["task_name"], model_name="model1"
     )
