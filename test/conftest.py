@@ -37,16 +37,14 @@ def finetune_yml_data():
 @pytest.fixture
 def mock_direct_predict_record():
     with patch(
-        "lambench.tasks.direct.direct_predict.DirectPredictRecord"
+        "lambench.databases.direct_predict_table.DirectPredictRecord"
     ) as mock_record:
         yield mock_record
 
 
 @pytest.fixture
 def mock_finetune_record():
-    with patch(
-        "lambench.tasks.finetune.property_finetune.PropertyRecord"
-    ) as mock_record:
+    with patch("lambench.databases.property_table.PropertyRecord") as mock_record:
         yield mock_record
 
 
@@ -54,7 +52,7 @@ def mock_finetune_record():
 def direct_task_data():
     make_dummy_data()
     return {
-        "record_name": "model1#taskA",
+        "task_name": "taskA",
         "test_data": Path("data/dummy/test/1"),
     }
 
@@ -63,7 +61,7 @@ def direct_task_data():
 def finetune_task_data():
     make_dummy_data()
     return {
-        "record_name": "model1#taskA",
+        "task_name": "taskA",
         "property_name": "dipole_moment",
         "intensive": False,
         "property_dim": 1,
