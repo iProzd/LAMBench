@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import ClassVar
 
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
@@ -12,7 +13,7 @@ class PropertyFinetuneTask(BaseTask):
     Currently does not support ASE interface.
     """
 
-    record_type:type = PropertyRecord
+    record_type:ClassVar = PropertyRecord  # noqa: F821
     property_name: str
     intensive: bool = True
     property_dim: int = 1
