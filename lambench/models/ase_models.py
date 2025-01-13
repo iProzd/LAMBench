@@ -1,12 +1,14 @@
-from pathlib import Path
-from lambench.models.basemodel import BaseLargeAtomModel
 import logging
-from pymatgen.io.ase import AseAtomsAdaptor
-from ase.calculators.calculator import Calculator
-import numpy as np
-import dpdata
+from pathlib import Path
 from typing import Optional
 
+import ase
+import dpdata
+import numpy as np
+from ase.calculators.calculator import Calculator
+from pymatgen.io.ase import AseAtomsAdaptor
+
+from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.direct.direct_predict import DirectPredictTask
 
 
@@ -47,8 +49,11 @@ class ASEModel(BaseLargeAtomModel):
                 from mattersim.forcefield import MatterSimCalculator
                 CALC = MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
             elif self.model_name.lower().startswith("dp"):
-                logging.error("Please use DPModel for DP models.")
-                return
+                from deepmd.calculator import DP
+                CALC = DP(
+                    model="/bohr/lambench-model-55c1/v2/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt",  # TODO: replace with self.model_path
+                    head="Domains_Drug",  # FIXME: should select a head w.r.t. the data
+                )
             else:
                 logging.error(f"Model {self.model_name} is not supported by ASEModel")
                 return
@@ -81,7 +86,7 @@ class ASEModel(BaseLargeAtomModel):
 
             for ls in sys:
                 for frame in ls:
-                    atoms = frame.to_ase_structure()[0]
+                    atoms:ase.Atoms = frame.to_ase_structure()[0] # type: ignore
                     atoms.calc = calc
                     force_pred = atoms.get_forces()
 
@@ -118,7 +123,7 @@ class ASEModel(BaseLargeAtomModel):
                             virial_err_per_atom.append(
                                 virial_err[-1] / force_err[-1].shape[0]
                             )
-                        except:
+                        except KeyError:
                             pass # no virial in the data
 
         atom_num = np.array(atom_num)
