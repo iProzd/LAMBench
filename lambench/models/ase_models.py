@@ -23,37 +23,34 @@ class ASEModel(BaseLargeAtomModel):
             logging.error(f"ASEModel does not support target_name {task.target_name}")
             return
         else:
-            if self.model_id.lower().startswith("mace"):
+            if self.model_name.lower().startswith("mace"):
                 from mace.calculators import mace_mp
 
                 CALC = mace_mp(model="medium", device="cuda", default_dtype="float64")
-            elif self.model_id.lower().startswith("orb"):
+            elif self.model_name.lower().startswith("orb"):
                 from orb_models.forcefield import pretrained
                 from orb_models.forcefield.calculator import ORBCalculator
 
                 orbff = pretrained.orb_v2(device="cuda")  # orb-v2-20241011.ckpt
                 CALC = ORBCalculator(orbff, device="cuda")
-            elif self.model_id.lower().startswith("7net"):
+            elif self.model_name.lower().startswith("7net"):
                 from sevenn.sevennet_calculator import SevenNetCalculator
 
                 CALC = SevenNetCalculator("7net-0_11July2024", device="cuda")
-            elif self.model_id.lower().startswith("eqv2"):
+            elif self.model_name.lower().startswith("eqv2"):
                 from fairchem.core import OCPCalculator
 
                 CALC = OCPCalculator(
                     checkpoint_path="eqV2_153M_omat_mp_salex.pt", cpu=False
                 )
-            elif self.model_id.lower().startswith("mattersim"):
+            elif self.model_name.lower().startswith("mattersim"):
                 from mattersim.forcefield import MatterSimCalculator
-
-                CALC = MatterSimCalculator(
-                    load_path="MatterSim-v1.0.0-5M.pth", device="cuda"
-                )
-            elif self.model_id.lower().startswith("dp"):
+                CALC = MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
+            elif self.model_name.lower().startswith("dp"):
                 logging.error("Please use DPModel for DP models.")
                 return
             else:
-                logging.error(f"Model {self.model_id} is not supported by ASEModel")
+                logging.error(f"Model {self.model_name} is not supported by ASEModel")
                 return
             return self.run_ase_dptest(CALC, task.test_data)
 
@@ -137,7 +134,7 @@ class ASEModel(BaseLargeAtomModel):
         unbiased_energy_err_per_a = unbiased_energy / atom_num.sum(-1)
 
         res = {
-            "Energy MAE": [np.mean(np.abs(np.stack(unbiased_energy)))],
+            "Energy MAE": [np.mean(np.abs(np.stack(unbiased_energy)))], # type: ignore
             "Energy RMSE": [np.sqrt(np.mean(np.square(unbiased_energy)))],
             "Energy MAE/Natoms": [np.mean(np.abs(np.stack(unbiased_energy_err_per_a)))],
             "Energy RMSE/Natoms": [

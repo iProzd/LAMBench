@@ -1,43 +1,43 @@
-# This is the configuration file for the models used in the benchmark. 
+# This is the configuration file for the models used in the benchmark.
 # Moidifications to this file will trigger automatic workflow runs to update the benchmark results.
 
 DP_2024Q4:
-  model_id: dp_demo_20241212_v1
+  model_name: dp_demo_20241212_v1
   model_type: DP
-  model_path: lambench/models/DP/dp_demo_20241212_v1/model.ckpt-1000.pt
+  model_path: /bohr/lambench-model-55c1/v2/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
   virtualenv: dp_v3.0.0b4
   model_metadata:
       model_description: "DP 2024 Q4, 37head share fitting 120GPU pretrain"
 MACE_MP_0:
-  model_id: mace_mp_0_medium
+  model_name: mace_mp_0_medium
   model_type: ASE
   model_path: null
   virtualenv: mace_v1.0.0
   model_metadata:
       model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model
 ORB_V2:
-  model_id: orb_v2
+  model_name: orb_v2
   model_type: ASE
   model_path: null
   virtualenv: orb_v2
   model_metadata:
       model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt
 SEVENNET_0:
-  model_id: 7net_0
+  model_name: 7net_0
   model_type: ASE
   model_path: null
   virtualenv: sevennet_v0.1.0
   model_metadata:
       model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth
 EQ_V2:
-  model_id: eqV2_153M_omat_mp_salex
+  model_name: eqV2_153M_omat_mp_salex
   model_type: ASE
   model_path: lambench/models/ASE/eq_v2/eqV2_153M_omat_mp_salex.pt
   virtualenv: eq_v2
   model_metadata:
       model_description: "eqV2_153M_omat_mp_salex"
 MATTERSIM_V1_5M:
-  model_id: MatterSim_v1.0.0_5M
+  model_name: MatterSim_v1.0.0_5M
   model_type: ASE
   model_path: lambench/models/ASE/mattersim_v1_5M/mattersim_v1_5M.pt
   virtualenv: mattersim_v1

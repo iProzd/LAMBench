@@ -1,12 +1,13 @@
+from __future__ import annotations # For class method return type hinting
 import os
-from typing import List
+from typing import Sequence
 from sqlalchemy import Column, Integer, String, Float, create_engine, asc
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
 Base = declarative_base()
-load_dotenv()
+load_dotenv(override=True)
 
 db_username = os.environ.get("MYSQL_USERNAME")
 db_password = os.environ.get("MYSQL_PASSWORD")
@@ -21,29 +22,31 @@ Session = sessionmaker(db)
 class BaseRecord(Base):
     __abstract__ = True
 
-    id = Column(Integer, primary_key=True)
-    model_id = Column(String(256), index=True)
-    record_name = Column(String(256))
-    
+    id = Column(Integer, primary_key=True) # index
+    model_name = Column(String(256), index=True)
+    task_name = Column(String(256))
+    # NOTE: record_name = model_name + "#" + task_name
 
-    def insert(self) -> int:
-        session = Session()
-        session.add(self)
-        session.flush()
-        session.commit()
-        session.close()
+    def insert(self):
+        with Session() as session:
+            session.add(self)
+            session.commit()
 
     @classmethod
-    def query(cls, **kwargs) -> List["BaseRecord"]:
-        session = Session()
-        records = session.query(cls).filter_by(**kwargs).all()
-        session.close()
-        return records
+    def query(cls, **kwargs) -> Sequence[BaseRecord]:
+        with Session() as session:
+            return session.query(cls).filter_by(**kwargs).all()
 
     @classmethod
-    def query_by_run(cls, model_id: str) -> List["BaseRecord"]:
-        return cls.query(model_id=model_id)
-
-    @classmethod
-    def query_by_name(cls, record_name: str) -> List["BaseRecord"]:
-        return cls.query(record_name=record_name)
+    def count(cls, **kwargs) -> int:
+        """Query records by keyword arguments.
+        Input:
+            model_name: str
+            task_name: str
+        Return:
+            int: number of records found
+        Example:
+            >>> PropertyRecord.count(model_name="TEST_DP_v1", task_name="task1")
+        """
+        with Session() as session:
+            return session.query(cls).filter_by(**kwargs).count()

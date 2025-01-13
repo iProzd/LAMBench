@@ -4,7 +4,5 @@ from sqlalchemy import Column, String, Float
 class PropertyRecord(BaseRecord):
     __tablename__ = "property"
 
-    task_name = Column(String(100))
     property_rmse = Column(Float)
     property_mae = Column(Float)
-    

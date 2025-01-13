@@ -2,6 +2,8 @@ from pathlib import Path
 import pytest
 from unittest.mock import patch
 
+from lambench.databases.base_table import BaseRecord
+
 
 def make_dummy_data():
     Path("data/dummy/test/1").mkdir(parents=True, exist_ok=True)
@@ -33,28 +35,32 @@ def finetune_yml_data():
         }
     }
 
+@pytest.fixture
+def mock_record_count():
+    with patch.object(BaseRecord, "count") as mock_method:
+        yield mock_method
 
 @pytest.fixture
-def mock_direct_predict_record():
-    with patch(
-        "lambench.tasks.direct.direct_predict.DirectPredictRecord"
-    ) as mock_record:
-        yield mock_record
+def mock_record_query():
+    with patch.object(BaseRecord, "query") as mock_method:
+        yield mock_method
 
+@pytest.fixture
+def mock_record_insert():
+    with patch.object(BaseRecord, "insert") as mock_method:
+        yield mock_method
 
 @pytest.fixture
 def mock_finetune_record():
-    with patch(
-        "lambench.tasks.finetune.property_finetune.PropertyRecord"
-    ) as mock_record:
-        yield mock_record
+    with patch("lambench.tasks.finetune.PropertyFinetuneTask.Record") as mock_method:
+        yield mock_method
 
 
 @pytest.fixture
 def direct_task_data():
     make_dummy_data()
     return {
-        "record_name": "model1#taskA",
+        "task_name": "taskA",
         "test_data": Path("data/dummy/test/1"),
     }
 
@@ -63,7 +69,7 @@ def direct_task_data():
 def finetune_task_data():
     make_dummy_data()
     return {
-        "record_name": "model1#taskA",
+        "task_name": "taskA",
         "property_name": "dipole_moment",
         "intensive": False,
         "property_dim": 1,
@@ -77,7 +83,7 @@ def finetune_task_data():
 @pytest.fixture
 def valid_model_data():
     return {
-        "model_id": "model1",
+        "model_name": "model1",
         "model_type": "DP",
         "model_path": Path("oss://lambench/DP/model.ckpt-1000.pt"),
         "virtualenv": "oss://lambench/DP/model1/venv",
@@ -88,7 +94,7 @@ def valid_model_data():
 @pytest.fixture
 def invalid_model_data():
     return {
-        "model_id": "model1",
+        "model_name": "model1",
         "model_type": "Unknown",
         "model_path": None,
         "model_metadata": {"author": "author1", "description": "description1"},

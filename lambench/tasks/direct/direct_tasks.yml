@@ -1,30 +1,30 @@
 ANI:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/ANI"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/ANI"
 HEA25_S:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/HEA25_S"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/HEA25_S"
 HEA25_bulk:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/HEA25_bulk"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/HEA25_bulk"
 HEMC_HEMB:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/HEMC_HEMB"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/HEMC_HEMB"
 MD22:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/MD22"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/MD22"
 Collision:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/collision"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/collision"
 H_nature_2022:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/H_nature_2022"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/H_nature_2022"
 REANN_CO2_Ni100:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/REANN_CO2_Ni100"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/REANN_CO2_Ni100"
 NequIP_NC_2022:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/NequIP_NC_2022"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/NequIP_NC_2022"
 AIMD-Chig:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/AIMD-Chig"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/AIMD-Chig"
 CGM_MLP_NC2023:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/CGM_MLP_NC2023"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/CGM_MLP_NC2023"
 Cu_MgO_catalysts:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/Cu_MgO_catalysts"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/Cu_MgO_catalysts"
 Subalex_9k:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/subalex_downsample_9k"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/subalex_downsample_9k"
 WBM_downsampled:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/WBM_downsampled"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/WBM_downsampled"
 Torsionnet500:
-  test_data: "/bohr/lambench-ood-3z0s/v1/LAMBench-TestData-v1/raw_torsionnet500"
+  test_data: "/bohr/lambench-ood-3z0s/v3/LAMBench-TestData-v1/raw_torsionnet500"

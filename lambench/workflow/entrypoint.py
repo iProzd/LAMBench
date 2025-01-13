@@ -38,8 +38,8 @@ def gather_task_type(models, task_file: str, task_class: Type[BaseTask]) -> list
         task_configs = yaml.safe_load(f)
     for model in models:
         for task_name, task_param in task_configs.items():
-            task = task_class(record_name=f"{model.model_id}#{task_name}", **task_param)
-            if task.fetch_result() is None:
+            task = task_class(task_name=task_name, **task_param)
+            if not task.exist(model.model_name):
                 tasks.append((task, model))
     return tasks
 
@@ -63,7 +63,7 @@ def main():
     """
     jobs = gather_jobs()
     for task, model in jobs:
-        logging.info(f"Running task {task.record_name}")
+        logging.info(f"Running task {task.task_name}")
         submit_job(task, model)
 
 # TODO: wrap as an OP
