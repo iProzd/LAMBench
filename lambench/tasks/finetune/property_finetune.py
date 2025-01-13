@@ -13,7 +13,7 @@ class PropertyFinetuneTask(BaseTask):
     Currently does not support ASE interface.
     """
 
-    record_type:ClassVar = PropertyRecord  # noqa: F821
+    record_type:ClassVar = PropertyRecord
     property_name: str
     intensive: bool = True
     property_dim: int = 1
