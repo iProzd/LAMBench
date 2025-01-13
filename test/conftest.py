@@ -2,6 +2,8 @@ from pathlib import Path
 import pytest
 from unittest.mock import patch
 
+from lambench.databases.base_table import BaseRecord
+
 
 def make_dummy_data():
     Path("data/dummy/test/1").mkdir(parents=True, exist_ok=True)
@@ -33,19 +35,20 @@ def finetune_yml_data():
         }
     }
 
+@pytest.fixture
+def mock_record_count():
+    with patch.object(BaseRecord, "count") as mock_method:
+        yield mock_method
 
 @pytest.fixture
-def mock_direct_predict_record():
-    with patch(
-        "lambench.databases.direct_predict_table.DirectPredictRecord"
-    ) as mock_record:
-        yield mock_record
-
+def mock_record_query():
+    with patch.object(BaseRecord, "query") as mock_method:
+        yield mock_method
 
 @pytest.fixture
 def mock_finetune_record():
-    with patch("lambench.databases.property_table.PropertyRecord") as mock_record:
-        yield mock_record
+    with patch("lambench.tasks.finetune.PropertyFinetuneTask.Record") as mock_method:
+        yield mock_method
 
 
 @pytest.fixture
