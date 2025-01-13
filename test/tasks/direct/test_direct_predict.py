@@ -67,18 +67,17 @@ def test_run_task_no_existing_record(
 ):
     mock_record_count.return_value = 0
 
-    # Mock the evaluate method
     model = DPModel(**valid_model_data)
     with (
         patch.object(
-            DirectPredictTask, "evaluate", return_value={"energy_rmse": 0.42}
-        ) as mock_evaluate,
+            DPModel, "evaluate", return_value={"energy_rmse": 0.42}
+        ) as mock_run_task,
         caplog.at_level(logging.INFO),
     ):
         task = DirectPredictTask(**direct_task_data)
         task.run_task(model)
 
-    mock_evaluate.assert_called_once()
+    mock_run_task.assert_called_once()
     assert (
         f"TASK {direct_task_data['task_name']}"+" OUTPUT: {'energy_rmse': 0.42}, INSERTING."
         in caplog.text

@@ -72,14 +72,14 @@ def test_run_task_no_existing_record(
     model = DPModel(**valid_model_data)
     with (
         patch.object(
-            PropertyFinetuneTask, "evaluate", return_value={"property_rmse": 0.42}
-        ) as mock_evaluate,
+            DPModel, "evaluate", return_value={"property_rmse": 0.42}
+        ) as mock_run_task,
         caplog.at_level(logging.INFO),
     ):
         task = PropertyFinetuneTask(**finetune_task_data)
         task.run_task(model)
 
-    mock_evaluate.assert_called_once()
+    mock_run_task.assert_called_once()
     assert (
         f"TASK {finetune_task_data['task_name']}"
         + " OUTPUT: {'property_rmse': 0.42}, INSERTING."

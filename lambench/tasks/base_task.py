@@ -13,10 +13,6 @@ class BaseTask(BaseModel):
     workdir: Path = Path(tempfile.gettempdir()) / "lambench"
     record_type: ClassVar = BaseRecord
 
-    def evaluate(self, model: BaseLargeAtomModel):
-        task_output: dict = model.evaluate(self)
-        return task_output
-
     def exist(self, model_name: str) -> bool:
         num_records = self.record_type.count(
             task_name=self.task_name, model_name=model_name
@@ -33,7 +29,7 @@ class BaseTask(BaseModel):
             logging.info(f"TASK {self.task_name} record found in database, SKIPPING.")
             return
         else:
-            task_output = self.evaluate(model)
+            task_output = model.evaluate(task=self)
             logging.info(f"TASK {self.task_name} OUTPUT: {task_output}, INSERTING.")
             self.record_type(
                 task_name=self.task_name,
