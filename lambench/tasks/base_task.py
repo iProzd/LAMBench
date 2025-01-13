@@ -10,7 +10,7 @@ class BaseTask(BaseModel):
     test_data: Path
     model_config = ConfigDict(extra='allow')
     workdir: Path = Path(tempfile.gettempdir()) / "lambench"
-    record_type: type[BaseRecord] = BaseRecord
+    record_type: ClassVar = BaseRecord
 
     def evaluate(self, model: BaseLargeAtomModel):
         task_output: dict = model.evaluate(self)
