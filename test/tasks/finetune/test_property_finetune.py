@@ -64,7 +64,7 @@ def test_run_task_existing_record(
 
 
 def test_run_task_no_existing_record(
-    mock_record_count, valid_model_data, finetune_task_data, caplog
+    mock_record_count, mock_record_insert, valid_model_data, finetune_task_data, caplog
 ):
     mock_record_count.return_value = 0
 

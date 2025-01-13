@@ -46,6 +46,11 @@ def mock_record_query():
         yield mock_method
 
 @pytest.fixture
+def mock_record_insert():
+    with patch.object(BaseRecord, "insert") as mock_method:
+        yield mock_method
+
+@pytest.fixture
 def mock_finetune_record():
     with patch("lambench.tasks.finetune.PropertyFinetuneTask.Record") as mock_method:
         yield mock_method
