@@ -1,3 +1,4 @@
+import traceback
 from typing import Type
 from lambench.tasks import DirectPredictTask, PropertyFinetuneTask
 from lambench.models.ase_models import ASEModel
@@ -58,9 +59,6 @@ def gather_jobs():
     return jobs
 
 def main():
-    """
-    TODO: wrap as dflow OP
-    """
     jobs = gather_jobs()
     for task, model in jobs:
         logging.info(f"Running task {task.task_name}")
@@ -68,7 +66,12 @@ def main():
 
 # TODO: wrap as an OP
 def submit_job(task, model):
-    task.run_task(model)
-
+    try:
+        task.run_task(model)
+    except ModuleNotFoundError as e:
+        logging.error(e) # Import error for ASE models
+    except Exception as e:
+        traceback.print_exc()
+        logging.error(f"Task {task.task_name}, {model.model_name} failed!")
 if __name__ == "__main__":
     main()
