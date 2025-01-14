@@ -19,6 +19,7 @@ class PropertyFinetuneTask(BaseTask):
     property_dim: int = 1
     train_data: Path
     train_steps: int = 1000
+    target_name: ClassVar = "standard"
 
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, **kwargs)
