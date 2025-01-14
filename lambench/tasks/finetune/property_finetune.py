@@ -14,14 +14,14 @@ class PropertyFinetuneTask(BaseTask):
     """
 
     record_type: ClassVar = PropertyRecord
-    property_name: str
+    property_name: str  # The name of the property to be finetuned, e.g. dielectric
     intensive: bool = True
     property_dim: int = 1
     train_data: Path
     train_steps: int = 1000
 
     def __init__(self, task_name: str, **kwargs):
-        super().__init__(task_name=task_name, **kwargs, target_name="finetune")
+        super().__init__(task_name=task_name, **kwargs)
 
     def evaluate(self, model: BaseLargeAtomModel):
         self.get_property_json()

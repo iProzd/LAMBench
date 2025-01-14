@@ -12,5 +12,5 @@ class DirectPredictTask(BaseTask):
     record_type: ClassVar = DirectPredictRecord
 
     def __init__(self, task_name: str, **kwargs):
-        super().__init__(task_name=task_name, test_data=kwargs["test_data"], target_name="standard")
+        super().__init__(task_name=task_name, test_data=kwargs["test_data"])
         # self.test_file_path = self.prepare_test_data()
