@@ -1,7 +1,14 @@
-from __future__ import annotations # For class method return type hinting
+from __future__ import annotations  # For class method return type hinting
 import os
 from typing import Sequence
-from sqlalchemy import Column, Integer, String, Float, create_engine, asc
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    create_engine,
+    func,
+    TIMESTAMP,
+)
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
@@ -19,12 +26,14 @@ db = create_engine(
 )
 Session = sessionmaker(db)
 
+
 class BaseRecord(Base):
     __abstract__ = True
 
-    id = Column(Integer, primary_key=True) # index
+    id = Column(Integer, primary_key=True)  # index
     model_name = Column(String(256), index=True)
     task_name = Column(String(256))
+    create_time = Column(TIMESTAMP(True), server_default=func.now())
     # NOTE: record_name = model_name + "#" + task_name
 
     def insert(self):
