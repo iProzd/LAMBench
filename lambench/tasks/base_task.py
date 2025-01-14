@@ -12,6 +12,7 @@ class BaseTask(BaseModel):
     model_config = ConfigDict(extra='allow')
     workdir: Path = Path(tempfile.gettempdir()) / "lambench"
     record_type: ClassVar = BaseRecord
+    target_name: str
 
     def exist(self, model_name: str) -> bool:
         num_records = self.record_type.count(

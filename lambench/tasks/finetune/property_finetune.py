@@ -13,16 +13,15 @@ class PropertyFinetuneTask(BaseTask):
     Currently does not support ASE interface.
     """
 
-    record_type:ClassVar = PropertyRecord
+    record_type: ClassVar = PropertyRecord
     property_name: str
     intensive: bool = True
     property_dim: int = 1
     train_data: Path
     train_steps: int = 1000
-    target_name: ClassVar = "standard"
 
     def __init__(self, task_name: str, **kwargs):
-        super().__init__(task_name=task_name, **kwargs)
+        super().__init__(task_name=task_name, **kwargs, target_name="finetune")
 
     def evaluate(self, model: BaseLargeAtomModel):
         self.get_property_json()

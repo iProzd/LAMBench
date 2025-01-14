@@ -8,8 +8,9 @@ class DirectPredictTask(BaseTask):
     Support direct energy force prediction for DP interface, and zero-shot energy force prediciton for DP interface.
     For models using the ASE interface, should use `DirectPredictASETask` instead.
     """
-    record_type:ClassVar = DirectPredictRecord
-    target_name:ClassVar = "standard"
+
+    record_type: ClassVar = DirectPredictRecord
+
     def __init__(self, task_name: str, **kwargs):
-        super().__init__(task_name=task_name, test_data=kwargs["test_data"])
+        super().__init__(task_name=task_name, test_data=kwargs["test_data"], target_name="standard")
         # self.test_file_path = self.prepare_test_data()
