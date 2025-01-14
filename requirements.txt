@@ -52,4 +52,4 @@ uncertainties==3.2.2
 urllib3==2.2.3
 wcmatch==10.0
 -e git+https://github.com/iProzd/deepmd-kit.git@0103_prob_scp_e1a#egg=deepmd-kit
--e git+https://github.com/anyangml/dpdata.git@feat/set-force-label-optional#egg=dpdata
+-e git+https://github.com/deepmodeling/dpdata.git@46251a71ac12762303445d08de36dedbb1355459#egg=dpdata
