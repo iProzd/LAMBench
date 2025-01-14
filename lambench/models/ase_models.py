@@ -20,47 +20,45 @@ class ASEModel(BaseLargeAtomModel):
             )
 
     def evaluate(self, task: DirectPredictTask) -> Optional[dict[str, float]]:
-        if task.target_name != "standard":
-            logging.error(f"ASEModel does not support target_name {task.target_name}")
-            return
+        if not isinstance(task, DirectPredictTask):
+            raise ValueError(f"ASEModel only supports DirectPredictTask, got {task}")
+
+        if self.model_name.lower().startswith("mace"):
+            from mace.calculators import mace_mp
+
+            CALC = mace_mp(model="medium", device="cuda", default_dtype="float64")
+        elif self.model_name.lower().startswith("orb"):
+            from orb_models.forcefield import pretrained
+            from orb_models.forcefield.calculator import ORBCalculator
+
+            orbff = pretrained.orb_v2(device="cuda")  # orb-v2-20241011.ckpt
+            CALC = ORBCalculator(orbff, device="cuda")
+        elif self.model_name.lower().startswith("7net"):
+            from sevenn.sevennet_calculator import SevenNetCalculator
+
+            CALC = SevenNetCalculator("7net-0_11July2024", device="cuda")
+        elif self.model_name.lower().startswith("eqv2"):
+            from fairchem.core import OCPCalculator
+
+            CALC = OCPCalculator(
+                checkpoint_path="eqV2_153M_omat_mp_salex.pt", cpu=False
+            )
+        elif self.model_name.lower().startswith("mattersim"):
+            from mattersim.forcefield import MatterSimCalculator
+
+            CALC = MatterSimCalculator(
+                load_path="MatterSim-v1.0.0-5M.pth", device="cuda"
+            )
+        elif self.model_name.lower().startswith("dp"):
+            from deepmd.calculator import DP
+
+            CALC = DP(
+                model="/bohr/lambench-model-55c1/v2/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt",  # TODO: replace with self.model_path
+                head="Domains_Drug",  # FIXME: should select a head w.r.t. the data
+            )
         else:
-            if self.model_name.lower().startswith("mace"):
-                from mace.calculators import mace_mp
-
-                CALC = mace_mp(model="medium", device="cuda", default_dtype="float64")
-            elif self.model_name.lower().startswith("orb"):
-                from orb_models.forcefield import pretrained
-                from orb_models.forcefield.calculator import ORBCalculator
-
-                orbff = pretrained.orb_v2(device="cuda")  # orb-v2-20241011.ckpt
-                CALC = ORBCalculator(orbff, device="cuda")
-            elif self.model_name.lower().startswith("7net"):
-                from sevenn.sevennet_calculator import SevenNetCalculator
-
-                CALC = SevenNetCalculator("7net-0_11July2024", device="cuda")
-            elif self.model_name.lower().startswith("eqv2"):
-                from fairchem.core import OCPCalculator
-
-                CALC = OCPCalculator(
-                    checkpoint_path="eqV2_153M_omat_mp_salex.pt", cpu=False
-                )
-            elif self.model_name.lower().startswith("mattersim"):
-                from mattersim.forcefield import MatterSimCalculator
-
-                CALC = MatterSimCalculator(
-                    load_path="MatterSim-v1.0.0-5M.pth", device="cuda"
-                )
-            elif self.model_name.lower().startswith("dp"):
-                from deepmd.calculator import DP
-
-                CALC = DP(
-                    model="/bohr/lambench-model-55c1/v2/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt",  # TODO: replace with self.model_path
-                    head="Domains_Drug",  # FIXME: should select a head w.r.t. the data
-                )
-            else:
-                logging.error(f"Model {self.model_name} is not supported by ASEModel")
-                return
-            return self.run_ase_dptest(CALC, task.test_data)
+            raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
+        return self.run_ase_dptest(CALC, task.test_data)
 
     @staticmethod
     def run_ase_dptest(calc: Calculator, test_data: Path) -> dict:

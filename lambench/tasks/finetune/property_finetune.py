@@ -13,8 +13,8 @@ class PropertyFinetuneTask(BaseTask):
     Currently does not support ASE interface.
     """
 
-    record_type:ClassVar = PropertyRecord
-    property_name: str
+    record_type: ClassVar = PropertyRecord
+    property_name: str  # The name of the property to be finetuned, e.g. dielectric
     intensive: bool = True
     property_dim: int = 1
     train_data: Path
