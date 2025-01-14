@@ -1,4 +1,4 @@
-# LAMBench [Under Construction]
+# LAMBench (in development)
 
 LAMBench is a benchmarking tool designed to evaluate the performance of various machine learning interatomic potential models (MLIPs). It provides a comprehensive suite of tests and metrics to help developers and researchers understand the generalizability of their machine learning models.
 
@@ -11,11 +11,10 @@ LAMBench is a benchmarking tool designed to evaluate the performance of various 
 
 ## Installation
 
-To install LAMBench, clone the repository and install the required dependencies:
-
 ```bash
-pip install git+https://github.com/deepmodeling/LAMBench.git#egg=lambench
+pip install git+https://github.com/deepmodeling/LAMBench.git#egg=lambench[deepmd,mace,sevenn,orb]
 ```
+The optional dependencies are required for the corresponding benchmarks.
 
 ## Usage
 
