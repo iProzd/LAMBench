@@ -16,6 +16,11 @@ pip install git+https://github.com/deepmodeling/LAMBench.git#egg=lambench[deepmd
 ```
 The optional dependencies are required for the corresponding models.
 
+### Installing with equivariant v2 models
+Using equivariant v2 models requires the installation of the additional pytorch-geometric packages.
+Follow [the instructions](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html#additional-libraries), then install `lambench[fairchem]`, e.g.
+`pip install torch_geometric pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cu124.html`
+
 ## Usage
 
 To run the benchmarks, use the following command:

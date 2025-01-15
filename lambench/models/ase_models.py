@@ -43,7 +43,13 @@ class ASEModel(BaseLargeAtomModel):
             from fairchem.core import OCPCalculator
 
             CALC = OCPCalculator(
-                checkpoint_path="eqV2_153M_omat_mp_salex.pt", cpu=False
+                checkpoint_path="eqV2_153M_omat_mp_salex.pt",
+                # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints with agreement with the license
+                # NOTE: check the list of public model at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
+                # Uncomment the following lines to use one:
+                # model_name="EquiformerV2-153M-S2EF-OC20-All+MD",
+                # local_cache=str(Path.home().joinpath(".cache")),
+                cpu=False,
             )
         elif self.model_name.lower().startswith("mattersim"):
             from mattersim.forcefield import MatterSimCalculator
@@ -132,8 +138,9 @@ class ASEModel(BaseLargeAtomModel):
                             virial_err[-1] / force_err[-1].shape[0]
                         )
                     except (
-                        KeyError,  # frame.data["virials"]
+                        NotImplementedError,  # atoms.get_stress() for eqv2
                         ValueError,  # atoms.get_volume()
+                        KeyError,  # frame.data["virials"]
                     ) as _:  # no virial in the data
                         pass
 
