@@ -8,7 +8,7 @@ import numpy as np
 from ase.calculators.calculator import Calculator
 
 from lambench.models.basemodel import BaseLargeAtomModel
-from lambench.tasks.direct.direct_predict import DirectPredictTask
+from lambench.tasks.direct.direct_tasks import DirectPredictTask
 
 
 class ASEModel(BaseLargeAtomModel):
