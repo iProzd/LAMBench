@@ -21,7 +21,9 @@ class ASEModel(BaseLargeAtomModel):
 
     def evaluate(self, task: DirectPredictTask) -> Optional[dict[str, float]]:
         if not isinstance(task, DirectPredictTask):
-            raise ValueError(f"ASEModel only supports DirectPredictTask, got {type(task)=}")
+            raise ValueError(
+                f"ASEModel only supports DirectPredictTask, got {type(task)=}"
+            )
 
         if self.model_name.lower().startswith("mace"):
             from mace.calculators import mace_mp
@@ -122,8 +124,11 @@ class ASEModel(BaseLargeAtomModel):
                             virial_err_per_atom.append(
                                 virial_err[-1] / force_err[-1].shape[0]
                             )
-                        except KeyError:
-                            pass  # no virial in the data
+                        except (
+                            KeyError,  # frame.data["virials"]
+                            ValueError,  # atoms.get_volume()
+                        ) as _:  # no virial in the data
+                            pass
 
         atom_num = np.array(atom_num)
         energy_err = np.array(energy_err)
