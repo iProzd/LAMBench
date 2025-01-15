@@ -35,20 +35,24 @@ def finetune_yml_data():
         }
     }
 
+
 @pytest.fixture
 def mock_record_count():
     with patch.object(BaseRecord, "count") as mock_method:
         yield mock_method
+
 
 @pytest.fixture
 def mock_record_query():
     with patch.object(BaseRecord, "query") as mock_method:
         yield mock_method
 
+
 @pytest.fixture
 def mock_record_insert():
     with patch.object(BaseRecord, "insert") as mock_method:
         yield mock_method
+
 
 @pytest.fixture
 def mock_finetune_record():
@@ -87,7 +91,6 @@ def valid_model_data():
         "model_type": "DP",
         "model_path": Path("oss://lambench/DP/model.ckpt-1000.pt"),
         "virtualenv": "oss://lambench/DP/model1/venv",
-        "model_metadata": {"author": "author1", "description": "description1"},
     }
 
 
@@ -97,5 +100,4 @@ def invalid_model_data():
         "model_name": "model1",
         "model_type": "Unknown",
         "model_path": None,
-        "model_metadata": {"author": "author1", "description": "description1"},
     }
