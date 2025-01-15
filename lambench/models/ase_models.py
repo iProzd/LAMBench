@@ -43,11 +43,13 @@ class ASEModel(BaseLargeAtomModel):
             from fairchem.core import OCPCalculator
 
             CALC = OCPCalculator(
-                # checkpoint_path="eqV2_153M_omat_mp_salex.pt"
-                model_name="EquiformerV2-153M-S2EF-OC20-All+MD",
-                local_cache=str(Path.home().joinpath(".cache")),
+                checkpoint_path="eqV2_153M_omat_mp_salex.pt",
+                # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints
+                # NOTE: check the list of public model at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
+                # Uncomment the following lines to use one:
+                # model_name="EquiformerV2-153M-S2EF-OC20-All+MD",
+                # local_cache=str(Path.home().joinpath(".cache")),
                 cpu=False,
-                # NOTE: check the model list at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
             )
         elif self.model_name.lower().startswith("mattersim"):
             from mattersim.forcefield import MatterSimCalculator
