@@ -4,9 +4,9 @@ from enum import Enum
 
 
 with open("lambench/models/models_config.yml", "r") as file:
-    yaml_data = {v["model_name"]: k for k, v in yaml.safe_load(file).items()}
+    yaml_data = {k: v["model_name"] for k, v in yaml.safe_load(file).items()}
 
-ModelEnum = Enum("ModelEnum", yaml_data)  # dpa2_241126_v2_4_0: "DP_2024Q4"
+ModelEnum = Enum("ModelEnum", yaml_data)  # DP_2024Q4: "dpa2_241126_v2_4_0"
 
 
 class ModelMetadata(BaseModel):
@@ -24,9 +24,9 @@ class LeaderboardModel(BaseModel):
 
     @field_validator("model_name")
     def validate_model_name(cls, v):
-        if v not in ModelEnum.__members__.keys():
+        if v not in [e.value for e in ModelEnum]:
             raise ValueError(
-                f"Invalid model name: {v}, not in {ModelEnum.__members__.keys()}"
+                f"Invalid model name: {v}, not in {[e.value for e in ModelEnum]}"
             )
         return v
 
