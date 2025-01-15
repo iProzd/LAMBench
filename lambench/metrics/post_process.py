@@ -25,7 +25,6 @@ class LeaderboardModel(BaseModel):
     @field_validator("model_name")
     def validate_model_name(cls, v):
         if v not in ModelEnum.__members__.keys():
-            print(v, ModelEnum)
             raise ValueError(
                 f"Invalid model name: {v}, not in {ModelEnum.__members__.keys()}"
             )
