@@ -44,7 +44,7 @@ class ASEModel(BaseLargeAtomModel):
 
             CALC = OCPCalculator(
                 checkpoint_path="eqV2_153M_omat_mp_salex.pt",
-                # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints
+                # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints with agreement with the license
                 # NOTE: check the list of public model at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
                 # Uncomment the following lines to use one:
                 # model_name="EquiformerV2-153M-S2EF-OC20-All+MD",
