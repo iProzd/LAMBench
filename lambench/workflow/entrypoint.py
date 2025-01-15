@@ -59,9 +59,11 @@ def gather_jobs():
     return jobs
 
 def main():
+    logging.basicConfig(level=logging.INFO)
+
     jobs = gather_jobs()
     for task, model in jobs:
-        logging.info(f"Running task {task.task_name}")
+        logging.info(f"Running task={task.task_name}, model={model.model_name}")
         submit_job(task, model)
 
 # TODO: wrap as an OP
@@ -72,6 +74,6 @@ def submit_job(task, model):
         logging.error(e) # Import error for ASE models
     except Exception as e:
         traceback.print_exc()
-        logging.error(f"Task {task.task_name}, {model.model_name} failed!")
+        logging.error(f"task={task.task_name}, model={model.model_name} failed!")
 if __name__ == "__main__":
     main()
