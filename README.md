@@ -14,7 +14,7 @@ LAMBench is a benchmarking tool designed to evaluate the performance of various 
 ```bash
 pip install git+https://github.com/deepmodeling/LAMBench.git#egg=lambench[deepmd,mace,sevenn,orb]
 ```
-The optional dependencies are required for the corresponding benchmarks.
+The optional dependencies are required for the corresponding models.
 
 ## Usage
 
