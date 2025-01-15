@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lambench"
+version = "0.1.0"
+dependencies = [
+	"ase",
+	"python-dotenv",
+	"numpy",
+	"pydantic",
+	"SQLAlchemy",
+	"dpdata @ git+https://github.com/deepmodeling/dpdata.git@46251a71ac12762303445d08de36dedbb1355459#egg=dpdata",
+]
+
+authors = [
+  { name="Chun Cai", email="amoycaic@gmail.com" },
+]
+
+description = "Benchmarking of Large Atomic Models"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+deepmd = ["deepmd-kit @ git+https://github.com/iProzd/deepmd-kit.git@0103_prob_scp_e1a#egg=deepmd-kit"]
+mace = ["mace-torch"]
+orb = ["orb-models","pynanoflann@git+https://github.com/dwastberg/pynanoflann#egg=af434039ae14bedcbb838a7808924d6689274168"]
+sevenn = ["sevenn"]
+
+[project.urls]
+Homepage = "https://github.com/deepmodeling/LAMBench"
+Issues = "https://github.com/deepmodeling/LAMBench/issues"
+
+[project.scripts]
+lambench = "lambench.workflow.entrypoint:main"
+
+[tool.setuptools]
+packages = ["lambench"]
