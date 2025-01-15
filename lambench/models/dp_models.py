@@ -1,4 +1,3 @@
-import logging
 import os
 from pathlib import Path
 from typing import Optional
@@ -31,6 +30,9 @@ class DPModel(BaseLargeAtomModel):
         "Subalex_9k": ("MP_traj_v024_alldata_mixu", True),
         "WBM_downsampled": ("MP_traj_v024_alldata_mixu", True),
         "Torsionnet500": ("Domains_Drug", True),
+        "Si_ZEO22": ("MP_traj_v024_alldata_mixu", True),
+        "HPt_NC_2022": ("OC20M", True),
+        "Ca_batteries_CM2021": ("Domains_Anode", True),
     }
     model_path: Path
 
@@ -86,7 +88,7 @@ class DPModel(BaseLargeAtomModel):
         return change_bias_model
 
     @staticmethod
-    def _test(model:Path, test_data: Path, head: Optional[str] = None):
+    def _test(model: Path, test_data: Path, head: Optional[str] = None):
         test_output = Path("dptest_output.txt")
         command = f"dp --pt test -m {model} -s {test_data} -l {test_output} {f'--head {head}' if head else ''}"
         deepmd_main(command.split()[1:])
