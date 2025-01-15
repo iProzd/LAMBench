@@ -15,6 +15,10 @@ class BaseLargeAtomModel(BaseModel):
     model_type: ModelType
     model_path: Optional[Path]
     virtualenv: str
+    model_metadata: dict[str, str]
+    show_direct_task: Optional[bool] = False
+    show_finetune_task: Optional[bool] = False
+    show_calculator_task: Optional[bool] = False
 
     @abstractmethod
     def evaluate(self, task) -> dict[str, float]:

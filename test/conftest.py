@@ -91,6 +91,8 @@ def valid_model_data():
         "model_type": "DP",
         "model_path": Path("oss://lambench/DP/model.ckpt-1000.pt"),
         "virtualenv": "oss://lambench/DP/model1/venv",
+        "model_metadata": {"author": "author1", "description": "description1"},
+        "show_direct_task": True,
     }
 
 
@@ -100,4 +102,5 @@ def invalid_model_data():
         "model_name": "model1",
         "model_type": "Unknown",
         "model_path": None,
+        "model_metadata": {"author": "author1", "description": "description1"},
     }
