@@ -39,39 +39,51 @@ def run_ase_dptest(
 
         for ls in sys:
             for frame in ls:
-                atoms = frame.to_ase_structure()[0]
+                atoms = frame.to_ase_structure()[0]  # type: ignore
                 atoms.calc = calc
-                ff = atoms.get_forces()
 
+                # Energy
                 energy_predict = np.array(atoms.get_potential_energy())
-                if not np.isnan(energy_predict):
-                    atomic_numbers = atoms.get_atomic_numbers()
-                    atom_num.append(np.bincount(atomic_numbers, minlength=max_ele_num))
+                if np.isnan(energy_predict):
+                    continue
 
-                    energy_pre.append(energy_predict)
-                    energy_lab.append(frame.data["energies"])
-                    energy_err.append(energy_predict - frame.data["energies"])
-                    force_err.append(frame.data["forces"].squeeze(0) - np.array(ff))
-                    energy_err_per_atom.append(energy_err[-1] / force_err[-1].shape[0])
-                    try:
-                        stress = atoms.get_stress()
-                        stress_tensor = (
-                            -np.array(
-                                [
-                                    [stress[0], stress[5], stress[4]],
-                                    [stress[5], stress[1], stress[3]],
-                                    [stress[4], stress[3], stress[2]],
-                                ]
-                            )
-                            * atoms.get_volume()
+                energy_pre.append(energy_predict)
+                energy_lab.append(frame.data["energies"])
+                energy_err.append(energy_predict - frame.data["energies"])
+                energy_err_per_atom.append(energy_err[-1] / len(atoms))
+                atomic_numbers = atoms.get_atomic_numbers()
+                atom_num.append(np.bincount(atomic_numbers, minlength=max_ele_num))
+
+                # Force
+                try:
+                    force_pred = atoms.get_forces()
+                    force_err.append(
+                        frame.data["forces"].squeeze(0) - np.array(force_pred)
+                    )
+                except KeyError as _:  # no force in the data
+                    pass
+
+                # Virial
+                try:
+                    stress = atoms.get_stress()
+                    stress_tensor = (
+                        -np.array(
+                            [
+                                [stress[0], stress[5], stress[4]],
+                                [stress[5], stress[1], stress[3]],
+                                [stress[4], stress[3], stress[2]],
+                            ]
                         )
-                        virial_err.append(frame.data["virials"] - stress_tensor)
-                        virial_err_per_atom.append(
-                            virial_err[-1] / force_err[-1].shape[0]
-                        )
-                    except:
-                        pass
-                else:
+                        * atoms.get_volume()
+                    )
+                    virial_err.append(frame.data["virials"] - stress_tensor)
+                    virial_err_per_atom.append(
+                        virial_err[-1] / force_err[-1].shape[0]
+                    )
+                except (
+                    KeyError,  # frame.data["virials"]
+                    ValueError,  # atoms.get_volume()
+                ) as _:  # no virial in the data
                     pass
 
     atom_num = np.array(atom_num)
