@@ -11,7 +11,7 @@ dependencies = [
 	"numpy",
 	"pydantic",
 	"SQLAlchemy[pymysql]",
-	"dpdata @ git+https://github.com/deepmodeling/dpdata.git@46251a71ac12762303445d08de36dedbb1355459#egg=dpdata",
+	"dpdata @ git+https://github.com/deepmodeling/dpdata.git@944af9dfbe0a6ae78d87a189a589d7614cbd8989#egg=dpdata",
 ]
 
 authors = [

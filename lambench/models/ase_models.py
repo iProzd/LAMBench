@@ -89,46 +89,53 @@ class ASEModel(BaseLargeAtomModel):
                 for frame in ls:
                     atoms: ase.Atoms = frame.to_ase_structure()[0]  # type: ignore
                     atoms.calc = calc
-                    force_pred = atoms.get_forces()
 
+                    # Energy
                     energy_predict = np.array(atoms.get_potential_energy())
-                    if not np.isnan(energy_predict):
-                        atomic_numbers = atoms.get_atomic_numbers()
-                        atom_num.append(
-                            np.bincount(atomic_numbers, minlength=max_ele_num)
+                    if np.isnan(energy_predict):
+                        logging.warning(
+                            f"Energy prediction is NaN for {frame.data['uid']}"
                         )
+                        continue
 
-                        energy_pre.append(energy_predict)
-                        energy_lab.append(frame.data["energies"])
-                        energy_err.append(energy_predict - frame.data["energies"])
-                        # TODO: handle the datasets without force labels
+                    energy_pre.append(energy_predict)
+                    energy_lab.append(frame.data["energies"])
+                    energy_err.append(energy_predict - frame.data["energies"])
+                    energy_err_per_atom.append(energy_err[-1] / len(atoms))
+                    atomic_numbers = atoms.get_atomic_numbers()
+                    atom_num.append(np.bincount(atomic_numbers, minlength=max_ele_num))
+
+                    # Force
+                    try:
+                        force_pred = atoms.get_forces()
                         force_err.append(
                             frame.data["forces"].squeeze(0) - np.array(force_pred)
                         )
-                        energy_err_per_atom.append(
-                            energy_err[-1] / force_err[-1].shape[0]
+                    except KeyError as _:  # no force in the data
+                        pass
+
+                    # Virial
+                    try:
+                        stress = atoms.get_stress()
+                        stress_tensor = (
+                            -np.array(
+                                [
+                                    [stress[0], stress[5], stress[4]],
+                                    [stress[5], stress[1], stress[3]],
+                                    [stress[4], stress[3], stress[2]],
+                                ]
+                            )
+                            * atoms.get_volume()
                         )
-                        try:
-                            stress = atoms.get_stress()
-                            stress_tensor = (
-                                -np.array(
-                                    [
-                                        [stress[0], stress[5], stress[4]],
-                                        [stress[5], stress[1], stress[3]],
-                                        [stress[4], stress[3], stress[2]],
-                                    ]
-                                )
-                                * atoms.get_volume()
-                            )
-                            virial_err.append(frame.data["virials"] - stress_tensor)
-                            virial_err_per_atom.append(
-                                virial_err[-1] / force_err[-1].shape[0]
-                            )
-                        except (
-                            KeyError,  # frame.data["virials"]
-                            ValueError,  # atoms.get_volume()
-                        ) as _:  # no virial in the data
-                            pass
+                        virial_err.append(frame.data["virials"] - stress_tensor)
+                        virial_err_per_atom.append(
+                            virial_err[-1] / force_err[-1].shape[0]
+                        )
+                    except (
+                        KeyError,  # frame.data["virials"]
+                        ValueError,  # atoms.get_volume()
+                    ) as _:  # no virial in the data
+                        pass
 
         atom_num = np.array(atom_num)
         energy_err = np.array(energy_err)
@@ -149,10 +156,17 @@ class ASEModel(BaseLargeAtomModel):
             "energy_rmse_natoms": [
                 np.sqrt(np.mean(np.square(unbiased_energy_err_per_a)))
             ],
-            "force_mae": [np.mean(np.abs(np.concatenate(force_err)))],
-            "force_rmse": [np.sqrt(np.mean(np.square(np.concatenate(force_err))))],
         }
-        if virial_err_per_atom != []:
+        if force_err:
+            res.update(
+                {
+                    "force_mae": [np.mean(np.abs(np.concatenate(force_err)))],
+                    "force_rmse": [
+                        np.sqrt(np.mean(np.square(np.concatenate(force_err))))
+                    ],
+                }
+            )
+        if virial_err_per_atom:
             res.update(
                 {
                     "virial_mae": [np.mean(np.abs(np.stack(virial_err)))],
