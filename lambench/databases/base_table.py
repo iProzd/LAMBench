@@ -1,17 +1,18 @@
 from __future__ import annotations  # For class method return type hinting
+
 import os
 from typing import Sequence
+
+from dotenv import load_dotenv
 from sqlalchemy import (
+    TIMESTAMP,
     Column,
     Integer,
     String,
     create_engine,
     func,
-    TIMESTAMP,
 )
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 Base = declarative_base()
 load_dotenv(override=True)
@@ -43,19 +44,27 @@ class BaseRecord(Base):
 
     @classmethod
     def query(cls, **kwargs) -> Sequence[BaseRecord]:
+        """Query records by keyword arguments.
+        Input:
+            **kwargs: keyword arguments
+        Return:
+            Sequence[BaseRecord]: records
+        Example:
+            >>> PropertyRecord.query(model_name="TEST_DP_v1", task_name="task1")
+        """
         with Session() as session:
             return session.query(cls).filter_by(**kwargs).all()
 
     @classmethod
     def count(cls, **kwargs) -> int:
-        """Query records by keyword arguments.
+        """Count records by keyword arguments.
         Input:
-            model_name: str
-            task_name: str
+            **kwargs: keyword arguments
         Return:
             int: number of records found
         Example:
             >>> PropertyRecord.count(model_name="TEST_DP_v1", task_name="task1")
         """
+
         with Session() as session:
             return session.query(cls).filter_by(**kwargs).count()
