@@ -39,6 +39,27 @@ export LD_LIBRARY_PATH=$CONDA_PREFIX/lib/python3.1/site-packages/torch/lib/../..
 
 We welcome contributions from the community. To contribute, please fork the repository, create a new branch, and submit a pull request with your changes.
 
+### Adding a new model
+
+To add a model, please modify the `lambench/models/models_config.yaml` file.
+
+The file contains a list of models with the following structure:
+
+```yaml
+- model_name: a short and concise name for the model
+  model_type: select from [ASE, DP]
+  model_path: local path to the model weight; null if not required
+  virtualenv: (not used yet)
+  model_metadata:
+    model_description:
+    model_family:
+  show_direct_task: True
+  show_finetune_task: False
+  show_calculator_task: False
+```
+
+Please refer to `lambench/models/basemodel.py` for the field definitions.
+
 ## License
 
 LAMBench is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
