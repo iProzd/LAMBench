@@ -36,9 +36,7 @@ class ResultProcessor:
         }
 
         if model.show_direct_task:
-            direct_task_records = DirectPredictRecord.query(
-                model_name=model.model_name
-            ).all()
+            direct_task_records = DirectPredictRecord.query(model_name=model.model_name)
             direct_task_results = {}
             normalized_results = []
             for record in direct_task_records:
