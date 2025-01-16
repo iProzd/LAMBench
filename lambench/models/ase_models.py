@@ -5,6 +5,7 @@ from typing import Optional
 import ase
 import dpdata
 import numpy as np
+import torch
 from ase.calculators.calculator import Calculator
 
 from lambench.models.basemodel import BaseLargeAtomModel
@@ -24,6 +25,9 @@ class ASEModel(BaseLargeAtomModel):
             raise ValueError(
                 f"ASEModel only supports DirectPredictTask, got {type(task)=}"
             )
+
+        # Reset the default dtype to float32 to avoid type mismatch
+        torch.set_default_dtype(torch.float32)
 
         if self.model_name.lower().startswith("mace"):
             from mace.calculators import mace_mp
