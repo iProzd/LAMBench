@@ -29,21 +29,21 @@ class ASEModel(BaseLargeAtomModel):
         # Reset the default dtype to float32 to avoid type mismatch
         torch.set_default_dtype(torch.float32)
 
-        if self.model_name.lower().startswith("mace"):
+        if self.model_family == "MACE":
             from mace.calculators import mace_mp
 
             CALC = mace_mp(model="medium", device="cuda", default_dtype="float64")
-        elif self.model_name.lower().startswith("orb"):
+        elif self.model_family == "ORB":
             from orb_models.forcefield import pretrained
             from orb_models.forcefield.calculator import ORBCalculator
 
             orbff = pretrained.orb_v2(device="cuda")  # orb-v2-20241011.ckpt
             CALC = ORBCalculator(orbff, device="cuda")
-        elif self.model_name.lower().startswith("7net"):
+        elif self.model_family == "SevenNet":
             from sevenn.sevennet_calculator import SevenNetCalculator
 
             CALC = SevenNetCalculator("7net-0_11July2024", device="cuda")
-        elif self.model_name.lower().startswith("eqv2"):
+        elif self.model_family == "EquiformerV2":
             from fairchem.core import OCPCalculator
 
             CALC = OCPCalculator(
@@ -55,13 +55,13 @@ class ASEModel(BaseLargeAtomModel):
                 # local_cache=str(Path.home().joinpath(".cache")),
                 cpu=False,
             )
-        elif self.model_name.lower().startswith("mattersim"):
+        elif self.model_family == "MatterSim":
             from mattersim.forcefield import MatterSimCalculator
 
             CALC = MatterSimCalculator(
                 load_path="MatterSim-v1.0.0-5M.pth", device="cuda"
             )
-        elif self.model_name.lower().startswith("dp"):
+        elif self.model_family == "DP":
             from deepmd.calculator import DP
 
             CALC = DP(
