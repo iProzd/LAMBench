@@ -12,6 +12,7 @@ class ModelType(str, Enum):
 
 class BaseLargeAtomModel(BaseModel):
     model_name: str
+    model_family: str
     model_type: ModelType
     model_path: Optional[Path] = None
     virtualenv: str
