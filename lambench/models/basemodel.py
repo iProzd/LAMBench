@@ -12,11 +12,12 @@ class ModelType(str, Enum):
 
 class BaseLargeAtomModel(BaseModel):
     model_name: str
+    model_family: str
     model_type: ModelType
-    model_path: Optional[Path]
+    model_path: Optional[Path] = None
     virtualenv: str
     model_metadata: dict[str, str]
-    show_direct_task: bool = False
+    show_direct_task: bool = True
     show_finetune_task: bool = False
     show_calculator_task: bool = False
 

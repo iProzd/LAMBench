@@ -27,9 +27,9 @@ def gather_models(
 
     models = []
     with open(MODELS, "r") as f:
-        model_config = yaml.safe_load(f)
-    for model_name, model_param in model_config.items():
-        if model_names and model_name not in model_names:
+        model_config:list[dict] = yaml.safe_load(f)
+    for model_param in model_config:
+        if model_names and model_param["model_name"] not in model_names:
             continue
         if model_param["model_type"] == "DP":
             models.append(DPModel(**model_param))

@@ -16,8 +16,8 @@ pip install git+https://github.com/deepmodeling/LAMBench.git#egg=lambench[deepmd
 ```
 The optional dependencies are required for the corresponding models.
 
-### Installing with equivariant v2 models
-Using equivariant v2 models requires the installation of the additional pytorch-geometric packages.
+### Installing with EquiformerV2 models
+Using EquiformerV2 models requires the installation of the additional pytorch-geometric packages.
 Follow [the instructions](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html#additional-libraries), then install `lambench[fairchem]`, e.g.
 `pip install torch_geometric pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cu124.html`
 
@@ -38,6 +38,27 @@ export LD_LIBRARY_PATH=$CONDA_PREFIX/lib/python3.1/site-packages/torch/lib/../..
 ## Contributing
 
 We welcome contributions from the community. To contribute, please fork the repository, create a new branch, and submit a pull request with your changes.
+
+### Adding a new model
+
+To add a model, please modify the `lambench/models/models_config.yaml` file.
+
+The file contains a list of models with the following structure:
+
+```yaml
+- model_name: a short and concise name for the model
+  model_family: the family of the model; used for selecting ASE Calculator in `ase_models.py`
+  model_type: select from [ASE, DP]
+  model_path: local path to the model weight; null if not required
+  virtualenv: (not used yet)
+  model_metadata:
+    model_description:
+  show_direct_task: True
+  show_finetune_task: False
+  show_calculator_task: False
+```
+
+Please refer to `lambench/models/basemodel.py` for the field definitions.
 
 ## License
 

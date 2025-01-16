@@ -89,6 +89,7 @@ def valid_model_data():
     return {
         "model_name": "model1",
         "model_type": "DP",
+        "model_family": "DP",
         "model_path": Path("oss://lambench/DP/model.ckpt-1000.pt"),
         "virtualenv": "oss://lambench/DP/model1/venv",
         "model_metadata": {"author": "author1", "description": "description1"},
@@ -100,7 +101,9 @@ def valid_model_data():
 def invalid_model_data():
     return {
         "model_name": "model1",
-        "model_type": "Unknown",
-        "model_path": None,
+        "model_type": "unknown", # invalid model_type
+        "model_family": "DP",
+        "model_path": Path("oss://lambench/DP/model.ckpt-1000.pt"),
+        # "virtualenv": "oss://lambench/DP/model1/venv",
         "model_metadata": {"author": "author1", "description": "description1"},
     }
