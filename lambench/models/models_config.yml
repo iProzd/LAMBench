@@ -4,7 +4,7 @@
   model_path: /bohr/lambench-model-55c1/v3/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
   virtualenv: dp_0103_prob_scp_e1a
   model_metadata:
-    model_description: "DP 2024 Q4, 37head share fitting 120GPU pretrain"
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
     model_family: DP
   show_finetune_task: True
 
