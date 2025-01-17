@@ -107,7 +107,7 @@ class ASEModel(BaseLargeAtomModel):
                         energy_predict = np.array(atoms.get_potential_energy())
                         if not np.isfinite(energy_predict):
                             logging.error("Energy prediction is non-finite.")
-                        raise ValueError
+                            raise ValueError
                     except (ValueError, RuntimeError):
                         file_name = f"error_{atoms.symbols}.cif"
                         write(file_name, atoms)
