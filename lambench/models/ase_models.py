@@ -8,6 +8,7 @@ import numpy as np
 import torch
 from ase.calculators.calculator import Calculator
 from ase.io import write
+from tqdm import tqdm
 
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.direct.direct_tasks import DirectPredictTask
@@ -90,15 +91,14 @@ class ASEModel(BaseLargeAtomModel):
         assert systems, f"No systems found in the test data {test_data}."
         mix_type = any(systems[0].rglob("real_atom_types.npy"))
 
-        for filepth in systems:
+        for filepth in tqdm(systems, desc="Systems"):
             if mix_type:
                 sys = dpdata.MultiSystems()
                 sys.load_systems_from_file(filepth, fmt="deepmd/npy/mixed")
             else:
                 sys = dpdata.LabeledSystem(filepth, fmt="deepmd/npy")
-
-            for ls in sys:
-                for frame in ls:
+            for ls in tqdm(sys, desc="Set", leave=False):  # type: ignore
+                for frame in tqdm(ls, desc="Frames", leave=False):
                     atoms: ase.Atoms = frame.to_ase_structure()[0]  # type: ignore
                     atoms.calc = calc
 
