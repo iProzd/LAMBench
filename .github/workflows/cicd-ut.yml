@@ -20,6 +20,9 @@ jobs:
       run: |
         pip install .[test,deepmd]
 
+    - name: Validate YAML config files
+      run: |
+        python workflows/validate_yaml.py
     - name: Run tests
       run: |
         python -m pytest test -vv
