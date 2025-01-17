@@ -22,7 +22,7 @@ jobs:
 
     - name: Validate YAML config files
       run: |
-        python workflows/validate_yaml.py
+        python workflows/validate_configs.py
     - name: Run tests
       run: |
         python -m pytest test -vv
