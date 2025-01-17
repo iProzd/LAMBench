@@ -15,13 +15,3 @@ class DirectPredictRecord(BaseRecord):
     virial_mae = Column(Float)
     virial_rmse_natoms = Column(Float)
     virial_mae_natoms = Column(Float)
-
-    def to_dict(self) -> dict:
-        return {
-            "energy_rmse_natoms": self.energy_rmse_natoms,
-            "energy_mae_natoms": self.energy_mae_natoms,
-            "force_rmse": self.force_rmse,
-            "force_mae": self.force_mae,
-            "virial_rmse_natoms": self.virial_rmse_natoms,
-            "virial_mae_natoms": self.virial_mae_natoms,
-        }
