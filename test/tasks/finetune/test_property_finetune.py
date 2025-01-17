@@ -1,7 +1,8 @@
 from lambench.tasks import PropertyFinetuneTask
 from lambench.models.dp_models import DPModel
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 import logging
+
 
 def test_load_finetune_task(finetune_yml_data):
     for task_name, task_param in finetune_yml_data.items():
@@ -10,7 +11,11 @@ def test_load_finetune_task(finetune_yml_data):
             model_name=model_name, task_name=task_name, **task_param
         )
         for key, value in task_param.items():
-            assert getattr(task, key) == value
+            if key == "finetune_params":
+                for k, v in value.items():
+                    assert getattr(getattr(task, key), k) == v
+            else:
+                assert getattr(task, key) == value
 
 
 def test_record_count_none(mock_record_count, finetune_task_data):

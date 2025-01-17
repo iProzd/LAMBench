@@ -6,6 +6,17 @@ from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
 from lambench.databases.property_table import PropertyRecord
 
+from pydantic import BaseModel, ConfigDict
+
+
+class FinetuneParams(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    batchsize: int = 512
+    ngpus: int = 1
+    start_lr: float = 1e-3
+    stop_lr: float = 1e-4
+    train_steps: int = 100000
+
 
 class PropertyFinetuneTask(BaseTask):
     """
@@ -18,7 +29,7 @@ class PropertyFinetuneTask(BaseTask):
     intensive: bool = True
     property_dim: int = 1
     train_data: Path
-    train_steps: int = 1000
+    finetune_params: FinetuneParams
 
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, **kwargs)
