@@ -1,21 +1,16 @@
-from pymatgen.core import Structure
-from pymatgen.io.ase import AseAtomsAdaptor
 import numpy as np
 import dpdata
-import glob
 from pathlib import Path
-from lamstare.infra.ood_database import OODRecord
+import json
 
 
 def run_ase_dptest(
     calc,
-    testpath: str,
+    testpath: Path,
 ):
     """
     Given a ASE calculator and a test path, run ASE dptest and return the results.
     """
-    adptor = AseAtomsAdaptor()
-
     energy_err = []
     energy_pre = []
     energy_lab = []
@@ -77,9 +72,7 @@ def run_ase_dptest(
                         * atoms.get_volume()
                     )
                     virial_err.append(frame.data["virials"] - stress_tensor)
-                    virial_err_per_atom.append(
-                        virial_err[-1] / force_err[-1].shape[0]
-                    )
+                    virial_err_per_atom.append(virial_err[-1] / force_err[-1].shape[0])
                 except (
                     KeyError,  # frame.data["virials"]
                     ValueError,  # atoms.get_volume()
