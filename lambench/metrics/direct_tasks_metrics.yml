@@ -11,14 +11,14 @@ HEA25_S:
   virial_weight: 1.0
   dataset_lstsq_std_energy: 0.4030134901622356
   dataset_lstsq_std_force: 1.5479359067976695
-  dataset_lstsq_std_virial: 0.008921148138856265
+  dataset_lstsq_std_virial: 1.4293255096528095
 HEA25_bulk:
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: 1.0
   dataset_lstsq_std_energy: 0.4086027291354181
   dataset_lstsq_std_force: 2.075184012071992
-  dataset_lstsq_std_virial: 0.012888805842113984
+  dataset_lstsq_std_virial: 2.065014356039771
 HEMC_HEMB:
   energy_weight: 1.0
   force_weight: 1.0
