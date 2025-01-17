@@ -208,6 +208,8 @@ matbench_mp_e_form_fold0:
     train_steps: 500000
     start_lr: 1e-3
     stop_lr: 1e-6
+    batch_size: 128
+    ngpus: 4
 matbench_mp_e_form_fold1:
   property_name: mp_e_form
   intensive: true
@@ -218,6 +220,8 @@ matbench_mp_e_form_fold1:
     train_steps: 500000
     start_lr: 1e-3
     stop_lr: 1e-6
+    batch_size: 128
+    ngpus: 4
 matbench_mp_e_form_fold2:
   property_name: mp_e_form
   intensive: true
@@ -228,6 +232,8 @@ matbench_mp_e_form_fold2:
     train_steps: 500000
     start_lr: 1e-3
     stop_lr: 1e-6
+    batch_size: 128
+    ngpus: 4
 matbench_mp_e_form_fold3:
   property_name: mp_e_form
   intensive: true
@@ -238,6 +244,8 @@ matbench_mp_e_form_fold3:
     train_steps: 500000
     start_lr: 1e-3
     stop_lr: 1e-6
+    batch_size: 128
+    ngpus: 4
 matbench_mp_e_form_fold4:
   property_name: mp_e_form
   intensive: true
@@ -248,6 +256,8 @@ matbench_mp_e_form_fold4:
     train_steps: 500000
     start_lr: 1e-3
     stop_lr: 1e-6
+    batch_size: 128
+    ngpus: 4
 matbench_mp_gap_fold0:
   property_name: mp_gap
   intensive: true

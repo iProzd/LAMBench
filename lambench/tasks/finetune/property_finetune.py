@@ -11,7 +11,7 @@ from pydantic import BaseModel, ConfigDict
 
 class FinetuneParams(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    batchsize: int = 512
+    batch_size: int = 512
     ngpus: int = 1
     start_lr: float = 1e-3
     stop_lr: float = 1e-4
