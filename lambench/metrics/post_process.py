@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Literal, Optional
 
 import numpy as np
 import yaml
@@ -38,11 +38,10 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
         direct_task_results = {}
         normalized_results = []
         for record in direct_task_records:
-            direct_task_results[record.task_name] = record.__dict__
+            direct_task_results[record.task_name] = record.to_dict()
             normalized_result = filter_direct_task_results(
-                record.__dict__, DIRECT_TASK_METRICS[record.task_name]
+                record.to_dict(), DIRECT_TASK_METRICS[record.task_name]
             )
-            # NOTE: __dict__ contains sqlalchemy objects and non-metric info.
             normalized_results.append(normalized_result)
 
         direct_task_results["Weighted"] = exp_average(normalized_results)
@@ -70,28 +69,17 @@ def filter_direct_task_results(
     Returns: metrics for each task normalized and weighted.
     """
     filtered_metrics = {}
-    metrics = ["energy", "force", "virial"]
-    for metric in metrics:
-        # Set default value to None
-        filtered_metrics[f"{metric}_mae"] = None
-        filtered_metrics[f"{metric}_rmse"] = None
-        if metric != "force":
-            filtered_metrics[f"{metric}_mae_natoms"] = None
-            filtered_metrics[f"{metric}_rmse_natoms"] = None
-
-        weight = task_config.get(f"{metric}_weight")
+    for k, v in task_result.items():
+        efv: Literal["energy", "force", "virial"] = k.split("_")[0]
+        weight = task_config.get(f"{efv}_weight")
         if weight is None:
+            filtered_metrics[k] = None
             continue
-        std = task_config.get(f"dataset_lstsq_std_{metric}")
-        normalize = True # TODO: make it configurable
+        std = task_config.get(f"{efv}_std")
+        normalize = True  # TODO: make it configurable
         if normalize and std is not None:
-            weight /= std
-        filtered_metrics[f"{metric}_mae"] = task_result[f"{metric}_mae"] * weight
-        filtered_metrics[f"{metric}_rmse"] = task_result[f"{metric}_rmse"] * weight
-        if metric != "force":
-            filtered_metrics[f"{metric}_mae_natoms"] = task_result[f"{metric}_mae_natoms"]
-            filtered_metrics[f"{metric}_rmse_natoms"] =  task_result[f"{metric}_rmse_natoms"]
-
+            weight /= std  # FIXME: * or / ?
+        filtered_metrics[k] = v * weight
     return filtered_metrics
 
 
