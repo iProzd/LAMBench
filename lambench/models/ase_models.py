@@ -106,8 +106,7 @@ class ASEModel(BaseLargeAtomModel):
                     try:
                         energy_predict = np.array(atoms.get_potential_energy())
                         if not np.isfinite(energy_predict):
-                            logging.error("Energy prediction is non-finite.")
-                            raise ValueError
+                            raise ValueError("Energy prediction is non-finite.")
                     except (ValueError, RuntimeError):
                         file_name = f"error_{atoms.symbols}.cif"
                         write(file_name, atoms)
@@ -117,6 +116,7 @@ class ASEModel(BaseLargeAtomModel):
                         fail_count += 1
                         if fail_count > fail_tolereance:
                             raise RuntimeError("Too many failures; aborting.")
+                        continue  # skip this frame
                     energy_pre.append(energy_predict)
                     energy_lab.append(frame.data["energies"])
                     energy_err.append(energy_predict - frame.data["energies"])
