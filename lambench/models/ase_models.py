@@ -7,6 +7,8 @@ import dpdata
 import numpy as np
 import torch
 from ase.calculators.calculator import Calculator
+from ase.io import write
+from tqdm import tqdm
 
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.direct.direct_tasks import DirectPredictTask
@@ -47,7 +49,7 @@ class ASEModel(BaseLargeAtomModel):
             from fairchem.core import OCPCalculator
 
             CALC = OCPCalculator(
-                checkpoint_path="eqV2_153M_omat_mp_salex.pt",
+                checkpoint_path = self.model_path,
                 # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints with agreement with the license
                 # NOTE: check the list of public model at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
                 # Uncomment the following lines to use one:
@@ -65,8 +67,8 @@ class ASEModel(BaseLargeAtomModel):
             from deepmd.calculator import DP
 
             CALC = DP(
-                model="/bohr/lambench-model-55c1/v2/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt",  # TODO: replace with self.model_path
-                head="Domains_Drug",  # FIXME: should select a head w.r.t. the data
+                model = self.model_path,
+                head = "Domains_Drug",  # FIXME: should select a head w.r.t. the data
             )
         else:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
@@ -83,31 +85,38 @@ class ASEModel(BaseLargeAtomModel):
         virial_err = []
         virial_err_per_atom = []
         max_ele_num = 120
-
+        fail_count = 0
+        fail_tolereance = 10
         systems = [i.parent for i in test_data.rglob("type_map.raw")]
         assert systems, f"No systems found in the test data {test_data}."
         mix_type = any(systems[0].rglob("real_atom_types.npy"))
 
-        for filepth in systems:
+        for filepth in tqdm(systems, desc="Systems"):
             if mix_type:
                 sys = dpdata.MultiSystems()
                 sys.load_systems_from_file(filepth, fmt="deepmd/npy/mixed")
             else:
                 sys = dpdata.LabeledSystem(filepth, fmt="deepmd/npy")
-
-            for ls in sys:
-                for frame in ls:
+            for ls in tqdm(sys, desc="Set", leave=False):  # type: ignore
+                for frame in tqdm(ls, desc="Frames", leave=False):
                     atoms: ase.Atoms = frame.to_ase_structure()[0]  # type: ignore
                     atoms.calc = calc
 
                     # Energy
-                    energy_predict = np.array(atoms.get_potential_energy())
-                    if np.isnan(energy_predict):
-                        logging.warning(
-                            f"Energy prediction is NaN for {frame.data['uid']}"
+                    try:
+                        energy_predict = np.array(atoms.get_potential_energy())
+                        if not np.isfinite(energy_predict):
+                            raise ValueError("Energy prediction is non-finite.")
+                    except (ValueError, RuntimeError):
+                        file_name = f"error_{atoms.symbols}.cif"
+                        write(file_name, atoms)
+                        logging.error(
+                            f"Error in energy prediction; CIF file saved as {file_name}."
                         )
-                        continue
-
+                        fail_count += 1
+                        if fail_count > fail_tolereance:
+                            raise RuntimeError("Too many failures; aborting.")
+                        continue  # skip this frame
                     energy_pre.append(energy_predict)
                     energy_lab.append(frame.data["energies"])
                     energy_err.append(energy_predict - frame.data["energies"])
