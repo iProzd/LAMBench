@@ -22,6 +22,8 @@ jobs:
 
     - name: Validate YAML config files
       run: |
+        pwd
+        ls
         python lambench/workflow/validate_configs.py
     - name: Run tests
       run: |
