@@ -85,8 +85,8 @@ class ASEModel(BaseLargeAtomModel):
         virial_err = []
         virial_err_per_atom = []
         max_ele_num = 120
-        fail_count = 0
-        fail_tolereance = 10
+        failed_structures = []
+        failed_tolereance = 10
         systems = [i.parent for i in test_data.rglob("type_map.raw")]
         assert systems, f"No systems found in the test data {test_data}."
         mix_type = any(systems[0].rglob("real_atom_types.npy"))
@@ -108,13 +108,14 @@ class ASEModel(BaseLargeAtomModel):
                         if not np.isfinite(energy_predict):
                             raise ValueError("Energy prediction is non-finite.")
                     except (ValueError, RuntimeError):
-                        file_name = f"error_{atoms.symbols}.cif"
+                        file_name = f"failed_structures/{calc.name}/{atoms.symbols}.cif"
                         write(file_name, atoms)
                         logging.error(
                             f"Error in energy prediction; CIF file saved as {file_name}."
                         )
-                        fail_count += 1
-                        if fail_count > fail_tolereance:
+                        failed_structures.append(atoms.symbols)
+                        if len(failed_structures) > failed_tolereance:
+                            logging.error(f"Failed structures: {failed_structures}")
                             raise RuntimeError("Too many failures; aborting.")
                         continue  # skip this frame
                     energy_pre.append(energy_predict)
@@ -157,6 +158,8 @@ class ASEModel(BaseLargeAtomModel):
                     ) as _:  # no virial in the data
                         pass
 
+        if failed_structures:
+            logging.error(f"Failed structures: {failed_structures}")
         atom_num = np.array(atom_num)
         energy_err = np.array(energy_err)
         energy_pre = np.array(energy_pre)
