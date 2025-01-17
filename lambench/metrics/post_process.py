@@ -62,38 +62,41 @@ def filter_direct_task_results(
     """
     This function filters the direct task results to keep only the metrics with non-zero task weights.
 
+    I. Optional: normalize the metrics by multiply {metric}_std. (Required for Property)
+    II. Remove tasks where weight is None in the DIRECT_TASK_METRICS.
 
-    II. normalize the metrics by the dataset_lstsq_std_{metric} and multiply by the weight. (TODO: make it Optional, but required for Property)
-    I. filter out tasks where weight is None in the DIRECT_TASK_METRICS.
+    NOTE: We normalize first to ensure the weight is a dimensionless number.
 
-    Returns: metrics for each task with non-zero weight and normalized.
+    Returns: metrics for each task normalized and weighted.
     """
-    return task_result  # TODO
-    # TODO: dataset_lstsq_std_ -> std
-    normalized_result = {}
+    filtered_metrics = {}
     metrics = ["energy", "force", "virial"]
     for metric in metrics:
+        # Set default value to None
+        filtered_metrics[f"{metric}_mae"] = None
+        filtered_metrics[f"{metric}_rmse"] = None
+        if metric != "force":
+            filtered_metrics[f"{metric}_mae_natoms"] = None
+            filtered_metrics[f"{metric}_rmse_natoms"] = None
+
         weight = task_config.get(f"{metric}_weight")
         if weight is None:
-            task_result[f"{metric}_rmse_natoms"] = None
-            task_result[f"{metric}_mae_natoms"] = None
-        else:
-            normalized_result[f"{metric}_rmse_natoms"] = (
-                task_result[f"{metric}_rmse_natoms"]
-                / task_config[f"dataset_lstsq_std_{metric}"]
-                * weight
-            )
-            normalized_result[f"{metric}_mae_natoms"] = (
-                task_result[f"{metric}_mae_natoms"]
-                / task_config[f"dataset_lstsq_std_{metric}"]
-                * weight
-            )
-    return task_result, normalized_result
+            continue
+        std = task_config.get(f"dataset_lstsq_std_{metric}")
+        normalize = True # TODO: make it configurable
+        if normalize and std is not None:
+            weight /= std
+        filtered_metrics[f"{metric}_mae"] = task_result[f"{metric}_mae"] * weight
+        filtered_metrics[f"{metric}_rmse"] = task_result[f"{metric}_rmse"] * weight
+        if metric != "force":
+            filtered_metrics[f"{metric}_mae_natoms"] = task_result[f"{metric}_mae_natoms"]
+            filtered_metrics[f"{metric}_rmse_natoms"] =  task_result[f"{metric}_rmse_natoms"]
+
+    return filtered_metrics
 
 
 def exp_average(results: list[dict]) -> dict[str, Optional[float]]:
     """Calculate the exponential average of each metric of the results.
-    TODO: and apply weight of each task.
     """
     exp_average_metrics = {}
     for key, value in results[0].items():  # use key and value from the first result
