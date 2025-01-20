@@ -13,7 +13,7 @@ from lambench.workflow.entrypoint import gather_models
 DIRECT_TASK_METRICS = {
     k: v
     for k, v in yaml.safe_load(
-        open(Path(lambench.__file__).parent / "metrics/direct_tasks_metrics.yml", "r")
+        open(Path(lambench.__file__).parent / "metrics/direct_task_weights.yml", "r")
     ).items()
 }
 
