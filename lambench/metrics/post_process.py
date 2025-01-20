@@ -121,6 +121,8 @@ def main():
     ]
     for model in leaderboard_models:
         results[model.model_name] = process_results_for_one_model(model)
+        # PosixPath is not JSON serializable
+        results[model.model_name]["model"] = model.model_dump(exclude={"model_path"})
     json.dump(results, open("results.json", "w"), indent=2)
     print("Results saved to results.json")
 if __name__ == "__main__":
