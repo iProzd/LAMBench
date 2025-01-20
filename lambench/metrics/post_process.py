@@ -40,7 +40,8 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
         for record in direct_task_records:
             direct_task_results[record.task_name] = record.to_dict()
             normalized_result = filter_direct_task_results(
-                record.to_dict(), DIRECT_TASK_WEIGHTS[record.task_name]
+                direct_task_results[record.task_name],
+                DIRECT_TASK_WEIGHTS[record.task_name],
             )
             norm_log_results.append(normalized_result)
 
@@ -63,6 +64,7 @@ def filter_direct_task_results(
 
     I. Optional: normalize the metrics by multiply {metric}_std. (Required for Property)
     II. Remove tasks where weight is None in the DIRECT_TASK_METRICS.
+        Please note that this change also applies in the input dict.
     III. Calculate the weighted **log** metrics.
 
     NOTE: We normalize first to ensure the weight is a dimensionless number.
@@ -75,6 +77,7 @@ def filter_direct_task_results(
         weight = task_config.get(f"{efv}_weight")
         if weight is None:
             filtered_metrics[k] = None
+            task_result[k] = None
             continue
         std = task_config.get(f"{efv}_std")
         normalize = True  # TODO: make it configurable
