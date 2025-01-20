@@ -81,7 +81,7 @@ def filter_direct_task_results(
         normalize = True  # TODO: make it configurable
         if normalize and std is not None:
             weight /= std
-        filtered_metrics[k] = np.log(v) * weight
+        filtered_metrics[k] = np.log(v) * weight if v is not None else None
     return filtered_metrics
 
 
