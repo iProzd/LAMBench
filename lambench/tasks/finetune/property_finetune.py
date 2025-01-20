@@ -7,6 +7,8 @@ from lambench.tasks.base_task import BaseTask
 from lambench.databases.property_table import PropertyRecord
 
 from pydantic import BaseModel, ConfigDict
+import copy
+import json
 
 
 class FinetuneParams(BaseModel):
@@ -35,15 +37,62 @@ class PropertyFinetuneTask(BaseTask):
         super().__init__(task_name=task_name, **kwargs)
 
     def evaluate(self, model: BaseLargeAtomModel):
-        self.get_property_json()
         return model.evaluate(self)
 
-    def get_property_json(self):
-        # Generate an input.json file
-        # FIXME: needs to ensure workdir is created somewhere else, e.g. in dflow
-        os.chdir(
-            self.workdir
-        )  # Needs to change here to ensure the model eval part is correct
-        with open("input.json", "w") as _:
-            # TODO: migrate from lamstare.utils.property.get_property_json
-            raise NotImplementedError
+    def prepare_property_directory(self, model: BaseLargeAtomModel):
+        assert (
+            os.getcwd() == self.workdir
+        ), f"Current working directory is {os.getcwd()}, need to change working directory to {self.workdir}!"
+
+        # 1. write the finetune input.json file
+        with open(os.path.join(model.model_path.parent, "input.json"), "r") as f:
+            pretrain_config = json.load(f)
+
+        finetune_config = copy.deepcopy(pretrain_config)
+
+        # 2. modify the input.json file
+        finetune_config["learning_rate"] = {
+            "type": "exp",
+            "decay_steps": 500,
+            "start_lr": self.finetune_params.get("start_lr", 1e-3),
+            "stop_lr": self.finetune_params.get("stop_lr", 1e-4),
+            "_comment": "that's all",
+        }
+
+        finetune_config["model"]["fitting_net"] = {
+            "type": "property",
+            "property_name": self.property_name,
+            "intensive": self.intensive,
+            "task_dim": self.property_dim,
+            "neuron": [240, 240, 240],
+            "resnet_dt": True,
+            "seed": 1,
+            "_comment": " that's all",
+        }
+
+        finetune_config["loss"] = {"type": "property", "_comment": " that's all"}
+
+        finetune_config["training"] = {
+            "training_data": {
+                "systems": str(self.train_data),
+                "batch_size": self.finetune_params.get("batch_size", 512),
+                "_comment": "that's all",
+            },
+            "validation_data": {
+                "systems": str(self.test_data),
+                "batch_size": 1,
+                "_comment": "that's all",
+            },
+            "warmup_steps": 0,
+            "gradient_max_norm": 5.0,
+            "max_ckpt_keep": 10,
+            "seed": 1,
+            "disp_file": "lcurve.out",
+            "disp_freq": self.finetune_params.get("train_steps", 100000) // 20,
+            "numb_steps": self.finetune_params.get("train_steps", 100000),
+            "save_freq": self.finetune_params.get("train_steps", 100000) // 5,
+            "_comment": "that's all",
+        }
+
+        with open(os.path.join(self.workdir, "input.json"), "w") as f:
+            json.dump(finetune_config, f, indent=4)
