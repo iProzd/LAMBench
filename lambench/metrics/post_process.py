@@ -24,7 +24,6 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
     This function fetch and process the raw results from corresponding tables for one model across required tasks.
     """
     single_model_results = {
-        "model_name": model.model_name,
         "direct_task_results": {},
         "finetune_task_results": {},
         "calculator_task_results": {},
