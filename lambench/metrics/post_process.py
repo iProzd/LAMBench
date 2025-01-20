@@ -81,7 +81,12 @@ def filter_direct_task_results(
         normalize = True  # TODO: make it configurable
         if normalize and std is not None:
             weight /= std
-        filtered_metrics[k] = np.log(v) * weight if v is not None else None
+
+        if v is not None:
+            filtered_metrics[k] = np.log(v) * weight
+            # else the filtered_metrics will not have this key.
+            # Metrics with weight != None should have a value,
+            # Or the weighted result would be marked to None.
     return filtered_metrics
 
 
@@ -89,17 +94,18 @@ def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
     """Calculate the exponential average of each metric of the results.
     """
     exp_average_metrics = {}
-    for key, value in log_results[0].items():  # use key and value from the first result
-        if (
-            isinstance(value, float)
-            or value is None  # unluckily got None for results[0]
-        ):
-            try:
-                metrics_list = [result[key] for result in log_results]
-                exp_average_metrics[key] = np.exp(np.mean(metrics_list))
-            except TypeError:
-                # Contains None(NaN); for the comparability among tasks, set it to None
-                exp_average_metrics[key] = None
+    all_keys = set([key for result in log_results for key in result.keys()])
+    for key in sorted(all_keys):
+        try:
+            metrics_list = [result[key] for result in log_results]
+        except KeyError:
+            # Contains None(NaN) for metrics with weight != None;
+            # For the comparability among tasks, set it to None
+            exp_average_metrics[key] = None
+            continue
+        # Filter out "legal" None values with weight == None
+        metrics_list = [m for m in metrics_list if m is not None]
+        exp_average_metrics[key] = np.exp(np.mean(metrics_list))
     return exp_average_metrics
 
 
