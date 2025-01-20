@@ -1,3 +1,4 @@
+import json
 import logging
 from pathlib import Path
 from typing import Literal, Optional
@@ -113,11 +114,7 @@ def main():
     ]
     for model in leaderboard_models:
         results[model.model_name] = process_results_for_one_model(model)
-
-        # DEBUG: print the weighted results
-        r = results[model.model_name]
-        assert r is not None
-        print(model.model_name, r["direct_task_results"]["Weighted"])
-
+    json.dump(results, open("results.json", "w"), indent=2)
+    print("Results saved to results.json")
 if __name__ == "__main__":
     main()
