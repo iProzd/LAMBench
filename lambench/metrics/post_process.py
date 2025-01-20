@@ -1,4 +1,7 @@
+import json
+import logging
 from pathlib import Path
+from typing import Literal, Optional
 
 import numpy as np
 import yaml
@@ -6,105 +9,123 @@ import yaml
 import lambench
 from lambench.databases.direct_predict_table import DirectPredictRecord
 from lambench.models.basemodel import BaseLargeAtomModel
-from lambench.workflow.entrypoint import MODELS
+from lambench.workflow.entrypoint import gather_models
 
-LEADERBOARD_MODELS = {
-    k: v
-    for k, v in yaml.safe_load(open(MODELS, "r")).items()
-    if any(
-        [
-            v.get("show_direct_task", False),
-            v.get("show_finetune_task", False),
-            v.get("show_calculator_task", False),
-        ]
-    )
-}
-DIRECT_TASKS = {
+DIRECT_TASK_WEIGHTS = {
     k: v
     for k, v in yaml.safe_load(
-        open(Path(lambench.__file__).parent / "metrics/direct_tasks_metrics.yml", "r")
+        open(Path(lambench.__file__).parent / "metrics/direct_task_weights.yml", "r")
     ).items()
 }
 
 
-class ResultProcessor:
-    @staticmethod
-    def process_results_for_one_model(model: BaseLargeAtomModel):
-        """
-        This function fetch and process the raw results from corresponding tables for one model across required tasks.
-        """
-        single_model_results = {
-            "model_name": model.model_name,
-            "direct_task_results": {},
-            "finetune_task_results": {},
-            "calculator_task_results": {},
-        }
+def process_results_for_one_model(model: BaseLargeAtomModel):
+    """
+    This function fetch and process the raw results from corresponding tables for one model across required tasks.
+    """
+    single_model_results = {
+        "direct_task_results": {},
+        "finetune_task_results": {},
+        "calculator_task_results": {},
+    }
 
-        if model.show_direct_task:
-            direct_task_records = DirectPredictRecord.query(model_name=model.model_name)
-            direct_task_results = {}
-            normalized_results = []
-            for record in direct_task_records:
-                task_name = record.task_name
-                task_config = DIRECT_TASKS[task_name]
-                task_result, normalized_result = (
-                    ResultProcessor.filter_direct_task_results(
-                        record.to_dict(), task_config
-                    )
-                )
-                normalized_results.append(normalized_result)
-                direct_task_results[task_name] = task_result
-            direct_task_results["Weighted"] = ResultProcessor.weighted_average(
-                normalized_results, list(task_result.keys())
+    if model.show_direct_task:
+        direct_task_records = DirectPredictRecord.query(model_name=model.model_name)
+        if not direct_task_records:
+            logging.warning(f"No direct task records found for {model.model_name}")
+            return None
+
+        direct_task_results = {}
+        norm_log_results = []
+        for record in direct_task_records:
+            direct_task_results[record.task_name] = record.to_dict()
+            normalized_result = filter_direct_task_results(
+                direct_task_results[record.task_name],
+                DIRECT_TASK_WEIGHTS[record.task_name],
             )
+            norm_log_results.append(normalized_result)
 
-        if model.show_finetune_task:
-            pass
-        if model.show_calculator_task:
-            raise NotImplementedError("Calculator task is not implemented yet.")
-
+        direct_task_results["Weighted"] = exp_average(norm_log_results)
         single_model_results["direct_task_results"] = direct_task_results
-        return single_model_results
 
-    @staticmethod
-    def filter_direct_task_results(
-        task_result: dict, task_config: dict
-    ) -> tuple[dict, dict]:
-        """
-        This function filters the direct task results to keep only the metrics with non-zero weights.
-        """
-        normalized_result = {}
-        metrics = ["energy", "force", "virial"]
-        for metric in metrics:
-            weight = task_config.get(f"{metric}_weight")
-            if weight is None:
-                task_result[f"{metric}_rmse_natoms"] = None
-                task_result[f"{metric}_mae_natoms"] = None
-            else:
-                normalized_result[f"{metric}_rmse_natoms"] = (
-                    task_result[f"{metric}_rmse_natoms"]
-                    / task_config[f"dataset_lstsq_std_{metric}"]
-                    * weight
-                )
-                normalized_result[f"{metric}_mae_natoms"] = (
-                    task_result[f"{metric}_mae_natoms"]
-                    / task_config[f"dataset_lstsq_std_{metric}"]
-                    * weight
-                )
-        return task_result, normalized_result
+    if model.show_finetune_task:
+        pass
+    if model.show_calculator_task:
+        raise NotImplementedError("Calculator task is not implemented yet.")
 
-    @staticmethod
-    def weighted_average(results: list[dict], keys: list[str]) -> dict:
-        """
-        This function calculates the weighted average of the results.
-        """
-        weighted_result = {}
-        for key in keys:
-            weighted_result[key] = np.exp(
-                np.mean(np.log([result[key] for result in results if key in result]))
-            )
-        return weighted_result
+    return single_model_results
 
 
+def filter_direct_task_results(
+    task_result: dict, task_config: dict
+) -> dict:
+    """
+    This function filters the direct task results to keep only the metrics with non-zero task weights.
+
+    I. Optional: normalize the metrics by multiply {metric}_std. (Required for Property)
+    II. Remove tasks where weight is None in the DIRECT_TASK_METRICS.
+        Please note that this change also applies in the input dict.
+    III. Calculate the weighted **log** metrics.
+
+    NOTE: We normalize first to ensure the weight is a dimensionless number.
+
+    Returns: metrics for each task normalized, logged, and weighted.
+    """
+    filtered_metrics = {}
+    for k, v in task_result.items():
+        efv: Literal["energy", "force", "virial"] = k.split("_")[0]
+        weight = task_config.get(f"{efv}_weight")
+        if weight is None:
+            filtered_metrics[k] = None
+            task_result[k] = None
+            continue
+        std = task_config.get(f"{efv}_std")
+        normalize = True  # TODO: make it configurable
+        if normalize and std is not None:
+            weight /= std
+
+        if v is not None:
+            filtered_metrics[k] = np.log(v) * weight
+            # else the filtered_metrics will not have this key.
+            # Metrics with weight != None should have a value,
+            # Or the weighted result would be marked to None.
+    return filtered_metrics
+
+
+def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
+    """Calculate the exponential average of each metric of the results.
+    """
+    exp_average_metrics = {}
+    all_keys = set([key for result in log_results for key in result.keys()])
+    for key in sorted(all_keys):
+        try:
+            metrics_list = [result[key] for result in log_results]
+        except KeyError:
+            # Contains None(NaN) for metrics with weight != None;
+            # For the comparability among tasks, set it to None
+            exp_average_metrics[key] = None
+            continue
+        # Filter out "legal" None values with weight == None
+        metrics_list = [m for m in metrics_list if m is not None]
+        exp_average_metrics[key] = np.exp(np.mean(metrics_list))
+    return exp_average_metrics
+
+
+def main():
+    results = {}
+    models = gather_models()
+    leaderboard_models = [
+        model
+        for model in models
+        if model.show_direct_task
+        or model.show_finetune_task
+        or model.show_calculator_task
+    ]
+    for model in leaderboard_models:
+        results[model.model_name] = process_results_for_one_model(model)
+        # PosixPath is not JSON serializable
+        results[model.model_name]["model"] = model.model_dump(exclude={"model_path"})
+    json.dump(results, open("results.json", "w"), indent=2)
+    print("Results saved to results.json")
 if __name__ == "__main__":
-    ResultProcessor.process_results_for_one_model()
+    main()
