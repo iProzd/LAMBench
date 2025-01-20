@@ -45,7 +45,14 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
             )
             norm_log_results.append(normalized_result)
 
-        direct_task_results["Weighted"] = exp_average(norm_log_results)
+        if len(direct_task_records) != len(DIRECT_TASK_WEIGHTS):
+            direct_task_results["Weighted"] = None
+            missing_tasks = DIRECT_TASK_WEIGHTS.keys() - direct_task_results.keys()
+            logging.warning(
+                f"Weighted results for {model.model_name} are marked as None due to missing tasks: {missing_tasks}"
+            )
+        else:
+            direct_task_results["Weighted"] = exp_average(norm_log_results)
         single_model_results["direct_task_results"] = direct_task_results
 
     if model.show_finetune_task:
@@ -56,9 +63,7 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
     return single_model_results
 
 
-def filter_direct_task_results(
-    task_result: dict, task_config: dict
-) -> dict:
+def filter_direct_task_results(task_result: dict, task_config: dict) -> dict:
     """
     This function filters the direct task results to keep only the metrics with non-zero task weights.
 
@@ -93,8 +98,7 @@ def filter_direct_task_results(
 
 
 def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
-    """Calculate the exponential average of each metric of the results.
-    """
+    """Calculate the exponential average of each metric of the results."""
     exp_average_metrics = {}
     all_keys = set([key for result in log_results for key in result.keys()])
     for key in sorted(all_keys):
@@ -127,5 +131,7 @@ def main():
         results[model.model_name]["model"] = model.model_dump(exclude={"model_path"})
     json.dump(results, open("results.json", "w"), indent=2)
     print("Results saved to results.json")
+
+
 if __name__ == "__main__":
     main()
