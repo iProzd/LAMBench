@@ -5,7 +5,6 @@ from typing import Optional
 import ase
 import dpdata
 import numpy as np
-import torch
 from ase.calculators.calculator import Calculator
 from ase.io import write
 from tqdm import tqdm
@@ -29,6 +28,8 @@ class ASEModel(BaseLargeAtomModel):
             )
 
         # Reset the default dtype to float32 to avoid type mismatch
+        import torch
+
         torch.set_default_dtype(torch.float32)
 
         if self.model_family == "MACE":
@@ -49,7 +50,7 @@ class ASEModel(BaseLargeAtomModel):
             from fairchem.core import OCPCalculator
 
             CALC = OCPCalculator(
-                checkpoint_path = self.model_path,
+                checkpoint_path=self.model_path,
                 # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints with agreement with the license
                 # NOTE: check the list of public model at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
                 # Uncomment the following lines to use one:
@@ -67,8 +68,8 @@ class ASEModel(BaseLargeAtomModel):
             from deepmd.calculator import DP
 
             CALC = DP(
-                model = self.model_path,
-                head = "Domains_Drug",  # FIXME: should select a head w.r.t. the data
+                model=self.model_path,
+                head="Domains_Drug",  # FIXME: should select a head w.r.t. the data
             )
         else:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
