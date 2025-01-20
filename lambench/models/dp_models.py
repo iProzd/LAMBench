@@ -57,6 +57,7 @@ class DPModel(BaseLargeAtomModel):
 
         model = self.model_path
         if isinstance(task, PropertyFinetuneTask):
+            task.prepare_property_directory(model)
             model = self._finetune(model)
         elif change_bias:
             model = self._change_bias(model, task.test_data, head)

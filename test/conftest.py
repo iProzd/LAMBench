@@ -31,7 +31,9 @@ def finetune_yml_data():
             "property_dim": 1,
             "train_data": Path("data/dummy/train/1"),
             "test_data": Path("data/dummy/test/1"),
-            "train_steps": 1000,
+            "finetune_params": {
+                "train_steps": 1000,
+            },
         }
     }
 
@@ -79,7 +81,9 @@ def finetune_task_data():
         "property_dim": 1,
         "train_data": Path("data/dummy/train/1"),
         "test_data": Path("data/dummy/test/1"),
-        "train_steps": 1000,
+        "finetune_params": {
+            "train_steps": 1000,
+        },
     }
 
 
@@ -101,7 +105,7 @@ def valid_model_data():
 def invalid_model_data():
     return {
         "model_name": "model1",
-        "model_type": "unknown", # invalid model_type
+        "model_type": "unknown",  # invalid model_type
         "model_family": "DP",
         "model_path": Path("oss://lambench/DP/model.ckpt-1000.pt"),
         # "virtualenv": "oss://lambench/DP/model1/venv",
