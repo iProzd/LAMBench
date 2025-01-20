@@ -11,7 +11,7 @@ from lambench.databases.direct_predict_table import DirectPredictRecord
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.workflow.entrypoint import gather_models
 
-DIRECT_TASK_METRICS = {
+DIRECT_TASK_WEIGHTS = {
     k: v
     for k, v in yaml.safe_load(
         open(Path(lambench.__file__).parent / "metrics/direct_task_weights.yml", "r")
@@ -40,7 +40,7 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
         for record in direct_task_records:
             direct_task_results[record.task_name] = record.to_dict()
             normalized_result = filter_direct_task_results(
-                record.to_dict(), DIRECT_TASK_METRICS[record.task_name]
+                record.to_dict(), DIRECT_TASK_WEIGHTS[record.task_name]
             )
             norm_log_results.append(normalized_result)
 
