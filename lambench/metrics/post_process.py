@@ -78,7 +78,7 @@ def filter_direct_task_results(
         std = task_config.get(f"{efv}_std")
         normalize = True  # TODO: make it configurable
         if normalize and std is not None:
-            weight /= std  # FIXME: * or / ?
+            weight /= std
         filtered_metrics[k] = v * weight
     return filtered_metrics
 
