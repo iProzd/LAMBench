@@ -37,15 +37,15 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
             return None
 
         direct_task_results = {}
-        normalized_results = []
+        norm_log_results = []
         for record in direct_task_records:
             direct_task_results[record.task_name] = record.to_dict()
             normalized_result = filter_direct_task_results(
                 record.to_dict(), DIRECT_TASK_METRICS[record.task_name]
             )
-            normalized_results.append(normalized_result)
+            norm_log_results.append(normalized_result)
 
-        direct_task_results["Weighted"] = exp_average(normalized_results)
+        direct_task_results["Weighted"] = exp_average(norm_log_results)
         single_model_results["direct_task_results"] = direct_task_results
 
     if model.show_finetune_task:
@@ -64,10 +64,11 @@ def filter_direct_task_results(
 
     I. Optional: normalize the metrics by multiply {metric}_std. (Required for Property)
     II. Remove tasks where weight is None in the DIRECT_TASK_METRICS.
+    III. Calculate the weighted **log** metrics.
 
     NOTE: We normalize first to ensure the weight is a dimensionless number.
 
-    Returns: metrics for each task normalized and weighted.
+    Returns: metrics for each task normalized, logged, and weighted.
     """
     filtered_metrics = {}
     for k, v in task_result.items():
@@ -80,22 +81,22 @@ def filter_direct_task_results(
         normalize = True  # TODO: make it configurable
         if normalize and std is not None:
             weight /= std
-        filtered_metrics[k] = v * weight
+        filtered_metrics[k] = np.log(v) * weight
     return filtered_metrics
 
 
-def exp_average(results: list[dict]) -> dict[str, Optional[float]]:
+def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
     """Calculate the exponential average of each metric of the results.
     """
     exp_average_metrics = {}
-    for key, value in results[0].items():  # use key and value from the first result
+    for key, value in log_results[0].items():  # use key and value from the first result
         if (
             isinstance(value, float)
             or value is None  # unluckily got None for results[0]
         ):
             try:
-                metrics_list = [result[key] for result in results]
-                exp_average_metrics[key] = np.exp(np.mean(np.log(metrics_list)))
+                metrics_list = [result[key] for result in log_results]
+                exp_average_metrics[key] = np.exp(np.mean(metrics_list))
             except TypeError:
                 # Contains None(NaN); for the comparability among tasks, set it to None
                 exp_average_metrics[key] = None
