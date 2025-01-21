@@ -36,7 +36,6 @@ def submit_tasks_dflow(
     machine_type="c12_m92_1 * NVIDIA V100",
 ):
     dataset_paths = [
-        "/bohr/mlip-arena-tfpk/v1/",
         "/bohr/lambench-model-55c1/v3/",
         "/bohr/lambench-property-i0t1/v2/",
         "/bohr/lambench-ood-3z0s/v6/",
