@@ -204,3 +204,7 @@ class ASEModel(BaseLargeAtomModel):
                 }
             )
         return res
+
+    def get_calc(self, head=None):
+        # Return ASE Calculator
+        return self.calc

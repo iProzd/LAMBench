@@ -6,6 +6,7 @@ from ase.units import fs
 import numpy as np
 import time
 
+# either load data from test_data or generate it
 TEST_DATA = [
     Atoms(
         "H2O", positions=[(0.0, 0.0, 0.0), (0.0, 0.757, 0.587), (0.0, -0.757, 0.587)]
@@ -14,7 +15,15 @@ TEST_DATA = [
 
 
 def run_md_nve_simulation(test_systems: list[Atoms], model: ASEModel) -> None:
-    pass
+    """
+    This function runs NVE simulations for a list of test systems using the given model.
+    """
+    calc = model.get_calculator()
+    for atoms in test_systems:
+        result = nve_simulation_single(atoms, calc, timestep=1.0, num_steps=100)
+        # Need to aggregate results across multiple systems
+
+    return result
 
 
 def nve_simulation_single(
