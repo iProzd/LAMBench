@@ -1,3 +1,4 @@
+import logging
 import os
 from pathlib import Path
 from types import NoneType
@@ -12,7 +13,7 @@ from lambench.workflow.entrypoint import run_task, job_list
 load_dotenv(override=True)
 # ruff: noqa: E402
 from dflow import Task, Workflow
-from dflow.plugins.bohrium import BohriumDatasetsArtifact
+from dflow.plugins.bohrium import BohriumDatasetsArtifact, create_job_group
 from dflow.plugins.dispatcher import DispatcherExecutor
 from dflow.python import OP, Artifact, PythonOPTemplate
 
@@ -40,6 +41,11 @@ def submit_tasks_dflow(
         "/bohr/lambench-property-i0t1/v2/",
         "/bohr/lambench-ood-3z0s/v6/",
     ]
+    job_group_id = create_job_group(name)
+    logging.info(
+        "Job group created: "
+        f"https://www.bohrium.com/jobs/list?id={job_group_id}&groupName={name}&version=v2"
+    )
     wf = Workflow(name=name)
     for task, model in jobs:
         dflow_task = Task(
@@ -69,6 +75,7 @@ def submit_tasks_dflow(
                     "remote_profile": {
                         "input_data": {
                             "job_type": "container",
+                            "bohr_job_group_id": job_group_id,
                             "platform": "ali",
                             "scass_type": machine_type,
                         },
