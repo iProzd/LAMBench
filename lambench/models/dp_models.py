@@ -1,14 +1,18 @@
+import logging
 import os
 from pathlib import Path
 from typing import Optional
 
-from deepmd.main import main as deepmd_main
+try:
+    from deepmd.main import main as deepmd_main
+except ImportError:
+    logging.info("deepmd-kit is not installed, DPModel will not work.")
 
+from lambench.models.basemodel import BaseLargeAtomModel
+from lambench.tasks.base_task import BaseTask
 from lambench.tasks.direct.direct_tasks import DirectPredictTask
 from lambench.tasks.finetune.property_finetune import PropertyFinetuneTask
 from lambench.tasks.utils import parse_dptest_log_file
-from lambench.tasks.base_task import BaseTask
-from lambench.models.basemodel import BaseLargeAtomModel
 
 
 class DPModel(BaseLargeAtomModel):
