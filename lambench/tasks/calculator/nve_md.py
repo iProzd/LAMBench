@@ -18,9 +18,8 @@ def run_md_nve_simulation(test_systems: list[Atoms], model: ASEModel) -> None:
     """
     This function runs NVE simulations for a list of test systems using the given model.
     """
-    calc = model.get_calculator()
     for atoms in test_systems:
-        result = nve_simulation_single(atoms, calc, timestep=1.0, num_steps=100)
+        result = nve_simulation_single(atoms, model.calc, timestep=1.0, num_steps=100)
         # Need to aggregate results across multiple systems
 
     return result
