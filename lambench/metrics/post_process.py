@@ -63,7 +63,9 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
     return single_model_results
 
 
-def filter_direct_task_results(task_result: dict, task_config: dict) -> dict:
+def filter_direct_task_results(
+    task_result: dict, task_config: dict, normalize: Optional[bool] = False
+) -> dict:
     """
     This function filters the direct task results to keep only the metrics with non-zero task weights.
 
@@ -85,7 +87,6 @@ def filter_direct_task_results(task_result: dict, task_config: dict) -> dict:
             task_result[k] = None
             continue
         std = task_config.get(f"{efv}_std")
-        normalize = True  # TODO: make it configurable
         if normalize and std is not None:
             weight /= std
 
