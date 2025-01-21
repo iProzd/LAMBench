@@ -1,0 +1,81 @@
+import os
+from pathlib import Path
+from types import NoneType
+
+from dotenv import load_dotenv
+
+import lambench
+from lambench.models.basemodel import BaseLargeAtomModel
+from lambench.tasks.base_task import BaseTask
+from lambench.workflow.entrypoint import run_task, job_list
+
+load_dotenv(override=True)
+# ruff: noqa: E402
+from dflow import Task, Workflow
+from dflow.plugins.bohrium import BohriumDatasetsArtifact
+from dflow.plugins.dispatcher import DispatcherExecutor
+from dflow.python import OP, Artifact, PythonOPTemplate
+
+import deepmd
+
+
+@OP.function
+def run_task_op(
+    task: BaseTask,
+    model: BaseLargeAtomModel,
+    dataset: Artifact(Path),  # type: ignore
+) -> NoneType:
+    run_task(task, model)
+
+
+def submit_tasks_dflow(
+    jobs: job_list,
+    name="lambench",
+    image="registry.dp.tech/dptech/deepmd-kit:3.0.0-cuda12.1",
+    machine_type="c12_m92_1 * NVIDIA V100",
+):
+    dataset_paths = [
+        "/bohr/mlip-arena-tfpk/v1/",
+        "/bohr/lambench-model-55c1/v3/",
+        "/bohr/lambench-property-i0t1/v2/",
+        "/bohr/lambench-ood-3z0s/v6/",
+    ]
+    wf = Workflow(name=name)
+    for task, model in jobs:
+        dflow_task = Task(
+            name=f"{task.task_name}_{model.model_name}".replace("_", "-"),
+            template=PythonOPTemplate(
+                run_task_op,  # type: ignore
+                image=image,
+                envs={k: v for k, v in os.environ.items() if k.startswith("MYSQL")},
+                python_packages=[
+                    Path(package.__path__[0]) for package in [lambench, deepmd]
+                ],
+            ),
+            parameters={
+                "task": task,
+                "model": model,
+            },
+            artifacts={
+                "dataset": [
+                    BohriumDatasetsArtifact(dataset_path)
+                    for dataset_path in dataset_paths
+                ],
+            },
+            executor=DispatcherExecutor(
+                machine_dict={
+                    "batch_type": "Bohrium",
+                    "context_type": "Bohrium",
+                    "remote_profile": {
+                        "input_data": {
+                            "job_type": "container",
+                            "platform": "ali",
+                            "scass_type": machine_type,
+                        },
+                    },
+                },
+            ),
+        )
+        wf.add(dflow_task)
+    wf_id = wf.submit()
+    return wf_id
