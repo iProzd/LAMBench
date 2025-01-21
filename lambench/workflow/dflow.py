@@ -41,7 +41,7 @@ def submit_tasks_dflow(
         "/bohr/lambench-property-i0t1/v2/",
         "/bohr/lambench-ood-3z0s/v6/",
     ]
-    job_group_id = create_job_group(name)
+    job_group_id:int = create_job_group(name)
     logging.info(
         "Job group created: "
         f"https://www.bohrium.com/jobs/list?id={job_group_id}&groupName={name}&version=v2"
