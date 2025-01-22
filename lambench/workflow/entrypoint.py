@@ -75,7 +75,7 @@ def gather_jobs(
     model_names: Optional[list[str]] = None,
     task_names: Optional[list[str]] = None,
 ) -> job_list:
-    jobs = []
+    jobs: job_list = []
 
     models = gather_models(model_names)
     if not models:
@@ -84,7 +84,7 @@ def gather_jobs(
 
     logging.info(f"Found {len(models)} models, gathering tasks.")
     jobs.extend(gather_task_type(models, DIRECT_TASKS, DirectPredictTask, task_names))
-    # jobs.extend(gather_task_type(models, FINETUNE_TASKS, PropertyFinetuneTask, task_names)) # Not implemented yet
+    jobs.extend(gather_task_type(models, FINETUNE_TASKS, PropertyFinetuneTask, task_names))
     return jobs
 
 
@@ -114,6 +114,7 @@ def main():
     if not jobs:
         logging.warning("No jobs found, exiting.")
         return
+    logging.info(f"Found {len(jobs)} jobs.")
     if args.local:
         submit_tasks_local(jobs)
     else:

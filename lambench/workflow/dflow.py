@@ -87,5 +87,4 @@ def submit_tasks_dflow(
         )
         wf.add(dflow_task)
     wf_id = wf.submit()
-    print(f"{len(wf_id) - 1} jobs submitted.")  # -1 for head node
     return wf_id
