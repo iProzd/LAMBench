@@ -2,6 +2,7 @@ import logging
 import os
 from pathlib import Path
 from types import NoneType
+from typing import Optional
 
 from dotenv import load_dotenv
 
@@ -29,17 +30,20 @@ def run_task_op(
     task.run_task(model)
 
 
+def get_dataset(paths: list[Optional[Path]]) -> list[BohriumDatasetsArtifact]:
+    r = []
+    for path in paths:
+        if path is not None and str(path).startswith("/bohr/"):
+            r.append(BohriumDatasetsArtifact(path))
+    return r
+
+
 def submit_tasks_dflow(
     jobs: job_list,
     name="lambench",
     image="registry.dp.tech/dptech/dp/native/prod-375/lambench:v1",
     machine_type="1 * NVIDIA V100_32g",
 ):
-    dataset_paths = [
-        "/bohr/lambench-model-55c1/v3/",
-        "/bohr/lambench-property-i0t1/v3/",
-        "/bohr/lambench-ood-3z0s/v6/",
-    ]
     job_group_id: int = create_job_group(name)
     logging.info(
         "Job group created: "
@@ -61,12 +65,7 @@ def submit_tasks_dflow(
                 "task": task,
                 "model": model,
             },
-            artifacts={
-                "dataset": [
-                    BohriumDatasetsArtifact(dataset_path)
-                    for dataset_path in dataset_paths
-                ],
-            },
+            artifacts={"dataset": get_dataset([model.model_path, task.test_data])},
             executor=DispatcherExecutor(
                 machine_dict={
                     "batch_type": "Bohrium",
