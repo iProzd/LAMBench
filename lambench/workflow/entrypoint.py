@@ -58,10 +58,8 @@ def gather_task_type(
     with open(task_file, "r") as f:
         task_configs: dict[str, dict] = yaml.safe_load(f)
     for model in models:
-        if isinstance(model, ASEModel) and not issubclass(
-            task_class, DirectPredictTask
-        ):
-            continue  # ASEModel only supports DirectPredictTask
+        if isinstance(model, ASEModel) and issubclass(task_class, PropertyFinetuneTask):
+            continue  # ASEModel does not support PropertyFinetuneTask
         for task_name, task_params in task_configs.items():
             if task_names and task_name not in task_names:
                 continue
