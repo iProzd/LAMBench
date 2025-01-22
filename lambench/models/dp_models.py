@@ -67,7 +67,12 @@ class DPModel(BaseLargeAtomModel):
         # Optional: actually dp test can run on checkpoint
         model = self._freeze(model, head)
         test_output = self._test(model, task.test_data, head)
-        result = parse_dptest_log_file(filepath=test_output)
+
+        if isinstance(task, PropertyFinetuneTask):
+            output_type="property"
+        else:
+            output_type="standard"
+        result = parse_dptest_log_file(filepath=test_output, output_type=output_type)
         return result
 
     @staticmethod
