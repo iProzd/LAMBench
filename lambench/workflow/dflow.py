@@ -37,7 +37,7 @@ def submit_tasks_dflow(
 ):
     dataset_paths = [
         "/bohr/lambench-model-55c1/v3/",
-        "/bohr/lambench-property-i0t1/v2/",
+        "/bohr/lambench-property-i0t1/v3/",
         "/bohr/lambench-ood-3z0s/v6/",
     ]
     job_group_id: int = create_job_group(name)
