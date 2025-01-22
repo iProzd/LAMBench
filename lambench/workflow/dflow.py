@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import lambench
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
-from lambench.workflow.entrypoint import run_task, job_list
+from lambench.workflow.entrypoint import job_list
 
 load_dotenv(override=True)
 # ruff: noqa: E402
@@ -26,7 +26,7 @@ def run_task_op(
     model: BaseLargeAtomModel,
     dataset: Artifact(Path),  # type: ignore
 ) -> NoneType:
-    run_task(task, model)
+    task.run_task(model)
 
 
 def submit_tasks_dflow(

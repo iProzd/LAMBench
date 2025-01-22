@@ -125,20 +125,13 @@ def main():
 def submit_tasks_local(jobs: job_list) -> None:
     for task, model in jobs:
         logging.info(f"Running task={task.task_name}, model={model.model_name}")
-        run_task(task, model)
-
-
-def run_task(
-    task: BaseTask,
-    model: BaseLargeAtomModel,
-) -> None:
-    try:
-        task.run_task(model)
-    except ModuleNotFoundError as e:
-        logging.error(e)  # Import error for ASE models
-    except Exception as _:
-        traceback.print_exc()
-        logging.error(f"task={task.task_name}, model={model.model_name} failed!")
+        try:
+            task.run_task(model)
+        except ModuleNotFoundError as e:
+            logging.error(e)  # Import error for ASE models
+        except Exception as _:
+            traceback.print_exc()
+            logging.error(f"task={task.task_name}, model={model.model_name} failed!")
 
 
 if __name__ == "__main__":
