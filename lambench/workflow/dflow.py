@@ -32,8 +32,8 @@ def run_task_op(
 def submit_tasks_dflow(
     jobs: job_list,
     name="lambench",
-    image="registry.dp.tech/dptech/deepmd-kit:3.0.0-cuda12.1",
-    machine_type="c12_m92_1 * NVIDIA V100",
+    image="registry.dp.tech/dptech/dp/native/prod-375/lambench:v1",
+    machine_type="1 * NVIDIA V100_32g",
 ):
     dataset_paths = [
         "/bohr/lambench-model-55c1/v3/",
@@ -79,6 +79,9 @@ def submit_tasks_dflow(
                             "scass_type": machine_type,
                         },
                     },
+                },
+                resources_dict={
+                    "source_list": [],  # for future use
                 },
             ),
         )
