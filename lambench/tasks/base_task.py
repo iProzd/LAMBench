@@ -6,10 +6,12 @@ from pathlib import Path
 
 from lambench.databases.base_table import BaseRecord
 from lambench.models.basemodel import BaseLargeAtomModel
+
+
 class BaseTask(BaseModel):
     task_name: str
     test_data: Path
-    model_config = ConfigDict(extra='allow')
+    model_config = ConfigDict(extra="allow")
     workdir: Path = Path(tempfile.gettempdir()) / "lambench"
     record_type: ClassVar = BaseRecord
 
@@ -36,16 +38,3 @@ class BaseTask(BaseModel):
                 model_name=model.model_name,
                 **task_output,
             ).insert()
-
-    def prepare_test_data(self) -> Path:
-        """
-        This function should prepare a `test_data_{task_name}.txt` in the current working directory.
-        """
-        if not self.test_data or not self.test_data.exists():
-            raise RuntimeError(f"Test data {self.test_data} does not exist.")
-
-        temp_file_path = Path(f"{self.task_name}_test_file.txt")
-        with temp_file_path.open('w') as f:
-            for sys in self.test_data.rglob("type_map.raw"):
-                f.write(f"{sys.parent}\n")
-        return temp_file_path

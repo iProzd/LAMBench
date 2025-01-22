@@ -1,3 +1,4 @@
+from functools import cached_property
 import logging
 from pathlib import Path
 from typing import Optional
@@ -21,35 +22,28 @@ class ASEModel(BaseLargeAtomModel):
                 f"Model type {self.model_type} is not supported by ASEModel"
             )
 
-    def evaluate(self, task: DirectPredictTask) -> Optional[dict[str, float]]:
-        if not isinstance(task, DirectPredictTask):
-            raise ValueError(
-                f"ASEModel only supports DirectPredictTask, got {type(task)=}"
-            )
-
-        # Reset the default dtype to float32 to avoid type mismatch
-        import torch
-
-        torch.set_default_dtype(torch.float32)
+    @cached_property
+    def calc(self, head=None) -> Calculator:
+        """ASE Calculator with the model loaded."""
 
         if self.model_family == "MACE":
             from mace.calculators import mace_mp
 
-            CALC = mace_mp(model="medium", device="cuda", default_dtype="float64")
+            return mace_mp(model="medium", device="cuda", default_dtype="float64")
         elif self.model_family == "ORB":
             from orb_models.forcefield import pretrained
             from orb_models.forcefield.calculator import ORBCalculator
 
             orbff = pretrained.orb_v2(device="cuda")  # orb-v2-20241011.ckpt
-            CALC = ORBCalculator(orbff, device="cuda")
+            return ORBCalculator(orbff, device="cuda")
         elif self.model_family == "SevenNet":
             from sevenn.sevennet_calculator import SevenNetCalculator
 
-            CALC = SevenNetCalculator("7net-0_11July2024", device="cuda")
+            return SevenNetCalculator("7net-0_11July2024", device="cuda")
         elif self.model_family == "EquiformerV2":
             from fairchem.core import OCPCalculator
 
-            CALC = OCPCalculator(
+            return OCPCalculator(
                 checkpoint_path=self.model_path,
                 # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints with agreement with the license
                 # NOTE: check the list of public model at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
@@ -61,19 +55,30 @@ class ASEModel(BaseLargeAtomModel):
         elif self.model_family == "MatterSim":
             from mattersim.forcefield import MatterSimCalculator
 
-            CALC = MatterSimCalculator(
+            return MatterSimCalculator(
                 load_path="MatterSim-v1.0.0-5M.pth", device="cuda"
             )
         elif self.model_family == "DP":
             from deepmd.calculator import DP
 
-            CALC = DP(
+            return DP(
                 model=self.model_path,
                 head="Domains_Drug",  # FIXME: should select a head w.r.t. the data
             )
         else:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
-        return self.run_ase_dptest(CALC, task.test_data)
+
+    def evaluate(self, task: DirectPredictTask) -> Optional[dict[str, float]]:
+        if not isinstance(task, DirectPredictTask):
+            raise ValueError(
+                f"ASEModel only supports DirectPredictTask, got {type(task)=}"
+            )
+
+        # Reset the default dtype to float32 to avoid type mismatch
+        import torch
+
+        torch.set_default_dtype(torch.float32)
+        return self.run_ase_dptest(self.calc, task.test_data)
 
     @staticmethod
     def run_ase_dptest(calc: Calculator, test_data: Path) -> dict:
