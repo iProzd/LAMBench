@@ -10,8 +10,7 @@ except ImportError:
 
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
-from lambench.tasks.direct.direct_tasks import DirectPredictTask
-from lambench.tasks.finetune.property_finetune import PropertyFinetuneTask
+from lambench.tasks import DirectPredictTask, PropertyFinetuneTask
 from lambench.tasks.utils import parse_dptest_log_file
 
 
@@ -61,14 +60,19 @@ class DPModel(BaseLargeAtomModel):
 
         model = self.model_path
         if isinstance(task, PropertyFinetuneTask):
-            task.prepare_property_directory(model)
+            task.prepare_property_directory(self)
             model = self._finetune(model)
         elif change_bias:
             model = self._change_bias(model, task.test_data, head)
         # Optional: actually dp test can run on checkpoint
         model = self._freeze(model, head)
         test_output = self._test(model, task.test_data, head)
-        result = parse_dptest_log_file(filepath=test_output)
+
+        if isinstance(task, PropertyFinetuneTask):
+            output_type="property"
+        else:
+            output_type="standard"
+        result = parse_dptest_log_file(filepath=test_output, output_type=output_type)
         return result
 
     @staticmethod
