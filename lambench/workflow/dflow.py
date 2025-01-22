@@ -51,8 +51,9 @@ def submit_tasks_dflow(
     )
     wf = Workflow(name=name)
     for task, model in jobs:
+        name=f"{task.task_name}--{model.model_name}".replace("_", "-")
         dflow_task = Task(
-            name=f"{task.task_name}_{model.model_name}".replace("_", "-"),
+            name=name,
             template=PythonOPTemplate(
                 run_task_op,  # type: ignore
                 image=image,
@@ -73,6 +74,7 @@ def submit_tasks_dflow(
                     "remote_profile": {
                         "input_data": {
                             "job_type": "container",
+                            "job_name": name,
                             "bohr_job_group_id": job_group_id,
                             "platform": "ali",
                             "scass_type": machine_type,
