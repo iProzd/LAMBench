@@ -38,15 +38,25 @@ class PropertyFinetuneTask(BaseTask):
     def evaluate(self, model: BaseLargeAtomModel) -> dict:
         return model.evaluate(self)
 
+    @staticmethod
+    def _find_value_by_key_pattern(d, pattern):
+        for key, value in d.items():
+            if pattern in key:
+                return value
+        else:
+            logging.error("Descriptor not found in pretrain input.json!")
+        return None
+
     def prepare_property_directory(self, model: BaseLargeAtomModel):
-        assert Path.cwd() == self.workdir, (
-            f"Current working directory is {os.getcwd()}, need to change working directory to {self.workdir}!"
-        )
+        assert (
+            Path.cwd() == self.workdir
+        ), f"Current working directory is {os.getcwd()}, need to change working directory to {self.workdir}!"
         # FIXME: due to circular import, we can not use isinstance(model, DPModel) here.
         assert model.model_path is not None, "Model path is not specified!"
         # 1. write the finetune input.json file
-        with open(os.path.join(model.model_path.parent, "input.json"), "r") as f:
-            pretrain_config:dict = json.load(f)
+        # with open(os.path.join(model.model_path.parent, "input.json"), "r") as f:
+        with open("/Users/aisi_ap/Downloads/input.json", "r") as f:
+            pretrain_config: dict = json.load(f)
 
         finetune_config = pretrain_config
 
@@ -69,6 +79,14 @@ class PropertyFinetuneTask(BaseTask):
             "seed": 1,
             "_comment": " that's all",
         }
+        descriptor = PropertyFinetuneTask._find_value_by_key_pattern(
+            pretrain_config["model"]["shared_dict"], "descriptor"
+        )
+        finetune_config["model"]["descriptor"] = descriptor
+        finetune_config["model"]["type_map"] = pretrain_config["model"]["shared_dict"][
+            "type_map_all"
+        ]
+        finetune_config["model"].pop("shared_dict", None)
 
         finetune_config["loss"] = {"type": "property", "_comment": " that's all"}
         finetune_config.pop("loss_dict", None)
