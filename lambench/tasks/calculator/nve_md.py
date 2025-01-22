@@ -2,24 +2,23 @@ from lambench.models.ase_models import ASEModel
 from ase import Atoms
 from ase.calculators.calculator import Calculator
 from ase.md.verlet import VelocityVerlet
+from ase.md.velocitydistribution import MaxwellBoltzmannDistribution
 from ase.units import fs
 import numpy as np
 import time
-
-TEST_DATA = [
-    Atoms(
-        "H2O", positions=[(0.0, 0.0, 0.0), (0.0, 0.757, 0.587), (0.0, -0.757, 0.587)]
-    )  # Example system
-]
+from typing import Optional
+from lambench.tasks.calculator.nve_md_data import TEST_DATA
 
 
-def run_md_nve_simulation(model: ASEModel) -> dict[str, float]:
+def run_md_nve_simulation(
+    model: ASEModel, test_data: Optional[list[Atoms]] = TEST_DATA
+) -> dict[str, float]:
     """
     This function runs NVE simulations for a list of test systems using the given model.
     """
     results = []
-    for atoms in TEST_DATA:
-        result = nve_simulation_single(atoms, model.calc, timestep=1.0, num_steps=100)
+    for atoms in test_data:
+        result = nve_simulation_single(atoms, model.calc, timestep=1.0, num_steps=40000)
         results.append(result)
 
     # Aggregate results
@@ -48,7 +47,7 @@ def run_md_nve_simulation(model: ASEModel) -> dict[str, float]:
 
 
 def nve_simulation_single(
-    atoms: Atoms, calculator: Calculator, timestep=1.0, num_steps=1000
+    atoms: Atoms, calculator: Calculator, timestep=1.0, num_steps=40000
 ):
     """
     Run an NVE simulation using VelocityVerlet and return performance metrics.
@@ -68,6 +67,7 @@ def nve_simulation_single(
     """
 
     atoms.calc = calculator
+    MaxwellBoltzmannDistribution(atoms, temperature_K=300)
     dyn = VelocityVerlet(atoms, timestep * fs)
 
     # Track energies and steps
