@@ -40,7 +40,7 @@ def submit_tasks_dflow(
         "/bohr/lambench-property-i0t1/v2/",
         "/bohr/lambench-ood-3z0s/v6/",
     ]
-    job_group_id:int = create_job_group(name)
+    job_group_id: int = create_job_group(name)
     logging.info(
         "Job group created: "
         f"https://www.bohrium.com/jobs/list?id={job_group_id}&groupName={name}&version=v2"
@@ -84,4 +84,5 @@ def submit_tasks_dflow(
         )
         wf.add(dflow_task)
     wf_id = wf.submit()
+    print(f"{len(wf_id) - 1} jobs submitted.")  # -1 for head node
     return wf_id
