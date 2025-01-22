@@ -14,13 +14,13 @@ class CalculatorTask(BaseTask):
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, test_data=kwargs["test_data"])
 
-    def evaluate(self, model: ASEModel) -> dict:
+    def evaluate(self, model: ASEModel) -> dict[str, float]:
         """
         Evaluate the task for the model.
         """
         if self.task_name == "nve_md":
             from lambench.tasks.calculator.nve_md import run_md_nve_simulation
 
-            run_md_nve_simulation(self.test_data, model)
+            return run_md_nve_simulation(model)
         else:
             pass
