@@ -54,8 +54,7 @@ class PropertyFinetuneTask(BaseTask):
         # FIXME: due to circular import, we can not use isinstance(model, DPModel) here.
         assert model.model_path is not None, "Model path is not specified!"
         # 1. write the finetune input.json file
-        # with open(os.path.join(model.model_path.parent, "input.json"), "r") as f:
-        with open("/Users/aisi_ap/Downloads/input.json", "r") as f:
+        with open(os.path.join(model.model_path.parent, "input.json"), "r") as f:
             pretrain_config: dict = json.load(f)
 
         finetune_config = pretrain_config
@@ -87,6 +86,7 @@ class PropertyFinetuneTask(BaseTask):
             "type_map_all"
         ]
         finetune_config["model"].pop("shared_dict", None)
+        finetune_config["model"].pop("model_dict", None)
 
         finetune_config["loss"] = {"type": "property", "_comment": " that's all"}
         finetune_config.pop("loss_dict", None)
