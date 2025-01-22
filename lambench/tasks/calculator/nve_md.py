@@ -13,7 +13,7 @@ TEST_DATA = [
 ]
 
 
-def run_md_nve_simulation(model: ASEModel) -> None:
+def run_md_nve_simulation(model: ASEModel) -> dict[str, float]:
     """
     This function runs NVE simulations for a list of test systems using the given model.
     """
@@ -109,7 +109,9 @@ def nve_simulation_single(
     }
 
 
-def calculate_final_result(aggregated_result, division_protection: float = 1e-6):
+def calculate_final_result(
+    aggregated_result, division_protection: float = 1e-6
+) -> dict[str, float]:
     """
     This function aggreate the results across all four metrics and return the final result.
     """

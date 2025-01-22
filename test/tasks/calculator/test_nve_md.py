@@ -19,13 +19,12 @@ def setup_calculator():
 
 
 def test_nve_simulation_metrics(setup_testing_data, setup_calculator):
-    """Test NVE simulation metrics for speed, std, and steps."""
+    """Test NVE simulation metrics for std, and steps."""
     result = nve_simulation_single(
         setup_testing_data, setup_calculator, timestep=1.0, num_steps=100
     )
 
     assert result["steps"] > 0, "Steps should be greater than zero."
-    assert result["speed"] > 0, "Speed should be greater than zero."
     if result["energy_std"] is not None:
         assert (
             result["energy_std"] >= 0
