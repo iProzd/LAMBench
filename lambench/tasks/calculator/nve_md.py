@@ -24,9 +24,9 @@ def run_md_nve_simulation(model: ASEModel) -> dict[str, float]:
 
     # Aggregate results
     aggregated_result = {
-        "speed": np.mean(
-            [result["speed"] for result in results]
-            if result["speed"] is not None
+        "simulation_time": np.mean(
+            [result["simulation_time"] for result in results]
+            if result["simulation_time"] is not None
             else np.nan
         ),
         "energy_std": np.mean(
