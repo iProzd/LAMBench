@@ -10,11 +10,14 @@ import lambench
 from lambench.models.ase_models import ASEModel
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.models.dp_models import DPModel
-from lambench.tasks import DirectPredictTask, PropertyFinetuneTask
+from lambench.tasks import DirectPredictTask, CalculatorTask, PropertyFinetuneTask
 from lambench.tasks.base_task import BaseTask
 
 DIRECT_TASKS = Path(lambench.__file__).parent / "tasks/direct/direct_tasks.yml"
 FINETUNE_TASKS = Path(lambench.__file__).parent / "tasks/finetune/finetune_tasks.yml"
+CALCULATOR_TASKS = (
+    Path(lambench.__file__).parent / "tasks/calculator/calculator_tasks.yml"
+)
 MODELS = Path(lambench.__file__).parent / "models/models_config.yml"
 
 
@@ -82,7 +85,10 @@ def gather_jobs(
 
     logging.info(f"Found {len(models)} models, gathering tasks.")
     jobs.extend(gather_task_type(models, DIRECT_TASKS, DirectPredictTask, task_names))
-    jobs.extend(gather_task_type(models, FINETUNE_TASKS, PropertyFinetuneTask, task_names))
+    jobs.extend(
+        gather_task_type(models, FINETUNE_TASKS, PropertyFinetuneTask, task_names)
+    )
+    jobs.extend(gather_task_type(models, CALCULATOR_TASKS, CalculatorTask, task_names))
     return jobs
 
 
@@ -117,6 +123,7 @@ def main():
         submit_tasks_local(jobs)
     else:
         from lambench.workflow.dflow import submit_tasks_dflow
+
         submit_tasks_dflow(jobs)
 
 

@@ -11,7 +11,6 @@ from ase.io import write
 from tqdm import tqdm
 
 from lambench.models.basemodel import BaseLargeAtomModel
-from lambench.tasks.direct.direct_tasks import DirectPredictTask
 
 
 class ASEModel(BaseLargeAtomModel):
@@ -68,7 +67,9 @@ class ASEModel(BaseLargeAtomModel):
         else:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
 
-    def evaluate(self, task: DirectPredictTask) -> Optional[dict[str, float]]:
+    def evaluate(self, task) -> Optional[dict[str, float]]:
+        from lambench.tasks.direct.direct_tasks import DirectPredictTask
+
         if not isinstance(task, DirectPredictTask):
             raise ValueError(
                 f"ASEModel only supports DirectPredictTask, got {type(task)=}"

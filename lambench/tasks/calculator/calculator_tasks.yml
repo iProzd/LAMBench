@@ -1,3 +1,6 @@
-
-- task_name: nve_md
-  test_data: /calculator/md_nve/test_data
+nve_md:
+  test_data: null
+  calculator_params:
+    num_steps: 40000
+    timestep: 1.0
+    temperature: 300
