@@ -1,5 +1,5 @@
 nve_md:
-  test_data: ""
+  test_data: null
   calculator_params:
     num_steps: 40000
     timestep: 1.0

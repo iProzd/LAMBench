@@ -1,4 +1,5 @@
-from typing import ClassVar
+from typing import ClassVar, Optional
+from pathlib import Path
 from lambench.models.ase_models import ASEModel
 from lambench.tasks.base_task import BaseTask
 from lambench.databases.calculator_table import CalculatorRecord
@@ -10,6 +11,7 @@ class CalculatorTask(BaseTask):
     """
 
     record_type: ClassVar = CalculatorRecord
+    test_data: Optional[Path]
     calculator_params: dict
 
     def __init__(self, task_name: str, **kwargs):
