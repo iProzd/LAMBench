@@ -14,6 +14,7 @@ class CalculatorTask(BaseTask):
 
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, test_data=kwargs["test_data"])
+        self.calculator_params = kwargs["calculator_params"]
 
     def run_task(self, model: ASEModel) -> dict[str, float]:
         """
