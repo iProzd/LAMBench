@@ -1,2 +1,5 @@
 nve_md:
   test_data: ""
+  num_steps: 40000
+  timestep: 1.0
+  temperature: 300

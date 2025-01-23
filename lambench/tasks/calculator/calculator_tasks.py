@@ -10,9 +10,12 @@ class CalculatorTask(BaseTask):
     """
 
     record_type: ClassVar = CalculatorRecord
+    num_steps: int = 10000
+    timestep: float = 1.0
+    temperature_K: int = 300
 
     def __init__(self, task_name: str, **kwargs):
-        super().__init__(task_name=task_name, **kwargs)
+        super().__init__(task_name=task_name, test_data=kwargs["test_data"])
 
     def evaluate(self, model: ASEModel) -> dict[str, float]:
         """
