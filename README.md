@@ -21,6 +21,8 @@ Using EquiformerV2 models requires the installation of the additional pytorch-ge
 Follow [the instructions](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html#additional-libraries), then install `lambench[fairchem]`, e.g.
 `pip install torch_geometric pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cu124.html`
 
+`mace-torch` pins `e3nn==0.4.4`, which is [not actually required](https://github.com/ACEsuit/mace/issues/555#issuecomment-2423730788) and conflicts with `fairchem`. One can install `lambench[fairchem]` and `lambench[mace]` separately to avoid the conflict.
+
 ## Usage
 
 To run the benchmarks, use the following command:
