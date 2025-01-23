@@ -15,7 +15,7 @@ class CalculatorTask(BaseTask):
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, test_data=kwargs["test_data"])
 
-    def evaluate(self, model: ASEModel) -> dict[str, float]:
+    def run_task(self, model: ASEModel) -> dict[str, float]:
         """
         Evaluate the task for the model.
         """
