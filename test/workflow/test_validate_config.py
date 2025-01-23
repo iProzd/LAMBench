@@ -1,4 +1,9 @@
-from lambench.workflow.entrypoint import MODELS, DIRECT_TASKS, FINETUNE_TASKS
+from lambench.workflow.entrypoint import (
+    MODELS,
+    DIRECT_TASKS,
+    FINETUNE_TASKS,
+    CALCULATOR_TASKS,
+)
 import yaml
 from lambench.models.ase_models import ASEModel
 from lambench.models.dp_models import DPModel
@@ -15,6 +20,7 @@ def test_validate_config():
     model_config_error_list = []
     direct_task_config_error_list = []
     finetune_task_config_error_list = []
+    calculator_task_config_error_list = []
 
     with open(MODELS, "r") as f:
         model_config = yaml.safe_load(f)
@@ -34,7 +40,7 @@ def test_validate_config():
         except Exception as e:
             model_config_error_list.append(f"Error in model config {model_param}: {e}")
 
-    for task_file in [DIRECT_TASKS, FINETUNE_TASKS]:
+    for task_file in [DIRECT_TASKS, FINETUNE_TASKS, CALCULATOR_TASKS]:
         with open(task_file, "r") as f:
             task_configs = yaml.safe_load(f)
         for task_name, task_param in task_configs.items():
@@ -45,9 +51,13 @@ def test_validate_config():
                     direct_task_config_error_list.append(
                         f"Error in direct task config {task_param}: {e}"
                     )
-                else:
+                elif task_file == FINETUNE_TASKS:
                     finetune_task_config_error_list.append(
                         f"Error in finetune task config {task_param}: {e}"
+                    )
+                elif task_file == CALCULATOR_TASKS:
+                    calculator_task_config_error_list.append(
+                        f"Error in calculator task config {task_param}: {e}"
                     )
 
     assert (
@@ -59,3 +69,6 @@ def test_validate_config():
     assert (
         not finetune_task_config_error_list
     ), f"Finetune task config errors: {finetune_task_config_error_list}"
+    assert (
+        not calculator_task_config_error_list
+    ), f"Calculator task config errors: {calculator_task_config_error_list}"

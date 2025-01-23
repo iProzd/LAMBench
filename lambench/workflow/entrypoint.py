@@ -10,11 +10,14 @@ import lambench
 from lambench.models.ase_models import ASEModel
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.models.dp_models import DPModel
-from lambench.tasks import DirectPredictTask, PropertyFinetuneTask
+from lambench.tasks import DirectPredictTask
 from lambench.tasks.base_task import BaseTask
 
 DIRECT_TASKS = Path(lambench.__file__).parent / "tasks/direct/direct_tasks.yml"
 FINETUNE_TASKS = Path(lambench.__file__).parent / "tasks/finetune/finetune_tasks.yml"
+CALCULATOR_TASKS = (
+    Path(lambench.__file__).parent / "tasks/calculator/calculator_tasks.yml"
+)
 MODELS = Path(lambench.__file__).parent / "models/models_config.yml"
 
 
@@ -27,7 +30,7 @@ def gather_models(
 
     models = []
     with open(MODELS, "r") as f:
-        model_config:list[dict] = yaml.safe_load(f)
+        model_config: list[dict] = yaml.safe_load(f)
     for model_param in model_config:
         if model_names and model_param["model_name"] not in model_names:
             continue
@@ -36,8 +39,11 @@ def gather_models(
         elif model_param["model_type"] == "ASE":
             models.append(ASEModel(**model_param))
         else:
-            raise ValueError(f"Model type {model_param['model_type']} is not supported.")
+            raise ValueError(
+                f"Model type {model_param['model_type']} is not supported."
+            )
     return models
+
 
 def gather_task_type(
     models: list[BaseLargeAtomModel],
@@ -52,7 +58,9 @@ def gather_task_type(
     with open(task_file, "r") as f:
         task_configs = yaml.safe_load(f)
     for model in models:
-        if isinstance(model, ASEModel) and not issubclass(task_class, DirectPredictTask):
+        if isinstance(model, ASEModel) and not issubclass(
+            task_class, DirectPredictTask
+        ):
             continue  # ASEModel only supports DirectPredictTask
         for task_name, task_param in task_configs.items():
             if task_names and task_name not in task_names:
@@ -61,6 +69,7 @@ def gather_task_type(
             if not task.exist(model.model_name):
                 tasks.append((task, model))
     return tasks
+
 
 def gather_jobs(
     model_names: Optional[list[str]] = None,
@@ -78,10 +87,21 @@ def gather_jobs(
     # jobs.extend(gather_task_type(models, FINETUNE_TASKS, PropertyFinetuneTask, task_names)) # Not implemented yet
     return jobs
 
+
 def main():
     parser = argparse.ArgumentParser(description="Run tasks for models.")
-    parser.add_argument("--models", type=str, nargs="*", help="The model names in `models_config.yml`. e.g. --models DP_2024Q4 MACE_MP_0 SEVENNET_0")
-    parser.add_argument("--tasks", type=str, nargs="*", help="The task names in `direct_tasks.yml` or `finetune_tasks.yml`. e.g. --tasks HPt_NC_2022 Si_ZEO22")
+    parser.add_argument(
+        "--models",
+        type=str,
+        nargs="*",
+        help="The model names in `models_config.yml`. e.g. --models DP_2024Q4 MACE_MP_0 SEVENNET_0",
+    )
+    parser.add_argument(
+        "--tasks",
+        type=str,
+        nargs="*",
+        help="The task names in `direct_tasks.yml` or `finetune_tasks.yml`. e.g. --tasks HPt_NC_2022 Si_ZEO22",
+    )
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO)
@@ -91,15 +111,17 @@ def main():
         logging.info(f"Running task={task.task_name}, model={model.model_name}")
         submit_job(task, model)
 
+
 # TODO: wrap as an OP
 def submit_job(task, model):
     try:
         task.run_task(model)
     except ModuleNotFoundError as e:
-        logging.error(e) # Import error for ASE models
+        logging.error(e)  # Import error for ASE models
     except Exception as _:
         traceback.print_exc()
         logging.error(f"task={task.task_name}, model={model.model_name} failed!")
+
 
 if __name__ == "__main__":
     main()

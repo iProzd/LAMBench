@@ -12,7 +12,7 @@ class CalculatorTask(BaseTask):
     record_type: ClassVar = CalculatorRecord
 
     def __init__(self, task_name: str, **kwargs):
-        super().__init__(task_name=task_name, test_data=kwargs["test_data"])
+        super().__init__(task_name=task_name, **kwargs)
 
     def evaluate(self, model: ASEModel) -> dict[str, float]:
         """
