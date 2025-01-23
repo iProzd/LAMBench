@@ -1,4 +1,4 @@
-from typing import ClassVar, Any
+from typing import ClassVar
 from lambench.models.ase_models import ASEModel
 from lambench.tasks.base_task import BaseTask
 from lambench.databases.calculator_table import CalculatorRecord
@@ -10,11 +10,10 @@ class CalculatorTask(BaseTask):
     """
 
     record_type: ClassVar = CalculatorRecord
-    calculator_params: dict[str, Any]
+    calculator_params: dict
 
     def __init__(self, task_name: str, **kwargs):
-        super().__init__(task_name=task_name, test_data=kwargs["test_data"])
-        self.calculator_params = kwargs["calculator_params"]
+        super().__init__(task_name=task_name, **kwargs)
 
     def run_task(self, model: ASEModel) -> dict[str, float]:
         """
