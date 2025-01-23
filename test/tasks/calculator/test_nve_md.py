@@ -62,13 +62,13 @@ def test_nve_simulation_crash_handling(setup_testing_data, setup_calculator):
         """A faulty calculator to simulate a crash."""
         raise RuntimeError("Intentional crash for testing.")
 
-    res = nve_simulation_single(atoms, faulty_calculator, 1.0, 100, 300)
+    res = nve_simulation_single(atoms, faulty_calculator)
     assert res["steps"] == 0, "Simulation should crash."
 
 
 def test_run_md_nve_simulation(setup_testing_data, setup_model):
     """Test running NVE simulation for a model."""
-    result = run_md_nve_simulation(setup_model, 1.0, 100, 300, [setup_testing_data])
+    result = run_md_nve_simulation(setup_model, test_data=[setup_testing_data])
     assert isinstance(result["NVE Score"], float), "NVE Score should be a float."
 
 
@@ -80,5 +80,5 @@ def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
         raise RuntimeError("Intentional crash for testing.")
 
     setup_model.calc = faulty_calculator
-    result = run_md_nve_simulation(setup_model, 1.0, 100, 300, [setup_testing_data])
+    result = run_md_nve_simulation(setup_model, test_data=[setup_testing_data])
     assert np.isnan(result["NVE Score"])

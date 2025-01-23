@@ -10,9 +10,7 @@ class CalculatorTask(BaseTask):
     """
 
     record_type: ClassVar = CalculatorRecord
-    num_steps: int = 10000
-    timestep: float = 1.0
-    temperature_K: int = 300
+    calulator_params: dict
 
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, test_data=kwargs["test_data"])
@@ -24,6 +22,9 @@ class CalculatorTask(BaseTask):
         if self.task_name == "nve_md":
             from lambench.tasks.calculator.nve_md import run_md_nve_simulation
 
-            return run_md_nve_simulation(model)
+            num_steps = self.calulator_params.get("num_steps", 1000)
+            timestep = self.calulator_params.get("timestep", 1.0)
+            temperature_K = self.calulator_params.get("temperature_K", 300)
+            return run_md_nve_simulation(model, num_steps, timestep, temperature_K)
         else:
             pass

@@ -12,9 +12,9 @@ from lambench.tasks.calculator.nve_md_data import TEST_DATA
 
 def run_md_nve_simulation(
     model: ASEModel,
-    num_steps: int,
-    timestep: float,
-    temperature_K: int,
+    num_steps: Optional[int] = 1000,
+    timestep: Optional[float] = 1.0,
+    temperature_K: Optional[int] = 300,
     test_data: Optional[list[Atoms]] = TEST_DATA,
 ) -> dict[str, float]:
     """
@@ -59,9 +59,9 @@ def run_md_nve_simulation(
 def nve_simulation_single(
     atoms: Atoms,
     calculator: Calculator,
-    timestep: float,
-    num_steps: int,
-    temperature_K: int,
+    timestep: Optional[float] = 1.0,
+    num_steps: Optional[int] = 1000,
+    temperature_K: Optional[int] = 300,
 ):
     """
     Run an NVE simulation using VelocityVerlet and return performance metrics.
