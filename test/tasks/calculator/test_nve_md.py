@@ -1,11 +1,13 @@
 from lambench.tasks.calculator.nve_md import (
     nve_simulation_single,
     run_md_nve_simulation,
+    aggregated_results,
 )
 import pytest
 from ase import Atoms
 from ase.calculators.emt import EMT
 from lambench.models.ase_models import ASEModel
+import numpy as np
 
 
 @pytest.fixture
@@ -115,3 +117,22 @@ def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
         "steps",
         "slope",
     }, "Result should have keys 'simulation_time', 'energy_std', 'steps', 'slope'."
+
+
+def test_aggreated_results():
+    """Test aggregation of results."""
+    results = [
+        {"simulation_time": 128.3, "energy_std": 0.1, "steps": 100, "slope": np.nan},
+        {
+            "simulation_time": 2374.1,
+            "energy_std": 200020.2,
+            "steps": 110,
+            "slope": 4580.2,
+        },
+    ]
+    result = aggregated_results(results)
+
+    np.testing.assert_almost_equal(result["simulation_time"], 1251.2, decimal=3)
+    assert result["steps"] == 105, "Simulation time should be the average."
+    np.testing.assert_almost_equal(result["energy_std"], 141.428, decimal=3)
+    assert np.isnan(result["slope"]), "Slope should be nan."

@@ -16,3 +16,15 @@ def calculate_nve_md_score(
         )
     )
     return {"NVE Score": final_result}
+
+
+def log_average(resutls: list[float]) -> float:
+    """
+    A function to calculate the log average of a list of results to avoid overwheelmingly large numbers.
+    """
+    if not resutls:
+        return np.nan
+    elif any(np.isnan(resutls)):
+        return np.nan
+
+    return np.exp(np.mean(np.log(resutls)))
