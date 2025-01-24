@@ -84,7 +84,11 @@ class ASEModel(BaseLargeAtomModel):
                 num_steps = task.calculator_params.get("num_steps", 1000)
                 timestep = task.calculator_params.get("timestep", 1.0)
                 temperature_K = task.calculator_params.get("temperature_K", 300)
-                return run_md_nve_simulation(self, num_steps, timestep, temperature_K)
+                return {
+                    "metrics": run_md_nve_simulation(
+                        self, num_steps, timestep, temperature_K
+                    )
+                }
             else:
                 raise NotImplementedError(f"Task {task.task_name} is not implemented.")
 

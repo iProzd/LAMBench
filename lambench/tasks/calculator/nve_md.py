@@ -9,6 +9,7 @@ import time
 from lambench.metrics.utils import log_average
 from typing import Optional
 from lambench.tasks.calculator.nve_md_data import TEST_DATA
+import logging
 
 
 def run_md_nve_simulation(
@@ -31,6 +32,7 @@ def run_md_nve_simulation(
             temperature_K=temperature_K,
         )
         results.append(result)
+        logging.info(f"Simulation completed for system {str(atoms.symbols)}: {result}")
     return aggregated_results(results)
 
 
