@@ -78,15 +78,15 @@ class ASEModel(BaseLargeAtomModel):
             torch.set_default_dtype(torch.float32)
             return self.run_ase_dptest(self.calc, task.test_data)
         elif isinstance(task, CalculatorTask):
-            if self.task_name == "nve_md":
+            if task.task_name == "nve_md":
                 from lambench.tasks.calculator.nve_md import run_md_nve_simulation
 
-                num_steps = self.calculator_params.get("num_steps", 1000)
-                timestep = self.calculator_params.get("timestep", 1.0)
-                temperature_K = self.calculator_params.get("temperature_K", 300)
-                return run_md_nve_simulation(self, num_steps, timestep, temperature_K)
+                num_steps = task.calculator_params.get("num_steps", 1000)
+                timestep = task.calculator_params.get("timestep", 1.0)
+                temperature_K = task.calculator_params.get("temperature_K", 300)
+                return run_md_nve_simulation(task, num_steps, timestep, temperature_K)
             else:
-                raise NotImplementedError(f"Task {self.task_name} is not implemented.")
+                raise NotImplementedError(f"Task {task.task_name} is not implemented.")
 
         else:
             raise NotImplementedError(
