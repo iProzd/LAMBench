@@ -69,7 +69,7 @@ class ASEModel(BaseLargeAtomModel):
 
     def evaluate(self, task) -> Optional[dict[str, float]]:
         from lambench.tasks.calculator.calculator_tasks import CalculatorTask
-        from lambench.tasks.direct_predict.direct_predict_tasks import DirectPredictTask
+        from lambench.tasks.direct.direct_tasks import DirectPredictTask
 
         if isinstance(task, DirectPredictTask):
             # Reset the default dtype to float32 to avoid type mismatch
