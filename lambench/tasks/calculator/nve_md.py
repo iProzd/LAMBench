@@ -54,12 +54,7 @@ def aggregated_results(results: list[dict[str, float]]) -> dict[str, float]:
         "steps": np.mean(
             [result["steps"] if result["steps"] != 0 else np.nan for result in results]
         ),
-        "slope": log_average(
-            [
-                result["slope"] if result["slope"] is not None else np.nan
-                for result in results
-            ]
-        ),
+        "slope": log_average([result["slope"] for result in results]),
     }
     return aggregated_result
 
@@ -122,7 +117,7 @@ def nve_simulation_single(
         A = np.vstack([times, np.ones(len(times))]).T
         slope, _ = np.linalg.lstsq(A, energies, rcond=None)[0]
     else:
-        slope = None
+        slope = np.nan
 
     return {
         "simulation_time": simulation_time,  # Simulation efficiency
