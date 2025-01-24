@@ -1,6 +1,7 @@
 from lambench.tasks.calculator.nve_md import (
     nve_simulation_single,
     run_md_nve_simulation,
+    aggregated_results,
 )
 import pytest
 from ase import Atoms
@@ -62,14 +63,36 @@ def test_nve_simulation_crash_handling(setup_testing_data, setup_calculator):
         """A faulty calculator to simulate a crash."""
         raise RuntimeError("Intentional crash for testing.")
 
-    res = nve_simulation_single(atoms, faulty_calculator)
+    res = nve_simulation_single(
+        atoms, faulty_calculator, timestep=1.0, num_steps=100, temperature_K=300
+    )
     assert res["steps"] == 0, "Simulation should crash."
 
 
 def test_run_md_nve_simulation(setup_testing_data, setup_model):
     """Test running NVE simulation for a model."""
-    result = run_md_nve_simulation(setup_model, test_data=[setup_testing_data])
-    assert isinstance(result["NVE Score"], float), "NVE Score should be a float."
+    result = run_md_nve_simulation(
+        setup_model,
+        timestep=1.0,
+        num_steps=100,
+        temperature_K=300,
+        test_data=[setup_testing_data],
+    )
+    assert isinstance(result, dict), "Result should be a dictionary."
+    assert set(result.keys()) == {
+        "simulation_time",
+        "energy_std",
+        "steps",
+        "slope",
+    }, "Result should have keys 'simulation_time', 'energy_std', 'steps', 'slope'."
+    assert result["steps"] > 0, "Steps should be greater than zero."
+    assert isinstance(
+        result["energy_std"], float
+    ), "Energy standard deviation should be a float."
+    assert isinstance(
+        result["simulation_time"], float
+    ), "Simulation time should be a float."
+    assert isinstance(result["slope"], float), "Slope should be a float."
 
 
 def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
@@ -80,5 +103,36 @@ def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
         raise RuntimeError("Intentional crash for testing.")
 
     setup_model.calc = faulty_calculator
-    result = run_md_nve_simulation(setup_model, test_data=[setup_testing_data])
-    assert np.isnan(result["NVE Score"])
+    result = run_md_nve_simulation(
+        setup_model,
+        timestep=1.0,
+        num_steps=100,
+        temperature_K=300,
+        test_data=[setup_testing_data],
+    )
+    assert isinstance(result, dict), "Result should be a dictionary."
+    assert set(result.keys()) == {
+        "simulation_time",
+        "energy_std",
+        "steps",
+        "slope",
+    }, "Result should have keys 'simulation_time', 'energy_std', 'steps', 'slope'."
+
+
+def test_aggreated_results():
+    """Test aggregation of results."""
+    results = [
+        {"simulation_time": 128.3, "energy_std": 0.1, "steps": 100, "slope": np.nan},
+        {
+            "simulation_time": 2374.1,
+            "energy_std": 200020.2,
+            "steps": 110,
+            "slope": 4580.2,
+        },
+    ]
+    result = aggregated_results(results)
+
+    np.testing.assert_almost_equal(result["simulation_time"], 1251.2, decimal=3)
+    assert result["steps"] == 105, "Simulation time should be the average."
+    np.testing.assert_almost_equal(result["energy_std"], 141.428, decimal=3)
+    assert np.isnan(result["slope"]), "Slope should be nan."
