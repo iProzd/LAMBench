@@ -1,6 +1,6 @@
 nve_md:
   test_data: null
   calculator_params:
-    num_steps: 40000
+    num_steps: 10000
     timestep: 1.0
     temperature: 300

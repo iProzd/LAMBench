@@ -62,24 +62,36 @@ class ASEModel(BaseLargeAtomModel):
 
             return DP(
                 model=self.model_path,
-                head="Domains_Drug",  # FIXME: should select a head w.r.t. the data
+                head="Domains_Drug",  # FIXME: just use mptrj head.
             )
         else:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
 
     def evaluate(self, task) -> Optional[dict[str, float]]:
-        from lambench.tasks.direct.direct_tasks import DirectPredictTask
+        from lambench.tasks.calculator.calculator_tasks import CalculatorTask
+        from lambench.tasks.direct_predict.direct_predict_tasks import DirectPredictTask
 
-        if not isinstance(task, DirectPredictTask):
-            raise ValueError(
-                f"ASEModel only supports DirectPredictTask, got {type(task)=}"
+        if isinstance(task, DirectPredictTask):
+            # Reset the default dtype to float32 to avoid type mismatch
+            import torch
+
+            torch.set_default_dtype(torch.float32)
+            return self.run_ase_dptest(self.calc, task.test_data)
+        elif isinstance(task, CalculatorTask):
+            if self.task_name == "nve_md":
+                from lambench.tasks.calculator.nve_md import run_md_nve_simulation
+
+                num_steps = self.calculator_params.get("num_steps", 1000)
+                timestep = self.calculator_params.get("timestep", 1.0)
+                temperature_K = self.calculator_params.get("temperature_K", 300)
+                return run_md_nve_simulation(self, num_steps, timestep, temperature_K)
+            else:
+                raise NotImplementedError(f"Task {self.task_name} is not implemented.")
+
+        else:
+            raise NotImplementedError(
+                f"Task {task.task_name} is not implemented for ASEModel."
             )
-
-        # Reset the default dtype to float32 to avoid type mismatch
-        import torch
-
-        torch.set_default_dtype(torch.float32)
-        return self.run_ase_dptest(self.calc, task.test_data)
 
     @staticmethod
     def run_ase_dptest(calc: Calculator, test_data: Path) -> dict:

@@ -12,9 +12,9 @@ from lambench.tasks.calculator.nve_md_data import TEST_DATA
 
 def run_md_nve_simulation(
     model: ASEModel,
-    num_steps: Optional[int] = 1000,
-    timestep: Optional[float] = 1.0,
-    temperature_K: Optional[int] = 300,
+    num_steps: int,
+    timestep: float,
+    temperature_K: int,
     test_data: Optional[list[Atoms]] = TEST_DATA,
 ) -> dict[str, float]:
     """
@@ -25,8 +25,8 @@ def run_md_nve_simulation(
         result = nve_simulation_single(
             atoms,
             model.calc,
-            timestep=timestep,
             num_steps=num_steps,
+            timestep=timestep,
             temperature_K=temperature_K,
         )
         results.append(result)
@@ -53,15 +53,15 @@ def run_md_nve_simulation(
         ),
     }
 
-    return calculate_final_result(aggregated_result)
+    return aggregated_result
 
 
 def nve_simulation_single(
     atoms: Atoms,
     calculator: Calculator,
-    timestep: Optional[float] = 1.0,
-    num_steps: Optional[int] = 1000,
-    temperature_K: Optional[int] = 300,
+    num_steps: int,
+    timestep: float,
+    temperature_K: int,
 ):
     """
     Run an NVE simulation using VelocityVerlet and return performance metrics.
@@ -69,8 +69,8 @@ def nve_simulation_single(
     Parameters:
         atoms: ASE Atoms objects for simulation.
         calculator: ASE calculator to use for the simulation.
-        timestep (float): Time step in fs.
         num_steps (int): Number of steps to run.
+        timestep (float): Time step in fs.
         temperature_K (int): Temperature in Kelvin.
 
     Returns:
@@ -122,20 +122,3 @@ def nve_simulation_single(
         "steps": steps_done,  # Simulation stability
         "slope": slope,  # Energy drift
     }
-
-
-def calculate_final_result(
-    aggregated_result, division_protection: float = 1e-6
-) -> dict[str, float]:
-    """
-    This function aggreate the results across all four metrics and return the final result.
-    """
-    final_result = np.log(
-        aggregated_result["steps"]
-        / (
-            aggregated_result["simulation_time"]
-            * (aggregated_result["energy_std"] + division_protection)
-            * (np.abs(aggregated_result["slope"]) + division_protection)
-        )
-    )
-    return {"NVE Score": final_result}

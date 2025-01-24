@@ -6,7 +6,6 @@ import pytest
 from ase import Atoms
 from ase.calculators.emt import EMT
 from lambench.models.ase_models import ASEModel
-import numpy as np
 
 
 @pytest.fixture
@@ -62,14 +61,36 @@ def test_nve_simulation_crash_handling(setup_testing_data, setup_calculator):
         """A faulty calculator to simulate a crash."""
         raise RuntimeError("Intentional crash for testing.")
 
-    res = nve_simulation_single(atoms, faulty_calculator)
+    res = nve_simulation_single(
+        atoms, faulty_calculator, timestep=1.0, num_steps=100, temperature_K=300
+    )
     assert res["steps"] == 0, "Simulation should crash."
 
 
 def test_run_md_nve_simulation(setup_testing_data, setup_model):
     """Test running NVE simulation for a model."""
-    result = run_md_nve_simulation(setup_model, test_data=[setup_testing_data])
-    assert isinstance(result["NVE Score"], float), "NVE Score should be a float."
+    result = run_md_nve_simulation(
+        setup_model,
+        timestep=1.0,
+        num_steps=100,
+        temperature_K=300,
+        test_data=[setup_testing_data],
+    )
+    assert isinstance(result, dict), "Result should be a dictionary."
+    assert set(result.keys()) == {
+        "simulation_time",
+        "energy_std",
+        "steps",
+        "slope",
+    }, "Result should have keys 'simulation_time', 'energy_std', 'steps', 'slope'."
+    assert result["steps"] > 0, "Steps should be greater than zero."
+    assert isinstance(
+        result["energy_std"], float
+    ), "Energy standard deviation should be a float."
+    assert isinstance(
+        result["simulation_time"], float
+    ), "Simulation time should be a float."
+    assert isinstance(result["slope"], float), "Slope should be a float."
 
 
 def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
@@ -80,5 +101,17 @@ def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
         raise RuntimeError("Intentional crash for testing.")
 
     setup_model.calc = faulty_calculator
-    result = run_md_nve_simulation(setup_model, test_data=[setup_testing_data])
-    assert np.isnan(result["NVE Score"])
+    result = run_md_nve_simulation(
+        setup_model,
+        timestep=1.0,
+        num_steps=100,
+        temperature_K=300,
+        test_data=[setup_testing_data],
+    )
+    assert isinstance(result, dict), "Result should be a dictionary."
+    assert set(result.keys()) == {
+        "simulation_time",
+        "energy_std",
+        "steps",
+        "slope",
+    }, "Result should have keys 'simulation_time', 'energy_std', 'steps', 'slope'."
