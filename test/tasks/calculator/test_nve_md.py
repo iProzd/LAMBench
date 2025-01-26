@@ -1,8 +1,8 @@
 from lambench.tasks.calculator.nve_md import (
     nve_simulation_single,
     run_md_nve_simulation,
-    aggregated_results,
 )
+from lambench.metrics.utils import aggregated_nve_md_results
 import pytest
 from ase import Atoms
 from ase.calculators.emt import EMT
@@ -49,10 +49,8 @@ def test_nve_simulation_metrics(setup_testing_data, setup_calculator):
     )
 
     assert result["steps"] > 0, "Steps should be greater than zero."
-    if result["energy_std"] is not None:
-        assert (
-            result["energy_std"] >= 0
-        ), "Energy standard deviation should be non-negative."
+    assert result["simulation_time"] > 0, "Simulation time should be greater than zero."
+    assert isinstance(result["slope"], float), "Slope should be a float."
 
 
 def test_nve_simulation_crash_handling(setup_testing_data, setup_calculator):
@@ -67,6 +65,7 @@ def test_nve_simulation_crash_handling(setup_testing_data, setup_calculator):
         atoms, faulty_calculator, timestep=1.0, num_steps=100, temperature_K=300
     )
     assert res["steps"] == 0, "Simulation should crash."
+    assert np.isnan(res["slope"]), "Slope should be Nan."
 
 
 def test_run_md_nve_simulation(setup_testing_data, setup_model):
@@ -80,19 +79,22 @@ def test_run_md_nve_simulation(setup_testing_data, setup_model):
     )
     assert isinstance(result, dict), "Result should be a dictionary."
     assert set(result.keys()) == {
+        "H2O",
+    }, "Result should have keys 'H2O'."
+    assert set(result["H2O"].keys()) == {
         "simulation_time",
-        "energy_std",
         "steps",
         "slope",
-    }, "Result should have keys 'simulation_time', 'energy_std', 'steps', 'slope'."
-    assert result["steps"] > 0, "Steps should be greater than zero."
+        "momenta_diff",
+    }, "Result should have keys 'simulation_time', 'steps', 'slope', 'momenta_diff'."
+    assert result["H2O"]["steps"] > 0, "Steps should be greater than zero."
     assert isinstance(
-        result["energy_std"], float
-    ), "Energy standard deviation should be a float."
-    assert isinstance(
-        result["simulation_time"], float
+        result["H2O"]["simulation_time"], float
     ), "Simulation time should be a float."
-    assert isinstance(result["slope"], float), "Slope should be a float."
+    assert isinstance(result["H2O"]["slope"], float), "Slope should be a float."
+    assert isinstance(
+        result["H2O"]["momenta_diff"], float
+    ), "Momenta diff should be a float."
 
 
 def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
@@ -112,27 +114,29 @@ def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
     )
     assert isinstance(result, dict), "Result should be a dictionary."
     assert set(result.keys()) == {
+        "H2O",
+    }, "Result should have keys 'H2O'."
+    assert set(result["H2O"].keys()) == {
         "simulation_time",
-        "energy_std",
         "steps",
         "slope",
-    }, "Result should have keys 'simulation_time', 'energy_std', 'steps', 'slope'."
+        "momenta_diff",
+    }, "Result should have keys 'simulation_time', 'steps', 'slope', 'momenta_diff'."
 
 
 def test_aggreated_results():
     """Test aggregation of results."""
     results = [
-        {"simulation_time": 128.3, "energy_std": 0.1, "steps": 100, "slope": np.nan},
+        {"simulation_time": 128.3, "steps": 100, "slope": np.nan, "momenta_diff": 0.1},
         {
             "simulation_time": 2374.1,
-            "energy_std": 200020.2,
             "steps": 110,
             "slope": 4580.2,
+            "momenta_diff": 200020.2,
         },
     ]
-    result = aggregated_results(results)
-
+    result = aggregated_nve_md_results(results)
     np.testing.assert_almost_equal(result["simulation_time"], 1251.2, decimal=3)
     assert result["steps"] == 105, "Simulation time should be the average."
-    np.testing.assert_almost_equal(result["energy_std"], 141.428, decimal=3)
     assert np.isnan(result["slope"]), "Slope should be nan."
+    np.testing.assert_almost_equal(result["momenta_diff"], 141.428, decimal=3)
