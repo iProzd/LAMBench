@@ -1,6 +1,26 @@
 import numpy as np
 
 
+def aggregated_nve_md_results(results: list[dict[str, float]]) -> dict[str, float]:
+    # Aggregate results
+    aggregated_result = {
+        "simulation_time": np.mean(
+            [
+                result["simulation_time"]
+                if result["simulation_time"] is not None
+                else np.nan
+                for result in results
+            ]
+        ),
+        "steps": np.mean(
+            [result["steps"] if result["steps"] != 0 else np.nan for result in results]
+        ),
+        "slope": log_average([result["slope"] for result in results]),
+        "momenta_diff": log_average([result["momenta_diff"] for result in results]),
+    }
+    return aggregated_result
+
+
 def calculate_nve_md_score(
     aggregated_result, division_protection: float = 1e-6
 ) -> dict[str, float]:
