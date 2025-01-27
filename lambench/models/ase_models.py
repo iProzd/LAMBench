@@ -24,7 +24,7 @@ class ASEModel(BaseLargeAtomModel):
         if self.model_family == "MACE":
             from mace.calculators import mace_mp
 
-            # "small", "medium", "large", "small-0b", "medium-0b", "small-0b2", "medium-0b2", "large-0b2"
+            # "small", "medium", "large", "small-0b", "medium-0b", "small-0b2", "medium-0b2", "large-0b2", "medium-0b3", "medium-mpa-0"
             return mace_mp(
                 model=self.model_name.split("_")[-1],  # mace_mp_0_medium -> medium
                 device="cuda",
