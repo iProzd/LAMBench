@@ -38,7 +38,7 @@ class ASEModel(BaseLargeAtomModel):
         elif self.model_family == "SevenNet":
             from sevenn.sevennet_calculator import SevenNetCalculator
 
-            # model_name in ["7net_0", "7net-l3i5"]
+            # model_name in ["7net_0" (i.e. 7net_0_11july2024), "7net_0_22may2024", "7net-l3i5"]
             return SevenNetCalculator(self.model_name, device="cuda")
         elif self.model_family == "EquiformerV2":
             from fairchem.core import OCPCalculator
