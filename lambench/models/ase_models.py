@@ -24,7 +24,11 @@ class ASEModel(BaseLargeAtomModel):
         if self.model_family == "MACE":
             from mace.calculators import mace_mp
 
-            return mace_mp(model="medium", device="cuda", default_dtype="float64")
+            return mace_mp(
+                model=self.model_name.split("_")[-1],  # mace_mp_0_medium -> medium
+                device="cuda",
+                default_dtype="float64",
+            )
         elif self.model_family == "ORB":
             from orb_models.forcefield import pretrained
             from orb_models.forcefield.calculator import ORBCalculator
@@ -34,7 +38,8 @@ class ASEModel(BaseLargeAtomModel):
         elif self.model_family == "SevenNet":
             from sevenn.sevennet_calculator import SevenNetCalculator
 
-            return SevenNetCalculator("7net-0_11July2024", device="cuda")
+            # model_name in ["7net_0", "7net-l3i5"]
+            return SevenNetCalculator(self.model_name, device="cuda")
         elif self.model_family == "EquiformerV2":
             from fairchem.core import OCPCalculator
 
