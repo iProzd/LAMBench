@@ -1,6 +1,11 @@
 name: Run LAMBench
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: Arguments to pass to `lambench`
+        required: false
 
 jobs:
   run-lambench:
@@ -18,7 +23,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install .[deepmd]
+        pip install .[dflow]
 
     - name: Run LAMBench
       run: |
