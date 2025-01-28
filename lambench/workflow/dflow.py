@@ -1,22 +1,26 @@
+from __future__ import annotations
 import logging
 import os
 from pathlib import Path
 from types import NoneType
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from dotenv import load_dotenv
 
-import lambench
-from lambench.models.basemodel import BaseLargeAtomModel
-from lambench.tasks.base_task import BaseTask
-from lambench.workflow.entrypoint import job_list
-
 load_dotenv(override=True)
 # ruff: noqa: E402
+
 from dflow import Task, Workflow
 from dflow.plugins.bohrium import BohriumDatasetsArtifact, create_job_group
 from dflow.plugins.dispatcher import DispatcherExecutor
 from dflow.python import OP, Artifact, PythonOPTemplate
+
+if TYPE_CHECKING:
+    from lambench.models.basemodel import BaseLargeAtomModel
+    from lambench.tasks.base_task import BaseTask
+    from lambench.workflow.entrypoint import job_list
+
+import lambench
 
 
 @OP.function
@@ -52,7 +56,7 @@ def submit_tasks_dflow(
     for task, model in jobs:
         name = f"{task.task_name}--{model.model_name}"
         # dflow task name should be alphanumeric
-        name= ''.join([c if c.isalnum() else '-' for c in name])
+        name = "".join([c if c.isalnum() else "-" for c in name])
 
         dflow_task = Task(
             name=name,
