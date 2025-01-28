@@ -50,7 +50,10 @@ def submit_tasks_dflow(
     )
     wf = Workflow(name=name)
     for task, model in jobs:
-        name = f"{task.task_name}--{model.model_name}".replace("_", "-")
+        name = f"{task.task_name}--{model.model_name}"
+        # dflow task name should be alphanumeric
+        name= ''.join([c if c.isalnum() else '-' for c in name])
+
         dflow_task = Task(
             name=name,
             template=PythonOPTemplate(
