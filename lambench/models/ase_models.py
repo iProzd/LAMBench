@@ -133,10 +133,11 @@ class ASEModel(BaseLargeAtomModel):
                         if not np.isfinite(energy_predict):
                             raise ValueError("Energy prediction is non-finite.")
                     except (ValueError, RuntimeError):
-                        file_name = f"failed_structures/{calc.name}/{atoms.symbols}.cif"
-                        write(file_name, atoms)
+                        file = Path(f"failed_structures/{calc.name}/{atoms.symbols}.cif")
+                        file.parent.mkdir(parents=True, exist_ok=True)
+                        write(file, atoms)
                         logging.error(
-                            f"Error in energy prediction; CIF file saved as {file_name}."
+                            f"Error in energy prediction; CIF file saved as {file}."
                         )
                         failed_structures.append(atoms.symbols)
                         if len(failed_structures) > failed_tolereance:
