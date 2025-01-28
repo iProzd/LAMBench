@@ -26,5 +26,17 @@ jobs:
         pip install .[dflow]
 
     - name: Run LAMBench
+      env:
+        MYSQL_HOST: ${{ env.MYSQL_HOST }}
+        MYSQL_DATABASE_NAME: ${{ env.MYSQL_DATABASE_NAME }}
+        MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        DFLOW_HOST: ${{ env.DFLOW_HOST }}
+        DFLOW_K8S_API_SERVER: ${{ env.DFLOW_K8S_API_SERVER }}
+        DFLOW_S3_REPO_KEY: ${{ env.DFLOW_S3_REPO_KEY }}
+        DFLOW_S3_STORAGE_CLIENT: ${{ env.DFLOW_S3_STORAGE_CLIENT }}
+        BOHRIUM_PROJECT_ID: ${{ env.BOHRIUM_PROJECT_ID }}
+        BOHRIUM_USERNAME: ${{ secrets.BOHRIUM_USERNAME }}
+        BOHRIUM_AUTHORIZATION: ${{ secrets.BOHRIUM_AUTHORIZATION }}
       run: |
         lambench ${{ github.event.inputs.args }}
