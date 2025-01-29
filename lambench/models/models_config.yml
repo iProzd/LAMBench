@@ -22,7 +22,7 @@
   model_metadata:
     model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt
 
-- model_name: 7net_0
+- model_name: 7net-0
   model_type: ASE
   model_family: SevenNet
   virtualenv: sevennet
