@@ -6,9 +6,12 @@ on:
       args:
         description: Arguments to pass to `lambench`
         required: false
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
       - '**.yml'
+      
 
 jobs:
   run-lambench:
