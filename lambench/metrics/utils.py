@@ -1,6 +1,8 @@
 import numpy as np
 import yaml
 from typing import Optional, Literal
+import lambench
+from pathlib import Path
 
 
 # General utility functions
@@ -61,7 +63,7 @@ def filter_direct_task_results(
 # Calculator Task utility functions
 ## NVE MD utility functions
 NVEMD_NSTEPS = yaml.safe_load(
-    open("lambench/tasks/calculator/calculator_tasks.yml", "r")
+    open(Path(lambench.__file__).parent / "tasks/calculator/calculator_tasks.yml", "r")
 )["nve_md"]["calculator_params"]["num_steps"]
 
 
