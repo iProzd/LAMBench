@@ -12,7 +12,7 @@ from lambench.tasks.base_task import BaseTask
 
 class FinetuneParams(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    batch_size: int = 512
+    batch_size: int = 128
     ngpus: int = 1
     start_lr: float = 1e-3
     stop_lr: float = 1e-4
