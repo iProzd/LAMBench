@@ -74,6 +74,9 @@ def nve_simulation_single(
 
     def log_energy(a=atoms):
         energies.append(a.get_total_energy())
+        if energies[-1] > 1e10:
+            # To allow for early stopping in case of divergence
+            raise RuntimeError
 
     dyn.attach(log_energy, interval=1)
 
@@ -101,8 +104,8 @@ def nve_simulation_single(
     except Exception:
         momenta_diff = np.nan
     return {
-        "simulation_time": simulation_time,  # Simulation efficiency
+        "simulation_time": simulation_time,  # Simulation efficiency, s
         "steps": dyn.nsteps,  # Simulation stability
-        "momenta_diff": momenta_diff,  # Momentum conservation
-        "slope": np.abs(1000 * slope / len(atoms)),  # Energy drift ev/atom/ps
+        "momenta_diff": momenta_diff,  # Momentum conservation, amu · Å/fs
+        "slope": np.abs(1000 * slope / len(atoms)),  # Energy drift, eV/atom/ps
     }

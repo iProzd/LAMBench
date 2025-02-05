@@ -55,9 +55,10 @@ def gather_task_type(
     with open(task_class.task_config, "r") as f:
         task_configs: dict[str, dict] = yaml.safe_load(f)
     for model in models:
-        # TODO: use a better task-model compatibility check
-        if isinstance(model, ASEModel) and issubclass(task_class, PropertyFinetuneTask):
-            continue  # ASEModel does not support PropertyFinetuneTask
+        if not hasattr(model, "_finetune") and issubclass(
+            task_class, PropertyFinetuneTask
+        ):
+            continue  # Regular ASEModel does not support PropertyFinetuneTask
         for task_name, task_params in task_configs.items():
             if task_names and task_name not in task_names:
                 continue

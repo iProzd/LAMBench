@@ -1,15 +1,19 @@
 import json
 import logging
 from pathlib import Path
-from typing import Literal, Optional
 
-import numpy as np
 import yaml
 
 import lambench
 from lambench.databases.direct_predict_table import DirectPredictRecord
+from lambench.databases.calculator_table import CalculatorRecord
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.workflow.entrypoint import gather_models
+from lambench.metrics.utils import (
+    filter_direct_task_results,
+    exp_average,
+    aggregated_nve_md_results,
+)
 
 DIRECT_TASK_WEIGHTS = {
     k: v
@@ -28,7 +32,7 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
         "finetune_task_results": {},
         "calculator_task_results": {},
     }
-
+    # Direct Task
     if model.show_direct_task:
         direct_task_records = DirectPredictRecord.query(model_name=model.model_name)
         if not direct_task_records:
@@ -55,65 +59,26 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
             direct_task_results["Weighted"] = exp_average(norm_log_results)
         single_model_results["direct_task_results"] = direct_task_results
 
+    # Finetune Task
     if model.show_finetune_task:
         pass
+
+    # Calculator Task
     if model.show_calculator_task:
-        raise NotImplementedError("Calculator task is not implemented yet.")
+        calculator_task_records = CalculatorRecord.query(model_name=model.model_name)
+        if not calculator_task_records:
+            logging.warning(f"No calculator task records found for {model.model_name}")
+            return None
+
+        calculator_task_results = {}
+        # TODO aggregate results by tasks when more calculator tasks are added
+        for record in calculator_task_records:
+            calculator_task_results[record.task_name] = aggregated_nve_md_results(
+                record.metrics
+            )
+        single_model_results["calculator_task_results"] = calculator_task_results
 
     return single_model_results
-
-
-def filter_direct_task_results(
-    task_result: dict, task_config: dict, normalize: Optional[bool] = False
-) -> dict:
-    """
-    This function filters the direct task results to keep only the metrics with non-zero task weights.
-
-    I. Optional: normalize the metrics by multiply {metric}_std. (Required for Property)
-    II. Remove tasks where weight is None in the DIRECT_TASK_METRICS.
-        Please note that this change also applies in the input dict.
-    III. Calculate the weighted **log** metrics.
-
-    NOTE: We normalize first to ensure the weight is a dimensionless number.
-
-    Returns: metrics for each task normalized, logged, and weighted.
-    """
-    filtered_metrics = {}
-    for k, v in task_result.items():
-        efv: Literal["energy", "force", "virial"] = k.split("_")[0]
-        weight = task_config.get(f"{efv}_weight")
-        if weight is None:
-            filtered_metrics[k] = None
-            task_result[k] = None
-            continue
-        std = task_config.get(f"{efv}_std")
-        if normalize and std is not None:
-            weight /= std
-
-        if v is not None:
-            filtered_metrics[k] = np.log(v) * weight
-            # else the filtered_metrics will not have this key.
-            # Metrics with weight != None should have a value,
-            # Or the weighted result would be marked to None.
-    return filtered_metrics
-
-
-def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
-    """Calculate the exponential average of each metric of the results."""
-    exp_average_metrics = {}
-    all_keys = set([key for result in log_results for key in result.keys()])
-    for key in sorted(all_keys):
-        try:
-            metrics_list = [result[key] for result in log_results]
-        except KeyError:
-            # Contains None(NaN) for metrics with weight != None;
-            # For the comparability among tasks, set it to None
-            exp_average_metrics[key] = None
-            continue
-        # Filter out "legal" None values with weight == None
-        metrics_list = [m for m in metrics_list if m is not None]
-        exp_average_metrics[key] = np.exp(np.mean(metrics_list))
-    return exp_average_metrics
 
 
 def main():
@@ -130,7 +95,9 @@ def main():
         results[model.model_name] = process_results_for_one_model(model)
         # PosixPath is not JSON serializable
         results[model.model_name]["model"] = model.model_dump(exclude={"model_path"})
-    json.dump(results, open("results.json", "w"), indent=2)
+    json.dump(
+        results, open(Path(__file__).parent / "results/results.json", "w"), indent=2
+    )
     print("Results saved to results.json")
 
 
