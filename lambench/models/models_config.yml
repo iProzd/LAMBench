@@ -7,6 +7,7 @@
   model_metadata:
     model_description: "DP 2024 Q4, 37head share fitting 120GPU pretrain"
   show_finetune_task: True
+  show_calculator_task: True
 
 - model_name: mace_mp_0_medium
   model_type: ASE
@@ -14,6 +15,7 @@
   virtualenv: mace
   model_metadata:
     model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model
+  show_calculator_task: True
 
 - model_name: orb_v2
   model_type: ASE
@@ -21,6 +23,7 @@
   virtualenv: orb
   model_metadata:
     model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt
+  show_calculator_task: True
 
 - model_name: 7net-0
   model_type: ASE
@@ -36,6 +39,7 @@
   virtualenv: eqv2
   model_metadata:
     model_description: "eqV2_153M_omat_mp_salex"
+  show_calculator_task: True
 
 - model_name: MatterSim_v1.0.0_5M
   model_type: ASE
@@ -44,3 +48,4 @@
   virtualenv: mattersim
   model_metadata:
     model_description: "mattersim_v1_5M"
+  show_calculator_task: True
