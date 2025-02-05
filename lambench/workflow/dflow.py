@@ -40,7 +40,6 @@ def get_dataset(paths: list[Optional[Path]]) -> Optional[list[BohriumDatasetsArt
 def submit_tasks_dflow(
     jobs: job_list,
     name="lambench",
-    image=os.environ["DEFAULT_DFLOW_IMAGE"],
     machine_type="1 * NVIDIA V100_32g",
 ):
     job_group_id: int = create_job_group(name)
@@ -58,7 +57,7 @@ def submit_tasks_dflow(
             name=name,
             template=PythonOPTemplate(
                 run_task_op,  # type: ignore
-                image=model.virtualenv if model.virtualenv else image,
+                image=model.virtualenv,
                 envs={k: v for k, v in os.environ.items() if k.startswith("MYSQL")},
                 python_packages=[Path(package.__path__[0]) for package in [lambench]],
             ),
