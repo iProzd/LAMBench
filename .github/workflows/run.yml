@@ -39,5 +39,6 @@ jobs:
         BOHRIUM_USERNAME: ${{ secrets.BOHRIUM_USERNAME }}
         BOHRIUM_AUTHORIZATION: ${{ secrets.BOHRIUM_AUTHORIZATION }}
         BOHRIUM_PASSWORD: ${{ secrets.BOHRIUM_PASSWORD }}
+        DEFAULT_DFLOW_IMAGE: ${{ vars.DEFAULT_DFLOW_IMAGE}}
       run: |
         lambench ${{ github.event.inputs.args }}
