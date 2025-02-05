@@ -126,17 +126,23 @@ def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
 
 def test_aggreated_results():
     """Test aggregation of results."""
-    results = [
-        {"simulation_time": 128.3, "steps": 100, "slope": np.nan, "momenta_diff": 0.1},
-        {
+    results = {
+        "Cs8N2": {
+            "simulation_time": 128.3,
+            "steps": 1000,
+            "slope": np.nan,
+            "momenta_diff": 0.1,
+        },
+        "Gd2Si4Ni2": {
             "simulation_time": 2374.1,
-            "steps": 110,
+            "steps": 10000,
             "slope": 4580.2,
             "momenta_diff": 200020.2,
         },
-    ]
+    }
     result = aggregated_nve_md_results(results)
-    np.testing.assert_almost_equal(result["simulation_time"], 1251.2, decimal=3)
-    assert result["steps"] == 105, "Simulation time should be the average."
-    assert np.isnan(result["slope"]), "Slope should be nan."
-    np.testing.assert_almost_equal(result["momenta_diff"], 141.428, decimal=3)
+    np.testing.assert_almost_equal(result["simulation_time"], 2374.1, decimal=3)
+    assert result["steps"] == 10000, "Should skip incomplete test."
+    assert result["slope"] == 4580.2, "Should skip incomplete test."
+    np.testing.assert_almost_equal(result["momenta_diff"], 200020.2, decimal=3)
+    assert result["success_rate"] == 0.5, "Should have 1 success."
