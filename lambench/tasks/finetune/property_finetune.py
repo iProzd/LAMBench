@@ -1,13 +1,19 @@
+from __future__ import annotations
+
 import json
 import logging
 import os
 from pathlib import Path
-from typing import ClassVar
+from typing import TYPE_CHECKING, ClassVar
 
 from pydantic import BaseModel, ConfigDict
-from lambench.models.basemodel import BaseLargeAtomModel
+
 from lambench.databases.property_table import PropertyRecord
+from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.tasks.base_task import BaseTask
+
+if TYPE_CHECKING:
+    from lambench.models.dp_models import DPModel
 
 
 class FinetuneParams(BaseModel):
@@ -48,11 +54,10 @@ class PropertyFinetuneTask(BaseTask):
             logging.error("Descriptor not found in pretrain input.json!")
         return None
 
-    def prepare_property_directory(self, model: BaseLargeAtomModel):
-        assert (
-            Path.cwd() == self.workdir
-        ), f"Current working directory is {os.getcwd()}, need to change working directory to {self.workdir}!"
-        # FIXME: due to circular import, we can not use isinstance(model, DPModel) here.
+    def prepare_property_directory(self, model: DPModel):
+        assert Path.cwd() == self.workdir, (
+            f"Current working directory is {os.getcwd()}, need to change working directory to {self.workdir}!"
+        )
         assert model.model_path is not None, "Model path is not specified!"
         # 1. write the finetune input.json file
         with open(os.path.join(model.model_path.parent, "input.json"), "r") as f:
