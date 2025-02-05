@@ -1,50 +1,84 @@
 import numpy as np
+import yaml
+from typing import Optional, Literal
+import lambench
+from pathlib import Path
 
 
-def aggregated_nve_md_results(results: list[dict[str, float]]) -> dict[str, float]:
-    # Aggregate results
-    aggregated_result = {
-        "simulation_time": np.mean(
-            [
-                result["simulation_time"]
-                if result["simulation_time"] is not None
-                else np.nan
-                for result in results
-            ]
-        ),
-        "steps": np.mean(
-            [result["steps"] if result["steps"] != 0 else np.nan for result in results]
-        ),
-        "slope": log_average([result["slope"] for result in results]),
-        "momenta_diff": log_average([result["momenta_diff"] for result in results]),
-    }
+# General utility functions
+def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
+    """Calculate the exponential average of each metric of the results."""
+    exp_average_metrics = {}
+    all_keys = set([key for result in log_results for key in result.keys()])
+    for key in sorted(all_keys):
+        try:
+            metrics_list = [result[key] for result in log_results]
+        except KeyError:
+            # Contains None(NaN) for metrics with weight != None;
+            # For the comparability among tasks, set it to None
+            exp_average_metrics[key] = None
+            continue
+        # Filter out "legal" None values with weight == None
+        metrics_list = [m for m in metrics_list if m is not None]
+        exp_average_metrics[key] = np.exp(np.mean(metrics_list))
+    return exp_average_metrics
+
+
+# Direct Task utility functions
+def filter_direct_task_results(
+    task_result: dict, task_config: dict, normalize: Optional[bool] = False
+) -> dict:
+    """
+    This function filters the direct task results to keep only the metrics with non-zero task weights.
+
+    I. Optional: normalize the metrics by multiply {metric}_std. (Required for Property)
+    II. Remove tasks where weight is None in the DIRECT_TASK_METRICS.
+        Please note that this change also applies in the input dict.
+    III. Calculate the weighted **log** metrics.
+
+    NOTE: We normalize first to ensure the weight is a dimensionless number.
+
+    Returns: metrics for each task normalized, logged, and weighted.
+    """
+    filtered_metrics = {}
+    for k, v in task_result.items():
+        efv: Literal["energy", "force", "virial"] = k.split("_")[0]
+        weight = task_config.get(f"{efv}_weight")
+        if weight is None:
+            filtered_metrics[k] = None
+            task_result[k] = None
+            continue
+        std = task_config.get(f"{efv}_std")
+        if normalize and std is not None:
+            weight /= std
+
+        if v is not None:
+            filtered_metrics[k] = np.log(v) * weight
+            # else the filtered_metrics will not have this key.
+            # Metrics with weight != None should have a value,
+            # Or the weighted result would be marked to None.
+    return filtered_metrics
+
+
+# Calculator Task utility functions
+## NVE MD utility functions
+NVEMD_NSTEPS = yaml.safe_load(
+    open(Path(lambench.__file__).parent / "tasks/calculator/calculator_tasks.yml", "r")
+)["nve_md"]["calculator_params"]["num_steps"]
+
+
+def aggregated_nve_md_results(results: dict[str, dict[str, float]]) -> dict[str, float]:
+    aggregated_result = {}
+    success_count = len(results)
+    for test_system, result in results.items():
+        if result["steps"] != NVEMD_NSTEPS:
+            success_count -= 1
+            continue  # Skip the incomplete simulation
+        for k, v in result.items():
+            if k not in aggregated_result:
+                aggregated_result[k] = []
+            aggregated_result[k].append(v)
+    for k, v in aggregated_result.items():
+        aggregated_result[k] = np.round(np.exp(np.mean(np.log(v))), 6)
+    aggregated_result["success_rate"] = np.round(success_count / len(results), 2)
     return aggregated_result
-
-
-def calculate_nve_md_score(
-    aggregated_result, division_protection: float = 1e-6
-) -> dict[str, float]:
-    """
-    This function aggreate the results across all four metrics and return the final result.
-    """
-    final_result = np.log(
-        aggregated_result["steps"]
-        / (
-            aggregated_result["simulation_time"]
-            * (aggregated_result["energy_std"] + division_protection)
-            * (np.abs(aggregated_result["slope"]) + division_protection)
-        )
-    )
-    return {"NVE Score": final_result}
-
-
-def log_average(resutls: list[float]) -> float:
-    """
-    A function to calculate the log average of a list of results to avoid overwheelmingly large numbers.
-    """
-    if not resutls:
-        return np.nan
-    elif any(np.isnan(resutls)):
-        return np.nan
-
-    return np.exp(np.mean(np.log(resutls)))
