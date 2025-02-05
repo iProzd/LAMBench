@@ -74,6 +74,8 @@ def nve_simulation_single(
 
     def log_energy(a=atoms):
         energies.append(a.get_total_energy())
+        if energies[-1] > 1e10:
+            raise RuntimeError
 
     dyn.attach(log_energy, interval=1)
 
