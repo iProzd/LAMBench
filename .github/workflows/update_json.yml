@@ -42,6 +42,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: update-json-file
+          create_branch: true
           commit_message: "Automated update: Update `results.json`"
           file_pattern: lambench/metrics/results/results.json
 
