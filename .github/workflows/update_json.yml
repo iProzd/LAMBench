@@ -51,7 +51,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: update-json-file  # Branch to create the PR from
-          base: main                # Branch to merge into
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
           title: "Automated PR: Update JSON file"
           body: "This PR was automatically created by GitHub Actions to update the JSON file."
           labels: automated
