@@ -39,16 +39,6 @@ jobs:
         run: |
             postprocess
 
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          branch: update-json-file
-          create_branch: true
-          skip_fetch: false  # Ensure latest changes
-          push_options: --force  # Overwrite if branch already exists
-          commit_message: "Automated update: Update `results.json`"
-          file_pattern: lambench/metrics/results/results.json
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
@@ -59,5 +49,4 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
           title: "Automated PR: Update JSON file"
           body: "This PR was automatically created by GitHub Actions to update the JSON file."
-          labels: automated
           reviewers: anyangml
