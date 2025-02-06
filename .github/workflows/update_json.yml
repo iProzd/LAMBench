@@ -1,0 +1,51 @@
+name: Update JSON and Create PR
+
+on:
+  schedule:
+    # Run the workflow every day at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install .
+
+      - name: Update JSON file
+        run: |
+            postprocess
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: update-json-file
+          commit_message: "Automated update: Update `results.json`"
+          file_pattern: lambench/metrics/results/results.json
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: update-json-file  # Branch to create the PR from
+          base: main                # Branch to merge into
+          title: "Automated PR: Update JSON file"
+          body: "This PR was automatically created by GitHub Actions to update the JSON file."
+          labels: automated

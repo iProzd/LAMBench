@@ -45,6 +45,7 @@ Issues = "https://github.com/deepmodeling/LAMBench/issues"
 
 [project.scripts]
 lambench = "lambench.workflow.entrypoint:main"
+postprocess = "lambench.metrics.post_process:main"
 
 [tool.setuptools.packages.find]
 include = ["lambench*"]
