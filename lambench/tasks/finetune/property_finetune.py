@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 class FinetuneParams(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    batch_size: int = 128
+    batch_size: int = 64
     ngpus: int = 1
     start_lr: float = 1e-3
     stop_lr: float = 1e-4
@@ -55,9 +55,9 @@ class PropertyFinetuneTask(BaseTask):
         return None
 
     def prepare_property_directory(self, model: DPModel):
-        assert Path.cwd() == self.workdir, (
-            f"Current working directory is {os.getcwd()}, need to change working directory to {self.workdir}!"
-        )
+        assert (
+            Path.cwd() == self.workdir
+        ), f"Current working directory is {os.getcwd()}, need to change working directory to {self.workdir}!"
         assert model.model_path is not None, "Model path is not specified!"
         # 1. write the finetune input.json file
         with open(os.path.join(model.model_path.parent, "input.json"), "r") as f:
