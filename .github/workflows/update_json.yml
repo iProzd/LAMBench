@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install .[test,deepmd]
+          pip install .
 
       - name: Update JSON file
         run: |
