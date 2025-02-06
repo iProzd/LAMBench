@@ -1197,6 +1197,18 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
+      "Collision": {
+        "energy_rmse": 0.439003,
+        "energy_mae": 0.313782,
+        "energy_rmse_natoms": 0.0919421,
+        "energy_mae_natoms": 0.0432845,
+        "force_rmse": 0.806084,
+        "force_mae": 0.271981,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
       "Weighted": null
     },
     "finetune_task_results": {},
@@ -1444,7 +1456,7 @@
         "energy_mae": 0.7336308509297622,
         "energy_mae_natoms": 0.02113666467085986,
         "energy_rmse": 1.1192927348842026,
-        "energy_rmse_natoms": 0.03384373534502278,
+        "energy_rmse_natoms": 0.033843735345022774,
         "force_mae": 0.19009247640176566,
         "force_rmse": 0.33790535110144143,
         "virial_mae": 4.9317947435572025,
