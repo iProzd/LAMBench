@@ -66,7 +66,7 @@ The file contains a list of models with the following structure:
 ```yaml
 - model_name: a short and concise name for the model
   model_family: the family of the model; used for selecting ASE Calculator in `ase_models.py`
-  model_type: select from [ASE, DP]
+  model_type: usually `ASE`; use `DP` for deepmd-kit models
   model_path: local path to the model weight; null if not required
   virtualenv: (not used yet)
   model_metadata:
@@ -77,6 +77,9 @@ The file contains a list of models with the following structure:
 ```
 
 Please refer to `lambench/models/basemodel.py` for the field definitions.
+
+Now, add the ASE calculator interface of your model to `lambench/models/ase_models.py`.
+Once these modifications are done, please create a pull request. If you have any questions, feel free to create an issue.
 
 ## License
 
