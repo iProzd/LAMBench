@@ -96,7 +96,9 @@ def main():
         # PosixPath is not JSON serializable
         results[model.model_name]["model"] = model.model_dump(exclude={"model_path"})
     json.dump(
-        results, open(Path(__file__).parent / "results/results.json", "w"), indent=2
+        results,
+        open(Path(lambench.__file__).parent / "metrics/results/results.json", "w"),
+        indent=2,
     )
     print("Results saved to results.json")
 
