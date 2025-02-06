@@ -54,6 +54,7 @@ class DPModel(ASEModel):
     @staticmethod
     def _finetune(model: Path):
         # Note: the input.json file is created under task.workdir
+        os.environ["NUM_WORKERS"] = "0"
         command = f"dp --pt train input.json --finetune {model} --skip-neighbor-stat"
         deepmd_main(command.split()[1:])
         return Path("model.ckpt.pt")  # hard coded in deepmd-kit
