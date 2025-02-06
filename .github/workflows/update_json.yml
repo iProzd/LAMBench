@@ -30,6 +30,11 @@ jobs:
           pip install .
 
       - name: Update JSON file
+        env:
+          MYSQL_HOST: ${{ vars.MYSQL_HOST }}
+          MYSQL_DATABASE_NAME: ${{ vars.MYSQL_DATABASE_NAME }}
+          MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: |
             postprocess
 
