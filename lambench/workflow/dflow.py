@@ -1,26 +1,22 @@
-from __future__ import annotations
 import logging
 import os
 from pathlib import Path
 from types import NoneType
-from typing import TYPE_CHECKING, Optional
+from typing import Optional
 
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
 # ruff: noqa: E402
-
 from dflow import Task, Workflow
 from dflow.plugins.bohrium import BohriumDatasetsArtifact, create_job_group
 from dflow.plugins.dispatcher import DispatcherExecutor
 from dflow.python import OP, Artifact, PythonOPTemplate
 
-if TYPE_CHECKING:
-    from lambench.models.basemodel import BaseLargeAtomModel
-    from lambench.tasks.base_task import BaseTask
-    from lambench.workflow.entrypoint import job_list
-
 import lambench
+from lambench.models.basemodel import BaseLargeAtomModel
+from lambench.tasks.base_task import BaseTask
+from lambench.workflow.entrypoint import job_list
 
 
 @OP.function
