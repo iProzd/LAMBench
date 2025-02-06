@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install .
+          pip install -e .
 
       - name: Update JSON file
         env:
