@@ -33,6 +33,13 @@
     model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth
   show_calculator_task: True
 
+- model_name: 7net-l3i5
+  model_type: ASE
+  model_family: SevenNet
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2
+  model_metadata:
+    model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth
+
 - model_name: eqV2_153M_omat_mp_salex
   model_type: ASE
   model_family: EquiformerV2
