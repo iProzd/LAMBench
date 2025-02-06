@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -43,6 +44,8 @@ jobs:
         with:
           branch: update-json-file
           create_branch: true
+          skip_fetch: false  # Ensure latest changes
+          push_options: --force  # Overwrite if branch already exists
           commit_message: "Automated update: Update `results.json`"
           file_pattern: lambench/metrics/results/results.json
 
