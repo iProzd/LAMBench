@@ -40,7 +40,6 @@ def get_dataset(paths: list[Optional[Path]]) -> Optional[list[BohriumDatasetsArt
 def submit_tasks_dflow(
     jobs: job_list,
     name="lambench",
-    machine_type="1 * NVIDIA V100_32g",
 ):
     job_group_id: int = create_job_group(name)
     logging.info(
@@ -76,7 +75,7 @@ def submit_tasks_dflow(
                             "job_name": name,
                             "bohr_job_group_id": job_group_id,
                             "platform": "ali",
-                            "scass_type": machine_type,
+                            "scass_type": task.machine_type,
                         },
                     },
                 },

@@ -52,11 +52,15 @@ class DPModel(ASEModel):
         return result
 
     @staticmethod
-    def _finetune(model: Path):
+    def _finetune(model: Path, task: PropertyFinetuneTask):
         # Note: the input.json file is created under task.workdir
+        import torch
+
         os.environ["NUM_WORKERS"] = "0"
-        command = f"dp --pt train input.json --finetune {model} --skip-neighbor-stat"
-        deepmd_main(command.split()[1:])
+        ngpus = torch.cuda.device_count()
+        os.system(
+            f"torchrun --no_python --nproc_per_node={ngpus} dp --pt train input.json --skip-neighbor-stat"
+        )
         return Path("model.ckpt.pt")  # hard coded in deepmd-kit
 
     @staticmethod
