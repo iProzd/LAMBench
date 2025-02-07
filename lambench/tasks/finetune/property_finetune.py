@@ -18,8 +18,7 @@ if TYPE_CHECKING:
 
 class FinetuneParams(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    batch_size: int = 64
-    ngpus: int = 1
+    batch_size: int = 32
     start_lr: float = 1e-3
     stop_lr: float = 1e-4
     train_steps: int = 100000
