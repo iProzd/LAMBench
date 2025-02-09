@@ -39,6 +39,7 @@
   virtualenv: registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2
   model_metadata:
     model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth
+  show_calculator_task: True
 
 - model_name: eqV2_153M_omat_mp_salex
   model_type: ASE
