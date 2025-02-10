@@ -1247,7 +1247,15 @@
       }
     },
     "finetune_task_results": {},
-    "calculator_task_results": {},
+    "calculator_task_results": {
+      "nve_md": {
+        "slope": 5e-06,
+        "steps": 10000.0,
+        "momenta_diff": 3e-06,
+        "simulation_time": 827.932934,
+        "success_rate": 1.0
+      }
+    },
     "model": {
       "model_name": "7net-l3i5",
       "model_family": "SevenNet",
@@ -1258,7 +1266,7 @@
       },
       "show_direct_task": true,
       "show_finetune_task": false,
-      "show_calculator_task": false
+      "show_calculator_task": true
     }
   },
   "eqV2_153M_omat_mp_salex": {
