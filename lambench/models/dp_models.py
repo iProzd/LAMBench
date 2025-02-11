@@ -37,7 +37,7 @@ class DPModel(ASEModel):
         model = self.model_path
         if isinstance(task, PropertyFinetuneTask):
             task.prepare_property_directory(self)
-            model = self._finetune(model)
+            model = self._finetune(model, task)
         elif change_bias:
             model = self._change_bias(model, task.test_data, head)
         # Optional: actually dp test can run on checkpoint
