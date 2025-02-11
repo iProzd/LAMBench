@@ -37,7 +37,7 @@ class PropertyFinetuneTask(BaseTask):
     property_dim: int = 1
     train_data: Path
     finetune_params: FinetuneParams
-    machine_type: str = "c20_m76_2 * NVIDIA V100"
+    machine_type: str = "c48_m256_4 * NVIDIA L4"
 
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, **kwargs)
