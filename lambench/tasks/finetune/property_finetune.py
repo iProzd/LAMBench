@@ -99,7 +99,7 @@ class PropertyFinetuneTask(BaseTask):
         finetune_config["training"] = {
             "training_data": {
                 "systems": str(self.train_data),
-                "batch_size": self.finetune_params.batch_size,
+                "batch_size": f"auto:{self.finetune_params.batch_size}",
                 "_comment": "that's all",
             },
             "validation_data": {
