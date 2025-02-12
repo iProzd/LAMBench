@@ -20,7 +20,7 @@ def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
             continue
         # Filter out "legal" None values with weight == None
         metrics_list = [m for m in metrics_list if m is not None]
-        exp_average_metrics[key] = np.exp(np.mean(metrics_list))
+        exp_average_metrics[key] = np.round(np.exp(np.mean(metrics_list)), 7)
     return exp_average_metrics
 
 
