@@ -219,16 +219,16 @@
           "virial_mae_natoms": null
         },
         "Weighted": {
-          "energy_mae": 0.5804612451418623,
-          "energy_mae_natoms": 0.016589953460109604,
-          "energy_rmse": 0.8531310331311255,
-          "energy_rmse_natoms": 0.025420101601312278,
-          "force_mae": 0.1581554876311832,
-          "force_rmse": 0.2650907318128016,
-          "virial_mae": 4.683851370960154,
-          "virial_mae_natoms": 0.1314769601077648,
-          "virial_rmse": 10.25543944383999,
-          "virial_rmse_natoms": 0.276257197022935
+          "energy_mae": 0.5804612,
+          "energy_mae_natoms": 0.01659,
+          "energy_rmse": 0.853131,
+          "energy_rmse_natoms": 0.0254201,
+          "force_mae": 0.1581555,
+          "force_rmse": 0.2650907,
+          "virial_mae": 4.6838514,
+          "virial_mae_natoms": 0.131477,
+          "virial_rmse": 10.2554394,
+          "virial_rmse_natoms": 0.2762572
         }
       },
       "finetune_task_results": {},
@@ -473,16 +473,16 @@
           "virial_mae_natoms": 0.0346987
         },
         "Weighted": {
-          "energy_mae": 0.7809247378165328,
-          "energy_mae_natoms": 0.021986846462702835,
-          "energy_rmse": 1.1959315645707773,
-          "energy_rmse_natoms": 0.0338535133564868,
-          "force_mae": 0.22844108305135472,
-          "force_rmse": 0.4265663785353105,
-          "virial_mae": 5.171719066931248,
-          "virial_mae_natoms": 0.1463112762402029,
-          "virial_rmse": 13.088216449891197,
-          "virial_rmse_natoms": 0.41646849981060063
+          "energy_mae": 0.7809247,
+          "energy_mae_natoms": 0.0219868,
+          "energy_rmse": 1.1959316,
+          "energy_rmse_natoms": 0.0338535,
+          "force_mae": 0.2284411,
+          "force_rmse": 0.4265664,
+          "virial_mae": 5.1717191,
+          "virial_mae_natoms": 0.1463113,
+          "virial_rmse": 13.0882164,
+          "virial_rmse_natoms": 0.4164685
         }
       },
       "finetune_task_results": {},
@@ -727,16 +727,16 @@
           "virial_mae_natoms": 0.0743074
         },
         "Weighted": {
-          "energy_mae": 0.6632860904838856,
-          "energy_mae_natoms": 0.019161219935928855,
-          "energy_rmse": 1.120718332841585,
-          "energy_rmse_natoms": 0.03343097531859759,
-          "force_mae": 0.1569439608210966,
-          "force_rmse": 0.27352140817781806,
-          "virial_mae": 6.7409104803238105,
-          "virial_mae_natoms": 0.1849359011117524,
-          "virial_rmse": 14.924243446658126,
-          "virial_rmse_natoms": 0.392457753781728
+          "energy_mae": 0.6632861,
+          "energy_mae_natoms": 0.0191612,
+          "energy_rmse": 1.1207183,
+          "energy_rmse_natoms": 0.033431,
+          "force_mae": 0.156944,
+          "force_rmse": 0.2735214,
+          "virial_mae": 6.7409105,
+          "virial_mae_natoms": 0.1849359,
+          "virial_rmse": 14.9242434,
+          "virial_rmse_natoms": 0.3924578
         }
       },
       "finetune_task_results": {},
@@ -981,16 +981,16 @@
           "virial_mae_natoms": 0.05188
         },
         "Weighted": {
-          "energy_mae": 0.6711911498503996,
-          "energy_mae_natoms": 0.019188500205980653,
-          "energy_rmse": 1.0155191771016927,
-          "energy_rmse_natoms": 0.029823182059121878,
-          "force_mae": 0.22522542953905555,
-          "force_rmse": 0.4283350381604672,
-          "virial_mae": 5.235132281309186,
-          "virial_mae_natoms": 0.1452044001661948,
-          "virial_rmse": 11.059869389133022,
-          "virial_rmse_natoms": 0.2911040032305565
+          "energy_mae": 0.6711911,
+          "energy_mae_natoms": 0.0191885,
+          "energy_rmse": 1.0155192,
+          "energy_rmse_natoms": 0.0298232,
+          "force_mae": 0.2252254,
+          "force_rmse": 0.428335,
+          "virial_mae": 5.2351323,
+          "virial_mae_natoms": 0.1452044,
+          "virial_rmse": 11.0598694,
+          "virial_rmse_natoms": 0.291104
         }
       },
       "finetune_task_results": {},
@@ -1235,16 +1235,16 @@
           "virial_mae_natoms": 0.312565
         },
         "Weighted": {
-          "energy_mae": 0.6349543978672949,
-          "energy_mae_natoms": 0.018060274535987998,
-          "energy_rmse": 0.9623436885380722,
-          "energy_rmse_natoms": 0.028004298020264155,
-          "force_mae": 0.21063633070638071,
-          "force_rmse": 0.3932612285836815,
-          "virial_mae": 5.297751192993037,
-          "virial_mae_natoms": 0.14634838068454256,
-          "virial_rmse": 11.550190814040622,
-          "virial_rmse_natoms": 0.30078957294466024
+          "energy_mae": 0.6349544,
+          "energy_mae_natoms": 0.0180603,
+          "energy_rmse": 0.9623437,
+          "energy_rmse_natoms": 0.0280043,
+          "force_mae": 0.2106363,
+          "force_rmse": 0.3932612,
+          "virial_mae": 5.2977512,
+          "virial_mae_natoms": 0.1463484,
+          "virial_rmse": 11.5501908,
+          "virial_rmse_natoms": 0.3007896
         }
       },
       "finetune_task_results": {},
@@ -1708,16 +1708,16 @@
           "virial_mae_natoms": 0.0458214
         },
         "Weighted": {
-          "energy_mae": 0.7336308509297622,
-          "energy_mae_natoms": 0.02113666467085986,
-          "energy_rmse": 1.1192927348842026,
-          "energy_rmse_natoms": 0.03384373534502278,
-          "force_mae": 0.19009247640176566,
-          "force_rmse": 0.33790535110144143,
-          "virial_mae": 4.9317947435572025,
-          "virial_mae_natoms": 0.1366201089350574,
-          "virial_rmse": 11.331242218562119,
-          "virial_rmse_natoms": 0.2969149809350135
+          "energy_mae": 0.7336309,
+          "energy_mae_natoms": 0.0211367,
+          "energy_rmse": 1.1192927,
+          "energy_rmse_natoms": 0.0338437,
+          "force_mae": 0.1900925,
+          "force_rmse": 0.3379054,
+          "virial_mae": 4.9317947,
+          "virial_mae_natoms": 0.1366201,
+          "virial_rmse": 11.3312422,
+          "virial_rmse_natoms": 0.296915
         }
       },
       "finetune_task_results": {},
