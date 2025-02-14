@@ -3,6 +3,7 @@ from __future__ import annotations  # For class method return type hinting
 import os
 from typing import Sequence
 
+
 from dotenv import load_dotenv
 from sqlalchemy import (
     TIMESTAMP,
@@ -13,6 +14,8 @@ from sqlalchemy import (
     func,
 )
 from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.exc import SQLAlchemyError
+from time import sleep
 
 Base = declarative_base()
 load_dotenv(override=True)
@@ -37,10 +40,18 @@ class BaseRecord(Base):
     create_time = Column(TIMESTAMP(True), server_default=func.now())
     # NOTE: record_name = model_name + "#" + task_name
 
-    def insert(self):
-        with Session() as session:
-            session.add(self)
-            session.commit()
+    def insert(self, max_retries: int = 2):
+        for attempt in range(max_retries):
+            try:
+                with Session() as session:
+                    session.add(self)
+                    session.commit()
+                break
+            except SQLAlchemyError as e:
+                if attempt < max_retries - 1:
+                    sleep(2**attempt)  # Exponential backoff
+                else:
+                    raise e
 
     @classmethod
     def query(cls, **kwargs) -> Sequence[BaseRecord]:
