@@ -10,6 +10,12 @@ class ModelType(str, Enum):
     ASE = "ASE"
 
 
+class SkipTaskType(str, Enum):
+    DirectPredictTask = "DirectPredictTask"
+    PropertyFinetuneTask = "PropertyFinetuneTask"
+    CalculatorTask = "CalculatorTask"
+
+
 class BaseLargeAtomModel(BaseModel):
     model_name: str
     model_family: str
@@ -20,6 +26,7 @@ class BaseLargeAtomModel(BaseModel):
     show_direct_task: bool = True
     show_finetune_task: bool = False
     show_calculator_task: bool = False
+    skip_tasks: list[SkipTaskType] = []
 
     @abstractmethod
     def evaluate(self, task) -> dict[str, float]:
