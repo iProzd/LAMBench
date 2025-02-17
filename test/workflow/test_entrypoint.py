@@ -2,6 +2,7 @@ from lambench.models.dp_models import DPModel
 from lambench.tasks import PropertyFinetuneTask
 import pytest
 from lambench.workflow.entrypoint import gather_task_type
+from unittest.mock import MagicMock
 
 
 def _create_dp_model(skip_tasks=[]):
@@ -29,5 +30,9 @@ def dp_model_skip_tasks():
 def test_gather_task_type_with_skip(dp_model, dp_model_skip_tasks):
     models = [dp_model, dp_model_skip_tasks]
     task_class = PropertyFinetuneTask
+    # Create a mock database object and replace the record_type attribute.
+    mock_database = MagicMock()
+    task_class.record_type = mock_database
+    mock_database.count.return_value = 0
     tasks = gather_task_type(models, task_class)
     assert len(tasks) == 40
