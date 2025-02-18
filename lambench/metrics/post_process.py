@@ -17,7 +17,6 @@ from lambench.metrics.utils import (
     exp_average,
     aggregated_nve_md_results,
 )
-from lambench.metrics.utils import METRICS_METADATA
 
 DIRECT_TASK_WEIGHTS = yaml.safe_load(
     open(Path(lambench.__file__).parent / "metrics/direct_task_weights.yml", "r")
@@ -132,7 +131,6 @@ def process_calculator_task_for_one_model(model: BaseLargeAtomModel):
 
 
 def main():
-    json_output = {}
     results = {}
     models = gather_models()
     leaderboard_models = [
@@ -147,11 +145,8 @@ def main():
         # PosixPath is not JSON serializable
         results[model.model_name]["model"] = model.model_dump(exclude={"model_path"})
 
-    json_output["results"] = results
-    json_output["metadata"] = METRICS_METADATA
-
     json.dump(
-        json_output,
+        results,
         open(Path(lambench.__file__).parent / "metrics/results/results.json", "w"),
         indent=2,
     )
