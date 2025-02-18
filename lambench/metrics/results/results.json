@@ -2010,8 +2010,8 @@
           }
         },
         "REANN_CO2_Ni100": {
-          "DISPLAY_NAME": "REANN",
-          "DESCRIPTION": "Example training data of the REANN package. [https://doi.org/10.1103/PhysRevLett.127.156002]",
+          "DISPLAY_NAME": "REANN-CO2-Ni100",
+          "DESCRIPTION": "Interaction of CO2 with a movable Ni(100) surface. [https://pubs.acs.org/doi/10.1021/acs.jpclett.9b00085]",
           "energy_rmse": {
             "DISPLAY_NAME": "Energy RMSE",
             "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
