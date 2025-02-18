@@ -284,7 +284,8 @@
         },
         "show_direct_task": true,
         "show_finetune_task": true,
-        "show_calculator_task": true
+        "show_calculator_task": true,
+        "skip_tasks": []
       }
     },
     "mace_mp_0_medium": {
@@ -538,7 +539,8 @@
         },
         "show_direct_task": true,
         "show_finetune_task": false,
-        "show_calculator_task": true
+        "show_calculator_task": true,
+        "skip_tasks": []
       }
     },
     "orb_v2": {
@@ -792,7 +794,8 @@
         },
         "show_direct_task": true,
         "show_finetune_task": false,
-        "show_calculator_task": true
+        "show_calculator_task": true,
+        "skip_tasks": []
       }
     },
     "7net-0": {
@@ -1046,7 +1049,8 @@
         },
         "show_direct_task": true,
         "show_finetune_task": false,
-        "show_calculator_task": true
+        "show_calculator_task": true,
+        "skip_tasks": []
       }
     },
     "7net-l3i5": {
@@ -1300,7 +1304,8 @@
         },
         "show_direct_task": true,
         "show_finetune_task": false,
-        "show_calculator_task": true
+        "show_calculator_task": true,
+        "skip_tasks": []
       }
     },
     "eqV2_153M_omat_mp_salex": {
@@ -1519,7 +1524,8 @@
         },
         "show_direct_task": true,
         "show_finetune_task": false,
-        "show_calculator_task": true
+        "show_calculator_task": true,
+        "skip_tasks": []
       }
     },
     "MatterSim_v1.0.0_5M": {
@@ -1773,7 +1779,8 @@
         },
         "show_direct_task": true,
         "show_finetune_task": false,
-        "show_calculator_task": true
+        "show_calculator_task": true,
+        "skip_tasks": []
       }
     }
   },
