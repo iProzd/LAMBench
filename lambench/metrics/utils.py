@@ -5,7 +5,11 @@ import lambench
 from pathlib import Path
 
 
-# General utility functions
+#############################
+# General utility functions #
+#############################
+
+
 def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
     """Calculate the exponential average of each metric of the results."""
     exp_average_metrics = {}
@@ -24,7 +28,11 @@ def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
     return exp_average_metrics
 
 
-# Direct Task utility functions
+#################################
+# Direct Task utility functions #
+#################################
+
+
 def filter_direct_task_results(
     task_result: dict, task_config: dict, normalize: Optional[bool] = False
 ) -> dict:
@@ -49,10 +57,10 @@ def filter_direct_task_results(
             task_result[k] = None
             continue
         std = task_config.get(f"{efvp}_std")
-        if normalize and std is not None:
-            weight /= std
 
         if v is not None:
+            if normalize:
+                v = v / std
             filtered_metrics[k] = np.log(v) * weight
             # else the filtered_metrics will not have this key.
             # Metrics with weight != None should have a value,
@@ -60,7 +68,10 @@ def filter_direct_task_results(
     return filtered_metrics
 
 
-# Calculator Task utility functions
+#####################################
+# Calculator Task utility functions #
+#####################################
+
 ## NVE MD utility functions
 NVEMD_NSTEPS = yaml.safe_load(
     open(Path(lambench.__file__).parent / "tasks/calculator/calculator_tasks.yml", "r")
@@ -82,3 +93,10 @@ def aggregated_nve_md_results(results: dict[str, dict[str, float]]) -> dict[str,
         aggregated_result[k] = np.round(np.exp(np.mean(np.log(v))), 6)
     aggregated_result["success_rate"] = np.round(success_count / len(results), 2)
     return aggregated_result
+
+
+####################################
+# Visualization utility functions #
+####################################
+
+## Radar plot utility functions
