@@ -20,32 +20,35 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
             task_result = DirectPredictRecord.query(
                 model_name=model.model_name, task_name=task
             )
+            task_config = DIRECT_TASK_WEIGHTS[task]
+            if task_config["virial_weight"] is not None:
+                weight_virial = True
             if len(task_result) != 1:
                 logging.warning(
                     f"Expect one record for {model.model_name} and {task}, but got {len(task_result)}"
                 )
-                # TODO: handle eqv2 missing records
                 continue
-            task_config = DIRECT_TASK_WEIGHTS[task]
-            if task_config["virial_weight"] is not None:
-                weight_virial = True
+
             norm_log_results.append(
                 filter_direct_task_results(
                     task_result[0].to_dict(), task_config, normalize=True
                 )
             )
-        domain_results[domain] = exp_average(norm_log_results)
-
-        # aggregate over E, F, V
-        nomarlized_e = domain_results[domain]["energy_mae_natoms"]
-        nomarlized_f = domain_results[domain]["force_rmse"]
-        nomarlized_v = domain_results[domain]["virial_mae_natoms"]
-        if weight_virial:
-            domain_results[domain] = (
-                0.45 * nomarlized_e + 0.45 * nomarlized_f + 0.1 * nomarlized_v
-            )
+        if len(norm_log_results) != len(tasks):
+            domain_results[domain] = None
         else:
-            domain_results[domain] = 0.5 * nomarlized_e + 0.5 * nomarlized_f
+            domain_results[domain] = exp_average(norm_log_results)
+
+            # aggregate over E, F, V, TODO refactor
+            nomarlized_e = domain_results[domain]["energy_mae_natoms"]
+            nomarlized_f = domain_results[domain]["force_rmse"]
+            nomarlized_v = domain_results[domain]["virial_mae_natoms"]
+            if weight_virial:
+                domain_results[domain] = (
+                    0.45 * nomarlized_e + 0.45 * nomarlized_f + 0.1 * nomarlized_v
+                )
+            else:
+                domain_results[domain] = 0.5 * nomarlized_e + 0.5 * nomarlized_f
     return domain_results
 
 
@@ -70,5 +73,4 @@ def aggregate_domain_results():
 
 
 if __name__ == "__main__":
-    # print(get_domain_to_direct_task_mapping(DIRECT_TASK_WEIGHTS))
     print(aggregate_domain_results())
