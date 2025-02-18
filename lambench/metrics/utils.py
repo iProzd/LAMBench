@@ -3,6 +3,7 @@ import yaml
 from typing import Optional, Literal
 import lambench
 from pathlib import Path
+from collections import defaultdict
 
 
 #############################
@@ -100,3 +101,14 @@ def aggregated_nve_md_results(results: dict[str, dict[str, float]]) -> dict[str,
 ####################################
 
 ## Radar plot utility functions
+
+
+def get_domain_to_direct_task_mapping(config_file: dict) -> dict:
+    """
+    This function fetches the domain to direct task mapping from the config file.
+    """
+    domain_to_direct_task_mapping = defaultdict(list)
+    for task, task_config in config_file.items():
+        domain = task_config["domain"]
+        domain_to_direct_task_mapping[domain].append(task)
+    return domain_to_direct_task_mapping
