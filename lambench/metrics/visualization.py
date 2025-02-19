@@ -41,7 +41,7 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
 
             # aggregate over E, F, V, TODO refactor
             nomarlized_e = domain_results[domain]["energy_mae_natoms"]
-            nomarlized_f = domain_results[domain]["force_rmse"]
+            nomarlized_f = domain_results[domain]["force_mae"]
             nomarlized_v = domain_results[domain]["virial_mae_natoms"]
             if weight_virial:
                 domain_results[domain] = (
