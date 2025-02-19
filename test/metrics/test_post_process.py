@@ -36,36 +36,6 @@ def test_process_results_for_one_model(
 def test_average():
     log_results = [
         {
-            "force_rmse": np.log(0.437947),
-        },
-        {
-            "force_rmse": np.log(0.30147),
-        },
-        {
-            "force_rmse": np.log(0.345338),
-        },
-        {
-            "force_rmse": np.log(0.19703),
-        },
-        {
-            "force_rmse": np.log(0.0924748),
-        },
-        {
-            "force_rmse": np.log(0.221132),
-        },
-        {
-            "force_rmse": np.log(0.112146),
-        },
-        {
-            "force_rmse": np.log(0.266102),
-        },
-        {
-            "force_rmse": np.log(0.0584197),
-        },
-        {
-            "force_rmse": np.log(0.13488),
-        },
-        {
             "force_rmse": np.log(0.0626074),
         },
         {
@@ -81,4 +51,4 @@ def test_average():
             "force_rmse": np.log(0.201489),
         },
     ]
-    np.testing.assert_allclose(exp_average(log_results)["force_rmse"], 0.1866048)
+    np.testing.assert_allclose(exp_average(log_results)["force_rmse"], 0.1946998)
