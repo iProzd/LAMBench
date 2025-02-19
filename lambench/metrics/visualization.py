@@ -40,15 +40,15 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
             domain_results[domain] = exp_average(norm_log_results)
 
             # aggregate over E, F, V, TODO refactor
-            nomarlized_e = domain_results[domain]["energy_mae_natoms"]
-            nomarlized_f = domain_results[domain]["force_mae"]
-            nomarlized_v = domain_results[domain]["virial_mae_natoms"]
+            normalized_e = domain_results[domain]["energy_mae_natoms"]
+            normalized_f = domain_results[domain]["force_mae"]
+            normalized_v = domain_results[domain]["virial_mae_natoms"]
             if weight_virial:
                 domain_results[domain] = (
-                    0.45 * nomarlized_e + 0.45 * nomarlized_f + 0.1 * nomarlized_v
+                    0.45 * normalized_e + 0.45 * normalized_f + 0.1 * normalized_v
                 )
             else:
-                domain_results[domain] = 0.5 * nomarlized_e + 0.5 * nomarlized_f
+                domain_results[domain] = 0.5 * normalized_e + 0.5 * normalized_f
     return domain_results
 
 
