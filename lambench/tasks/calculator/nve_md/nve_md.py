@@ -11,7 +11,7 @@ from ase.units import fs
 import numpy as np
 import time
 from typing import Optional
-from lambench.tasks.calculator.nve_md_data import TEST_DATA
+from lambench.tasks.calculator.nve_md.nve_md_data import TEST_DATA
 import logging
 
 

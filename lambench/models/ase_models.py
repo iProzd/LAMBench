@@ -81,7 +81,9 @@ class ASEModel(BaseLargeAtomModel):
             return self.run_ase_dptest(self.calc, task.test_data)
         elif isinstance(task, CalculatorTask):
             if task.task_name == "nve_md":
-                from lambench.tasks.calculator.nve_md import run_md_nve_simulation
+                from lambench.tasks.calculator.nve_md.nve_md import (
+                    run_md_nve_simulation,
+                )
 
                 num_steps = task.calculator_params.get("num_steps", 1000)
                 timestep = task.calculator_params.get("timestep", 1.0)
@@ -133,7 +135,9 @@ class ASEModel(BaseLargeAtomModel):
                         if not np.isfinite(energy_predict):
                             raise ValueError("Energy prediction is non-finite.")
                     except (ValueError, RuntimeError):
-                        file = Path(f"failed_structures/{calc.name}/{atoms.symbols}.cif")
+                        file = Path(
+                            f"failed_structures/{calc.name}/{atoms.symbols}.cif"
+                        )
                         file.parent.mkdir(parents=True, exist_ok=True)
                         write(file, atoms)
                         logging.error(

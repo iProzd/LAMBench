@@ -1,4 +1,4 @@
-from lambench.tasks.calculator.nve_md import (
+from lambench.tasks.calculator.nve_md.nve_md import (
     nve_simulation_single,
     run_md_nve_simulation,
 )
