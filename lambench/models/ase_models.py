@@ -3,14 +3,17 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-import ase
 import dpdata
 import numpy as np
 from ase.calculators.calculator import Calculator
+from ase import Atoms
 from ase.io import write
 from tqdm import tqdm
 
 from lambench.models.basemodel import BaseLargeAtomModel
+from ase.optimize import FIRE
+from ase.constraints import FixSymmetry
+from ase.filters import FrechetCellFilter
 
 
 class ASEModel(BaseLargeAtomModel):
@@ -126,7 +129,7 @@ class ASEModel(BaseLargeAtomModel):
                 sys = dpdata.LabeledSystem(filepth, fmt="deepmd/npy")
             for ls in tqdm(sys, desc="Set", leave=False):  # type: ignore
                 for frame in tqdm(ls, desc="Frames", leave=False):
-                    atoms: ase.Atoms = frame.to_ase_structure()[0]  # type: ignore
+                    atoms: Atoms = frame.to_ase_structure()[0]  # type: ignore
                     atoms.calc = calc
 
                     # Energy
@@ -233,3 +236,27 @@ class ASEModel(BaseLargeAtomModel):
                 }
             )
         return res
+
+    @staticmethod
+    def run_ase_relaxation(
+        atoms: Atoms,
+        calc: Calculator,
+        fmax: float = 5e-3,
+        steps: int = 500,
+        fix_symmetry: bool = True,
+        relax_cell: bool = True,
+    ) -> Optional[Atoms]:
+        atoms.calc = calc
+        if fix_symmetry:
+            atoms.set_constraint(FixSymmetry(atoms))
+        if relax_cell:
+            atoms = FrechetCellFilter(atoms)
+        opt = FIRE(atoms, trajectory=None, logfile=None)
+        try:
+            opt.run(fmax=fmax, steps=steps)
+        except Exception as e:
+            logging.error(f"Relaxation failed: {e}")
+            return None
+        if relax_cell:
+            atoms = atoms.atoms
+        return atoms
