@@ -38,6 +38,8 @@ orb = ["orb-models","pynanoflann@git+https://github.com/dwastberg/pynanoflann#eg
 sevenn = ["sevenn"]
 test = ["pytest"]
 dflow = ["pydflow", "lbg"]
+phonopy = ["phonopy@git+https://github.com/phonopy/phonopy.git"]
+
 
 [project.urls]
 Homepage = "https://github.com/deepmodeling/LAMBench"
