@@ -1,5 +1,7 @@
 from ase import Atoms
 from phonopy.structure.atoms import PhonopyAtoms
+from pathlib import Path
+import phonopy
 
 
 def ase_to_phonopy_atoms(atoms: Atoms) -> PhonopyAtoms:
@@ -13,3 +15,20 @@ def ase_to_phonopy_atoms(atoms: Atoms) -> PhonopyAtoms:
     masses = atoms.get_masses()
 
     return PhonopyAtoms(symbols=symbols, positions=positions, cell=cell, masses=masses)
+
+
+def phonopy_to_ase_atoms(phonon_file: Path) -> Atoms:
+    """
+    Convert PhonopyAtoms object to ASE Atoms object.
+    """
+    phonon = phonopy.load(phonon_file)
+    return Atoms(
+        cell=phonon.unitcell.cell,
+        symbols=phonon.unitcell.symbols,
+        scaled_positions=phonon.unitcell.scaled_positions,
+        pbc=True,
+    )
+
+
+# Constants unit conversion
+THz_TO_K = 47.9924

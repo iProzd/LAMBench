@@ -96,6 +96,18 @@ class ASEModel(BaseLargeAtomModel):
                         self, num_steps, timestep, temperature_K
                     )
                 }
+            elif task.task_name == "phonon_mdr":
+                from lambench.tasks.calculator.phonon.phonon import (
+                    run_phonon_simulation,
+                )
+
+                task.workdir.mkdir(exist_ok=True)
+                distance = task.calculator_params.get("distance", 0.01)
+                return {
+                    "metrics": run_phonon_simulation(
+                        self, task.test_data, distance, task.workdir
+                    )
+                }
             else:
                 raise NotImplementedError(f"Task {task.task_name} is not implemented.")
 
