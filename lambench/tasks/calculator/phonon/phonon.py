@@ -125,8 +125,8 @@ def run_phonon_simulation(
         )
         logging.info(f"Simulation completed for system {str(test_file.name)}.\n")
 
-    if result is not None:
-        dataframe_rows.append(result)
+        if result is not None:
+            dataframe_rows.append(result)
     preds = pd.DataFrame(dataframe_rows)
 
     # Post-processing
