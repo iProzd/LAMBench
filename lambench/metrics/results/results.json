@@ -13,30 +13,6 @@
         "virial_rmse_natoms": 0.104301,
         "virial_mae_natoms": 0.0609974
       },
-      "MD22": {
-        "energy_rmse": 0.129902,
-        "energy_mae": 0.0928304,
-        "energy_rmse_natoms": 0.00195589,
-        "energy_mae_natoms": 0.00153925,
-        "force_rmse": 0.12396,
-        "force_mae": 0.0818353,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
-      "Ca_batteries_CM2021": {
-        "energy_rmse": 0.30635,
-        "energy_mae": 0.186409,
-        "energy_rmse_natoms": 0.00352655,
-        "energy_mae_natoms": 0.00189317,
-        "force_rmse": 0.152482,
-        "force_mae": 0.109638,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "NequIP_NC_2022": {
         "energy_rmse": 0.24457,
         "energy_mae": 0.159798,
@@ -44,18 +20,6 @@
         "energy_mae_natoms": 0.00116024,
         "force_rmse": 0.139008,
         "force_mae": 0.106095,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
-      "ANI": {
-        "energy_rmse": 0.532158,
-        "energy_mae": 0.406815,
-        "energy_rmse_natoms": 0.0372746,
-        "energy_mae_natoms": 0.025835,
-        "force_rmse": 0.39112,
-        "force_mae": 0.260525,
         "virial_rmse": null,
         "virial_mae": null,
         "virial_rmse_natoms": null,
@@ -73,6 +37,18 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
+      "HEA25_S": {
+        "energy_rmse": 6.00773,
+        "energy_mae": 4.14219,
+        "energy_rmse_natoms": 0.138596,
+        "energy_mae_natoms": 0.0966353,
+        "force_rmse": 0.337888,
+        "force_mae": 0.229898,
+        "virial_rmse": 22.3705,
+        "virial_mae": 12.9788,
+        "virial_rmse_natoms": 0.52014,
+        "virial_mae_natoms": 0.303168
+      },
       "Collision": {
         "energy_rmse": 0.34801,
         "energy_mae": 0.26437,
@@ -85,29 +61,17 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "CGM_MLP_NC2023": {
-        "energy_rmse": 11.202,
-        "energy_mae": 6.8522,
-        "energy_rmse_natoms": 0.757871,
-        "energy_mae_natoms": 0.264679,
-        "force_rmse": 0.709579,
-        "force_mae": 0.445841,
+      "MD22": {
+        "energy_rmse": 0.129902,
+        "energy_mae": 0.0928304,
+        "energy_rmse_natoms": 0.00195589,
+        "energy_mae_natoms": 0.00153925,
+        "force_rmse": 0.12396,
+        "force_mae": 0.0818353,
         "virial_rmse": null,
         "virial_mae": null,
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
-      },
-      "Subalex_9k": {
-        "energy_rmse": 2.4741,
-        "energy_mae": 0.712295,
-        "energy_rmse_natoms": 0.273552,
-        "energy_mae_natoms": 0.0759258,
-        "force_rmse": 0.647433,
-        "force_mae": 0.123945,
-        "virial_rmse": 5.52446,
-        "virial_mae": 0.965819,
-        "virial_rmse_natoms": 0.474576,
-        "virial_mae_natoms": 0.100736
       },
       "Torsionnet500": {
         "energy_rmse": 0.211851,
@@ -116,6 +80,42 @@
         "energy_mae_natoms": 0.00705101,
         "force_rmse": 0.212374,
         "force_mae": 0.142863,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "HEMC_HEMB": {
+        "energy_rmse": 3.6998,
+        "energy_mae": 2.63096,
+        "energy_rmse_natoms": 0.0828644,
+        "energy_mae_natoms": 0.0607905,
+        "force_rmse": 0.415842,
+        "force_mae": 0.282395,
+        "virial_rmse": 5.20937,
+        "virial_mae": 3.04527,
+        "virial_rmse_natoms": 0.113451,
+        "virial_mae_natoms": 0.0653148
+      },
+      "Ca_batteries_CM2021": {
+        "energy_rmse": 0.30635,
+        "energy_mae": 0.186409,
+        "energy_rmse_natoms": 0.00352655,
+        "energy_mae_natoms": 0.00189317,
+        "force_rmse": 0.152482,
+        "force_mae": 0.109638,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "ANI": {
+        "energy_rmse": 0.532158,
+        "energy_mae": 0.406815,
+        "energy_rmse_natoms": 0.0372746,
+        "energy_mae_natoms": 0.025835,
+        "force_rmse": 0.39112,
+        "force_mae": 0.260525,
         "virial_rmse": null,
         "virial_mae": null,
         "virial_rmse_natoms": null,
@@ -133,18 +133,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Si_ZEO22": {
-        "energy_rmse": 1.28629,
-        "energy_mae": 0.747742,
-        "energy_rmse_natoms": 0.00875463,
-        "energy_mae_natoms": 0.00535875,
-        "force_rmse": 0.193715,
-        "force_mae": 0.0643489,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "AIMD-Chig": {
         "energy_rmse": 0.879706,
         "energy_mae": 0.703841,
@@ -157,29 +145,53 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "HEA25_S": {
-        "energy_rmse": 6.00773,
-        "energy_mae": 4.14219,
-        "energy_rmse_natoms": 0.138596,
-        "energy_mae_natoms": 0.0966353,
-        "force_rmse": 0.337888,
-        "force_mae": 0.229898,
-        "virial_rmse": 22.3705,
-        "virial_mae": 12.9788,
-        "virial_rmse_natoms": 0.52014,
-        "virial_mae_natoms": 0.303168
+      "Subalex_9k": {
+        "energy_rmse": 2.4741,
+        "energy_mae": 0.712295,
+        "energy_rmse_natoms": 0.273552,
+        "energy_mae_natoms": 0.0759258,
+        "force_rmse": 0.647433,
+        "force_mae": 0.123945,
+        "virial_rmse": 5.52446,
+        "virial_mae": 0.965819,
+        "virial_rmse_natoms": 0.474576,
+        "virial_mae_natoms": 0.100736
       },
-      "HEMC_HEMB": {
-        "energy_rmse": 3.6998,
-        "energy_mae": 2.63096,
-        "energy_rmse_natoms": 0.0828644,
-        "energy_mae_natoms": 0.0607905,
-        "force_rmse": 0.415842,
-        "force_mae": 0.282395,
-        "virial_rmse": 5.20937,
-        "virial_mae": 3.04527,
-        "virial_rmse_natoms": 0.113451,
-        "virial_mae_natoms": 0.0653148
+      "CGM_MLP_NC2023": {
+        "energy_rmse": 11.202,
+        "energy_mae": 6.8522,
+        "energy_rmse_natoms": 0.757871,
+        "energy_mae_natoms": 0.264679,
+        "force_rmse": 0.709579,
+        "force_mae": 0.445841,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "H_nature_2022": {
+        "energy_rmse": 0.501894,
+        "energy_mae": 0.372202,
+        "energy_rmse_natoms": 0.133822,
+        "energy_mae_natoms": 0.0919145,
+        "force_rmse": 0.991775,
+        "force_mae": 0.611631,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Si_ZEO22": {
+        "energy_rmse": 1.28629,
+        "energy_mae": 0.747742,
+        "energy_rmse_natoms": 0.00875463,
+        "energy_mae_natoms": 0.00535875,
+        "force_rmse": 0.193715,
+        "force_mae": 0.0643489,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
       },
       "HEA25_bulk": {
         "energy_rmse": 7.09761,
@@ -200,18 +212,6 @@
         "energy_mae_natoms": 0.039907,
         "force_rmse": null,
         "force_mae": null,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
-      "H_nature_2022": {
-        "energy_rmse": 0.501894,
-        "energy_mae": 0.372202,
-        "energy_rmse_natoms": 0.133822,
-        "energy_mae_natoms": 0.0919145,
-        "force_rmse": 0.991775,
-        "force_mae": 0.611631,
         "virial_rmse": null,
         "virial_mae": null,
         "virial_rmse_natoms": null,
