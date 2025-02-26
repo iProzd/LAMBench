@@ -1,3 +1,17 @@
+"""
+Code adapted from the following paper and code:
+
+@misc{loew2024universalmachinelearninginteratomic,
+      title={Universal Machine Learning Interatomic Potentials are Ready for Phonons},
+      author={Antoine Loew and Dewen Sun and Hai-Chen Wang and Silvana Botti and Miguel A. L. Marques},
+      year={2024},
+      eprint={2412.16551},
+      archivePrefix={arXiv},
+      primaryClass={cond-mat.mtrl-sci},
+      url={https://arxiv.org/abs/2412.16551},
+}
+"""
+
 from pathlib import Path
 from typing import Optional
 
