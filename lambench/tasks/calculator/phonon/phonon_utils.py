@@ -4,6 +4,10 @@ from pathlib import Path
 import phonopy
 
 
+# Constants unit conversion
+THz_TO_K = 47.9924
+
+
 def ase_to_phonopy_atoms(atoms: Atoms) -> PhonopyAtoms:
     """
     Convert ASE Atoms object to PhonopyAtoms object.
@@ -28,7 +32,3 @@ def phonopy_to_ase_atoms(phonon_file: Path) -> Atoms:
         scaled_positions=phonon.unitcell.scaled_positions,
         pbc=True,
     )
-
-
-# Constants unit conversion
-THz_TO_K = 47.9924

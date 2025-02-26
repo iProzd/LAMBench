@@ -35,13 +35,11 @@ def run_phonon_simulation_single(
     try:
         # Step 1: Run relaxation
         atoms: Atoms = phonopy_to_ase_atoms(phonon_file)
-        atoms = model.run_ase_relaxation(atoms, model.calc)
+        atoms = model.run_ase_relaxation(atoms, model.calc, fmax=1e-3)
 
         # Step 2: Convert ASE Atoms object to PhonopyAtoms object
         phonon_atoms = ase_to_phonopy_atoms(atoms)
-        phonon = phonopy.Phonopy(
-            phonon_atoms, supercell_matrix=[[2, 0, 0], [0, 2, 0], [0, 0, 2]]
-        )
+        phonon = phonopy.Phonopy(phonon_atoms)
 
         # Step 3: Generate displacements
         phonon.generate_displacements(distance=distance, is_diagonal=False)
@@ -137,12 +135,13 @@ def run_phonon_simulation(
         preds.sort_values("mp_id", inplace=True)
         labels.sort_values("mp_id", inplace=True)
 
-        preds = preds[np.isfinite(preds["free_energy"])]
-        preds = preds[np.isfinite(preds["heat_capacity"])]
-
-        valid_mp_ids = set(preds["mp_id"])
+        # Filter predictions and labels based on valid mp_ids
+        valid_preds = preds[
+            np.isfinite(preds[["free_energy", "heat_capacity"]]).all(axis=1)
+        ]
+        valid_mp_ids = set(valid_preds["mp_id"])
         labels = labels[labels["mp_id"].isin(valid_mp_ids)]
-        preds = preds[preds["mp_id"].isin(valid_mp_ids)]
+        preds = valid_preds
 
         success_rate = len(preds) / TOTAL_RECORDS
         mae_wmax = mean_absolute_error(labels["max_freq"], preds["max_freq"])
