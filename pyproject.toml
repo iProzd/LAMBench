@@ -38,8 +38,7 @@ orb = ["orb-models","pynanoflann@git+https://github.com/dwastberg/pynanoflann#eg
 sevenn = ["sevenn"]
 test = ["pytest"]
 dflow = ["pydflow", "lbg"]
-phonopy = ["phonopy@git+https://github.com/phonopy/phonopy.git"]
-sklearn = ["scikit-learn"]
+phonopy = ["phonopy@git+https://github.com/phonopy/phonopy.git", "scikit-learn"]
 
 
 [project.urls]
