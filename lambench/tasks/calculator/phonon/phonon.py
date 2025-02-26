@@ -54,7 +54,9 @@ def run_phonon_simulation_single(
 
         # Step 2: Convert ASE Atoms object to PhonopyAtoms object
         phonon_atoms = ase_to_phonopy_atoms(atoms)
-        phonon = phonopy.Phonopy(phonon_atoms)
+        phonon = phonopy.Phonopy(
+            phonon_atoms, supercell_matrix=atoms.info["supercell_matrix"]
+        )
 
         # Step 3: Generate displacements
         phonon.generate_displacements(distance=distance, is_diagonal=False)

@@ -31,4 +31,5 @@ def phonopy_to_ase_atoms(phonon_file: Path) -> Atoms:
         symbols=phonon.unitcell.symbols,
         scaled_positions=phonon.unitcell.scaled_positions,
         pbc=True,
+        info={"supercell_matrix": phonon.supercell_matrix},
     )
