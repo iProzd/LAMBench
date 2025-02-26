@@ -173,25 +173,3 @@ def run_phonon_simulation(
     except Exception as e:
         logging.error(f"Error occured during post-processing: {e}")
     return results
-
-
-if __name__ == "__main__":
-    dp = ASEModel(
-        model_name="test",
-        model_type="ASE",
-        model_family="DP",
-        model_path=Path("/Users/aisi_ap/Downloads/salex_ft_110w.pth"),
-        model_metadata={
-            "author": "alex",
-        },
-        virtualenv="test",
-    )
-
-    print(
-        run_phonon_simulation(
-            dp,
-            Path("/Users/aisi_ap/Downloads/"),
-            0.01,
-            Path("/Users/aisi_ap/Desktop/lamtest"),
-        )
-    )
