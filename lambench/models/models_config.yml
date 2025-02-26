@@ -53,7 +53,6 @@
 - model_name: MatterSim_v1.0.0_5M
   model_type: ASE
   model_family: MatterSim
-  model_path: lambench/models/ASE/mattersim_v1_5M/mattersim_v1_5M.pt
   virtualenv: registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2
   model_metadata:
     model_description: "mattersim_v1_5M"
