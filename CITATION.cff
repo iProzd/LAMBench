@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: LAMBench
+message: 'If you use this software, please cite it as below.'
+type: software
+authors:
+  - family-names: Cai
+    given-names: Chun
+  - family-names: Peng
+    given-names: Anyang
+  - family-names: Guo
+    given-names: Mingyu
+  - family-names: Zhang
+    given-names: Chengqian
+  - family-names: Zhang
+    given-names: Duo
+  - family-names: Zhang
+    given-names: Linfeng
+  - family-names: Wang
+    given-names: Han
+url: 'https://github.com/deepmodeling/LAMBench'
+license: MIT
+date-released: '2025-02-26'
