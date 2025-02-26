@@ -3,14 +3,17 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-import ase
 import dpdata
 import numpy as np
 from ase.calculators.calculator import Calculator
+from ase import Atoms
 from ase.io import write
 from tqdm import tqdm
 
 from lambench.models.basemodel import BaseLargeAtomModel
+from ase.optimize import FIRE
+from ase.constraints import FixSymmetry
+from ase.filters import FrechetCellFilter
 
 
 class ASEModel(BaseLargeAtomModel):
@@ -81,7 +84,9 @@ class ASEModel(BaseLargeAtomModel):
             return self.run_ase_dptest(self.calc, task.test_data)
         elif isinstance(task, CalculatorTask):
             if task.task_name == "nve_md":
-                from lambench.tasks.calculator.nve_md import run_md_nve_simulation
+                from lambench.tasks.calculator.nve_md.nve_md import (
+                    run_md_nve_simulation,
+                )
 
                 num_steps = task.calculator_params.get("num_steps", 1000)
                 timestep = task.calculator_params.get("timestep", 1.0)
@@ -89,6 +94,18 @@ class ASEModel(BaseLargeAtomModel):
                 return {
                     "metrics": run_md_nve_simulation(
                         self, num_steps, timestep, temperature_K
+                    )
+                }
+            elif task.task_name == "phonon_mdr":
+                from lambench.tasks.calculator.phonon.phonon import (
+                    run_phonon_simulation,
+                )
+
+                task.workdir.mkdir(exist_ok=True)
+                distance = task.calculator_params.get("distance", 0.01)
+                return {
+                    "metrics": run_phonon_simulation(
+                        self, task.test_data, distance, task.workdir
                     )
                 }
             else:
@@ -124,7 +141,7 @@ class ASEModel(BaseLargeAtomModel):
                 sys = dpdata.LabeledSystem(filepth, fmt="deepmd/npy")
             for ls in tqdm(sys, desc="Set", leave=False):  # type: ignore
                 for frame in tqdm(ls, desc="Frames", leave=False):
-                    atoms: ase.Atoms = frame.to_ase_structure()[0]  # type: ignore
+                    atoms: Atoms = frame.to_ase_structure()[0]  # type: ignore
                     atoms.calc = calc
 
                     # Energy
@@ -133,7 +150,9 @@ class ASEModel(BaseLargeAtomModel):
                         if not np.isfinite(energy_predict):
                             raise ValueError("Energy prediction is non-finite.")
                     except (ValueError, RuntimeError):
-                        file = Path(f"failed_structures/{calc.name}/{atoms.symbols}.cif")
+                        file = Path(
+                            f"failed_structures/{calc.name}/{atoms.symbols}.cif"
+                        )
                         file.parent.mkdir(parents=True, exist_ok=True)
                         write(file, atoms)
                         logging.error(
@@ -229,3 +248,27 @@ class ASEModel(BaseLargeAtomModel):
                 }
             )
         return res
+
+    @staticmethod
+    def run_ase_relaxation(
+        atoms: Atoms,
+        calc: Calculator,
+        fmax: float = 5e-3,
+        steps: int = 500,
+        fix_symmetry: bool = True,
+        relax_cell: bool = True,
+    ) -> Optional[Atoms]:
+        atoms.calc = calc
+        if fix_symmetry:
+            atoms.set_constraint(FixSymmetry(atoms))
+        if relax_cell:
+            atoms = FrechetCellFilter(atoms)
+        opt = FIRE(atoms, trajectory=None, logfile=None)
+        try:
+            opt.run(fmax=fmax, steps=steps)
+        except Exception as e:
+            logging.error(f"Relaxation failed: {e}")
+            return None
+        if relax_cell:
+            atoms = atoms.atoms
+        return atoms

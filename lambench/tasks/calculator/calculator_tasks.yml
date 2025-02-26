@@ -4,3 +4,7 @@ nve_md:
     num_steps: 10000
     timestep: 1.0
     temperature: 300
+phonon_mdr:
+  test_data: /bohr/lambench-phonon-y7vk/v1/MDR_PBE_phonon
+  calculator_params:
+    distance: 0.01
