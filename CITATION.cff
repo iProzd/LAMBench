@@ -3,8 +3,32 @@ message: "If you use this software, please cite it as below."
 authors:
   - family-names: "Cai"
     given-names: "Chun"
+    affil_key: 1
   - family-names: "Peng"
     given-names: "Anyang"
+    affil_key: 1
+  - family-names: "Guo"
+    given-names: "Mingyu"
+    affil_key: 1
+  - family-names: "Zhang"
+    given-names: "Chengqian"
+    affil_key: 1
+  - family-names: "Zhang"
+    given-names: "Duo"
+    affil_key: 1, 2, 3
+  - family-names: "Zhang"
+    given-names: "Linfeng"
+    affil_key: 1, 3
+  - family-names: "Wang"
+    given-names: "Han"
+    affil_key: 1, 4
+
+    corresponding: true
 title: "LAMBench"
 date-released: 2025-02
 url: "https://github.com/deepmodeling/LAMBench"
+affiliations:
+  - AI for Science Institute, Beijing, China
+  - Academy for Advanced Interdisciplinary Studies, Peking University, Beijing, China
+  - DP Technology, Beijing, China
+  - Institute of Applied Physics and Computational Mathematics, Beijing, China
