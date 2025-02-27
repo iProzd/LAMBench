@@ -10,7 +10,6 @@ from ase.md.velocitydistribution import (
 from ase.units import fs
 import numpy as np
 import time
-from typing import Optional
 from lambench.tasks.calculator.nve_md.nve_md_data import TEST_DATA
 import logging
 
@@ -20,7 +19,7 @@ def run_md_nve_simulation(
     num_steps: int,
     timestep: float,
     temperature_K: int,
-    test_data: Optional[list[Atoms]] = TEST_DATA,
+    test_data: list[Atoms] = TEST_DATA,
 ) -> dict[str, float]:
     """
     This function runs NVE simulations for a list of test systems using the given model.
