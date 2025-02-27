@@ -19,6 +19,7 @@ class DPModel(ASEModel):
     DPModel is a specialized ASEModel for handling deep potential (DP) models. It
     ensures that the model type is "DP" and provides methods to perform property
     finetune tasks.
+
     Attributes:
         model_path (Path): The file system path to the model checkpoint.
 
