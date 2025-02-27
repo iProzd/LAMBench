@@ -33,6 +33,8 @@ jobs:
         pip install .[dflow]
 
     - name: Manual Approval
+      env:
+        INPUT_APPROVERS: ${{ secrets.APPROVERS }}
       uses: trstringer/manual-approval@v1
       with:
         secret: ${{ github.token }}
