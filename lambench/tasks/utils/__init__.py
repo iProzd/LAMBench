@@ -4,14 +4,6 @@ from pathlib import Path
 from typing import Optional
 
 
-def prepare_dptest_input_file():
-    raise NotImplementedError
-
-
-def prepare_finetune_input_file():
-    raise NotImplementedError
-
-
 def parse_dptest_log_file(
     filepath: Path, output_type: str = "standard"
 ) -> dict[str, Optional[float]]:

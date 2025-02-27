@@ -19,39 +19,35 @@ The optional dependencies are required for the corresponding models.
 
 ### Installing with EquiformerV2 models
 
-Using EquiformerV2 models requires the installation of the additional pytorch-geometric packages.
+Using EquiformerV2 models requires the installation of additional pytorch-geometric packages.
 Follow [the instructions](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html#additional-libraries), then install `lambench[fairchem]`, e.g.
-`pip install torch_geometric pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cu124.html`
 
-`mace-torch` pins `e3nn==0.4.4`, which is [not actually required](https://github.com/ACEsuit/mace/issues/555#issuecomment-2423730788) and conflicts with `fairchem`. One can install `lambench[fairchem]` and `lambench[mace]` separately to avoid the conflict.
+```bash
+pip install torch_geometric pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cu124.html
+```
+
+`mace-torch` pins `e3nn==0.4.4`, which is [not actually required](https://github.com/ACEsuit/mace/issues/555#issuecomment-2423730788) and conflicts with `fairchem`. You can install `lambench[fairchem]` and `lambench[mace]` separately to avoid the conflict.
 
 ## Usage
 
-To run the benchmarks, use the following command:
-
-```bash
-lambench
-```
-
-### Command-line Arguments
-
-Use `--models` to specify which models to run, `--tasks` to limit tasks, and `--task-types` to select task classes. Each flag is followed by one or more args. Add `--local` to run tasks on your local machine, instead of submitting jobs with `dflow`. For example:
-
-```bash
-lambench --models DP_2024Q4 SSE_2024Q4 --tasks HPt_NC_2022 Si_ZEO22 --local
-```
-
-Run the command below to see all options:
-
-```bash
-lambench --help
-```
-
-If there are errors importing the `torch` package regarding symbol error, try:
-
-```bash
-export LD_LIBRARY_PATH=$CONDA_PREFIX/lib/python3.1/site-packages/torch/lib/../../nvidia/nvjitlink/lib:$LD_LIBRARY_PATH
-```
+To reproduce the results locally or test a custom model, please refer to the `ASEModel.evaluate` method.
+- For direct prediction tasks, you can use the staticmethod `run_ase_dptest(calc: Calculator, test_data: Path) -> dict`. The test data can be found [here](https://www.aissquare.com/datasets/detail?pageType=datasets&name=LAMBench-TestData-v1&id=295).
+- For calculator tasks, you can use the corresponding scripts provided in `lambench.tasks.calculator`.
+  - The phonon test data can be found [here](https://www.aissquare.com/datasets/detail?pageType=datasets&name=LAMBench-Phonon-MDR&id=310).
+  - An `ASEModel` object is needed for such tasks; you can create a dummy model as follows:
+    ```python
+    model = ASEModel(
+            model_name="dummy",
+            model_type="ASE",
+            model_family="<FAMILY_NAME>",
+            virtualenv="test",
+            model_metadata={
+                "test":"test"
+            }
+        )
+    # Note: the corresponding ASE calculator needs to be defined in ASEModel.calc.
+    ```
+- For finetune tasks, only models based on `DeePMD-kit` framework are supported, please raise an issue if you would like to test other models.
 
 ## Contributing
 
@@ -63,23 +59,24 @@ To add a model, please modify the `lambench/models/models_config.yaml` file.
 
 The file contains a list of models with the following structure:
 
-```yaml
-- model_name: a short and concise name for the model
-  model_family: the family of the model; used for selecting ASE Calculator in `ase_models.py`
-  model_type: usually `ASE`; use `DP` for deepmd-kit models
-  model_path: local path to the model weight; null if not required
-  virtualenv: (not used yet)
-  model_metadata:
-    model_description:
-  show_direct_task: True
-  show_finetune_task: False
-  show_calculator_task: False
-```
+  ```yaml
+  - model_name: a short and concise name for the model
+    model_family: the family of the model; used for selecting ASE Calculator in `ase_models.py`
+    model_type: usually `ASE`; use `DP` for deepmd-kit models
+    model_path: local path to the model weight; null if not required
+    virtualenv: (not used yet)
+    model_metadata:
+      model_description:
+  ```
 
 Please refer to `lambench/models/basemodel.py` for the field definitions.
 
 Now, add the ASE calculator interface of your model to `lambench/models/ase_models.py`.
 Once these modifications are done, please create a pull request. If you have any questions, feel free to create an issue.
+
+### Adding a new task
+
+To add a task (specifically a `calculator` task), please modify the `lambench/tasks/calculator/calculator_tasks.yml` file. Please use [this pull request](https://github.com/deepmodeling/LAMBench/pull/89) as an example.
 
 ## License
 
