@@ -17,6 +17,54 @@ from ase.filters import FrechetCellFilter
 
 
 class ASEModel(BaseLargeAtomModel):
+    """
+    A specialized atomic simulation model that extends BaseLargeAtomModel to provide
+    a unified interface for ASE-compatible calculators. This class dynamically selects
+    and instantiates the appropriate calculator based on the model family attribute and
+    facilitates various simulation tasks including energy, force, and virial evaluations,
+    as well as structural relaxation.
+
+    Attributes:
+        calc (Calculator): A cached property that initializes and returns an ASE Calculator
+            instance based on the model family. Depending on self.model_family, it creates:
+                - MACE Calculator using mace_mp (for "MACE"),
+                - ORB Calculator via ORBCalculator (for "ORB"),
+                - SevenNet Calculator (for "SevenNet"),
+                - OCPCalculator (for "EquiformerV2"),
+                - MatterSimCalculator (for "MatterSim"),
+                - DP calculator (for "DP").
+            Note: one should implement the corresponding calculator classes when adding new models to the benchmark.
+
+    Methods:
+        evaluate(task) -> Optional[dict[str, float]]:
+            Evaluates a given computational task. The method supports:
+                - Direct prediction tasks (using DirectPredictTask) by resetting pytorch dtype
+                  and calling run_ase_dptest.
+                - Calculator-based simulation tasks (using CalculatorTask) such as:
+                    - "nve_md": runs an NVE molecular dynamics simulation.
+                    - "phonon_mdr": runs a phonon simulation.
+            Note: one should implement the corresponding task methods when adding new tasks to the benchmark.
+
+        run_ase_dptest(calc: Calculator, test_data: Path) -> dict:
+            A static method that processes test data by iterating over atomic systems and frames.
+            It calculates energy, force, and virial properties, handling potential errors during
+            energy computation and logging any failures. It returns a dictionary containing the
+            mean absolute error (MAE) and root mean square error (RMSE) for energy (both overall and
+            per atom), and, if available, for force and virial terms.
+
+        run_ase_relaxation(atoms: Atoms, calc: Calculator, fmax: float = 5e-3, steps: int = 500,
+                           fix_symmetry: bool = True, relax_cell: bool = True) -> Optional[Atoms]:
+            A static method that relaxes an atomic structure using the FIRE optimizer. It optionally
+            applies symmetry constraints and cell relaxation. In case of an exception during the
+            relaxation process, the method logs the error and returns None.
+
+    Usage:
+        The ASEModel class is designed to abstract the complexity involved in setting up diverse
+        atomic simulation tasks. It enables simulation and evaluation workflows by automatically
+        selecting the correct ASE calculator based on the model's attributes and by providing
+        utility methods to run direct prediction tests and relaxation simulations.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -25,7 +73,7 @@ class ASEModel(BaseLargeAtomModel):
         """ASE Calculator with the model loaded."""
 
         if self.model_family == "MACE":
-            from mace.calculators import mace_mp
+            from mace.calculators import mace_mp  # type: ignore
 
             # "small", "medium", "large", "small-0b", "medium-0b", "small-0b2", "medium-0b2", "large-0b2", "medium-0b3", "medium-mpa-0"
             return mace_mp(
@@ -34,18 +82,18 @@ class ASEModel(BaseLargeAtomModel):
                 default_dtype="float64",
             )
         elif self.model_family == "ORB":
-            from orb_models.forcefield import pretrained
-            from orb_models.forcefield.calculator import ORBCalculator
+            from orb_models.forcefield import pretrained  # type: ignore
+            from orb_models.forcefield.calculator import ORBCalculator  # type: ignore
 
             orbff = pretrained.orb_v2(device="cuda")  # orb-v2-20241011.ckpt
             return ORBCalculator(orbff, device="cuda")
         elif self.model_family == "SevenNet":
-            from sevenn.sevennet_calculator import SevenNetCalculator
+            from sevenn.sevennet_calculator import SevenNetCalculator  # type: ignore
 
             # model_name in ["7net-0" (i.e. 7net-0_11july2024), "7net-0_22may2024", "7net-l3i5"]
             return SevenNetCalculator(self.model_name, device="cuda")
         elif self.model_family == "EquiformerV2":
-            from fairchem.core import OCPCalculator
+            from fairchem.core import OCPCalculator  # type: ignore
 
             return OCPCalculator(
                 checkpoint_path=self.model_path,
@@ -57,7 +105,7 @@ class ASEModel(BaseLargeAtomModel):
                 cpu=False,
             )
         elif self.model_family == "MatterSim":
-            from mattersim.forcefield import MatterSimCalculator
+            from mattersim.forcefield import MatterSimCalculator  # type: ignore
 
             return MatterSimCalculator(
                 load_path="MatterSim-v1.0.0-5M.pth", device="cuda"

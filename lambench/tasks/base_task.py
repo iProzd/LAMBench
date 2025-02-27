@@ -9,6 +9,22 @@ from lambench.models.basemodel import BaseLargeAtomModel
 
 
 class BaseTask(BaseModel):
+    """
+    BaseTask is a base class for defining and executing evaluation tasks for large atomic models.
+    This class handles the task definition, execution, and result recording process. It checks if a task
+    has already been run for a specific model and manages the storage of task results in a database.
+    Attributes:
+        task_name: A string identifying the task.
+        test_data: Path to the test data for the task.
+        task_config: Class variable path to the task configuration file.
+        workdir: Working directory for the task, defaults to a "lambench" directory in the system's temp directory.
+        record_type: Class variable defining the record type used for storing results.
+        machine_type: String description of the hardware used for the task, defaults to "1 * NVIDIA V100_32g".
+    Methods:
+        exist(model_name): Checks if results for this task and model already exist in the database.
+        run_task(model): Executes the task on the provided model if results don't already exist.
+    """
+
     task_name: str
     test_data: Path
     task_config: ClassVar[Path]

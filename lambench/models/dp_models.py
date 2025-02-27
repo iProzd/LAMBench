@@ -15,6 +15,22 @@ from lambench.tasks.utils import parse_dptest_log_file
 
 
 class DPModel(ASEModel):
+    """
+    DPModel is a specialized ASEModel for handling deep potential (DP) models. It
+    ensures that the model type is "DP" and provides methods to perform property
+    fintune tasks.
+
+    Attributes:
+        model_path (Path): The file system path to the model checkpoint.
+
+    Methods:
+        evaluate(task: BaseTask) -> Optional[dict[str, Optional[float]]]:
+            Evaluates the DPModel using a provided task. Supports:
+                - DirectPredictTask and CalculatorTask: Delegates evaluation to the superclass.
+                - PropertyFinetuneTask: Prepares the task environment, optionally fine-tunes,
+                  freezes, and tests the model.
+    """
+
     model_path: Path
 
     def __init__(self, *args, **kwargs):
