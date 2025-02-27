@@ -1,22 +1,40 @@
 cff-version: 1.2.0
-title: LAMBench
-message: 'If you use this software, please cite it as below.'
+message: "If you use this software, please cite it as below."
+title: "LAMBench"
+subtitle: "A benchmarking framework for Large Atom Models"
 type: software
 authors:
-  - family-names: Cai
-    given-names: Chun
   - family-names: Peng
     given-names: Anyang
+    email: anyangpeng.ca@gmail.com
+    corresponding: true
+    affiliation: AI for Science Institute, Beijing
+    orcid: https://orcid.org/0000-0002-0630-2187
+  - family-names: Cai
+    given-names: Chun
+    affiliation: AI for Science Institute, Beijing
+    orcid: https://orcid.org/0000-0001-6242-0439
   - family-names: Guo
     given-names: Mingyu
-  - family-names: Zhang
-    given-names: Chengqian
+    affiliation: AI for Science Institute, Beijing
   - family-names: Zhang
     given-names: Duo
+    affiliation: AI for Science Institute, Beijing
+    orcid: https://orcid.org/0000-0001-9591-2659
+  - family-names: Zhang
+    given-names: Chengqian
+    affiliation: AI for Science Institute, Beijing
   - family-names: Zhang
     given-names: Linfeng
+    affiliation: AI for Science Institute, Beijing; DP Technology
   - family-names: Wang
     given-names: Han
-url: 'https://github.com/deepmodeling/LAMBench'
+    affiliation: Laboratory of Computational Physics, Institute of Applied Physics and Computational Mathematics
+    corresponding: true
+    email: wang_han@iapcm.ac.cn
+
+repository-code: "https://https://github.com/deepmodeling/LAMBench"
+url: "https://https://github.com/deepmodeling/LAMBench"
 license: MIT
-date-released: '2025-02-26'
+version: 0.1.0 # If you used a specific version of the software, please specify it here
+date-released: "2025-03-01"

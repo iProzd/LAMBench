@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 authors = [
-  { name="Chun Cai", email="amoycaic@gmail.com" },
+  { name="DeepModeling", email="amoycaic@gmail.com" },
 ]
 
 description = "Benchmarking of Large Atomic Models"

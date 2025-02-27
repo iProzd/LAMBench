@@ -33,7 +33,7 @@ pip install torch_geometric pyg_lib torch_scatter torch_sparse torch_cluster tor
 To reproduce the results locally or test a custom model, please refer to the `ASEModel.evaluate` method.
 - For direct prediction tasks, you can use the staticmethod `run_ase_dptest(calc: Calculator, test_data: Path) -> dict`. The test data can be found [here](https://www.aissquare.com/datasets/detail?pageType=datasets&name=LAMBench-TestData-v1&id=295).
 - For calculator tasks, you can use the corresponding scripts provided in `lambench.tasks.calculator`.
-  - The phonon test data can be found here.
+  - The phonon test data can be found [here](https://www.aissquare.com/datasets/detail?pageType=datasets&name=LAMBench-Phonon-MDR&id=310).
   - An `ASEModel` object is needed for such tasks; you can create a dummy model as follows:
     ```python
     model = ASEModel(
@@ -47,6 +47,7 @@ To reproduce the results locally or test a custom model, please refer to the `AS
         )
     # Note: the corresponding ASE calculator needs to be defined in ASEModel.calc.
     ```
+- For finetune tasks, only models based on `DeePMD-kit` framework are supported, please raise an issue if you would like to test other models.
 
 ## Contributing
 
