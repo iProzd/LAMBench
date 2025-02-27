@@ -34,8 +34,8 @@ authors:
     corresponding: true
     email: wang_han@iapcm.ac.cn
 
-repository-code: "https://https://github.com/deepmodeling/LAMBench"
-url: "https://https://github.com/deepmodeling/LAMBench"
+repository-code: "https://github.com/deepmodeling/LAMBench"
+url: "https://github.com/deepmodeling/LAMBench"
 license: MIT
 version: 0.1.0 # If you used a specific version of the software, please specify it here
 date-released: "2025-03-01"
