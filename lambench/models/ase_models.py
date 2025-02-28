@@ -160,10 +160,10 @@ class ASEModel(BaseLargeAtomModel):
                 from lambench.tasks.calculator.batch_infer.batch_infer import (
                     run_batch_infer,
                 )
-                confs = task.calculator_params.get("confs", None)
+                timing_ratio = task.calculator_params.get("timing_ratio", 0.2)
                 return {
-                    "metrics": run_md_nve_simulation(
-                        self, confs
+                    "metrics": run_batch_infer(
+                        self,  task.test_data, timing_ratio
                     )
                 }
             else:

@@ -10,4 +10,6 @@ phonon_mdr:
     distance: 0.01
 batch_infer:
   test_data: /bohr/batch-infer-7ipn/v1/batch_infer_confs
+  calculator_params:
+    timing_ratio: 0.2
 

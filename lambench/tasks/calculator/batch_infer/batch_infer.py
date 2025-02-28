@@ -12,7 +12,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def run_batch_infer(
     model: ASEModel,
-    test_data: Path
+    test_data: Path,
+    timimg_ratio: float
 ) -> Dict[str, float]:
     """
     Infer for all batches
@@ -22,7 +23,7 @@ def run_batch_infer(
     for subfolder in subfolders:
         system_name = subfolder.name
         try:
-            batch_result = run_one_batch_infer(model, subfolder)
+            batch_result = run_one_batch_infer(model, subfolder, timimg_ratio)
             average_time = batch_result["average_time_per_step"]
             results[system_name] = average_time
             logging.info(f"Batch inference completed for system {system_name} with average time {average_time} s")
@@ -33,14 +34,15 @@ def run_batch_infer(
 
 def run_one_batch_infer(
     model: ASEModel,
-    test_data: Path
+    test_data: Path,
+    timimg_ratio: float
 ) -> Dict[str, float]:
     """
-    Infer for one batch, return averaged time, starting timing at 20%.
+    Infer for one batch, return averaged time, starting timing at timimg_ratio.
     """
     test_files = list(test_data.glob("*.vasp"))
     test_atoms = [read(file) for file in test_files]
-    start_index = int(len(test_atoms) * 0.2)
+    start_index = int(len(test_atoms) * timimg_ratio)
     total_time = 0
     valid_steps = 0
     for i, atoms in enumerate(test_atoms):
