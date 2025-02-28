@@ -103,7 +103,3 @@ def aggregate_domain_results():
         results[model.model_name] = domain_results
 
     return results
-
-
-if __name__ == "__main__":
-    print(aggregate_domain_results())
