@@ -144,6 +144,7 @@ def run_phonon_simulation(
         if result is not None:
             dataframe_rows.append(result)
     preds = pd.DataFrame(dataframe_rows)
+    preds.to_csv(workdir / "phonon-preds.csv", index=False)
 
     # Post-processing
     results = {}
