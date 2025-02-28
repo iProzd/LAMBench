@@ -98,7 +98,7 @@ def aggregate_domain_results():
     for model in leaderboard_models:
         domain_results = aggregate_domain_results_for_one_model(model)
         stability = fetch_stability_results(model)
-        domain_results["stability"] = stability
+        domain_results["Stability"] = stability
         results[model.model_name] = domain_results
 
     return results
