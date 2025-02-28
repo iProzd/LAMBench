@@ -156,6 +156,16 @@ class ASEModel(BaseLargeAtomModel):
                         self, task.test_data, distance, task.workdir
                     )
                 }
+            elif task.task_name == "batch_infer":
+                from lambench.tasks.calculator.batch_infer.batch_infer import (
+                    run_batch_infer,
+                )
+                confs = task.calculator_params.get("confs", None)
+                return {
+                    "metrics": run_md_nve_simulation(
+                        self, confs
+                    )
+                }
             else:
                 raise NotImplementedError(f"Task {task.task_name} is not implemented.")
 
