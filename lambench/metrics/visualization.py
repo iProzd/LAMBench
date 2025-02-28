@@ -2,8 +2,13 @@ import logging
 from lambench.metrics.post_process import DIRECT_TASK_WEIGHTS
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.databases.direct_predict_table import DirectPredictRecord
-from lambench.metrics.utils import get_domain_to_direct_task_mapping
-from lambench.metrics.utils import filter_direct_task_results, exp_average
+from lambench.databases.calculator_table import CalculatorRecord
+from lambench.metrics.utils import (
+    get_domain_to_direct_task_mapping,
+    aggregated_nve_md_results,
+    filter_direct_task_results,
+    exp_average,
+)
 from lambench.workflow.entrypoint import gather_models
 
 
@@ -52,6 +57,30 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
     return domain_results
 
 
+def fetch_stability_results(model: BaseLargeAtomModel) -> float:
+    """
+    Fetch stability metrics for a model based on NVE MD simulations.
+
+    The stability is measured as the energy drift slope divided by the success rate.
+    A lower value indicates better stability.
+    """
+    task_results = CalculatorRecord.query(
+        model_name=model.model_name, task_name="nve_md"
+    )
+
+    if len(task_results) != 1:
+        logging.warning(
+            f"Expected one record for {model.model_name} and nve_md, but got {len(task_results)}"
+        )
+        return None
+
+    metrics = aggregated_nve_md_results(task_results[0].metrics)
+    slope = metrics["slope"]
+    success_rate = metrics["success_rate"]
+
+    return slope / success_rate
+
+
 def aggregate_domain_results():
     """
     This function aggregates the results across models and domains.
@@ -67,7 +96,10 @@ def aggregate_domain_results():
     ]
 
     for model in leaderboard_models:
-        results[model.model_name] = aggregate_domain_results_for_one_model(model)
+        domain_results = aggregate_domain_results_for_one_model(model)
+        stability = fetch_stability_results(model)
+        domain_results["stability"] = stability
+        results[model.model_name] = domain_results
 
     return results
 
