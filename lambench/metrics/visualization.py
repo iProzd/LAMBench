@@ -10,6 +10,7 @@ from lambench.metrics.utils import (
     exp_average,
 )
 from lambench.workflow.entrypoint import gather_models
+import numpy as np
 
 
 def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
@@ -61,7 +62,7 @@ def fetch_stability_results(model: BaseLargeAtomModel) -> float:
     """
     Fetch stability metrics for a model based on NVE MD simulations.
 
-    The stability is measured as the energy drift slope divided by the success rate.
+    The stability is measured as the energy drift slope minus the logarithm of the success rate divided by 1000.
     A lower value indicates better stability.
     """
     task_results = CalculatorRecord.query(
@@ -78,7 +79,7 @@ def fetch_stability_results(model: BaseLargeAtomModel) -> float:
     slope = metrics["slope"]
     success_rate = metrics["success_rate"]
 
-    return slope / success_rate
+    return slope - np.log(success_rate) / 1000  # to penalize failed simulations
 
 
 def aggregate_domain_results():
