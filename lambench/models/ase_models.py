@@ -158,13 +158,12 @@ class ASEModel(BaseLargeAtomModel):
                 }
             elif task.task_name == "batch_inference_efficiency":
                 from lambench.tasks.calculator.infer_efficiency.infer_efficiency import (
-                    run_batch_infer,
+                    run_batch_inference,
                 )
+
                 warmup_ratio = task.calculator_params.get("warmup_ratio", 0.2)
                 return {
-                    "metrics": run_batch_infer(
-                        self,  task.test_data, warmup_ratio
-                    )
+                    "metrics": run_batch_inference(self, task.test_data, warmup_ratio)
                 }
             else:
                 raise NotImplementedError(f"Task {task.task_name} is not implemented.")

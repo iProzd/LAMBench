@@ -1,50 +1,48 @@
 from lambench.models.ase_models import ASEModel
-from ase import Atoms
 from ase.io import read
 import logging
 import time
 import numpy as np
-from typing import List, Dict, Tuple
 from pathlib import Path
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filemode='w', filename='infer.log')
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    filemode="w",
+    filename="infer.log",
+)
 
 
-def run_batch_infer(
-    model: ASEModel,
-    test_data: Path,
-    warmup_ratio: float
-) -> Dict[str, Dict[str, float]]:
+def run_batch_inference(
+    model: ASEModel, test_data: Path, warmup_ratio: float
+) -> dict[str, dict[str, float]]:
     """
-    Infer for all batches, return average time and success rate for each system.
+    Inference for all batches, return average time and success rate for each system.
     """
     results = {}
     subfolders = [subfolder for subfolder in test_data.iterdir() if subfolder.is_dir()]
     for subfolder in subfolders:
         system_name = subfolder.name
         try:
-            batch_result = run_one_batch_infer(model, subfolder, warmup_ratio)
+            batch_result = run_one_batch_inference(model, subfolder, warmup_ratio)
             average_time = batch_result["average_time_per_step"]
             success_rate = batch_result["success_rate"]
             results[system_name] = {
                 "average_time_per_step": average_time,
-                "success_rate": success_rate
+                "success_rate": success_rate,
             }
-            logging.info(f"Batch inference completed for system {system_name} with average time {average_time} s and success rate {success_rate:.2f}%")
+            logging.info(
+                f"Batch inference completed for system {system_name} with average time {average_time} s and success rate {success_rate:.2f}%"
+            )
         except Exception as e:
             logging.error(f"Error in batch inference for system {system_name}: {e}")
-            results[system_name] = {
-                "average_time_per_step": None,
-                "success_rate": 0.0
-            }
+            results[system_name] = {"average_time_per_step": None, "success_rate": 0.0}
     return results
 
 
-def run_one_batch_infer(
-    model: ASEModel,
-    test_data: Path,
-    warmup_ratio: float
-) -> Dict[str, float]:
+def run_one_batch_inference(
+    model: ASEModel, test_data: Path, warmup_ratio: float
+) -> dict[str, float]:
     """
     Infer for one batch, return averaged time and success rate, starting timing at warmup_ratio.
     """
@@ -60,21 +58,19 @@ def run_one_batch_infer(
         atoms.calc = model.calc
         start = time.time()
         try:
-            energy = atoms.get_potential_energy()
-            forces = atoms.get_forces()
+            atoms.get_potential_energy()
+            atoms.get_forces()
             stress = atoms.get_stress()
-            volume = atoms.get_volume()
-            stress_tensor = np.zeros((3, 3))
-            stress_tensor[0, 0] = stress[0]
-            stress_tensor[1, 1] = stress[1]
-            stress_tensor[2, 2] = stress[2]
-            stress_tensor[1, 2] = stress[3]
-            stress_tensor[0, 2] = stress[4]
-            stress_tensor[0, 1] = stress[5]
-            stress_tensor[2, 1] = stress[3]
-            stress_tensor[2, 0] = stress[4]
-            stress_tensor[1, 0] = stress[5]
-            virial = -stress_tensor * volume
+            _ = (
+                -np.array(
+                    [
+                        [stress[0], stress[5], stress[4]],
+                        [stress[5], stress[1], stress[3]],
+                        [stress[4], stress[3], stress[2]],
+                    ]
+                )
+                * atoms.get_volume()
+            )
             successful_inferences += 1
         except Exception as e:
             logging.error(f"Error in inference for {str(atoms.symbols)}: {e}")
@@ -87,7 +83,9 @@ def run_one_batch_infer(
             total_time += elapsed_time
             valid_steps += 1
 
-        logging.info(f"Inference completed for system {str(atoms.symbols)} in {elapsed_time} s")
+        logging.info(
+            f"Inference completed for system {str(atoms.symbols)} in {elapsed_time} s"
+        )
 
     if valid_steps > 0:
         average_time_per_step = total_time / valid_steps
@@ -101,5 +99,5 @@ def run_one_batch_infer(
 
     return {
         "average_time_per_step": average_time_per_step,
-        "success_rate": success_rate
+        "success_rate": success_rate,
     }
