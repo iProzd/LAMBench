@@ -4,7 +4,7 @@ from ase.io import read
 import logging
 import time
 import numpy as np
-from typing import List, Dict
+from typing import List, Dict, Tuple
 from pathlib import Path
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filemode='w', filename='infer.log')
@@ -13,38 +13,49 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def run_batch_infer(
     model: ASEModel,
     test_data: Path,
-    timimg_ratio: float
-) -> Dict[str, float]:
+    warmup_ratio: float
+) -> Dict[str, Dict[str, float]]:
     """
-    Infer for all batches
+    Infer for all batches, return average time and success rate for each system.
     """
     results = {}
     subfolders = [subfolder for subfolder in test_data.iterdir() if subfolder.is_dir()]
     for subfolder in subfolders:
         system_name = subfolder.name
         try:
-            batch_result = run_one_batch_infer(model, subfolder, timimg_ratio)
+            batch_result = run_one_batch_infer(model, subfolder, warmup_ratio)
             average_time = batch_result["average_time_per_step"]
-            results[system_name] = average_time
-            logging.info(f"Batch inference completed for system {system_name} with average time {average_time} s")
+            success_rate = batch_result["success_rate"]
+            results[system_name] = {
+                "average_time_per_step": average_time,
+                "success_rate": success_rate
+            }
+            logging.info(f"Batch inference completed for system {system_name} with average time {average_time} s and success rate {success_rate:.2f}%")
         except Exception as e:
             logging.error(f"Error in batch inference for system {system_name}: {e}")
+            results[system_name] = {
+                "average_time_per_step": None,
+                "success_rate": 0.0
+            }
     return results
 
 
 def run_one_batch_infer(
     model: ASEModel,
     test_data: Path,
-    timimg_ratio: float
+    warmup_ratio: float
 ) -> Dict[str, float]:
     """
-    Infer for one batch, return averaged time, starting timing at timimg_ratio.
+    Infer for one batch, return averaged time and success rate, starting timing at warmup_ratio.
     """
     test_files = list(test_data.glob("*.vasp"))
     test_atoms = [read(file) for file in test_files]
-    start_index = int(len(test_atoms) * timimg_ratio)
+    start_index = int(len(test_atoms) * warmup_ratio)
     total_time = 0
     valid_steps = 0
+    successful_inferences = 0
+    total_inferences = len(test_atoms)
+
     for i, atoms in enumerate(test_atoms):
         atoms.calc = model.calc
         start = time.time()
@@ -64,6 +75,7 @@ def run_one_batch_infer(
             stress_tensor[2, 0] = stress[4]
             stress_tensor[1, 0] = stress[5]
             virial = -stress_tensor * volume
+            successful_inferences += 1
         except Exception as e:
             logging.error(f"Error in inference for {str(atoms.symbols)}: {e}")
             continue
@@ -82,6 +94,12 @@ def run_one_batch_infer(
     else:
         average_time_per_step = np.nan
 
+    if total_inferences > 0:
+        success_rate = (successful_inferences / total_inferences) * 100
+    else:
+        success_rate = 0.0
+
     return {
         "average_time_per_step": average_time_per_step,
+        "success_rate": success_rate
     }

@@ -156,14 +156,14 @@ class ASEModel(BaseLargeAtomModel):
                         self, task.test_data, distance, task.workdir
                     )
                 }
-            elif task.task_name == "batch_infer":
-                from lambench.tasks.calculator.batch_infer.batch_infer import (
+            elif task.task_name == "infer_efficiency":
+                from lambench.tasks.calculator.infer_efficiency.infer_efficiency import (
                     run_batch_infer,
                 )
-                timing_ratio = task.calculator_params.get("timing_ratio", 0.2)
+                warmup_ratio = task.calculator_params.get("warmup_ratio", 0.2)
                 return {
                     "metrics": run_batch_infer(
-                        self,  task.test_data, timing_ratio
+                        self,  task.test_data, warmup_ratio
                     )
                 }
             else:
