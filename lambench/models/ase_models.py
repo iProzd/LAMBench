@@ -1,7 +1,7 @@
 from functools import cached_property
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Callable
 
 import dpdata
 import numpy as np
@@ -158,13 +158,12 @@ class ASEModel(BaseLargeAtomModel):
                 }
             elif task.task_name == "batch_inference_efficiency":
                 from lambench.tasks.calculator.infer_efficiency.infer_efficiency import (
-                    run_batch_infer,
+                    run_batch_inference,
                 )
+
                 warmup_ratio = task.calculator_params.get("warmup_ratio", 0.2)
                 return {
-                    "metrics": run_batch_infer(
-                        self,  task.test_data, warmup_ratio
-                    )
+                    "metrics": run_batch_inference(self, task.test_data, warmup_ratio)
                 }
             else:
                 raise NotImplementedError(f"Task {task.task_name} is not implemented.")
@@ -315,6 +314,7 @@ class ASEModel(BaseLargeAtomModel):
         steps: int = 500,
         fix_symmetry: bool = True,
         relax_cell: bool = True,
+        observer: Optional[Callable] = None,
     ) -> Optional[Atoms]:
         atoms.calc = calc
         if fix_symmetry:
@@ -322,6 +322,8 @@ class ASEModel(BaseLargeAtomModel):
         if relax_cell:
             atoms = FrechetCellFilter(atoms)
         opt = FIRE(atoms, trajectory=None, logfile=None)
+        if observer:
+            opt.insert_observer(observer, atoms=opt.atoms)
         try:
             opt.run(fmax=fmax, steps=steps)
         except Exception as e:
