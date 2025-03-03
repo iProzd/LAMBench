@@ -33,3 +33,12 @@ def phonopy_to_ase_atoms(phonon_file: Path) -> Atoms:
         pbc=True,
         info={"supercell_matrix": phonon.supercell_matrix},
     )
+
+
+def force_observer(atoms: Atoms) -> None:
+    """
+    Check if the forces are physical.
+    """
+    fsqr_max = (atoms.get_forces() ** 2).sum(axis=1).max()
+    if fsqr_max > 10000.0**2:
+        raise Exception("Error forces are unphysical")

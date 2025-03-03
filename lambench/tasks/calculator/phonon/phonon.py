@@ -30,6 +30,7 @@ from lambench.tasks.calculator.phonon.phonon_utils import (
     THz_TO_K,
     ase_to_phonopy_atoms,
     phonopy_to_ase_atoms,
+    force_observer,
 )
 
 
@@ -51,7 +52,9 @@ def run_phonon_simulation_single(
     try:
         # Step 1: Run relaxation
         atoms: Atoms = phonopy_to_ase_atoms(phonon_file)
-        atoms = model.run_ase_relaxation(atoms, model.calc, fmax=1e-3)
+        atoms = model.run_ase_relaxation(
+            atoms, model.calc, fmax=1e-3, observer=force_observer
+        )
 
         # Step 2: Convert ASE Atoms object to PhonopyAtoms object
         phonon_atoms = ase_to_phonopy_atoms(atoms)
@@ -74,6 +77,9 @@ def run_phonon_simulation_single(
             )
             frame_atom.calc = model.calc
             forces = frame_atom.get_forces()
+            drift_force = forces.sum(axis=0)
+            for force in forces:
+                force -= drift_force / forces.shape[0]
             forcesets.append(forces)
 
         phonon.forces = forcesets

@@ -1,7 +1,7 @@
 from functools import cached_property
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Callable
 
 import dpdata
 import numpy as np
@@ -305,6 +305,7 @@ class ASEModel(BaseLargeAtomModel):
         steps: int = 500,
         fix_symmetry: bool = True,
         relax_cell: bool = True,
+        observer: Optional[Callable] = None,
     ) -> Optional[Atoms]:
         atoms.calc = calc
         if fix_symmetry:
@@ -312,6 +313,8 @@ class ASEModel(BaseLargeAtomModel):
         if relax_cell:
             atoms = FrechetCellFilter(atoms)
         opt = FIRE(atoms, trajectory=None, logfile=None)
+        if observer:
+            opt.insert_observer(observer, atoms=opt.atoms)
         try:
             opt.run(fmax=fmax, steps=steps)
         except Exception as e:
