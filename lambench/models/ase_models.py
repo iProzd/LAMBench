@@ -157,7 +157,7 @@ class ASEModel(BaseLargeAtomModel):
                     )
                 }
             elif task.task_name == "batch_inference_efficiency":
-                from lambench.tasks.calculator.infer_efficiency.infer_efficiency import (
+                from lambench.tasks.calculator.inference_efficiency.inference_efficiency import (
                     run_batch_inference,
                 )
 
