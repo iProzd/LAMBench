@@ -14,21 +14,10 @@ logging.basicConfig(
 )
 
 
-def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
+def get_ef(atoms: Atoms) -> tuple[float, np.ndarray]:
     e = atoms.get_potential_energy()
     f = atoms.get_forces()
-    stress = atoms.get_stress()
-    v = (
-        -np.array(
-            [
-                [stress[0], stress[5], stress[4]],
-                [stress[5], stress[1], stress[3]],
-                [stress[4], stress[3], stress[2]],
-            ]
-        )
-        * atoms.get_volume()
-    )
-    return e, f, v
+    return e, f
 
 
 def run_inference(
@@ -76,7 +65,7 @@ def run_one_inference(
         atoms.calc = model.calc
         start = time.time()
         try:
-            get_efv(atoms)
+            get_ef(atoms)
             successful_inferences += 1
         except Exception as e:
             logging.error(f"Error in inference for {str(atoms.symbols)}: {e}")
