@@ -31,38 +31,38 @@ def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
     return e, f, v
 
 
-def run_batch_inference(
+def run_inference(
     model: ASEModel, test_data: Path, warmup_ratio: float
 ) -> dict[str, dict[str, float]]:
     """
-    Inference for all batches, return average time and success rate for each system.
+    Inference for all systems, return average time and success rate for each system.
     """
     results = {}
     subfolders = [subfolder for subfolder in test_data.iterdir() if subfolder.is_dir()]
     for subfolder in subfolders:
         system_name = subfolder.name
         try:
-            batch_result = run_one_batch_inference(model, subfolder, warmup_ratio)
-            average_time = batch_result["average_time_per_step"]
-            success_rate = batch_result["success_rate"]
+            system_result = run_one_inference(model, subfolder, warmup_ratio)
+            average_time = system_result["average_time_per_step"]
+            success_rate = system_result["success_rate"]
             results[system_name] = {
                 "average_time_per_step": average_time,
                 "success_rate": success_rate,
             }
             logging.info(
-                f"Batch inference completed for system {system_name} with average time {average_time} s and success rate {success_rate:.2f}%"
+                f"Inference completed for system {system_name} with average time {average_time} s and success rate {success_rate:.2f}%"
             )
         except Exception as e:
-            logging.error(f"Error in batch inference for system {system_name}: {e}")
+            logging.error(f"Error in inference for system {system_name}: {e}")
             results[system_name] = {"average_time_per_step": None, "success_rate": 0.0}
     return results
 
 
-def run_one_batch_inference(
+def run_one_inference(
     model: ASEModel, test_data: Path, warmup_ratio: float
 ) -> dict[str, float]:
     """
-    Infer for one batch, return averaged time and success rate, starting timing at warmup_ratio.
+    Infer for one system, return averaged time and success rate, starting timing at warmup_ratio.
     """
     test_files = list(test_data.glob("*.vasp"))
     test_atoms = [read(file) for file in test_files]
