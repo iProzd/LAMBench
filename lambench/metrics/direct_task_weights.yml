@@ -37,7 +37,9 @@ MD22:
   energy_std: 0.007773825548398275
   force_std: 1.1374624718556865
   virial_std: null
-  domain: Biomoleculars/supramoleculars
+  domain: |
+    Biomoleculars
+    Supramoleculars
 Collision:
   energy_weight: 1.0
   force_weight: 1.0
@@ -77,7 +79,9 @@ AIMD-Chig:
   energy_std: 0.012375194479857722
   force_std: 0.8613627348206556
   virial_std: null
-  domain: Biomoleculars/supramoleculars
+  domain: |
+    Biomoleculars
+    Supramoleculars
 CGM_MLP_NC2023:
   energy_weight: 1.0
   force_weight: 1.0

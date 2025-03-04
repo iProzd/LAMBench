@@ -99,6 +99,24 @@ def aggregated_nve_md_results(results: dict[str, dict[str, float]]) -> dict[str,
     return aggregated_result
 
 
+## Batch inference efficiency utility functions
+def aggregated_batch_inference_efficiency_results(
+    results: dict[str, dict[str, float]],
+) -> dict[str, float]:
+    system_level_avg = []
+    success_count = len(results)
+    for _, result in results.items():
+        if result["average_time_per_step"] is None:
+            success_count -= 1
+            continue
+        system_level_avg.append(result["average_time_per_step"])
+    if success_count != len(results):
+        return {"average_time_per_step": None}
+    return {
+        "average_time_per_step": np.round(np.exp(np.mean(np.log(system_level_avg))), 6),
+    }
+
+
 ####################################
 # Visualization utility functions #
 ####################################

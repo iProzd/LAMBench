@@ -6,6 +6,7 @@ from lambench.databases.calculator_table import CalculatorRecord
 from lambench.metrics.utils import (
     get_domain_to_direct_task_mapping,
     aggregated_nve_md_results,
+    aggregated_batch_inference_efficiency_results,
     filter_direct_task_results,
     exp_average,
 )
@@ -79,7 +80,22 @@ def fetch_stability_results(model: BaseLargeAtomModel) -> float:
     slope = metrics["slope"]
     success_rate = metrics["success_rate"]
 
-    return slope - np.log(success_rate) / 1000  # to penalize failed simulations
+    return slope - np.log(success_rate) / 100  # to penalize failed simulations
+
+
+def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> float:
+    task_results = CalculatorRecord.query(
+        model_name=model.model_name, task_name="batch_inference_efficiency"
+    )
+
+    if len(task_results) != 1:
+        logging.warning(
+            f"Expected one record for {model.model_name} and batch_inference_efficiency, but got {len(task_results)}"
+        )
+        return None
+
+    metrics = aggregated_batch_inference_efficiency_results(task_results[0].metrics)
+    return metrics["average_time_per_step"]
 
 
 def aggregate_domain_results():
@@ -100,6 +116,8 @@ def aggregate_domain_results():
         domain_results = aggregate_domain_results_for_one_model(model)
         stability = fetch_stability_results(model)
         domain_results["Stability"] = stability
+        inference_efficiency = fetch_inference_efficiency_results(model)
+        domain_results["Efficiency"] = inference_efficiency
         results[model.model_name] = domain_results
 
     return results
