@@ -1,5 +1,6 @@
 from lambench.models.ase_models import ASEModel
 from ase.io import read
+from ase.atoms import Atoms
 import logging
 import time
 import numpy as np
@@ -11,6 +12,23 @@ logging.basicConfig(
     filemode="w",
     filename="infer.log",
 )
+
+
+def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
+    e = atoms.get_potential_energy()
+    f = atoms.get_forces()
+    stress = atoms.get_stress()
+    v = (
+        -np.array(
+            [
+                [stress[0], stress[5], stress[4]],
+                [stress[5], stress[1], stress[3]],
+                [stress[4], stress[3], stress[2]],
+            ]
+        )
+        * atoms.get_volume()
+    )
+    return e, f, v
 
 
 def run_batch_inference(
@@ -58,19 +76,7 @@ def run_one_batch_inference(
         atoms.calc = model.calc
         start = time.time()
         try:
-            atoms.get_potential_energy()
-            atoms.get_forces()
-            stress = atoms.get_stress()
-            _ = (
-                -np.array(
-                    [
-                        [stress[0], stress[5], stress[4]],
-                        [stress[5], stress[1], stress[3]],
-                        [stress[4], stress[3], stress[2]],
-                    ]
-                )
-                * atoms.get_volume()
-            )
+            get_efv(atoms)
             successful_inferences += 1
         except Exception as e:
             logging.error(f"Error in inference for {str(atoms.symbols)}: {e}")
