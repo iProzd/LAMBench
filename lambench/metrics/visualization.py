@@ -63,7 +63,7 @@ def fetch_stability_results(model: BaseLargeAtomModel) -> float:
     """
     Fetch stability metrics for a model based on NVE MD simulations.
 
-    The stability is measured as the energy drift slope minus the logarithm of the success rate divided by 1000.
+    The stability is measured as the energy drift slope minus the logarithm of the success rate divided by 100.
     A lower value indicates better stability.
     """
     task_results = CalculatorRecord.query(
