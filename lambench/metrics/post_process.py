@@ -16,6 +16,7 @@ from lambench.metrics.utils import (
     filter_direct_task_results,
     exp_average,
     aggregated_nve_md_results,
+    aggregated_inference_efficiency_results,
 )
 
 DIRECT_TASK_WEIGHTS = yaml.safe_load(
@@ -122,11 +123,19 @@ def process_calculator_task_for_one_model(model: BaseLargeAtomModel):
         return {}
 
     calculator_task_results = {}
-    # TODO aggregate results by tasks when more calculator tasks are added
     for record in calculator_task_records:
-        calculator_task_results[record.task_name] = aggregated_nve_md_results(
-            record.metrics
-        )
+        if record.task_name == "nve_md":
+            calculator_task_results[record.task_name] = aggregated_nve_md_results(
+                record.metrics
+            )
+        elif record.task_name == "inference_efficiency":
+            calculator_task_results[record.task_name] = (
+                aggregated_inference_efficiency_results(record.metrics)
+            )
+        else:
+            logging.warning(
+                f"Unsupported calculator task {record.task_name} for {model.model_name}"
+            )
     return calculator_task_results
 
 
