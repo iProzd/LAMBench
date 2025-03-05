@@ -3,7 +3,7 @@
   model_type: DP
   model_family: DP
   model_path: /bohr/lambench-model-55c1/v3/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
-  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
   model_metadata:
     model_description: "DP 2024 Q4, 37head share fitting 120GPU pretrain"
   show_finetune_task: True
@@ -13,7 +13,7 @@
   model_type: DP
   model_family: DP
   model_path: /bohr/lambench-model-55c1/v4/dpa3_250211_v3_0_0_7M/dp_dpa3_v3.0.0_0211_280w.pt
-  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: *bohrium_image
   model_metadata:
     model_description: "DP 2025 Q1, 7M parameters"
   show_finetune_task: False
@@ -23,7 +23,7 @@
 - model_name: mace_mp_0_medium
   model_type: ASE
   model_family: MACE
-  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: *bohrium_image
   model_metadata:
     model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model
   show_calculator_task: True
@@ -31,7 +31,7 @@
 - model_name: orb_v2
   model_type: ASE
   model_family: ORB
-  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: *bohrium_image
   model_metadata:
     model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt
   show_calculator_task: True
@@ -39,7 +39,7 @@
 - model_name: 7net-0
   model_type: ASE
   model_family: SevenNet
-  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: *bohrium_image
   model_metadata:
     model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth
   show_calculator_task: True
@@ -47,7 +47,7 @@
 - model_name: 7net-l3i5
   model_type: ASE
   model_family: SevenNet
-  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: *bohrium_image
   model_metadata:
     model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth
   show_calculator_task: True
@@ -56,7 +56,7 @@
   model_type: ASE
   model_family: EquiformerV2
   model_path: /bohr/lambench-model-55c1/v3/eqV2_153M_omat_mp_salex/eqV2_153M_omat_mp_salex.pt
-  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: *bohrium_image
   model_metadata:
     model_description: "eqV2_153M_omat_mp_salex"
   show_direct_task: False # Hide EqV2 test results due to license restrictions.
@@ -64,7 +64,7 @@
 - model_name: MatterSim_v1.0.0_5M
   model_type: ASE
   model_family: MatterSim
-  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: *bohrium_image
   model_metadata:
     model_description: "mattersim_v1_5M"
   show_calculator_task: True
