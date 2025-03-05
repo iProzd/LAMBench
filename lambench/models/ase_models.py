@@ -43,6 +43,7 @@ class ASEModel(BaseLargeAtomModel):
                 - Calculator-based simulation tasks (using CalculatorTask) such as:
                     - "nve_md": runs an NVE molecular dynamics simulation.
                     - "phonon_mdr": runs a phonon simulation.
+                    - "inference_efficiency": runs an inference efficiency test.
             Note: one should implement the corresponding task methods when adding new tasks to the benchmark.
 
         run_ase_dptest(calc: Calculator, test_data: Path) -> dict:
@@ -156,15 +157,13 @@ class ASEModel(BaseLargeAtomModel):
                         self, task.test_data, distance, task.workdir
                     )
                 }
-            elif task.task_name == "batch_inference_efficiency":
+            elif task.task_name == "inference_efficiency":
                 from lambench.tasks.calculator.inference_efficiency.inference_efficiency import (
-                    run_batch_inference,
+                    run_inference,
                 )
 
                 warmup_ratio = task.calculator_params.get("warmup_ratio", 0.2)
-                return {
-                    "metrics": run_batch_inference(self, task.test_data, warmup_ratio)
-                }
+                return {"metrics": run_inference(self, task.test_data, warmup_ratio)}
             else:
                 raise NotImplementedError(f"Task {task.task_name} is not implemented.")
 

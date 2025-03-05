@@ -99,8 +99,8 @@ def aggregated_nve_md_results(results: dict[str, dict[str, float]]) -> dict[str,
     return aggregated_result
 
 
-## Batch inference efficiency utility functions
-def aggregated_batch_inference_efficiency_results(
+## Inference efficiency utility functions
+def aggregated_inference_efficiency_results(
     results: dict[str, dict[str, float]],
 ) -> dict[str, float]:
     system_level_avg = []

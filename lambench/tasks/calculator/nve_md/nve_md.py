@@ -59,11 +59,18 @@ def nve_simulation_single(
         dict: A dictionary containing:
             - 'simulation_time': Time taken for the simulation (s).
             - 'steps': Total steps completed (int).
+            - 'std': Energy standard deviation (eV/atom).
+            - 'momenta_diff': Average momenta difference (amu \u00b7 \u00c5/fs).
             - 'slope': Energy drift per step (eV/atom/ps).
     """
+    LOG_INTERVAL = max(1, num_steps // 100)
+    WARMUP_STEPS = int(0.2 * num_steps)
+    WARMUP_STEPS = (WARMUP_STEPS // LOG_INTERVAL) * LOG_INTERVAL
 
     atoms.calc = calculator
-    MaxwellBoltzmannDistribution(atoms, temperature_K=temperature_K)
+    MaxwellBoltzmannDistribution(
+        atoms, temperature_K=temperature_K, rng=np.random.default_rng(0)
+    )
     Stationary(atoms)
     ZeroRotation(atoms)
     dyn = VelocityVerlet(atoms, timestep * fs)
@@ -77,7 +84,7 @@ def nve_simulation_single(
             # To allow for early stopping in case of divergence
             raise RuntimeError
 
-    dyn.attach(log_energy, interval=1)
+    dyn.attach(log_energy, interval=LOG_INTERVAL)
 
     # Measure performance
     start_time = time.time()
@@ -90,13 +97,18 @@ def nve_simulation_single(
     # Compute metrics
     simulation_time = end_time - start_time
 
+    slope = np.nan
     # Perform linear fit on energies using np.linalg.lstsq
-    if len(energies) > 1:
-        times = np.arange(dyn.nsteps + 1) * timestep * fs
-        A = np.vstack([times, np.ones(len(times))]).T
-        slope, _ = np.linalg.lstsq(A, energies, rcond=None)[0]
-    else:
-        slope = np.nan
+    if energies:
+        warmup_idx = WARMUP_STEPS // LOG_INTERVAL
+        if warmup_idx < len(energies) and len(energies) - warmup_idx > 1:
+            steps_after_warmup = (
+                np.arange(0, len(energies) - warmup_idx) * LOG_INTERVAL + WARMUP_STEPS
+            )
+            times = steps_after_warmup * timestep * fs
+            A = np.vstack([times, np.ones(len(times))]).T
+            energies_after_warmup = energies[warmup_idx:]
+            slope, _ = np.linalg.lstsq(A, energies_after_warmup, rcond=None)[0]
 
     try:
         momenta_diff = np.linalg.norm(atoms.get_momenta().sum(axis=0))
@@ -105,6 +117,7 @@ def nve_simulation_single(
     return {
         "simulation_time": simulation_time,  # Simulation efficiency, s
         "steps": dyn.nsteps,  # Simulation stability
+        "std": np.std(energies) / len(atoms),  # Energy standard deviation eV/atom
         "momenta_diff": momenta_diff,  # Momentum conservation, amu · Å/fs
         "slope": np.abs(1000 * slope / len(atoms)),  # Energy drift, eV/atom/ps
     }

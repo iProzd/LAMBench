@@ -8,8 +8,7 @@ phonon_mdr:
   test_data: /bohr/lambench-phonon-y7vk/v1/MDR_PBE_phonon
   calculator_params:
     distance: 0.01
-batch_inference_efficiency:
+inference_efficiency:
   test_data: /bohr/batch-infer-7ipn/v1/batch_infer_confs
   calculator_params:
     warmup_ratio: 0.2
-
