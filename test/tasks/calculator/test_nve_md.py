@@ -138,7 +138,7 @@ def test_aggreated_results():
         "Cs8N2": {
             "simulation_time": 128.3,
             "steps": 1000,
-            "slope": np.nan,
+            "slope": None,
             "momenta_diff": 0.1,
         },
         "Gd2Si4Ni2": {

@@ -85,7 +85,7 @@ def run_one_inference(
     if valid_steps > 0:
         average_time_per_step = total_time / valid_steps
     else:
-        average_time_per_step = np.nan
+        average_time_per_step = None
 
     if total_inferences > 0:
         success_rate = (successful_inferences / total_inferences) * 100

@@ -97,7 +97,7 @@ def nve_simulation_single(
     # Compute metrics
     simulation_time = end_time - start_time
 
-    slope = np.nan
+    slope = None
     # Perform linear fit on energies using np.linalg.lstsq
     if energies:
         warmup_idx = WARMUP_STEPS // LOG_INTERVAL
@@ -113,7 +113,7 @@ def nve_simulation_single(
     try:
         momenta_diff = np.linalg.norm(atoms.get_momenta().sum(axis=0))
     except Exception:
-        momenta_diff = np.nan
+        momenta_diff = None
     return {
         "simulation_time": simulation_time,  # Simulation efficiency, s
         "steps": dyn.nsteps,  # Simulation stability

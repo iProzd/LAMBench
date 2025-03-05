@@ -92,6 +92,8 @@ def aggregated_nve_md_results(results: dict[str, dict[str, float]]) -> dict[str,
         for k, v in result.items():
             if k not in aggregated_result:
                 aggregated_result[k] = []
+            if v is None:
+                v = np.nan
             aggregated_result[k].append(v)
     for k, v in aggregated_result.items():
         aggregated_result[k] = np.round(np.exp(np.mean(np.log(v))), 6)
