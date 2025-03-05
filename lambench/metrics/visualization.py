@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 from lambench.metrics.post_process import DIRECT_TASK_WEIGHTS
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.databases.direct_predict_table import DirectPredictRecord
@@ -93,7 +94,7 @@ def fetch_stability_results(model: BaseLargeAtomModel) -> Optional[float]:
     ) / 100  # to penalize failed simulations
 
 
-def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> float:
+def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> Optional[float]:
     task_results = CalculatorRecord.query(
         model_name=model.model_name, task_name="inference_efficiency"
     )
