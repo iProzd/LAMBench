@@ -59,12 +59,19 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
     return domain_results
 
 
-def fetch_stability_results(model: BaseLargeAtomModel) -> float:
+def fetch_stability_results(model: BaseLargeAtomModel) -> Optional[float]:
     """
-    Fetch stability metrics for a model based on NVE MD simulations.
+    Fetch stability results from NVE MD task for a given model.
 
-    The stability is measured as the energy drift slope minus the logarithm of the success rate divided by 100.
-    A lower value indicates better stability.
+    The stability metric is calculated as (slope + std) / 2 - log(success_rate) / 100.
+    - 'slope': energy drift slope in molecular dynamics simulation
+    - 'std': standard deviation of energy during simulation
+    - 'success_rate': percentage of successful simulation runs
+
+    Lower values indicate better stability, with penalties for failed simulations.
+
+    Returns:
+        float: Combined stability metric, or None if results are not available
     """
     task_results = CalculatorRecord.query(
         model_name=model.model_name, task_name="nve_md"
@@ -78,9 +85,12 @@ def fetch_stability_results(model: BaseLargeAtomModel) -> float:
 
     metrics = aggregated_nve_md_results(task_results[0].metrics)
     slope = metrics["slope"]
+    std = metrics["std"]
     success_rate = metrics["success_rate"]
 
-    return slope - np.log(success_rate) / 100  # to penalize failed simulations
+    return (slope + std) / 2 - np.log(
+        success_rate
+    ) / 100  # to penalize failed simulations
 
 
 def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> float:

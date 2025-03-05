@@ -238,7 +238,7 @@ class ASEModel(BaseLargeAtomModel):
                     # Virial
                     try:
                         stress = atoms.get_stress()
-                        stress_tensor = (
+                        virial_tensor = (
                             -np.array(
                                 [
                                     [stress[0], stress[5], stress[4]],
@@ -248,7 +248,7 @@ class ASEModel(BaseLargeAtomModel):
                             )
                             * atoms.get_volume()
                         )
-                        virial_err.append(frame.data["virials"] - stress_tensor)
+                        virial_err.append(frame.data["virials"] - virial_tensor)
                         virial_err_per_atom.append(
                             virial_err[-1] / force_err[-1].shape[0]
                         )

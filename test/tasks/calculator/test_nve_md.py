@@ -65,7 +65,7 @@ def test_nve_simulation_crash_handling(setup_testing_data, setup_calculator):
         atoms, faulty_calculator, timestep=1.0, num_steps=100, temperature_K=300
     )
     assert res["steps"] == 0, "Simulation should crash."
-    assert np.isnan(res["slope"]), "Slope should be Nan."
+    assert res["slope"] is None, f"Slope should be NaN, got {res['slope']}."
 
 
 def test_run_md_nve_simulation(setup_testing_data, setup_model):
