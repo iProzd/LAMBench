@@ -59,7 +59,7 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
     return domain_results
 
 
-def fetch_stability_results(model: BaseLargeAtomModel) -> float:
+def fetch_stability_results(model: BaseLargeAtomModel) -> Optional[float]:
     """
     Fetch stability results from NVE MD task for a given model.
 
