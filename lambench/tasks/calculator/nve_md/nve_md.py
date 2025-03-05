@@ -119,5 +119,7 @@ def nve_simulation_single(
         "steps": dyn.nsteps,  # Simulation stability
         "std": np.std(energies) / len(atoms),  # Energy standard deviation eV/atom
         "momenta_diff": momenta_diff,  # Momentum conservation, amu · Å/fs
-        "slope": np.abs(1000 * slope / len(atoms)),  # Energy drift, eV/atom/ps
+        "slope": np.abs(1000 * slope / len(atoms))
+        if slope is not None
+        else None,  # Energy drift, eV/atom/ps
     }
