@@ -17,7 +17,7 @@
   model_metadata:
     model_description: "DP 2025 Q1, 7M parameters"
   show_finetune_task: False
-  show_calculator_task: False
+  show_calculator_task: True
   skip_tasks: [PropertyFinetuneTask]
 
 - model_name: mace_mp_0_medium
