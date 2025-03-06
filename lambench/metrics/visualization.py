@@ -1,21 +1,23 @@
-import logging
-from lambench.metrics.post_process import DIRECT_TASK_WEIGHTS
-from lambench.models.basemodel import BaseLargeAtomModel
-from lambench.databases.direct_predict_table import DirectPredictRecord
-from lambench.databases.calculator_table import CalculatorRecord
-from lambench.metrics.utils import (
-    get_domain_to_direct_task_mapping,
-    aggregated_nve_md_results,
-    aggregated_inference_efficiency_results,
-    filter_direct_task_results,
-    exp_average,
-)
-from lambench.workflow.entrypoint import gather_models
-import numpy as np
 import json
+import logging
 from pathlib import Path
-import lambench
 from typing import Optional
+
+import numpy as np
+
+import lambench
+from lambench.databases.calculator_table import CalculatorRecord
+from lambench.databases.direct_predict_table import DirectPredictRecord
+from lambench.metrics.post_process import DIRECT_TASK_WEIGHTS
+from lambench.metrics.utils import (
+    aggregated_inference_efficiency_results,
+    aggregated_nve_md_results,
+    exp_average,
+    filter_direct_task_results,
+    get_domain_to_direct_task_mapping,
+)
+from lambench.models.basemodel import BaseLargeAtomModel
+from lambench.workflow.entrypoint import gather_models
 
 
 def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
