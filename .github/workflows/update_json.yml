@@ -38,6 +38,7 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: |
             postprocess
+            visualization
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
