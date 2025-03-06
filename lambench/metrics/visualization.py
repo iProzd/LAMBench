@@ -12,6 +12,9 @@ from lambench.metrics.utils import (
 )
 from lambench.workflow.entrypoint import gather_models
 import numpy as np
+import json
+from pathlib import Path
+import lambench
 
 
 def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
@@ -108,7 +111,7 @@ def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> float:
     return metrics["average_time_per_step"]
 
 
-def aggregate_domain_results():
+def aggregate_domain_results() -> dict[str, dict[str, float]]:
     """
     This function aggregates the results across models and domains.
     """
@@ -131,3 +134,179 @@ def aggregate_domain_results():
         results[model.model_name] = domain_results
 
     return results
+
+
+def generate_radar_plot(domain_results: dict) -> dict:
+    """
+    Generate radar plot data for domain results comparison.
+
+    Args:
+        domain_results: Dictionary mapping model names to their metrics across domains
+
+    Returns:
+        Dictionary containing the radar chart configuration for visualization
+    """
+    # Extract categories and models
+    first_model = list(domain_results.keys())[0]
+    categories = list(domain_results[first_model].keys())
+    models = list(domain_results.keys())
+
+    # Collect and process metrics
+    metrics_data = _collect_metrics_data(domain_results, categories, models)
+    normalized_metrics = _normalize_metrics(
+        domain_results, metrics_data["category_max"], categories
+    )
+    model_rankings = _calculate_model_rankings(
+        models, categories, metrics_data["category_values"]
+    )
+    best_model = _find_best_model(model_rankings["total_rankings"])
+
+    # Generate the radar chart configuration
+    return _build_radar_chart_config(categories, normalized_metrics, models, best_model)
+
+
+def _collect_metrics_data(
+    domain_results: dict[str, dict[str, float]],
+    categories: list[str],
+    models: list[str],
+) -> dict[str, dict]:
+    """Collect and process raw metrics data"""
+    category_values: dict[str, list[float]] = {category: [] for category in categories}
+
+    for model in models:
+        for category in categories:
+            if domain_results[model][category]:
+                # Convert values to log scale (higher is better)
+                category_values[category].append(
+                    -np.log(domain_results[model][category])
+                )
+
+    # Find maximum for each category for normalization
+    category_max: dict[str, float] = {
+        category: max(values) if values else 1.0
+        for category, values in category_values.items()
+    }
+
+    return {"category_values": category_values, "category_max": category_max}
+
+
+def _normalize_metrics(
+    domain_results: dict[str, dict[str, float]],
+    category_max: dict[str, float],
+    categories: list[str],
+) -> dict[str, list[float | None]]:
+    """Normalize metrics for each model across categories"""
+    normalized_metrics: dict[str, list[float | None]] = {}
+
+    for model, res in domain_results.items():
+        normalized_metrics[model] = []
+        for category in categories:
+            if res[category]:
+                # Normalize to [0,1] range
+                normalized_value = (-np.log(res[category])) / category_max[category]
+                normalized_metrics[model].append(normalized_value)
+            else:
+                normalized_metrics[model].append(None)
+
+    return normalized_metrics
+
+
+def _calculate_model_rankings(
+    models: list[str], categories: list[str], category_values: dict[str, list[float]]
+) -> dict[str, dict]:
+    """Calculate rankings for models across categories"""
+    category_rankings: dict[str, dict[str, int]] = {}
+
+    for category in categories:
+        category_rankings[category] = {}
+        values = category_values[category]
+        if values:  # Skip empty categories
+            sorted_values = sorted(values, reverse=True)  # Higher is better
+            model_values = {
+                model: value
+                for model, value in zip(models, values)
+                if value is not None
+            }
+            for model, value in model_values.items():
+                rank = sorted_values.index(value) + 1
+                category_rankings[category][model] = rank
+
+    # Calculate total rankings across all categories
+    total_rankings: dict[str, int] = {}
+    for model in models:
+        total_rankings[model] = sum(
+            category_rankings[category].get(model, 0) for category in categories
+        )
+
+    return {"category_rankings": category_rankings, "total_rankings": total_rankings}
+
+
+def _find_best_model(total_rankings: dict[str, int]) -> str | None:
+    """Find the model with the best overall ranking"""
+    return min(total_rankings, key=total_rankings.get) if total_rankings else None
+
+
+def _build_radar_chart_config(
+    categories: list[str],
+    normalized_metrics: dict[str, list[float | None]],
+    models: list[str],
+    best_model: str | None,
+) -> dict:
+    """Build the radar chart configuration"""
+    # Define area style for the best model
+    area_style: dict = {
+        "areaStyle": {
+            "color": {
+                "type": "radial",
+                "x": 0.1,
+                "y": 0.6,
+                "r": 1,
+                "colorStops": [
+                    {"color": "rgba(255, 145, 124, 0.1)", "offset": 0},
+                    {"color": "rgba(255, 145, 124, 0.9)", "offset": 1},
+                ],
+            }
+        }
+    }
+
+    # Build chart configuration
+    chart_config: dict = {
+        "title": {"text": "LAMBench Leaderboard"},
+        "legend": {"data": models},
+        "radar": {
+            "indicator": [{"name": category, "max": 1} for category in categories]
+        },
+        "series": [
+            {
+                "name": "LAMBench Leaderboard",
+                "type": "radar",
+                "data": [
+                    {"value": values, "name": model}
+                    for model, values in normalized_metrics.items()
+                ],
+            }
+        ],
+    }
+
+    # Highlight best model
+    if best_model:
+        for model_data in chart_config["series"][0]["data"]:
+            if model_data["name"] == best_model:
+                model_data.update(area_style)
+
+    return chart_config
+
+
+def main():
+    domain_results = aggregate_domain_results()
+    radar_chart_config = generate_radar_plot(domain_results)
+    json.dump(
+        radar_chart_config,
+        open(Path(lambench.__file__).parent / "metrics/results/radar.json", "w"),
+        indent=2,
+    )
+    print("Radar plots saved to radar.json")
+
+
+if __name__ == "__main__":
+    main()
