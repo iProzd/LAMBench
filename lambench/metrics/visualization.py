@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 from lambench.metrics.post_process import DIRECT_TASK_WEIGHTS
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.databases.direct_predict_table import DirectPredictRecord
@@ -60,19 +59,19 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
     return domain_results
 
 
-def fetch_stability_results(model: BaseLargeAtomModel) -> Optional[float]:
+def fetch_conservativeness_results(model: BaseLargeAtomModel) -> float:
     """
-    Fetch stability results from NVE MD task for a given model.
+    Fetch conservativeness results from NVE MD task for a given model.
 
-    The stability metric is calculated as (slope + std) / 2 - log(success_rate) / 100.
+    The conservativeness metric is calculated as (slope + std) / 2 - log(success_rate) / 100.
     - 'slope': energy drift slope in molecular dynamics simulation
     - 'std': standard deviation of energy during simulation
     - 'success_rate': percentage of successful simulation runs
 
-    Lower values indicate better stability, with penalties for failed simulations.
+    Lower values indicate better conservativeness, with penalties for failed simulations.
 
     Returns:
-        float: Combined stability metric, or None if results are not available
+        float: Combined conservativeness metric, or None if results are not available
     """
     task_results = CalculatorRecord.query(
         model_name=model.model_name, task_name="nve_md"
@@ -94,7 +93,7 @@ def fetch_stability_results(model: BaseLargeAtomModel) -> Optional[float]:
     ) / 100  # to penalize failed simulations
 
 
-def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> Optional[float]:
+def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> float:
     task_results = CalculatorRecord.query(
         model_name=model.model_name, task_name="inference_efficiency"
     )
@@ -125,8 +124,8 @@ def aggregate_domain_results():
 
     for model in leaderboard_models:
         domain_results = aggregate_domain_results_for_one_model(model)
-        stability = fetch_stability_results(model)
-        domain_results["Stability"] = stability
+        conservativeness = fetch_conservativeness_results(model)
+        domain_results["Conservativeness"] = conservativeness
         inference_efficiency = fetch_inference_efficiency_results(model)
         domain_results["Efficiency"] = inference_efficiency
         results[model.model_name] = domain_results
