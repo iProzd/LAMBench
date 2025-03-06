@@ -15,6 +15,7 @@ import numpy as np
 import json
 from pathlib import Path
 import lambench
+from typing import Optional
 
 
 def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
@@ -62,7 +63,10 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
     return domain_results
 
 
-def fetch_conservativeness_results(model: BaseLargeAtomModel) -> float:
+def fetch_conservativeness_results(
+    model: BaseLargeAtomModel,
+    conservativeness_thresh: Optional[float] = 2e-5,
+) -> float:
     """
     Fetch conservativeness results from NVE MD task for a given model.
 
@@ -90,7 +94,10 @@ def fetch_conservativeness_results(model: BaseLargeAtomModel) -> float:
     slope = metrics["slope"]
     std = metrics["std"]
     success_rate = metrics["success_rate"]
-
+    if conservativeness_thresh:
+        return max(
+            conservativeness_thresh, (slope + std) / 2 - np.log(success_rate) / 100
+        )
     return (slope + std) / 2 - np.log(
         success_rate
     ) / 100  # to penalize failed simulations
@@ -129,6 +136,7 @@ def aggregate_domain_results() -> dict[str, dict[str, float]]:
         domain_results = aggregate_domain_results_for_one_model(model)
         conservativeness = fetch_conservativeness_results(model)
         domain_results["Conservativeness"] = conservativeness
+        print(f"{model.model_name} conservativeness: {conservativeness}")
         inference_efficiency = fetch_inference_efficiency_results(model)
         domain_results["Efficiency"] = inference_efficiency
         results[model.model_name] = domain_results
