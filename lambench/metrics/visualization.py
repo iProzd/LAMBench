@@ -263,18 +263,7 @@ def _build_radar_chart_config(
     """Build the radar chart configuration"""
     # Define area style for the best model
     area_style: dict = {
-        "areaStyle": {
-            "color": {
-                "type": "radial",
-                "x": 0.1,
-                "y": 0.6,
-                "r": 1,
-                "colorStops": [
-                    {"color": "rgba(255, 145, 124, 0.1)", "offset": 0},
-                    {"color": "rgba(255, 145, 124, 0.9)", "offset": 1},
-                ],
-            }
-        }
+        "areaStyle": {"opacity": 0.1}, # Use inherited color
     }
 
     # Build chart configuration
