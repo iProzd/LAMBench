@@ -1,6 +1,17 @@
 # LAMBench (in development)
 
+
+## Overview
 LAMBench is a benchmarking tool designed to evaluate the performance of various machine learning interatomic potential models (MLIPs). It provides a comprehensive suite of tests and metrics to help developers and researchers understand the generalizability of their machine learning models.
+s.
+
+
+Our mission is to:
+
+- **Provide a comprehensive benchmark**: Covering diverse atomic systems across multiple domains, moving beyond domain-specific benchmarks.
+- **Align with real-world applications**: Bridging the gap between model performance on benchmarks and their impact on scientific discovery.
+- **Enable clear model differentiation**: Offering high discriminative power to distinguish between models with varying performance.
+- **Facilitate continuous improvement**: Creating dynamically evolving benchmarks that grow with the community, integrating new tasks and models.
 
 ## Features
 
