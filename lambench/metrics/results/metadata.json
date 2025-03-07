@@ -844,37 +844,102 @@
     "DESCRIPTION": "Accuracy of the property finetuning task. Note: The test results does not represent the converged accuracy due to limited fine-tuning steps.",
     "Matbench_mp_e_form": {
       "DISPLAY_NAME": "Matbench, mp_e_form",
-      "DESCRIPTION": "Formation energy of materials, in eV/atom. 5-fold average."
+      "DESCRIPTION": "Formation energy of materials, in eV/atom. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, e_form [eV/atom]",
+        "DESCRIPTION": "The root mean squared error of formation energy of materials"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, e_form [eV/atom]",
+        "DESCRIPTION": "The mean absolute error of formation energy of materials"
+      }
     },
     "Matbench_mp_gap": {
       "DISPLAY_NAME": "Matbench, mp_gap",
-      "DESCRIPTION": "Band gap of materials, in eV. 5-fold average."
+      "DESCRIPTION": "Band gap of materials, in eV. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, gap [eV]",
+        "DESCRIPTION": "The root mean squared error of band gap of materials"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, gap [eV]",
+        "DESCRIPTION": "The mean absolute error of band gap of materials"
+      }
     },
     "Matbench_jdft2d": {
       "DISPLAY_NAME": "Matbench, jdft2d",
-      "DESCRIPTION": "2D exfoliation energy from JARVIS-DFT dataset, in meV/atom. 5-fold average."
+      "DESCRIPTION": "2D exfoliation energy from JARVIS-DFT dataset, in meV/atom. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, exfoliation energy [meV/atom]",
+        "DESCRIPTION": "The root mean squared error of 2D exfoliation energy"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, exfoliation energy [meV/atom]",
+        "DESCRIPTION": "The mean absolute error of 2D exfoliation energy"
+      }
     },
     "Matbench_phonons": {
       "DISPLAY_NAME": "Matbench, phonons",
-      "DESCRIPTION": "Frequency of the highest frequency optical phonon mode peak, in units of 1/cm. 5-fold average."
+      "DESCRIPTION": "Frequency of the highest frequency optical phonon mode peak, in units of 1/cm. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, phonon frequency [1/cm]",
+        "DESCRIPTION": "The root mean squared error of the highest frequency optical phonon mode peak"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, phonon frequency [1/cm]",
+        "DESCRIPTION": "The mean absolute error of the highest frequency optical phonon mode peak"
+      }
     },
     "Matbench_dielectric": {
       "DISPLAY_NAME": "Matbench, dielectric",
-      "DESCRIPTION": "Refractive index of materials, unitless. 5-fold average."
+      "DESCRIPTION": "Refractive index of materials, unitless. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, refractive index",
+        "DESCRIPTION": "The root mean squared error of the refractive index"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, refractive index",
+        "DESCRIPTION": "The mean absolute error of the refractive index"
+      }
     },
     "Matbench_log_kvrh": {
       "DISPLAY_NAME": "Matbench, log_kvrh",
-      "DESCRIPTION": "Logarithm of the DFT Voigt-Reuss-Hill average bulk moduli in GPa. 5-fold average."
+      "DESCRIPTION": "Logarithm of the DFT Voigt-Reuss-Hill average bulk moduli in GPa. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, log(bulk modulus) [log(GPa)]",
+        "DESCRIPTION": "The root mean squared error of the logarithm of the bulk modulus"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, log(bulk modulus) [log(GPa)]",
+        "DESCRIPTION": "The mean absolute error of the logarithm of the bulk modulus"
+      }
     },
     "Matbench_log_gvrh": {
       "DISPLAY_NAME": "Matbench, log_gvrh",
-      "DESCRIPTION": "Logarithm of the DFT Voigt-Reuss-Hill average shear moduli in GPa. 5-fold average."
+      "DESCRIPTION": "Logarithm of the DFT Voigt-Reuss-Hill average shear moduli in GPa. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, log(shear modulus) [log(GPa)]",
+        "DESCRIPTION": "The root mean squared error of the logarithm of the shear modulus"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, log(shear modulus) [log(GPa)]",
+        "DESCRIPTION": "The mean absolute error of the logarithm of the shear modulus"
+      }
     },
     "Matbench_perovskites": {
       "DISPLAY_NAME": "Matbench, E_form of perovskites",
-      "DESCRIPTION": "Formation energy of perovskites, in eV/unit cell. 5-fold average."
+      "DESCRIPTION": "Formation energy of perovskites, in eV/unit cell. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, E_form [eV/unit cell]",
+        "DESCRIPTION": "The root mean squared error of the formation energy of perovskites"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, E_form [eV/unit cell]",
+        "DESCRIPTION": "The mean absolute error of the formation energy of perovskites"
+      }
     }
-  },
+  }
+  ,
   "calculator_task_results": {
     "DISPLAY_NAME": "Downstream Tasks",
     "DESCRIPTION": "Evaluation metrics for downstream tasks.",
