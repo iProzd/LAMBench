@@ -266,18 +266,29 @@
     },
     "calculator_task_results": {
       "nve_md": {
-        "slope": 2.8e-05,
+        "std": 4.2e-05,
+        "slope": 1.8e-05,
         "steps": 10000.0,
-        "momenta_diff": 2e-06,
-        "simulation_time": 469.43662,
+        "momenta_diff": 3e-06,
+        "simulation_time": 522.475765,
         "success_rate": 1.0
+      },
+      "inference_efficiency": {
+        "average_time_per_step": 0.055171
+      },
+      "phonon_mdr": {
+        "mae_entropy": 45.63501336946129,
+        "mae_max_freq": 58.8845033213924,
+        "success_rate": 1.0,
+        "mae_free_energy": 18.086146747785406,
+        "mae_heat_capacity": 12.786991948205577
       }
     },
     "model": {
       "model_name": "dpa2_241126_v2_4_0",
       "model_family": "DP",
       "model_type": "DP",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4",
       "model_metadata": {
         "model_description": "DP 2024 Q4, 37head share fitting 120GPU pretrain"
       },
@@ -285,6 +296,274 @@
       "show_finetune_task": true,
       "show_calculator_task": true,
       "skip_tasks": []
+    }
+  },
+  "dpa3_250211_v3_0_0_7M": {
+    "direct_task_results": {
+      "HEA25_S": {
+        "energy_rmse": 5.10846,
+        "energy_mae": 3.54661,
+        "energy_rmse_natoms": 0.117758,
+        "energy_mae_natoms": 0.08254,
+        "force_rmse": 0.302906,
+        "force_mae": 0.197824,
+        "virial_rmse": 21.922,
+        "virial_mae": 12.6145,
+        "virial_rmse_natoms": 0.51152,
+        "virial_mae_natoms": 0.295396
+      },
+      "CGM_MLP_NC2023": {
+        "energy_rmse": 10.9237,
+        "energy_mae": 6.69369,
+        "energy_rmse_natoms": 0.759675,
+        "energy_mae_natoms": 0.266776,
+        "force_rmse": 0.598017,
+        "force_mae": 0.408735,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "HPt_NC_2022": {
+        "energy_rmse": 0.524153,
+        "energy_mae": 0.29854,
+        "energy_rmse_natoms": 0.00623853,
+        "energy_mae_natoms": 0.00407953,
+        "force_rmse": 0.103614,
+        "force_mae": 0.0760265,
+        "virial_rmse": 7.18984,
+        "virial_mae": 4.3163,
+        "virial_rmse_natoms": 0.0974099,
+        "virial_mae_natoms": 0.0595662
+      },
+      "MD22": {
+        "energy_rmse": 0.0957642,
+        "energy_mae": 0.0724537,
+        "energy_rmse_natoms": 0.00159351,
+        "energy_mae_natoms": 0.00125016,
+        "force_rmse": 0.0822289,
+        "force_mae": 0.0531318,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "HEMC_HEMB": {
+        "energy_rmse": 5.47642,
+        "energy_mae": 3.25093,
+        "energy_rmse_natoms": 0.111944,
+        "energy_mae_natoms": 0.0704688,
+        "force_rmse": 0.263259,
+        "force_mae": 0.188232,
+        "virial_rmse": 5.96905,
+        "virial_mae": 3.39408,
+        "virial_rmse_natoms": 0.125342,
+        "virial_mae_natoms": 0.0723784
+      },
+      "Ca_batteries_CM2021": {
+        "energy_rmse": 0.254352,
+        "energy_mae": 0.134975,
+        "energy_rmse_natoms": 0.0029557,
+        "energy_mae_natoms": 0.00141042,
+        "force_rmse": 0.122505,
+        "force_mae": 0.0843035,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "ANI": {
+        "energy_rmse": 0.457222,
+        "energy_mae": 0.337136,
+        "energy_rmse_natoms": 0.0320303,
+        "energy_mae_natoms": 0.0213589,
+        "force_rmse": 0.364725,
+        "force_mae": 0.242874,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Subalex_9k": {
+        "energy_rmse": 2.43741,
+        "energy_mae": 0.638213,
+        "energy_rmse_natoms": 0.271359,
+        "energy_mae_natoms": 0.0687106,
+        "force_rmse": 3.32377,
+        "force_mae": 0.115044,
+        "virial_rmse": 9.00359,
+        "virial_mae": 0.891112,
+        "virial_rmse_natoms": 0.848893,
+        "virial_mae_natoms": 0.0912404
+      },
+      "Collision": {
+        "energy_rmse": 0.280921,
+        "energy_mae": 0.215494,
+        "energy_rmse_natoms": 0.0432898,
+        "energy_mae_natoms": 0.026313,
+        "force_rmse": 0.238186,
+        "force_mae": 0.136766,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "REANN_CO2_Ni100": {
+        "energy_rmse": 1.92108,
+        "energy_mae": 1.57673,
+        "energy_rmse_natoms": 0.0492585,
+        "energy_mae_natoms": 0.040429,
+        "force_rmse": 0.218581,
+        "force_mae": 0.135214,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "NequIP_NC_2022": {
+        "energy_rmse": 0.146314,
+        "energy_mae": 0.105271,
+        "energy_rmse_natoms": 0.000975753,
+        "energy_mae_natoms": 0.000757198,
+        "force_rmse": 0.108369,
+        "force_mae": 0.0789411,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Torsionnet500": {
+        "energy_rmse": 0.156089,
+        "energy_mae": 0.106809,
+        "energy_rmse_natoms": 0.00724182,
+        "energy_mae_natoms": 0.00471921,
+        "force_rmse": 0.194044,
+        "force_mae": 0.125302,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Cu_MgO_catalysts": {
+        "energy_rmse": 0.220503,
+        "energy_mae": 0.178429,
+        "energy_rmse_natoms": 0.00318781,
+        "energy_mae_natoms": 0.00258665,
+        "force_rmse": 0.11305,
+        "force_mae": 0.0748464,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "H_nature_2022": {
+        "energy_rmse": 0.461618,
+        "energy_mae": 0.327901,
+        "energy_rmse_natoms": 0.123994,
+        "energy_mae_natoms": 0.0806092,
+        "force_rmse": 0.916892,
+        "force_mae": 0.572052,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Si_ZEO22": {
+        "energy_rmse": 1.24937,
+        "energy_mae": 0.704387,
+        "energy_rmse_natoms": 0.0087758,
+        "energy_mae_natoms": 0.00526336,
+        "force_rmse": 0.187169,
+        "force_mae": 0.0372811,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "AIMD-Chig": {
+        "energy_rmse": 0.459376,
+        "energy_mae": 0.361968,
+        "energy_rmse_natoms": 0.00276732,
+        "energy_mae_natoms": 0.00218053,
+        "force_rmse": 0.214506,
+        "force_mae": 0.147973,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "HEA25_bulk": {
+        "energy_rmse": 7.2337,
+        "energy_mae": 6.01278,
+        "energy_rmse_natoms": 0.172959,
+        "energy_mae_natoms": 0.1451,
+        "force_rmse": 0.285021,
+        "force_mae": 0.173498,
+        "virial_rmse": 24.9373,
+        "virial_mae": 14.1403,
+        "virial_rmse_natoms": 0.591429,
+        "virial_mae_natoms": 0.340033
+      },
+      "WBM_downsampled": {
+        "energy_rmse": 0.385207,
+        "energy_mae": 0.233287,
+        "energy_rmse_natoms": 0.054149,
+        "energy_mae_natoms": 0.032373,
+        "force_rmse": null,
+        "force_mae": null,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Weighted": {
+        "energy_mae": 0.5004401,
+        "energy_mae_natoms": 0.01439,
+        "energy_rmse": 0.7684133,
+        "energy_rmse_natoms": 0.0230841,
+        "force_mae": 0.1317482,
+        "force_rmse": 0.2544096,
+        "virial_mae": 4.7143186,
+        "virial_mae_natoms": 0.1316268,
+        "virial_rmse": 11.6132547,
+        "virial_rmse_natoms": 0.315692
+      }
+    },
+    "finetune_task_results": {},
+    "calculator_task_results": {
+      "nve_md": {
+        "std": 0.000382,
+        "slope": 0.000215,
+        "steps": 10000.0,
+        "momenta_diff": 3e-06,
+        "simulation_time": 922.083964,
+        "success_rate": 1.0
+      },
+      "inference_efficiency": {
+        "average_time_per_step": 0.175654
+      },
+      "phonon_mdr": {
+        "mae_entropy": 34.926428590311,
+        "mae_max_freq": 41.27278342281858,
+        "success_rate": 1.0,
+        "mae_free_energy": 13.797322398955483,
+        "mae_heat_capacity": 8.625339810449255
+      }
+    },
+    "model": {
+      "model_name": "dpa3_250211_v3_0_0_7M",
+      "model_family": "DP",
+      "model_type": "DP",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4",
+      "model_metadata": {
+        "model_description": "DP 2025 Q1, 7M parameters"
+      },
+      "show_direct_task": true,
+      "show_finetune_task": false,
+      "show_calculator_task": true,
+      "skip_tasks": [
+        "PropertyFinetuneTask"
+      ]
     }
   },
   "mace_mp_0_medium": {
@@ -521,18 +800,29 @@
     "finetune_task_results": {},
     "calculator_task_results": {
       "nve_md": {
-        "slope": 2.1e-05,
+        "std": 2.7e-05,
+        "slope": 5e-06,
         "steps": 10000.0,
         "momenta_diff": 0.0,
-        "simulation_time": 298.09337,
+        "simulation_time": 307.221136,
         "success_rate": 1.0
+      },
+      "inference_efficiency": {
+        "average_time_per_step": 0.10297
+      },
+      "phonon_mdr": {
+        "mae_entropy": 59.62454567811744,
+        "mae_max_freq": 60.96969555273101,
+        "success_rate": 0.99989957822856,
+        "mae_free_energy": 23.79722672606042,
+        "mae_heat_capacity": 13.095865350175824
       }
     },
     "model": {
       "model_name": "mace_mp_0_medium",
       "model_family": "MACE",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4",
       "model_metadata": {
         "model_description": "https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model"
       },
@@ -776,18 +1066,29 @@
     "finetune_task_results": {},
     "calculator_task_results": {
       "nve_md": {
-        "slope": 0.27722,
+        "std": 0.079079,
+        "slope": 0.22282,
         "steps": 10000.0,
-        "momenta_diff": 1.3e-05,
-        "simulation_time": 239.687596,
+        "momenta_diff": 1.1e-05,
+        "simulation_time": 244.124377,
         "success_rate": 1.0
+      },
+      "inference_efficiency": {
+        "average_time_per_step": 0.026948
+      },
+      "phonon_mdr": {
+        "mae_entropy": 446.4680652588644,
+        "mae_max_freq": 308.04449347243985,
+        "success_rate": 1.0,
+        "mae_free_energy": 184.3280534688863,
+        "mae_heat_capacity": 58.518131078301735
       }
     },
     "model": {
       "model_name": "orb_v2",
       "model_family": "ORB",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4",
       "model_metadata": {
         "model_description": "https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt"
       },
@@ -1031,18 +1332,29 @@
     "finetune_task_results": {},
     "calculator_task_results": {
       "nve_md": {
-        "slope": 4e-06,
+        "std": 1.6e-05,
+        "slope": 2e-06,
         "steps": 10000.0,
         "momenta_diff": 2e-06,
-        "simulation_time": 508.488702,
+        "simulation_time": 492.06394,
         "success_rate": 0.89
+      },
+      "inference_efficiency": {
+        "average_time_per_step": 0.058234
+      },
+      "phonon_mdr": {
+        "mae_entropy": 48.20582523928629,
+        "mae_max_freq": 39.70437905731396,
+        "success_rate": 1.0,
+        "mae_free_energy": 18.487830753915087,
+        "mae_heat_capacity": 8.540958568778475
       }
     },
     "model": {
       "model_name": "7net-0",
       "model_family": "SevenNet",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4",
       "model_metadata": {
         "model_description": "https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth"
       },
@@ -1286,18 +1598,29 @@
     "finetune_task_results": {},
     "calculator_task_results": {
       "nve_md": {
-        "slope": 5e-06,
+        "std": 2.8e-05,
+        "slope": 1.2e-05,
         "steps": 10000.0,
         "momenta_diff": 3e-06,
-        "simulation_time": 827.932934,
+        "simulation_time": 789.280086,
         "success_rate": 1.0
+      },
+      "inference_efficiency": {
+        "average_time_per_step": 0.119123
+      },
+      "phonon_mdr": {
+        "mae_entropy": 25.90493808803761,
+        "mae_max_freq": 25.588377605458252,
+        "success_rate": 0.99989957822856,
+        "mae_free_energy": 9.64729443050092,
+        "mae_heat_capacity": 4.867889781053313
       }
     },
     "model": {
       "model_name": "7net-l3i5",
       "model_family": "SevenNet",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4",
       "model_metadata": {
         "model_description": "https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth"
       },
@@ -1541,18 +1864,22 @@
     "finetune_task_results": {},
     "calculator_task_results": {
       "nve_md": {
-        "slope": 9e-06,
+        "std": 3.2e-05,
+        "slope": 7e-06,
         "steps": 10000.0,
         "momenta_diff": 2e-06,
-        "simulation_time": 502.321312,
+        "simulation_time": 542.634729,
         "success_rate": 1.0
+      },
+      "inference_efficiency": {
+        "average_time_per_step": 0.149034
       }
     },
     "model": {
       "model_name": "MatterSim_v1.0.0_5M",
       "model_family": "MatterSim",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-26832/lambench:v2.2",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4",
       "model_metadata": {
         "model_description": "mattersim_v1_5M"
       },
