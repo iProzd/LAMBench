@@ -1,6 +1,6 @@
 {
   "direct_task_results": {
-    "DISPLAY_NAME": "Direct Inference Accuracy",
+    "DISPLAY_NAME": "Zero-Shot Accuracy",
     "DESCRIPTION": "Energy, force, and virial prediction accuracy of the model on the test sets accross multiple domains.",
     "HPt_NC_2022": {
       "DISPLAY_NAME": "H/Pt Catalysis",
@@ -180,7 +180,7 @@
     },
     "ANI": {
       "DISPLAY_NAME": "ANI",
-      "DESCRIPTION": "The training dataset of ANI-1x model. 5.5 M structures, is 25% the size of the dataset used in training the original ANI-1 potential (22 M). Calculations were performed using Gaussian with ωB97x/6-31G*. [https://doi.org/10.1063/1.5023802]",
+      "DESCRIPTION": "The training dataset of ANI-1x model containing 5.5 M structures, which is 25% the size of the dataset used in training the original ANI-1 potential (22 M). Calculations were performed using Gaussian with ωB97x/6-31G*. [https://doi.org/10.1063/1.5023802]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
