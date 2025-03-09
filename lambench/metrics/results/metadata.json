@@ -946,9 +946,13 @@
     "nve_md": {
       "DISPLAY_NAME": "Conservativeness",
       "DESCRIPTION": "Inspecting conservativeness via NVE Molecular Dynamics simulation.",
+      "std": {
+        "DISPLAY_NAME": "Energy standard deviation [eV/atom]",
+        "DESCRIPTION": "The standard deviation of the energy during NVE-MD, in eV/atom."
+      },
       "slope": {
         "DISPLAY_NAME": "Energy Drift Slope [eV/atom/ps]",
-        "DESCRIPTION": "The slope of the energy drift, in eV/atom/ps."
+        "DESCRIPTION": "The slope of the energy drift during NVE-MD, in eV/atom/ps."
       },
       "steps": {
         "DISPLAY_NAME": "Simulation Steps",
