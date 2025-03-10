@@ -14,7 +14,9 @@ def test_aggregate_domain_results_for_one_model(
     model.show_calculator_task = False
     result = aggregate_domain_results_for_one_model(model)
     np.testing.assert_almost_equal(result["Small Molecules"], 0.340232, decimal=5)
-    np.testing.assert_almost_equal(result["Material Science"], 0.124034, decimal=5)
+    np.testing.assert_almost_equal(
+        result["Inorganic\nMaterials\n"], 0.124034, decimal=5
+    )
     assert result["Catalysis"] is None
     with caplog.at_level(logging.WARNING):
         assert (

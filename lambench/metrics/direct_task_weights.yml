@@ -13,7 +13,9 @@ HEA25_S:
   energy_std: 0.4030134901622356
   force_std: 1.5479359067976695
   virial_std: 1.4293255096528095
-  domain: Material Science
+  domain: |
+    Inorganic
+    Materials
 HEA25_bulk:
   energy_weight: 1.0
   force_weight: 1.0
@@ -21,7 +23,9 @@ HEA25_bulk:
   energy_std: 0.4086027291354181
   force_std: 2.075184012071992
   virial_std: 2.065014356039771
-  domain: Material Science
+  domain: |
+    Inorganic
+    Materials
 HEMC_HEMB:
   energy_weight: 1.0
   force_weight: 1.0
@@ -29,7 +33,9 @@ HEMC_HEMB:
   energy_std: 0.4750117425061965
   force_std: 1.8089415904253994
   virial_std: 0.4589409203427954
-  domain: Material Science
+  domain: |
+    Inorganic
+    Materials
 MD22:
   energy_weight: 1.0
   force_weight: 1.0
@@ -71,7 +77,9 @@ NequIP_NC_2022:
   energy_std: 0.007872460518687731
   force_std: 0.9434954645234603
   virial_std: null
-  domain: Material Science
+  domain: |
+    Inorganic
+    Materials
 AIMD-Chig:
   energy_weight: 1.0
   force_weight: 1.0
@@ -105,7 +113,9 @@ Ca_batteries_CM2021:
   energy_std: 0.016540792734058157
   force_std: 0.17821831827935788
   virial_std: null
-  domain: Material Science
+  domain: |
+    Inorganic
+    Materials
 HPt_NC_2022:
   energy_weight: 1.0
   force_weight: 1.0
@@ -121,7 +131,9 @@ Si_ZEO22:
   energy_std: 0.03534121167926313
   force_std: 1.2410267785352673
   virial_std: null
-  domain: Material Science
+  domain: |
+    Inorganic
+    Materials
 WBM_downsampled:
   energy_weight: 1.0
   force_weight: null
@@ -129,7 +141,9 @@ WBM_downsampled:
   energy_std: 0.3743104865117501
   force_std: null
   virial_std: null
-  domain: Material Science
+  domain: |
+    Inorganic
+    Materials
 Subalex_9k:
   energy_weight: 1.0
   force_weight: 1.0
@@ -137,7 +151,9 @@ Subalex_9k:
   energy_std: 0.7749643377228371
   force_std: 1.1503770816187873
   virial_std: 0.8678699239404154
-  domain: Material Science
+  domain: |
+    Inorganic
+    Materials
 Torsionnet500:
   energy_weight: 1.0
   force_weight: 1.0
