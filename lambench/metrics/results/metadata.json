@@ -1,10 +1,10 @@
 {
   "direct_task_results": {
-    "DISPLAY_NAME": "Direct Prediction Accuracy",
+    "DISPLAY_NAME": "Zero-Shot Accuracy",
     "DESCRIPTION": "Energy, force, and virial prediction accuracy of the model on the test sets accross multiple domains.",
     "HPt_NC_2022": {
       "DISPLAY_NAME": "H/Pt Catalysis",
-      "DESCRIPTION": "A direct two-phase simulation of heterogeneous turnover on the catalyst surface at chemical accuracy. [https://arxiv.org/abs/2106.01949]",
+      "DESCRIPTION": "A direct two-phase simulation of heterogeneous hydrogen turnover on the Pt(111) catalyst surface at chemical accuracy. Calculations were performed using VASP with PBE/PAW and an energy cutoff of 450 eV. [https://arxiv.org/abs/2106.01949]",  
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -48,7 +48,7 @@
     },
     "MD22": {
       "DISPLAY_NAME": "MD22",
-      "DESCRIPTION": "Dataset containing MD trajectories of the 42-atom tetrapeptide Ac-Ala3-NHMe from the MD22 benchmark set. [https://www.science.org/doi/10.1126/sciadv.adf0873]",
+      "DESCRIPTION": "Dataset containing MD trajectories of the 42-atom tetrapeptide Ac-Ala3-NHMe from the MD22 benchmark set. Calculations were performed using FHI-aims and i-Pi software at the DFT-PBE+MBD level of theory. Trajectories were sampled at temperatures between 400-500 K at 1 fs resolution. [https://www.science.org/doi/10.1126/sciadv.adf0873]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -92,7 +92,7 @@
     },
     "Ca_batteries_CM2021": {
       "DISPLAY_NAME": "Ca Batteries",
-      "DESCRIPTION": "A dataset of Ca-bearing minerals. [https://www.nature.com/articles/s41598-019-46002-4]",
+      "DESCRIPTION": "A dataset of Ca-bearing minerals, focusing on silicates and carbonates such as olivine, pyroxene, garnet, amphibole, and double carbonates. Calculations were performed using VASP with spin-polarized PBE/PAW and an energy cutoff of 600 eV. [https://www.nature.com/articles/s41598-019-46002-4]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -136,7 +136,7 @@
     },
     "NequIP_NC_2022": {
       "DISPLAY_NAME": "NequIP2022",
-      "DESCRIPTION": "Approximately 57,000 configurations from the evaluation datasets for NequIP graph neural network model for interatomic potentials. Trajectories have been taken from LiPS, LiPO glass melt-quench simulation, and formate decomposition on Cu datasets. [https://www.nature.com/articles/s41467-022-29939-5]",
+      "DESCRIPTION": "Approximately 57,000 configurations from the evaluation datasets for NequIP graph neural network model for interatomic potentials. Trajectories have been taken from Li-P-S, Li-P-O glass melt-quench simulation, and formate decomposition on Cu datasets. Calculations were performed using VASP with PBE/PAW and an energy cutoff of 400 eV. [https://www.nature.com/articles/s41467-022-29939-5]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -180,7 +180,7 @@
     },
     "ANI": {
       "DISPLAY_NAME": "ANI",
-      "DESCRIPTION": "The training dataset of ANI-1x model. 5.5 M structures. [https://doi.org/10.1063/1.5023802]",
+      "DESCRIPTION": "The training dataset of ANI-1x model containing 5.5 M structures, which is 25% the size of the dataset used in training the original ANI-1 potential (22 M). Calculations were performed using Gaussian with ωB97x/6-31G*. [https://doi.org/10.1063/1.5023802]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -224,7 +224,7 @@
     },
     "REANN_CO2_Ni100": {
       "DISPLAY_NAME": "REANN-CO2-Ni100",
-      "DESCRIPTION": "Interaction of CO2 with a movable Ni(100) surface. [https://pubs.acs.org/doi/10.1021/acs.jpclett.9b00085]",
+      "DESCRIPTION": "Interaction of carbon dioxide with a movable Ni(100) surface. Calculations were performed using VASP with PBE/PAW. Example training data of the REANN package. [https://pubs.acs.org/doi/10.1021/acs.jpclett.9b00085]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -268,7 +268,7 @@
     },
     "Collision": {
       "DISPLAY_NAME": "Collision",
-      "DESCRIPTION": "Validation set from COLL. Consists of configurations taken from molecular collisions of different small organic molecules. [https://arxiv.org/abs/2011.14115]",
+      "DESCRIPTION": "Validation set from COLL. Consists of configurations taken from molecular collisions of different small organic molecules. Energies and forces were recomputed with DFT using the revPBE functional and def2-TZVP basis, including D3 dispersion corrections. [https://arxiv.org/abs/2011.14115]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -312,7 +312,7 @@
     },
     "CGM_MLP_NC2023": {
       "DISPLAY_NAME": "Carbon Deposition",
-      "DESCRIPTION": "Dynamic simulations of carbon deposition on metal surfaces like Cu(111), Cr(110), Ti(001), and oxygen-contaminated Cu(111). [https://www.nature.com/articles/s41467-023-44525-z]",
+      "DESCRIPTION": "Dynamic simulations of carbon deposition on metal surfaces like Cu(111), Cr(110), Ti(001), and oxygen-contaminated Cu(111). Calculations were performed using CP2K with PBE-D3/DZVP-SR-GTH and 300Ry/60Ry cutoff. [https://www.nature.com/articles/s41467-023-44525-z]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -356,7 +356,7 @@
     },
     "Subalex_9k": {
       "DISPLAY_NAME": "SubAlex_9k",
-      "DESCRIPTION": "A dataset of 9k structures from the SubAlex dataset. [https://arxiv.org/abs/2410.12771]",
+      "DESCRIPTION": "A subsampled, Matbench-Discovery compliant version of the original Alexandria dataset. Calculations were performed using VASP with PBE/PAW and 520 eV cutoff. [https://arxiv.org/abs/2410.12771]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -400,7 +400,7 @@
     },
     "Torsionnet500": {
       "DISPLAY_NAME": "Torsionnet500",
-      "DESCRIPTION": "TorsionNet500, a benchmark data set comprising 500 chemically diverse fragments with DFT torsion profiles (12k MM- and DFT-optimized geometries and energies). [https://pubs.acs.org/doi/abs/10.1021/acs.jcim.1c01346]",
+      "DESCRIPTION": "TorsionNet500, a benchmark dataset comprising 500 chemically diverse fragments with DFT torsion profiles (12k MM- and DFT-optimized geometries and energies). Calculations were performed using Gaussian with ωB97xD/6-31G**. [https://pubs.acs.org/doi/abs/10.1021/acs.jcim.1c01346]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -444,7 +444,7 @@
     },
     "Cu_MgO_catalysts": {
       "DISPLAY_NAME": "Cu-MgO-Al2O3 Catalysts",
-      "DESCRIPTION": "Selective CO2 Hydrogenation to Methanol over Cu-MgO-Al2O3 Catalysts. [https://pubs.acs.org/doi/10.1021/jacs.3c10685]",
+      "DESCRIPTION": "Selective carbon dioxide Hydrogenation to Methanol over Cu-MgO-Al2O3 Catalysts. Calculations were performed using VASP with PBE-D3/PAW and 450 eV cutoff. [https://pubs.acs.org/doi/10.1021/jacs.3c10685]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -488,7 +488,7 @@
     },
     "Si_ZEO22": {
       "DISPLAY_NAME": "Si-ZEO22",
-      "DESCRIPTION": "Dataset consisting of 350000 DFT single point energy calculations from 219 different pure silica zeolite topologies. [https://github.com/tysours/Si-ZEO22]",
+      "DESCRIPTION": "Dataset consisting of 350000 DFT single point energy calculations from 219 different pure silica zeolite topologies. Calculations were performed using VASP with PBE-D3(BJ)/PAW and 400 eV cutoff. [https://github.com/tysours/Si-ZEO22]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -532,7 +532,7 @@
     },
     "AIMD-Chig": {
       "DISPLAY_NAME": "AIMD-Chig",
-      "DESCRIPTION": "MD dataset including 2 million conformations of 166-atom protein Chignolin sampled at the density functional theory (DFT) level. [https://www.nature.com/articles/s41597-023-02465-9]",
+      "DESCRIPTION": "MD dataset including 2 million conformations of 166-atom protein Chignolin sampled at the density functional theory (DFT) level. Ab initio simulations were driven by M062X/6-31G* with a Berendsen thermostat at 340 K.[https://www.nature.com/articles/s41597-023-02465-9]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -576,7 +576,7 @@
     },
     "HEA25_S": {
       "DISPLAY_NAME": "High Entropy Alloys Surfaces",
-      "DESCRIPTION": "A dataset of 25-atom high entropy alloy surfaces, focusing on 25 d-block transition metals, excluding Tc, Cd, Re, Os and Hg. [https://arxiv.org/abs/2212.13254]",
+      "DESCRIPTION": "A dataset of 25-atom high entropy alloy surfaces, focusing on 25 d-block transition metals, excluding Tc, Cd, Re, Os and Hg. Calculations were performed using VASP with PBEsol/PAW, 550 eV cutoff, and Γ-centered k-points. [https://arxiv.org/abs/2212.13254]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -620,7 +620,7 @@
     },
     "HEMC_HEMB": {
       "DISPLAY_NAME": "HEMC_HEMB",
-      "DESCRIPTION": "DFT dataset of high-entropy transition metal diboride (HEMB2) ceramics and high-entropy transition metal carbide (HEMC) ceramics. [https://www.oaepublish.com/articles/jmi.2024.14]",
+      "DESCRIPTION": "DFT dataset of high-entropy transition metal diboride (HEMB₂) and carbide (HEMC) ceramics. Calculations were performed using VASP with PBE/PAW, 900 eV cutoff, and k-spacing of 0.15 Å⁻¹. [https://www.oaepublish.com/articles/jmi.2024.14]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -664,7 +664,7 @@
     },
     "HEA25_bulk": {
       "DISPLAY_NAME": "High Entropy Alloys Bulk",
-      "DESCRIPTION": "A dataset of 25-atom high entropy alloy bulk structures, focusing on 25 d-block transition metals, excluding Tc, Cd, Re, Os and Hg. [https://arxiv.org/abs/2212.13254]",
+      "DESCRIPTION": "A dataset of 25-atom high entropy alloy bulk structures, focusing on 25 d-block transition metals, excluding Tc, Cd, Re, Os and Hg. Calculations were performed using VASP with PBEsol/PAW, 550 eV cutoff, and Γ-centered k-points. [https://arxiv.org/abs/2212.13254]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -708,7 +708,7 @@
     },
     "WBM_downsampled": {
       "DISPLAY_NAME": "WBM_downsampled",
-      "DESCRIPTION": "A dataset of 25,696 structures from the WBM dataset. [https://www.nature.com/articles/s41524-020-00481-6]",
+      "DESCRIPTION": "Dataset of hydrogen combustion reactions. Calculations were performed using Q-Chem with ωB97X-V/cc-pVTZ. The dataset includes intrinsic reaction coordinate (IRC) calculations, ab initio MD simulations, and normal mode displacement calculations. [https://www.nature.com/articles/s41524-020-00481-6]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -752,7 +752,7 @@
     },
     "H_nature_2022": {
       "DISPLAY_NAME": "Hydrogen Combusiton",
-      "DESCRIPTION": "Dataset of hydrogen combustion reactions. [https://www.nature.com/articles/s41597-022-01330-5]",
+      "DESCRIPTION": "Dataset of hydrogen combustion reactions. Calculations were performed using Q-Chem with ωB97X-V/cc-pVTZ. The dataset includes intrinsic reaction coordinate (IRC) calculations, ab initio MD simulations, and normal mode displacement calculations covering 19 reaction channels for hydrogen combustion. [https://www.nature.com/articles/s41597-022-01330-5]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -840,66 +840,167 @@
     }
   },
   "finetune_task_results": {
-    "DISPLAY_NAME": "Property Finetune Accuracy",
+    "DISPLAY_NAME": "Transfer Learning Accuracy",
     "DESCRIPTION": "Accuracy of the property finetuning task. Note: The test results does not represent the converged accuracy due to limited fine-tuning steps.",
     "Matbench_mp_e_form": {
-      "DISPLAY_NAME": "Matbench_mp_e_form",
-      "DESCRIPTION": "Formation energy of materials, in eV/atom. 5-fold average."
+      "DISPLAY_NAME": "Matbench, mp_e_form",
+      "DESCRIPTION": "Formation energy of materials, in eV/atom. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, e_form [eV/atom]",
+        "DESCRIPTION": "The root mean squared error of formation energy of materials"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, e_form [eV/atom]",
+        "DESCRIPTION": "The mean absolute error of formation energy of materials"
+      }
     },
     "Matbench_mp_gap": {
-      "DISPLAY_NAME": "Matbench_mp_gap",
-      "DESCRIPTION": "Band gap of materials, in eV. 5-fold average."
+      "DISPLAY_NAME": "Matbench, mp_gap",
+      "DESCRIPTION": "Band gap of materials, in eV. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, gap [eV]",
+        "DESCRIPTION": "The root mean squared error of band gap of materials"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, gap [eV]",
+        "DESCRIPTION": "The mean absolute error of band gap of materials"
+      }
     },
     "Matbench_jdft2d": {
-      "DISPLAY_NAME": "Matbench_jdft2d",
-      "DESCRIPTION": "2D exfoliation energy from JARVIS-DFT dataset, in meV/atom. 5-fold average."
+      "DISPLAY_NAME": "Matbench, jdft2d",
+      "DESCRIPTION": "2D exfoliation energy from JARVIS-DFT dataset, in meV/atom. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, exfoliation energy [meV/atom]",
+        "DESCRIPTION": "The root mean squared error of 2D exfoliation energy"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, exfoliation energy [meV/atom]",
+        "DESCRIPTION": "The mean absolute error of 2D exfoliation energy"
+      }
     },
     "Matbench_phonons": {
-      "DISPLAY_NAME": "Matbench_phonons",
-      "DESCRIPTION": "Frequency of the highest frequency optical phonon mode peak, in units of 1/cm. 5-fold average."
+      "DISPLAY_NAME": "Matbench, phonons",
+      "DESCRIPTION": "Frequency of the highest frequency optical phonon mode peak, in units of 1/cm. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, phonon frequency [1/cm]",
+        "DESCRIPTION": "The root mean squared error of the highest frequency optical phonon mode peak"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, phonon frequency [1/cm]",
+        "DESCRIPTION": "The mean absolute error of the highest frequency optical phonon mode peak"
+      }
     },
     "Matbench_dielectric": {
-      "DISPLAY_NAME": "Matbench_dielectric",
-      "DESCRIPTION": "Refractive index of materials, unitless. 5-fold average."
+      "DISPLAY_NAME": "Matbench, dielectric",
+      "DESCRIPTION": "Refractive index of materials, unitless. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, refractive index",
+        "DESCRIPTION": "The root mean squared error of the refractive index"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, refractive index",
+        "DESCRIPTION": "The mean absolute error of the refractive index"
+      }
     },
     "Matbench_log_kvrh": {
-      "DISPLAY_NAME": "Matbench_log_kvrh",
-      "DESCRIPTION": "Logarithm of the DFT Voigt-Reuss-Hill average bulk moduli in GPa. 5-fold average."
+      "DISPLAY_NAME": "Matbench, log_kvrh",
+      "DESCRIPTION": "Logarithm of the DFT Voigt-Reuss-Hill average bulk moduli in GPa. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, log(bulk modulus) [log(GPa)]",
+        "DESCRIPTION": "The root mean squared error of the logarithm of the bulk modulus"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, log(bulk modulus) [log(GPa)]",
+        "DESCRIPTION": "The mean absolute error of the logarithm of the bulk modulus"
+      }
     },
     "Matbench_log_gvrh": {
-      "DISPLAY_NAME": "Matbench_log_gvrh",
-      "DESCRIPTION": "Logarithm of the DFT Voigt-Reuss-Hill average shear moduli in GPa. 5-fold average."
+      "DISPLAY_NAME": "Matbench, log_gvrh",
+      "DESCRIPTION": "Logarithm of the DFT Voigt-Reuss-Hill average shear moduli in GPa. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, log(shear modulus) [log(GPa)]",
+        "DESCRIPTION": "The root mean squared error of the logarithm of the shear modulus"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, log(shear modulus) [log(GPa)]",
+        "DESCRIPTION": "The mean absolute error of the logarithm of the shear modulus"
+      }
     },
     "Matbench_perovskites": {
-      "DISPLAY_NAME": "Matbench_perovskites",
-      "DESCRIPTION": "Formation energy of perovskites, in eV/unit cell. 5-fold average."
+      "DISPLAY_NAME": "Matbench, E_form of perovskites",
+      "DESCRIPTION": "Formation energy of perovskites, in eV/unit cell. 5-fold average.",
+      "property_rmse": {
+        "DISPLAY_NAME": "RMSE, E_form [eV/unit cell]",
+        "DESCRIPTION": "The root mean squared error of the formation energy of perovskites"
+      },
+      "property_mae": {
+        "DISPLAY_NAME": "MAE, E_form [eV/unit cell]",
+        "DESCRIPTION": "The mean absolute error of the formation energy of perovskites"
+      }
     }
-  },
+  }
+  ,
   "calculator_task_results": {
-    "DISPLAY_NAME": "Miscellaneous",
-    "DESCRIPTION": "Evaluation metrics for miscellaneous tasks.",
+    "DISPLAY_NAME": "Downstream Tasks",
+    "DESCRIPTION": "Evaluation metrics for downstream tasks.",
     "nve_md": {
-      "DISPLAY_NAME": "NVE MD",
-      "DESCRIPTION": "NVE Molecular Dynamics simulation.",
+      "DISPLAY_NAME": "Conservativeness",
+      "DESCRIPTION": "Inspecting conservativeness via NVE Molecular Dynamics simulation.",
+      "std": {
+        "DISPLAY_NAME": "Energy standard deviation [eV/atom]",
+        "DESCRIPTION": "The standard deviation of the energy during NVE-MD, in eV/atom."
+      },
       "slope": {
-        "DISPLAY_NAME": "Energy Drift Slope",
-        "DESCRIPTION": "The slope of the energy drift, in eV/atom/ps."
+        "DISPLAY_NAME": "Energy Drift Slope [eV/atom/ps]",
+        "DESCRIPTION": "The slope of the energy drift during NVE-MD, in eV/atom/ps."
       },
       "steps": {
         "DISPLAY_NAME": "Simulation Steps",
         "DESCRIPTION": "The number of simulation steps."
       },
       "momenta_diff": {
-        "DISPLAY_NAME": "Momentum Difference",
+        "DISPLAY_NAME": "Momentum Difference [amu \u00b7 \u00c5/fs]",
         "DESCRIPTION": "The mean momentum difference, in amu \u00b7 \u00c5/fs."
       },
       "simulation_time": {
-        "DISPLAY_NAME": "Simulation Efficiency",
+        "DISPLAY_NAME": "Simulation Efficiency [s]",
         "DESCRIPTION": "The time taken to simulate 10 ps, in seconds."
       },
       "success_rate": {
         "DISPLAY_NAME": "Success Rate",
         "DESCRIPTION": "The success rate of the simulation over 9 test cases."
+      }
+    },
+    "inference_efficiency": {
+      "DISPLAY_NAME": "Inference Efficiency",
+      "DESCRIPTION": "Evaluation metrics for the computational efficiency of inference tasks.",
+      "inference_efficiency": {
+        "DISPLAY_NAME": "Inference Efficiency [frame/sec]",
+        "DESCRIPTION": "The computational efficiency of e/f/v inference on 1000 frames with a 20% warmup ratio averaged from 5 sets of structures, measured in frame per second."
+      }
+    },
+    "phonon_mdr": {
+      "DISPLAY_NAME": "Phonon Properties",
+      "DESCRIPTION": "Evaluation metrics based on phonon calculations.",
+      "mae_entropy": {
+        "DISPLAY_NAME": "Entropy MAE [J/K/mol]",
+        "DESCRIPTION": "The mean absolute error in calculated entropy, in J/K/mol."
+      },
+      "mae_free_energy": {
+        "DISPLAY_NAME": "Free Energy MAE [kJ/mol]",
+        "DESCRIPTION": "The mean absolute error in calculated free energy, in kJ/mol."
+      },
+      "mae_heat_capacity": {
+        "DISPLAY_NAME": "Heat Capacity MAE [J/K/mol]",
+        "DESCRIPTION": "The mean absolute error in calculated heat capacity, in J/K/mol."
+      },
+      "mae_max_freq": {
+        "DISPLAY_NAME": "Maximum Frequency MAE [K]",
+        "DESCRIPTION": "The mean absolute error in the maximum phonon frequency, in K. (Conversion factor from THz to K is 47.9924)"
+      },
+      "success_rate": {
+        "DISPLAY_NAME": "Success Rate",
+        "DESCRIPTION": "The success rate of phonon calculations."
       }
     }
   }
