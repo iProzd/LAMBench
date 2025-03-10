@@ -3,8 +3,8 @@
     "DISPLAY_NAME": "Zero-Shot Accuracy",
     "DESCRIPTION": "Energy, force, and virial prediction accuracy of the model on the test sets accross multiple domains.",
     "HPt_NC_2022": {
-      "DISPLAY_NAME": "H/Pt Catalysis",
-      "DESCRIPTION": "A direct two-phase simulation of heterogeneous hydrogen turnover on the Pt(111) catalyst surface at chemical accuracy. Calculations were performed using VASP with PBE/PAW and an energy cutoff of 450 eV. [https://arxiv.org/abs/2106.01949]",  
+      "DISPLAY_NAME": "Vandermause2022Active",
+      "DESCRIPTION": "A direct two-phase simulation of heterogeneous hydrogen turnover on the Pt(111) catalyst surface at chemical accuracy. Calculations were performed using VASP with PBE/PAW and an energy cutoff of 450 eV. [https://www.nature.com/articles/s41467-022-32294-0]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -91,7 +91,7 @@
       }
     },
     "Ca_batteries_CM2021": {
-      "DISPLAY_NAME": "Ca Batteries",
+      "DISPLAY_NAME": "Torres2019Analysis",
       "DESCRIPTION": "A dataset of Ca-bearing minerals, focusing on silicates and carbonates such as olivine, pyroxene, garnet, amphibole, and double carbonates. Calculations were performed using VASP with spin-polarized PBE/PAW and an energy cutoff of 600 eV. [https://www.nature.com/articles/s41598-019-46002-4]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -135,8 +135,8 @@
       }
     },
     "NequIP_NC_2022": {
-      "DISPLAY_NAME": "NequIP2022",
-      "DESCRIPTION": "Approximately 57,000 configurations from the evaluation datasets for NequIP graph neural network model for interatomic potentials. Trajectories have been taken from Li-P-S, Li-P-O glass melt-quench simulation, and formate decomposition on Cu datasets. Calculations were performed using VASP with PBE/PAW and an energy cutoff of 400 eV. [https://www.nature.com/articles/s41467-022-29939-5]",
+      "DISPLAY_NAME": "Batzner2022equivariant",
+      "DESCRIPTION": "A downsampled dataset with ~7500 frames. The original dataset contains approximately 57,000 configurations from the evaluation datasets for NequIP graph neural network model for interatomic potentials. Trajectories have been taken from Li-P-S, Li-P-O glass melt-quench simulation. Calculations were performed using VASP with PBE/PAW and an energy cutoff of 400 eV. [https://www.nature.com/articles/s41467-022-29939-5]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -179,7 +179,7 @@
       }
     },
     "ANI": {
-      "DISPLAY_NAME": "ANI",
+      "DISPLAY_NAME": "ANI-1x",
       "DESCRIPTION": "The training dataset of ANI-1x model containing 5.5 M structures, which is 25% the size of the dataset used in training the original ANI-1 potential (22 M). Calculations were performed using Gaussian with ωB97x/6-31G*. [https://doi.org/10.1063/1.5023802]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -223,7 +223,7 @@
       }
     },
     "REANN_CO2_Ni100": {
-      "DISPLAY_NAME": "REANN-CO2-Ni100",
+      "DISPLAY_NAME": "Zhang2019Bridging",
       "DESCRIPTION": "Interaction of carbon dioxide with a movable Ni(100) surface. Calculations were performed using VASP with PBE/PAW. Example training data of the REANN package. [https://pubs.acs.org/doi/10.1021/acs.jpclett.9b00085]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -267,7 +267,7 @@
       }
     },
     "Collision": {
-      "DISPLAY_NAME": "Collision",
+      "DISPLAY_NAME": "Gasteiger2020Fast",
       "DESCRIPTION": "Validation set from COLL. Consists of configurations taken from molecular collisions of different small organic molecules. Energies and forces were recomputed with DFT using the revPBE functional and def2-TZVP basis, including D3 dispersion corrections. [https://arxiv.org/abs/2011.14115]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -311,7 +311,7 @@
       }
     },
     "CGM_MLP_NC2023": {
-      "DISPLAY_NAME": "Carbon Deposition",
+      "DISPLAY_NAME": "Zhang2024Active",
       "DESCRIPTION": "Dynamic simulations of carbon deposition on metal surfaces like Cu(111), Cr(110), Ti(001), and oxygen-contaminated Cu(111). Calculations were performed using CP2K with PBE-D3/DZVP-SR-GTH and 300Ry/60Ry cutoff. [https://www.nature.com/articles/s41467-023-44525-z]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -443,7 +443,7 @@
       }
     },
     "Cu_MgO_catalysts": {
-      "DISPLAY_NAME": "Cu-MgO-Al2O3 Catalysts",
+      "DISPLAY_NAME": "Villanueva2024Water",
       "DESCRIPTION": "Selective carbon dioxide Hydrogenation to Methanol over Cu-MgO-Al2O3 Catalysts. Calculations were performed using VASP with PBE-D3/PAW and 450 eV cutoff. [https://pubs.acs.org/doi/10.1021/jacs.3c10685]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -487,7 +487,7 @@
       }
     },
     "Si_ZEO22": {
-      "DISPLAY_NAME": "Si-ZEO22",
+      "DISPLAY_NAME": "Sours2023Applications",
       "DESCRIPTION": "Dataset consisting of 350000 DFT single point energy calculations from 219 different pure silica zeolite topologies. Calculations were performed using VASP with PBE-D3(BJ)/PAW and 400 eV cutoff. [https://github.com/tysours/Si-ZEO22]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -575,7 +575,7 @@
       }
     },
     "HEA25_S": {
-      "DISPLAY_NAME": "High Entropy Alloys Surfaces",
+      "DISPLAY_NAME": "Lopanitsyna2023Modeling_A",
       "DESCRIPTION": "A dataset of 25-atom high entropy alloy surfaces, focusing on 25 d-block transition metals, excluding Tc, Cd, Re, Os and Hg. Calculations were performed using VASP with PBEsol/PAW, 550 eV cutoff, and Γ-centered k-points. [https://arxiv.org/abs/2212.13254]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -619,7 +619,7 @@
       }
     },
     "HEMC_HEMB": {
-      "DISPLAY_NAME": "HEMC_HEMB",
+      "DISPLAY_NAME": "Dai2024Deep",
       "DESCRIPTION": "DFT dataset of high-entropy transition metal diboride (HEMB₂) and carbide (HEMC) ceramics. Calculations were performed using VASP with PBE/PAW, 900 eV cutoff, and k-spacing of 0.15 Å⁻¹. [https://www.oaepublish.com/articles/jmi.2024.14]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -663,7 +663,7 @@
       }
     },
     "HEA25_bulk": {
-      "DISPLAY_NAME": "High Entropy Alloys Bulk",
+      "DISPLAY_NAME": "Lopanitsyna2023Modeling_B",
       "DESCRIPTION": "A dataset of 25-atom high entropy alloy bulk structures, focusing on 25 d-block transition metals, excluding Tc, Cd, Re, Os and Hg. Calculations were performed using VASP with PBEsol/PAW, 550 eV cutoff, and Γ-centered k-points. [https://arxiv.org/abs/2212.13254]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
@@ -707,8 +707,8 @@
       }
     },
     "WBM_downsampled": {
-      "DISPLAY_NAME": "WBM_downsampled",
-      "DESCRIPTION": "Dataset of hydrogen combustion reactions. Calculations were performed using Q-Chem with ωB97X-V/cc-pVTZ. The dataset includes intrinsic reaction coordinate (IRC) calculations, ab initio MD simulations, and normal mode displacement calculations. [https://www.nature.com/articles/s41524-020-00481-6]",
+      "DISPLAY_NAME": "WBM_25k",
+      "DESCRIPTION": "A downsampled version of the original WBM dataset. [https://www.nature.com/articles/s41524-020-00481-6]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
         "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
@@ -751,7 +751,7 @@
       }
     },
     "H_nature_2022": {
-      "DISPLAY_NAME": "Hydrogen Combusiton",
+      "DISPLAY_NAME": "Guan2022Benchmark",
       "DESCRIPTION": "Dataset of hydrogen combustion reactions. Calculations were performed using Q-Chem with ωB97X-V/cc-pVTZ. The dataset includes intrinsic reaction coordinate (IRC) calculations, ab initio MD simulations, and normal mode displacement calculations covering 19 reaction channels for hydrogen combustion. [https://www.nature.com/articles/s41597-022-01330-5]",
       "energy_rmse": {
         "DISPLAY_NAME": "Energy RMSE",
