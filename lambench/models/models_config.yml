@@ -3,7 +3,7 @@
   model_type: DP
   model_family: DP
   model_path: /bohr/lambench-model-55c1/v3/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
-  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.4
+  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5
   model_metadata:
     model_description: "DP 2024 Q4, 37head share fitting 120GPU pretrain"
   show_finetune_task: True
@@ -67,4 +67,12 @@
   virtualenv: *bohrium_image
   model_metadata:
     model_description: "mattersim_v1_5M"
+  show_calculator_task: True
+
+- model_name: GRACE_2L_OAM_28Jan25
+  model_type: ASE
+  model_family: GRACE
+  virtualenv: *bohrium_image
+  model_metadata:
+    model_description: "A two-layer semi-local GRACE model, pre-fitted on the OMat24 and fine-tuned on sAlex+MPTraj datasets, with fixed 6 Å cutoff."
   show_calculator_task: True
