@@ -970,6 +970,38 @@
         "DISPLAY_NAME": "Success Rate",
         "DESCRIPTION": "The success rate of the simulation over 9 test cases."
       }
+    },
+    "inference_efficiency": {
+      "DISPLAY_NAME": "Inference Efficiency",
+      "DESCRIPTION": "Evaluation metrics for the computational efficiency of inference tasks.",
+      "inference_efficiency": {
+        "DISPLAY_NAME": "Inference Efficiency [frame/sec]",
+        "DESCRIPTION": "The computational efficiency of e/f/v inference on 1000 frames with a 20% warmup ratio averaged from 5 sets of structures, measured in frame per second."
+      }
+    },
+    "phonon_mdr": {
+      "DISPLAY_NAME": "Phonon Properties",
+      "DESCRIPTION": "Evaluation metrics based on phonon calculations.",
+      "mae_entropy": {
+        "DISPLAY_NAME": "Entropy MAE [J/K/mol]",
+        "DESCRIPTION": "The mean absolute error in calculated entropy, in J/K/mol."
+      },
+      "mae_free_energy": {
+        "DISPLAY_NAME": "Free Energy MAE [kJ/mol]",
+        "DESCRIPTION": "The mean absolute error in calculated free energy, in kJ/mol."
+      },
+      "mae_heat_capacity": {
+        "DISPLAY_NAME": "Heat Capacity MAE [J/K/mol]",
+        "DESCRIPTION": "The mean absolute error in calculated heat capacity, in J/K/mol."
+      },
+      "mae_max_freq": {
+        "DISPLAY_NAME": "Maximum Frequency MAE [K]",
+        "DESCRIPTION": "The mean absolute error in the maximum phonon frequency, in K. (Conversion factor from THz to K is 47.9924)"
+      },
+      "success_rate": {
+        "DISPLAY_NAME": "Success Rate",
+        "DESCRIPTION": "The success rate of phonon calculations."
+      }
     }
   }
 }
