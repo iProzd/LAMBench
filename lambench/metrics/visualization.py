@@ -136,11 +136,6 @@ def aggregate_domain_results() -> dict[str, dict[str, float]]:
 
     for model in leaderboard_models:
         domain_results = aggregate_domain_results_for_one_model(model)
-        conservativeness = fetch_conservativeness_results(model)
-        domain_results["Conservativeness"] = conservativeness
-        print(f"{model.model_name} conservativeness: {conservativeness}")
-        inference_efficiency = fetch_inference_efficiency_results(model)
-        domain_results["Efficiency"] = inference_efficiency
         results[model.model_name] = domain_results
 
     return results
@@ -265,7 +260,7 @@ def _build_radar_chart_config(
     """Build the radar chart configuration"""
     # Define area style for the best model
     area_style: dict = {
-        "areaStyle": {"opacity": 0.1}, # Use inherited color
+        "areaStyle": {"opacity": 0.1},  # Use inherited color
     }
 
     # Build chart configuration
