@@ -118,6 +118,9 @@ class ASEModel(BaseLargeAtomModel):
                 model=self.model_path,
                 head="MP_traj_v024_alldata_mixu",
             )
+        elif self.model_family == "GRACE":
+            from tensorpotential.calculator import grace_fm
+            return grace_fm(self.model_name, pad_neighbors_fraction = 0.05,pad_atoms_number = 2,min_dist=0.5) 
         else:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
 
