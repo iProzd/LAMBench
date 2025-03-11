@@ -65,6 +65,18 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
     return domain_results
 
 
+def fetch_overall_zero_shot_results(
+    model: BaseLargeAtomModel,
+) -> float:
+    """This function further aggregates the results for one model across all domains, used in scatterplot generation."""
+    domain_results = list(aggregate_domain_results_for_one_model(model).values())
+    return (
+        np.mean(list(aggregate_domain_results_for_one_model(model).values()))
+        if None not in domain_results
+        else None
+    )
+
+
 def fetch_conservativeness_results(
     model: BaseLargeAtomModel,
     conservativeness_thresh: Optional[float] = 2e-5,
@@ -136,11 +148,6 @@ def aggregate_domain_results() -> dict[str, dict[str, float]]:
 
     for model in leaderboard_models:
         domain_results = aggregate_domain_results_for_one_model(model)
-        conservativeness = fetch_conservativeness_results(model)
-        domain_results["Conservativeness"] = conservativeness
-        print(f"{model.model_name} conservativeness: {conservativeness}")
-        inference_efficiency = fetch_inference_efficiency_results(model)
-        domain_results["Efficiency"] = inference_efficiency
         results[model.model_name] = domain_results
 
     return results
@@ -265,7 +272,7 @@ def _build_radar_chart_config(
     """Build the radar chart configuration"""
     # Define area style for the best model
     area_style: dict = {
-        "areaStyle": {"opacity": 0.1}, # Use inherited color
+        "areaStyle": {"opacity": 0.1},  # Use inherited color
     }
 
     # Build chart configuration

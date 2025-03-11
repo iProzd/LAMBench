@@ -93,7 +93,7 @@ class ASEModel(BaseLargeAtomModel):
 
             # model_name in ["7net-0" (i.e. 7net-0_11july2024), "7net-0_22may2024", "7net-l3i5"]
             return SevenNetCalculator(self.model_name, device="cuda")
-        elif self.model_family == "EquiformerV2":
+        elif self.model_family == "Equiformer":
             from fairchem.core import OCPCalculator  # type: ignore
 
             return OCPCalculator(
@@ -120,7 +120,13 @@ class ASEModel(BaseLargeAtomModel):
             )
         elif self.model_family == "GRACE":
             from tensorpotential.calculator import grace_fm
-            return grace_fm(self.model_name, pad_neighbors_fraction = 0.05,pad_atoms_number = 2,min_dist=0.5) 
+
+            return grace_fm(
+                self.model_name,
+                pad_neighbors_fraction=0.05,
+                pad_atoms_number=2,
+                min_dist=0.5,
+            )
         else:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
 
