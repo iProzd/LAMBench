@@ -70,7 +70,7 @@ def process_direct_task_for_one_model(model: BaseLargeAtomModel):
     direct_task_results = {}
     norm_log_results = []
     for record in direct_task_records:
-        direct_task_results[record.task_name] = record.to_dict()
+        direct_task_results[record.task_name] = record.to_dict(to_mev=True)
         normalized_result = filter_direct_task_results(
             direct_task_results[record.task_name],
             DIRECT_TASK_WEIGHTS[record.task_name],
