@@ -65,6 +65,18 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
     return domain_results
 
 
+def fetch_overall_zero_shot_results(
+    model: BaseLargeAtomModel,
+) -> float:
+    """This function further aggregates the results for one model across all domains, used in scatterplot generation."""
+    domain_results = list(aggregate_domain_results_for_one_model(model).values())
+    return (
+        np.mean(list(aggregate_domain_results_for_one_model(model).values()))
+        if None not in domain_results
+        else None
+    )
+
+
 def fetch_conservativeness_results(
     model: BaseLargeAtomModel,
     conservativeness_thresh: Optional[float] = 2e-5,
