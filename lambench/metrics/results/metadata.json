@@ -7,44 +7,44 @@
       "DESCRIPTION": "A direct two-phase simulation of heterogeneous hydrogen turnover on the Pt(111) catalyst surface at chemical accuracy. Calculations were performed using VASP with PBE/PAW and an energy cutoff of 450 eV. [https://www.nature.com/articles/s41467-022-32294-0]",
       "domain": "Catalysis",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "MD22": {
@@ -52,44 +52,44 @@
       "DESCRIPTION": "Dataset containing MD trajectories of the 42-atom tetrapeptide Ac-Ala3-NHMe from the MD22 benchmark set. Calculations were performed using FHI-aims and i-Pi software at the DFT-PBE+MBD level of theory. Trajectories were sampled at temperatures between 400-500 K at 1 fs resolution. [https://www.science.org/doi/10.1126/sciadv.adf0873]",
       "domain": "Biomoleculars\nSupramoleculars",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "Ca_batteries_CM2021": {
@@ -97,44 +97,44 @@
       "DESCRIPTION": "A dataset of Ca-bearing minerals, focusing on silicates and carbonates such as olivine, pyroxene, garnet, amphibole, and double carbonates. Calculations were performed using VASP with spin-polarized PBE/PAW and an energy cutoff of 600 eV. [https://www.nature.com/articles/s41598-019-46002-4]",
       "domain": "Inorganic\nMaterials",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "NequIP_NC_2022": {
@@ -142,44 +142,44 @@
       "DESCRIPTION": "A downsampled dataset with ~7500 frames. The original dataset contains approximately 57,000 configurations from the evaluation datasets for NequIP graph neural network model for interatomic potentials. Trajectories have been taken from Li-P-S, Li-P-O glass melt-quench simulation. Calculations were performed using VASP with PBE/PAW and an energy cutoff of 400 eV. [https://www.nature.com/articles/s41467-022-29939-5]",
       "domain": "Inorganic\nMaterials",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "ANI": {
@@ -187,44 +187,44 @@
       "DESCRIPTION": "The training dataset of ANI-1x model containing 5.5 M structures, which is 25% the size of the dataset used in training the original ANI-1 potential (22 M). Calculations were performed using Gaussian with ωB97x/6-31G*. [https://doi.org/10.1063/1.5023802]",
       "domain": "Small Molecules",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "REANN_CO2_Ni100": {
@@ -232,44 +232,44 @@
       "DESCRIPTION": "Interaction of carbon dioxide with a movable Ni(100) surface. Calculations were performed using VASP with PBE/PAW. Example training data of the REANN package. [https://pubs.acs.org/doi/10.1021/acs.jpclett.9b00085]",
       "domain": "Catalysis",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "Collision": {
@@ -277,44 +277,44 @@
       "DESCRIPTION": "Validation set from COLL. Consists of configurations taken from molecular collisions of different small organic molecules. Energies and forces were recomputed with DFT using the revPBE functional and def2-TZVP basis, including D3 dispersion corrections. [https://arxiv.org/abs/2011.14115]",
       "domain": "Reactions",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "CGM_MLP_NC2023": {
@@ -322,44 +322,44 @@
       "DESCRIPTION": "Dynamic simulations of carbon deposition on metal surfaces like Cu(111), Cr(110), Ti(001), and oxygen-contaminated Cu(111). Calculations were performed using CP2K with PBE-D3/DZVP-SR-GTH and 300Ry/60Ry cutoff. [https://www.nature.com/articles/s41467-023-44525-z]",
       "domain": "Catalysis",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "Subalex_9k": {
@@ -367,44 +367,44 @@
       "DESCRIPTION": "A subsampled, Matbench-Discovery compliant version of the original Alexandria dataset. Calculations were performed using VASP with PBE/PAW and 520 eV cutoff. [https://arxiv.org/abs/2410.12771]",
       "domain": "Inorganic\nMaterials",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "Torsionnet500": {
@@ -412,44 +412,44 @@
       "DESCRIPTION": "TorsionNet500, a benchmark dataset comprising 500 chemically diverse fragments with DFT torsion profiles (12k MM- and DFT-optimized geometries and energies). Calculations were performed using Gaussian with ωB97xD/6-31G**. [https://pubs.acs.org/doi/abs/10.1021/acs.jcim.1c01346]",
       "domain": "Small Molecules",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "Cu_MgO_catalysts": {
@@ -457,44 +457,44 @@
       "DESCRIPTION": "Selective carbon dioxide Hydrogenation to Methanol over Cu-MgO-Al2O3 Catalysts. Calculations were performed using VASP with PBE-D3/PAW and 450 eV cutoff. [https://pubs.acs.org/doi/10.1021/jacs.3c10685]",
       "domain": "Catalysis",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "Si_ZEO22": {
@@ -502,44 +502,44 @@
       "DESCRIPTION": "Dataset consisting of 350000 DFT single point energy calculations from 219 different pure silica zeolite topologies. Calculations were performed using VASP with PBE-D3(BJ)/PAW and 400 eV cutoff. [https://github.com/tysours/Si-ZEO22]",
       "domain": "Inorganic\nMaterials",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "AIMD-Chig": {
@@ -547,44 +547,44 @@
       "DESCRIPTION": "MD dataset including 2 million conformations of 166-atom protein Chignolin sampled at the density functional theory (DFT) level. Ab initio simulations were driven by M062X/6-31G* with a Berendsen thermostat at 340 K.[https://www.nature.com/articles/s41597-023-02465-9]",
       "domain": "Biomoleculars\nSupramoleculars",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "HEA25_S": {
@@ -592,44 +592,44 @@
       "DESCRIPTION": "A dataset of 25-atom high entropy alloy surfaces, focusing on 25 d-block transition metals, excluding Tc, Cd, Re, Os and Hg. Calculations were performed using VASP with PBEsol/PAW, 550 eV cutoff, and Γ-centered k-points. [https://arxiv.org/abs/2212.13254]",
       "domain": "Inorganic\nMaterials",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "HEMC_HEMB": {
@@ -637,44 +637,44 @@
       "DESCRIPTION": "DFT dataset of high-entropy transition metal diboride (HEMB₂) and carbide (HEMC) ceramics. Calculations were performed using VASP with PBE/PAW, 900 eV cutoff, and k-spacing of 0.15 Å⁻¹. [https://www.oaepublish.com/articles/jmi.2024.14]",
       "domain": "Inorganic\nMaterials",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "HEA25_bulk": {
@@ -682,44 +682,44 @@
       "DESCRIPTION": "A dataset of 25-atom high entropy alloy bulk structures, focusing on 25 d-block transition metals, excluding Tc, Cd, Re, Os and Hg. Calculations were performed using VASP with PBEsol/PAW, 550 eV cutoff, and Γ-centered k-points. [https://arxiv.org/abs/2212.13254]",
       "domain": "Inorganic\nMaterials",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "WBM_downsampled": {
@@ -727,44 +727,44 @@
       "DESCRIPTION": "A downsampled version of the original WBM dataset. [https://www.nature.com/articles/s41524-020-00481-6]",
       "domain": "Inorganic\nMaterials",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "H_nature_2022": {
@@ -772,88 +772,88 @@
       "DESCRIPTION": "Dataset of hydrogen combustion reactions. Calculations were performed using Q-Chem with ωB97X-V/cc-pVTZ. The dataset includes intrinsic reaction coordinate (IRC) calculations, ab initio MD simulations, and normal mode displacement calculations covering 19 reaction channels for hydrogen combustion. [https://www.nature.com/articles/s41597-022-01330-5]",
       "domain": "Reactions",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     },
     "Weighted": {
       "DISPLAY_NAME": "Weighted Results",
       "DESCRIPTION": "Weighted results of all the aformentioned datasets.",
       "energy_rmse": {
-        "DISPLAY_NAME": "Energy RMSE",
-        "DESCRIPTION": "The root mean squared error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction."
       },
       "energy_mae": {
-        "DISPLAY_NAME": "Energy MAE",
-        "DESCRIPTION": "The mean absolute error of the energy prediction, in eV."
+        "DISPLAY_NAME": "Energy MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction."
       },
       "energy_rmse_natoms": {
-        "DISPLAY_NAME": "Energy RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction per atom."
       },
       "energy_mae_natoms": {
-        "DISPLAY_NAME": "Energy MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the energy prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Energy MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction per atom."
       },
       "force_rmse": {
-        "DISPLAY_NAME": "Force RMSE",
-        "DESCRIPTION": "The root mean squared error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force RMSE (eV/\u00c5)",
+        "DESCRIPTION": "The root mean squared error of the force prediction."
       },
       "force_mae": {
-        "DISPLAY_NAME": "Force MAE",
-        "DESCRIPTION": "The mean absolute error of the force prediction, in eV/\u00c5."
+        "DISPLAY_NAME": "Force MAE (eV/\u00c5)",
+        "DESCRIPTION": "The mean absolute error of the force prediction."
       },
       "virial_rmse": {
-        "DISPLAY_NAME": "Virial RMSE",
-        "DESCRIPTION": "The root mean squared error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial RMSE (eV)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction."
       },
       "virial_mae": {
-        "DISPLAY_NAME": "Virial MAE",
-        "DESCRIPTION": "The mean absolute error of the virial prediction, in eV."
+        "DISPLAY_NAME": "Virial MAE (eV)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction."
       },
       "virial_rmse_natoms": {
-        "DISPLAY_NAME": "Virial RMSE per Atom",
-        "DESCRIPTION": "The root mean squared error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial RMSE per Atom (eV/atom)",
+        "DESCRIPTION": "The root mean squared error of the virial prediction per atom."
       },
       "virial_mae_natoms": {
-        "DISPLAY_NAME": "Virial MAE per Atom",
-        "DESCRIPTION": "The mean absolute error of the virial prediction per atom, in eV/atom."
+        "DISPLAY_NAME": "Virial MAE per Atom (eV/atom)",
+        "DESCRIPTION": "The mean absolute error of the virial prediction per atom."
       }
     }
   },
@@ -864,11 +864,11 @@
       "DISPLAY_NAME": "Matbench, mp_e_form",
       "DESCRIPTION": "Formation energy of materials, in eV/atom. 5-fold average.",
       "property_rmse": {
-        "DISPLAY_NAME": "RMSE, e_form [eV/atom]",
+        "DISPLAY_NAME": "RMSE, e_form (eV/atom)",
         "DESCRIPTION": "The root mean squared error of formation energy of materials"
       },
       "property_mae": {
-        "DISPLAY_NAME": "MAE, e_form [eV/atom]",
+        "DISPLAY_NAME": "MAE, e_form (eV/atom)",
         "DESCRIPTION": "The mean absolute error of formation energy of materials"
       }
     },
@@ -876,11 +876,11 @@
       "DISPLAY_NAME": "Matbench, mp_gap",
       "DESCRIPTION": "Band gap of materials, in eV. 5-fold average.",
       "property_rmse": {
-        "DISPLAY_NAME": "RMSE, gap [eV]",
+        "DISPLAY_NAME": "RMSE, gap (eV)",
         "DESCRIPTION": "The root mean squared error of band gap of materials"
       },
       "property_mae": {
-        "DISPLAY_NAME": "MAE, gap [eV]",
+        "DISPLAY_NAME": "MAE, gap (eV)",
         "DESCRIPTION": "The mean absolute error of band gap of materials"
       }
     },
@@ -888,11 +888,11 @@
       "DISPLAY_NAME": "Matbench, jdft2d",
       "DESCRIPTION": "2D exfoliation energy from JARVIS-DFT dataset, in meV/atom. 5-fold average.",
       "property_rmse": {
-        "DISPLAY_NAME": "RMSE, exfoliation energy [meV/atom]",
+        "DISPLAY_NAME": "RMSE, exfoliation energy (meV/atom)",
         "DESCRIPTION": "The root mean squared error of 2D exfoliation energy"
       },
       "property_mae": {
-        "DISPLAY_NAME": "MAE, exfoliation energy [meV/atom]",
+        "DISPLAY_NAME": "MAE, exfoliation energy (meV/atom)",
         "DESCRIPTION": "The mean absolute error of 2D exfoliation energy"
       }
     },
@@ -900,11 +900,11 @@
       "DISPLAY_NAME": "Matbench, phonons",
       "DESCRIPTION": "Frequency of the highest frequency optical phonon mode peak, in units of 1/cm. 5-fold average.",
       "property_rmse": {
-        "DISPLAY_NAME": "RMSE, phonon frequency [1/cm]",
+        "DISPLAY_NAME": "RMSE, phonon frequency (1/cm)",
         "DESCRIPTION": "The root mean squared error of the highest frequency optical phonon mode peak"
       },
       "property_mae": {
-        "DISPLAY_NAME": "MAE, phonon frequency [1/cm]",
+        "DISPLAY_NAME": "MAE, phonon frequency (1/cm)",
         "DESCRIPTION": "The mean absolute error of the highest frequency optical phonon mode peak"
       }
     },
@@ -948,11 +948,11 @@
       "DISPLAY_NAME": "Matbench, E_form of perovskites",
       "DESCRIPTION": "Formation energy of perovskites, in eV/unit cell. 5-fold average.",
       "property_rmse": {
-        "DISPLAY_NAME": "RMSE, E_form [eV/unit cell]",
+        "DISPLAY_NAME": "RMSE, E_form (eV/unit cell)",
         "DESCRIPTION": "The root mean squared error of the formation energy of perovskites"
       },
       "property_mae": {
-        "DISPLAY_NAME": "MAE, E_form [eV/unit cell]",
+        "DISPLAY_NAME": "MAE, E_form (eV/unit cell)",
         "DESCRIPTION": "The mean absolute error of the formation energy of perovskites"
       }
     }
@@ -965,23 +965,23 @@
       "DISPLAY_NAME": "Conservativeness",
       "DESCRIPTION": "Inspecting conservativeness via NVE Molecular Dynamics simulation.",
       "std": {
-        "DISPLAY_NAME": "Energy standard deviation [eV/atom]",
-        "DESCRIPTION": "The standard deviation of the energy during NVE-MD, in eV/atom."
+        "DISPLAY_NAME": "Energy standard deviation (eV/atom)",
+        "DESCRIPTION": "The standard deviation of the energy during NVE-MD."
       },
       "slope": {
-        "DISPLAY_NAME": "Energy Drift Slope [eV/atom/ps]",
-        "DESCRIPTION": "The slope of the energy drift during NVE-MD, in eV/atom/ps."
+        "DISPLAY_NAME": "Energy Drift Slope (eV/atom/ps)",
+        "DESCRIPTION": "The slope of the energy drift during NVE-MD."
       },
       "steps": {
         "DISPLAY_NAME": "Simulation Steps",
         "DESCRIPTION": "The number of simulation steps."
       },
       "momenta_diff": {
-        "DISPLAY_NAME": "Momentum Difference [amu \u00b7 \u00c5/fs]",
-        "DESCRIPTION": "The mean momentum difference, in amu \u00b7 \u00c5/fs."
+        "DISPLAY_NAME": "Momentum Difference (amu \u00b7 \u00c5/fs)",
+        "DESCRIPTION": "The mean momentum difference."
       },
       "simulation_time": {
-        "DISPLAY_NAME": "Simulation Efficiency [s]",
+        "DISPLAY_NAME": "Simulation Efficiency (s)",
         "DESCRIPTION": "The time taken to simulate 10 ps, in seconds."
       },
       "success_rate": {
@@ -993,7 +993,7 @@
       "DISPLAY_NAME": "Inference Efficiency",
       "DESCRIPTION": "Evaluation metrics for the computational efficiency of inference tasks.",
       "inference_efficiency": {
-        "DISPLAY_NAME": "Inference Efficiency [frame/sec]",
+        "DISPLAY_NAME": "Inference Efficiency (frame/sec)",
         "DESCRIPTION": "The computational efficiency of e/f/v inference on 1000 frames with a 20% warmup ratio averaged from 5 sets of structures, measured in frame per second."
       }
     },
@@ -1001,19 +1001,19 @@
       "DISPLAY_NAME": "Phonon Properties",
       "DESCRIPTION": "Evaluation metrics based on phonon calculations.",
       "mae_entropy": {
-        "DISPLAY_NAME": "Entropy MAE [J/K/mol]",
-        "DESCRIPTION": "The mean absolute error in calculated entropy, in J/K/mol."
+        "DISPLAY_NAME": "Entropy MAE (J/K/mol)",
+        "DESCRIPTION": "The mean absolute error in calculated entropy."
       },
       "mae_free_energy": {
-        "DISPLAY_NAME": "Free Energy MAE [kJ/mol]",
-        "DESCRIPTION": "The mean absolute error in calculated free energy, in kJ/mol."
+        "DISPLAY_NAME": "Free Energy MAE (kJ/mol)",
+        "DESCRIPTION": "The mean absolute error in calculated free energy."
       },
       "mae_heat_capacity": {
-        "DISPLAY_NAME": "Heat Capacity MAE [J/K/mol]",
-        "DESCRIPTION": "The mean absolute error in calculated heat capacity, in J/K/mol."
+        "DISPLAY_NAME": "Heat Capacity MAE (J/K/mol)",
+        "DESCRIPTION": "The mean absolute error in calculated heat capacity."
       },
       "mae_max_freq": {
-        "DISPLAY_NAME": "Maximum Frequency MAE [K]",
+        "DISPLAY_NAME": "Maximum Frequency MAE (K)",
         "DESCRIPTION": "The mean absolute error in the maximum phonon frequency, in K. (Conversion factor from THz to K is 47.9924)"
       },
       "success_rate": {
