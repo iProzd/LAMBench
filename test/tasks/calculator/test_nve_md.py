@@ -31,7 +31,9 @@ def setup_model(setup_calculator):
         model_family="TEST",
         model_type="ASE",
         model_name="",
-        model_metadata={},
+        model_metadata={
+            "num_parameters": 1000,
+        },
         virtualenv="",
     )
     ase_models.calc = setup_calculator

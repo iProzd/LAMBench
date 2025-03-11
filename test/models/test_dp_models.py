@@ -2,10 +2,16 @@ from lambench.models.dp_models import DPModel
 from pydantic import ValidationError
 import pytest
 
+
 def test_load_model_valid(valid_model_data):
     model = DPModel(**valid_model_data)
     for key, value in valid_model_data.items():
-        assert getattr(model, key) == value
+        if key != "model_metadata":
+            assert getattr(model, key) == value
+        else:
+            for k, v in value.items():
+                assert getattr(model.model_metadata, k) == v
+
 
 def test_load_model_invalid(invalid_model_data):
     with pytest.raises(ValidationError) as exc_info:

@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from enum import Enum
 from abc import abstractmethod
 
@@ -14,6 +14,11 @@ class SkipTaskType(str, Enum):
     DirectPredictTask = "DirectPredictTask"
     PropertyFinetuneTask = "PropertyFinetuneTask"
     CalculatorTask = "CalculatorTask"
+
+
+class ModelMetadata(BaseModel):
+    model_config = ConfigDict(extra="allow")
+    num_parameters: int
 
 
 class BaseLargeAtomModel(BaseModel):
@@ -44,7 +49,7 @@ class BaseLargeAtomModel(BaseModel):
     model_type: ModelType
     model_path: Optional[Path] = None
     virtualenv: str
-    model_metadata: dict[str, str]
+    model_metadata: ModelMetadata
     show_direct_task: bool = True
     show_finetune_task: bool = False
     show_calculator_task: bool = False

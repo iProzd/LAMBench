@@ -96,7 +96,11 @@ def valid_model_data():
         "model_family": "DP",
         "model_path": Path("oss://lambench/DP/model.ckpt-1000.pt"),
         "virtualenv": "oss://lambench/DP/model1/venv",
-        "model_metadata": {"author": "author1", "description": "description1"},
+        "model_metadata": {
+            "author": "author1",
+            "description": "description1",
+            "num_parameters": 1000,
+        },
         "show_direct_task": True,
     }
 
@@ -109,5 +113,9 @@ def invalid_model_data():
         "model_family": "DP",
         "model_path": Path("oss://lambench/DP/model.ckpt-1000.pt"),
         # "virtualenv": "oss://lambench/DP/model1/venv",
-        "model_metadata": {"author": "author1", "description": "description1"},
+        "model_metadata": {
+            "author": "author1",
+            "description": "description1",
+            "num_parameters": 1000,
+        },
     }
