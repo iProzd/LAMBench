@@ -11,12 +11,12 @@ from lambench.databases.direct_predict_table import DirectPredictRecord
 from lambench.databases.calculator_table import CalculatorRecord
 from lambench.databases.property_table import PropertyRecord
 from lambench.models.basemodel import BaseLargeAtomModel
-from lambench.workflow.entrypoint import gather_models
 from lambench.metrics.utils import (
     filter_direct_task_results,
     exp_average,
     aggregated_nve_md_results,
     aggregated_inference_efficiency_results,
+    get_leaderboard_models,
 )
 
 DIRECT_TASK_WEIGHTS = yaml.safe_load(
@@ -70,7 +70,7 @@ def process_direct_task_for_one_model(model: BaseLargeAtomModel):
     direct_task_results = {}
     norm_log_results = []
     for record in direct_task_records:
-        direct_task_results[record.task_name] = record.to_dict()
+        direct_task_results[record.task_name] = record.to_dict(ev_to_mev=True)
         normalized_result = filter_direct_task_results(
             direct_task_results[record.task_name],
             DIRECT_TASK_WEIGHTS[record.task_name],
@@ -84,7 +84,11 @@ def process_direct_task_for_one_model(model: BaseLargeAtomModel):
             f"Weighted results for {model.model_name} are marked as None due to missing tasks: {missing_tasks}"
         )
     else:
-        direct_task_results["Weighted"] = exp_average(norm_log_results)
+        weighted_results = exp_average(norm_log_results)
+        direct_task_results["Weighted"] = {
+            k: np.round(v, 1) if v is not None else None
+            for k, v in weighted_results.items()
+        }
     return direct_task_results
 
 
@@ -143,14 +147,7 @@ def process_calculator_task_for_one_model(model: BaseLargeAtomModel):
 
 def main():
     results = {}
-    models = gather_models()
-    leaderboard_models = [
-        model
-        for model in models
-        if model.show_direct_task
-        or model.show_finetune_task
-        or model.show_calculator_task
-    ]
+    leaderboard_models = get_leaderboard_models()
     for model in leaderboard_models:
         results[model.model_name] = process_results_for_one_model(model)
         # PosixPath is not JSON serializable

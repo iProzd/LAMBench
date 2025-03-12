@@ -15,9 +15,9 @@ from lambench.metrics.utils import (
     exp_average,
     filter_direct_task_results,
     get_domain_to_direct_task_mapping,
+    get_leaderboard_models,
 )
 from lambench.models.basemodel import BaseLargeAtomModel
-from lambench.workflow.entrypoint import gather_models
 
 
 def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
@@ -137,15 +137,8 @@ def aggregate_domain_results() -> dict[str, dict[str, float]]:
     This function aggregates the results across models and domains.
     """
     results = {}
-    models = gather_models()
-    leaderboard_models = [
-        model
-        for model in models
-        if model.show_direct_task
-        or model.show_finetune_task
-        or model.show_calculator_task
-    ]
 
+    leaderboard_models = get_leaderboard_models()
     for model in leaderboard_models:
         domain_results = aggregate_domain_results_for_one_model(model)
         results[model.model_name] = domain_results
@@ -180,6 +173,38 @@ def generate_radar_plot(domain_results: dict) -> dict:
 
     # Generate the radar chart configuration
     return _build_radar_chart_config(categories, normalized_metrics, models, best_model)
+
+
+def generate_scatter_plot() -> list[dict]:
+    results = []
+    leaderboard_models = get_leaderboard_models()
+    for model in leaderboard_models:
+        results.append(
+            {
+                "name": model.model_name,
+                "family": model.model_family,
+                "nparams": model.model_metadata.num_parameters,
+                "efficiency": np.round(
+                    1 / fetch_inference_efficiency_results(model), 2
+                ),  # frames per second
+                "zeroshot": np.round(
+                    fetch_overall_zero_shot_results(model), 2
+                ),  # unitless zero-shot metric across domains
+            }
+        )
+    return results
+
+
+def generate_barplot(domain_results: dict) -> dict:
+    """Rearrange the domain results for barplot visualization"""
+    results = {}
+    for model, domain_result in domain_results.items():
+        for domain, metrics in domain_result.items():
+            if metrics is not None:
+                if domain not in results:
+                    results[domain] = {}
+                results[domain][model] = np.round(metrics, 2)
+    return results
 
 
 def _collect_metrics_data(
@@ -306,12 +331,26 @@ def _build_radar_chart_config(
 def main():
     domain_results = aggregate_domain_results()
     radar_chart_config = generate_radar_plot(domain_results)
+    scatter_plot_data = generate_scatter_plot()
+    barplot_data = generate_barplot(domain_results)
     json.dump(
         radar_chart_config,
         open(Path(lambench.__file__).parent / "metrics/results/radar.json", "w"),
         indent=2,
     )
     print("Radar plots saved to radar.json")
+    json.dump(
+        scatter_plot_data,
+        open(Path(lambench.__file__).parent / "metrics/results/scatter.json", "w"),
+        indent=2,
+    )
+    print("Scatter plots saved to scatter.json")
+    json.dump(
+        barplot_data,
+        open(Path(lambench.__file__).parent / "metrics/results/barplot.json", "w"),
+        indent=2,
+    )
+    print("Domain results saved to barplot.json")
 
 
 if __name__ == "__main__":

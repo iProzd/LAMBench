@@ -29,7 +29,7 @@ def test_process_results_for_one_model(
             in caplog.text
         )
     assert result["direct_task_results"]["Weighted"] is None
-    assert result["direct_task_results"]["ANI"]["energy_rmse"] == 0.467693
+    assert result["direct_task_results"]["ANI"]["energy_rmse"] == 467.7
     assert result["direct_task_results"]["WBM_downsampled"]["force_rmse"] is None
 
 

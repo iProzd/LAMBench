@@ -1,10 +1,11 @@
 from lambench.databases.base_table import BaseRecord
 from sqlalchemy import Column, Float
+import numpy as np
 
 
 class DirectPredictRecord(BaseRecord):
     __tablename__ = "direct_predict"
-
+    # Results are stored in eV, not meV
     energy_rmse = Column(Float)
     energy_mae = Column(Float)
     energy_rmse_natoms = Column(Float)
@@ -16,8 +17,8 @@ class DirectPredictRecord(BaseRecord):
     virial_rmse_natoms = Column(Float)
     virial_mae_natoms = Column(Float)
 
-    def to_dict(self) -> dict:
-        return {
+    def to_dict(self, ev_to_mev: bool = False) -> dict:
+        output = {
             "energy_rmse": self.energy_rmse,
             "energy_mae": self.energy_mae,
             "energy_rmse_natoms": self.energy_rmse_natoms,
@@ -29,3 +30,9 @@ class DirectPredictRecord(BaseRecord):
             "virial_rmse_natoms": self.virial_rmse_natoms,
             "virial_mae_natoms": self.virial_mae_natoms,
         }
+        if ev_to_mev:
+            output = {
+                k: np.round(v * 1000, 1) if v is not None else None
+                for k, v in output.items()
+            }  # Convert to meV
+        return output
