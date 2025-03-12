@@ -56,3 +56,21 @@ To assess model performance across these domains, we use zero-shot inference wit
     **Note**: $S_{\text{overall}}$ values are displayed on the y-axis of the scatter plot.
 
 ### Efficiency
+
+To evaluate model efficiency, we measure inference speed and success rate across different atomic systems using the following methodology:
+
+**Testing Protocol**:
+1. **Warmup Phase**: First `warmup_ratio × 100%` of test samples initialize model parameters (excluded from timing)
+2. **Timed Inference**: Measure execution time for remaining samples
+3. **Metrics Calculation**:
+   - Time Consuming: Average time per inference step (lower is better)
+     $$\text{Time Consuming} = \frac{1}{n_{\text{valid}}}\sum_{i=1}^{n_{\text{valid}}} t_i$$
+   - Success Rate: Percentage of completed inferences
+     $$\text{Success Rate} = \frac{n_{\text{success}}}{n_{\text{total}}} \times 100\%$$
+   - Efficiency: Reciprocal of inference speed (higher is better)
+     $$\text{Efficiency} = \frac{1}{\text{Time Consuming}}$$
+
+
+**Benchmark Structure**:
+![Efficiency Test Architecture](image/structures_efficiency.png)
+*Benchmark structures with five configurations: (a)–(e) feature different elemental compositions while maintaining an identical atom count (N = 256). Each configuration was tested separately, and the average metrics were reported.*
