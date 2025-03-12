@@ -195,6 +195,18 @@ def generate_scatter_plot() -> list[dict]:
     return results
 
 
+def generate_barplot(domain_results: dict) -> dict:
+    """Rearrange the domain results for barplot visualization"""
+    results = {}
+    for model, domain_result in domain_results.items():
+        for domain, metrics in domain_result.items():
+            if metrics is not None:
+                if domain not in results:
+                    results[domain] = {}
+                results[domain][model] = np.round(metrics, 2)
+    return results
+
+
 def _collect_metrics_data(
     domain_results: dict[str, dict[str, float]],
     categories: list[str],
@@ -320,6 +332,7 @@ def main():
     domain_results = aggregate_domain_results()
     radar_chart_config = generate_radar_plot(domain_results)
     scatter_plot_data = generate_scatter_plot()
+    barplot_data = generate_barplot(domain_results)
     json.dump(
         radar_chart_config,
         open(Path(lambench.__file__).parent / "metrics/results/radar.json", "w"),
@@ -332,6 +345,12 @@ def main():
         indent=2,
     )
     print("Scatter plots saved to scatter.json")
+    json.dump(
+        barplot_data,
+        open(Path(lambench.__file__).parent / "metrics/results/barplot.json", "w"),
+        indent=2,
+    )
+    print("Domain results saved to barplot.json")
 
 
 if __name__ == "__main__":
