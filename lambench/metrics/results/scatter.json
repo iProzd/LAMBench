@@ -1,0 +1,58 @@
+[
+  {
+    "name": "dpa2_241126_v2_4_0",
+    "family": "DP",
+    "nparams": 6637036,
+    "efficiency": 18.13,
+    "zeroshot": 0.22
+  },
+  {
+    "name": "dpa3_250211_v3_0_0_7M",
+    "family": "DP",
+    "nparams": 7021990,
+    "efficiency": 5.69,
+    "zeroshot": 0.19
+  },
+  {
+    "name": "mace_mp_0_medium",
+    "family": "MACE",
+    "nparams": 4688656,
+    "efficiency": 9.71,
+    "zeroshot": 0.33
+  },
+  {
+    "name": "orb_v2",
+    "family": "ORB",
+    "nparams": 25161727,
+    "efficiency": 37.11,
+    "zeroshot": 0.28
+  },
+  {
+    "name": "7net-0",
+    "family": "SevenNet",
+    "nparams": 842440,
+    "efficiency": 17.17,
+    "zeroshot": 0.3
+  },
+  {
+    "name": "7net-l3i5",
+    "family": "SevenNet",
+    "nparams": 1171144,
+    "efficiency": 8.39,
+    "zeroshot": 0.29
+  },
+  {
+    "name": "MatterSim_v1.0.0_5M",
+    "family": "MatterSim",
+    "nparams": 4549142,
+    "efficiency": 6.71,
+    "zeroshot": 0.32
+  },
+  {
+    "name": "GRACE_2L_OAM_28Jan25",
+    "family": "GRACE",
+    "nparams": 12597516,
+    "efficiency": 21.28,
+    "zeroshot": 0.28
+  }
+]

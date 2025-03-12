@@ -4,11 +4,22 @@ from typing import Optional, Literal
 import lambench
 from pathlib import Path
 from collections import defaultdict
-
+from lambench.workflow.entrypoint import gather_models
 
 #############################
 # General utility functions #
 #############################
+
+
+def get_leaderboard_models():
+    models = gather_models()
+    return [
+        model
+        for model in models
+        if model.show_direct_task
+        or model.show_finetune_task
+        or model.show_calculator_task
+    ]
 
 
 def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
