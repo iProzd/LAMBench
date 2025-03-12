@@ -84,7 +84,11 @@ def process_direct_task_for_one_model(model: BaseLargeAtomModel):
             f"Weighted results for {model.model_name} are marked as None due to missing tasks: {missing_tasks}"
         )
     else:
-        direct_task_results["Weighted"] = exp_average(norm_log_results)
+        weighted_results = exp_average(norm_log_results)
+        direct_task_results["Weighted"] = {
+            k: np.round(v, 1) if v is not None else None
+            for k, v in weighted_results.items()
+        }
     return direct_task_results
 
 

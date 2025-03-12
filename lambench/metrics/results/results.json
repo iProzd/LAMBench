@@ -218,16 +218,16 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 580.4550824,
-        "energy_mae_natoms": 16.597681,
-        "energy_rmse": 853.1556735,
-        "energy_rmse_natoms": 25.4500257,
-        "force_mae": 158.1270896,
-        "force_rmse": 265.0944921,
-        "virial_mae": 4683.8357832,
-        "virial_mae_natoms": 131.4661503,
-        "virial_rmse": 10255.4715075,
-        "virial_rmse_natoms": 276.282582
+        "energy_mae": 580.5,
+        "energy_mae_natoms": 16.6,
+        "energy_rmse": 853.2,
+        "energy_rmse_natoms": 25.5,
+        "force_mae": 158.1,
+        "force_rmse": 265.1,
+        "virial_mae": 4683.8,
+        "virial_mae_natoms": 131.5,
+        "virial_rmse": 10255.5,
+        "virial_rmse_natoms": 276.3
       }
     },
     "finetune_task_results": {
@@ -518,16 +518,16 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 500.4610683,
-        "energy_mae_natoms": 14.4780827,
-        "energy_rmse": 768.4355022,
-        "energy_rmse_natoms": 23.1476766,
-        "force_mae": 131.7336802,
-        "force_rmse": 254.4000052,
-        "virial_mae": 4714.3114733,
-        "virial_mae_natoms": 131.6357386,
-        "virial_rmse": 11613.2249077,
-        "virial_rmse_natoms": 315.6593835
+        "energy_mae": 500.5,
+        "energy_mae_natoms": 14.5,
+        "energy_rmse": 768.4,
+        "energy_rmse_natoms": 23.1,
+        "force_mae": 131.7,
+        "force_rmse": 254.4,
+        "virial_mae": 4714.3,
+        "virial_mae_natoms": 131.6,
+        "virial_rmse": 11613.2,
+        "virial_rmse_natoms": 315.7
       }
     },
     "finetune_task_results": {},
@@ -787,16 +787,16 @@
         "virial_mae_natoms": 34.7
       },
       "Weighted": {
-        "energy_mae": 780.918161,
-        "energy_mae_natoms": 21.9826882,
-        "energy_rmse": 1195.9467764,
-        "energy_rmse_natoms": 33.7956706,
-        "force_mae": 228.4381411,
-        "force_rmse": 426.5696062,
-        "virial_mae": 5171.6931414,
-        "virial_mae_natoms": 146.3139383,
-        "virial_rmse": 13088.1789833,
-        "virial_rmse_natoms": 416.4505674
+        "energy_mae": 780.9,
+        "energy_mae_natoms": 22.0,
+        "energy_rmse": 1195.9,
+        "energy_rmse_natoms": 33.8,
+        "force_mae": 228.4,
+        "force_rmse": 426.6,
+        "virial_mae": 5171.7,
+        "virial_mae_natoms": 146.3,
+        "virial_rmse": 13088.2,
+        "virial_rmse_natoms": 416.5
       }
     },
     "finetune_task_results": {},
@@ -1054,16 +1054,16 @@
         "virial_mae_natoms": 74.3
       },
       "Weighted": {
-        "energy_mae": 663.2640507,
-        "energy_mae_natoms": 19.1791891,
-        "energy_rmse": 1120.7340366,
-        "energy_rmse_natoms": 33.4038999,
-        "force_mae": 156.9535156,
-        "force_rmse": 273.5314339,
-        "virial_mae": 6740.9335884,
-        "virial_mae_natoms": 184.943533,
-        "virial_rmse": 14924.2755021,
-        "virial_rmse_natoms": 392.4759014
+        "energy_mae": 663.3,
+        "energy_mae_natoms": 19.2,
+        "energy_rmse": 1120.7,
+        "energy_rmse_natoms": 33.4,
+        "force_mae": 157.0,
+        "force_rmse": 273.5,
+        "virial_mae": 6740.9,
+        "virial_mae_natoms": 184.9,
+        "virial_rmse": 14924.3,
+        "virial_rmse_natoms": 392.5
       }
     },
     "finetune_task_results": {},
@@ -1321,16 +1321,16 @@
         "virial_mae_natoms": 51.9
       },
       "Weighted": {
-        "energy_mae": 671.2023191,
-        "energy_mae_natoms": 19.1995442,
-        "energy_rmse": 1015.5043353,
-        "energy_rmse_natoms": 29.8692887,
-        "force_mae": 225.2420519,
-        "force_rmse": 428.3399312,
-        "virial_mae": 5235.1283404,
-        "virial_mae_natoms": 145.2042872,
-        "virial_rmse": 11059.8677781,
-        "virial_rmse_natoms": 291.1102547
+        "energy_mae": 671.2,
+        "energy_mae_natoms": 19.2,
+        "energy_rmse": 1015.5,
+        "energy_rmse_natoms": 29.9,
+        "force_mae": 225.2,
+        "force_rmse": 428.3,
+        "virial_mae": 5235.1,
+        "virial_mae_natoms": 145.2,
+        "virial_rmse": 11059.9,
+        "virial_rmse_natoms": 291.1
       }
     },
     "finetune_task_results": {},
@@ -1588,16 +1588,16 @@
         "virial_mae_natoms": 312.6
       },
       "Weighted": {
-        "energy_mae": 634.9576233,
-        "energy_mae_natoms": 18.0694437,
-        "energy_rmse": 962.3361974,
-        "energy_rmse_natoms": 28.0126748,
-        "force_mae": 210.6177484,
-        "force_rmse": 393.2743578,
-        "virial_mae": 5297.7343163,
-        "virial_mae_natoms": 146.3502859,
-        "virial_rmse": 11550.1884649,
-        "virial_rmse_natoms": 300.8109186
+        "energy_mae": 635.0,
+        "energy_mae_natoms": 18.1,
+        "energy_rmse": 962.3,
+        "energy_rmse_natoms": 28.0,
+        "force_mae": 210.6,
+        "force_rmse": 393.3,
+        "virial_mae": 5297.7,
+        "virial_mae_natoms": 146.4,
+        "virial_rmse": 11550.2,
+        "virial_rmse_natoms": 300.8
       }
     },
     "finetune_task_results": {},
@@ -1855,16 +1855,16 @@
         "virial_mae_natoms": 45.8
       },
       "Weighted": {
-        "energy_mae": 733.6151478,
-        "energy_mae_natoms": 21.1938524,
-        "energy_rmse": 1119.2786075,
-        "energy_rmse_natoms": 33.8896909,
-        "force_mae": 190.1070576,
-        "force_rmse": 337.9076787,
-        "virial_mae": 4931.7964221,
-        "virial_mae_natoms": 136.6048632,
-        "virial_rmse": 11331.2460669,
-        "virial_rmse_natoms": 296.9425498
+        "energy_mae": 733.6,
+        "energy_mae_natoms": 21.2,
+        "energy_rmse": 1119.3,
+        "energy_rmse_natoms": 33.9,
+        "force_mae": 190.1,
+        "force_rmse": 337.9,
+        "virial_mae": 4931.8,
+        "virial_mae_natoms": 136.6,
+        "virial_rmse": 11331.2,
+        "virial_rmse_natoms": 296.9
       }
     },
     "finetune_task_results": {},
@@ -2122,16 +2122,16 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 617.9759315,
-        "energy_mae_natoms": 17.6368094,
-        "energy_rmse": 978.6152034,
-        "energy_rmse_natoms": 29.5819962,
-        "force_mae": 171.8648235,
-        "force_rmse": 316.2694788,
-        "virial_mae": 4004.3213943,
-        "virial_mae_natoms": 111.2930955,
-        "virial_rmse": 10041.6634251,
-        "virial_rmse_natoms": 270.9298391
+        "energy_mae": 618.0,
+        "energy_mae_natoms": 17.6,
+        "energy_rmse": 978.6,
+        "energy_rmse_natoms": 29.6,
+        "force_mae": 171.9,
+        "force_rmse": 316.3,
+        "virial_mae": 4004.3,
+        "virial_mae_natoms": 111.3,
+        "virial_rmse": 10041.7,
+        "virial_rmse_natoms": 270.9
       }
     },
     "finetune_task_results": {},
@@ -2146,6 +2146,13 @@
         "momenta_diff": 0.0,
         "simulation_time": 88.798527,
         "success_rate": 1.0
+      },
+      "phonon_mdr": {
+        "mae_entropy": 14.140753770395971,
+        "mae_max_freq": 19.46785604390929,
+        "success_rate": 1.0,
+        "mae_free_energy": 5.455513687870125,
+        "mae_heat_capacity": 3.736701900431374
       }
     },
     "model": {
