@@ -956,14 +956,13 @@
         "DESCRIPTION": "The mean absolute error of the formation energy of perovskites"
       }
     }
-  }
-  ,
+  },
   "calculator_task_results": {
     "DISPLAY_NAME": "Downstream Tasks",
     "DESCRIPTION": "Evaluation metrics for downstream tasks.",
     "nve_md": {
-      "DISPLAY_NAME": "Conservativeness",
-      "DESCRIPTION": "Inspecting conservativeness via NVE Molecular Dynamics simulation.",
+      "DISPLAY_NAME": "NVE Molecular Dynamics",
+      "DESCRIPTION": "A standard NVE MD simulation over 9 different atomic systems, sampled from multiple domains.",
       "std": {
         "DISPLAY_NAME": "Energy standard deviation (eV/atom)",
         "DESCRIPTION": "The standard deviation of the energy during NVE-MD."
@@ -992,9 +991,9 @@
     "inference_efficiency": {
       "DISPLAY_NAME": "Inference Efficiency",
       "DESCRIPTION": "Evaluation metrics for the computational efficiency of inference tasks.",
-      "inference_efficiency": {
-        "DISPLAY_NAME": "Inference Efficiency (frame/sec)",
-        "DESCRIPTION": "The computational efficiency of e/f/v inference on 1000 frames with a 20% warmup ratio averaged from 5 sets of structures, measured in frame per second."
+      "average_time_per_step": {
+        "DISPLAY_NAME": "Inference Efficiency (s/frame)",
+        "DESCRIPTION": "The average computational time of e/f/v inference on 1000 frames with a 20% warmup ratio from 5 sets of structures in second.",
       }
     },
     "phonon_mdr": {
