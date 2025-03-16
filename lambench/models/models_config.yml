@@ -3,7 +3,7 @@
   model_type: DP
   model_family: DP
   model_path: /bohr/lambench-model-55c1/v3/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
-  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5
+  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6
   model_metadata:
     model_description: "DP 2024 Q4, 37head share fitting 120GPU pretrain"
     num_parameters: 6637036
@@ -29,6 +29,15 @@
   model_metadata:
     num_parameters: 4688656
     model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model
+  show_calculator_task: True
+
+- model_name: mace_medium-mpa-0
+  model_type: ASE
+  model_family: MACE
+  virtualenv: *bohrium_image
+  model_metadata:
+    num_parameters: 9063204
+    model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mpa_0/mace-mpa-0-medium.model
   show_calculator_task: True
 
 - model_name: orb_v2
