@@ -288,7 +288,7 @@
       "model_name": "dpa2_241126_v2_4_0",
       "model_family": "DP",
       "model_type": "DP",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
       "model_metadata": {
         "num_parameters": 6637036,
         "model_description": "DP 2024 Q4, 37head share fitting 120GPU pretrain"
@@ -555,7 +555,7 @@
       "model_name": "dpa3_250211_v3_0_0_7M",
       "model_family": "DP",
       "model_type": "DP",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
       "model_metadata": {
         "num_parameters": 7021990,
         "model_description": "DP 2025 Q1, 7M parameters"
@@ -563,9 +563,7 @@
       "show_direct_task": true,
       "show_finetune_task": false,
       "show_calculator_task": true,
-      "skip_tasks": [
-        "PropertyFinetuneTask"
-      ]
+      "skip_tasks": []
     }
   },
   "mace_mp_0_medium": {
@@ -824,10 +822,269 @@
       "model_name": "mace_mp_0_medium",
       "model_family": "MACE",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
       "model_metadata": {
         "num_parameters": 4688656,
         "model_description": "https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model"
+      },
+      "show_direct_task": true,
+      "show_finetune_task": false,
+      "show_calculator_task": true,
+      "skip_tasks": []
+    }
+  },
+  "mace_medium-mpa-0": {
+    "direct_task_results": {
+      "CGM_MLP_NC2023": {
+        "energy_rmse": 11259.3,
+        "energy_mae": 6626.4,
+        "energy_rmse_natoms": 752.1,
+        "energy_mae_natoms": 260.9,
+        "force_rmse": 720.1,
+        "force_mae": 502.5,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "HEMC_HEMB": {
+        "energy_rmse": 3205.0,
+        "energy_mae": 2054.6,
+        "energy_rmse_natoms": 71.3,
+        "energy_mae_natoms": 47.7,
+        "force_rmse": 423.7,
+        "force_mae": 311.8,
+        "virial_rmse": 5941.0,
+        "virial_mae": 3468.3,
+        "virial_rmse_natoms": 130.1,
+        "virial_mae_natoms": 74.3
+      },
+      "MD22": {
+        "energy_rmse": 339.8,
+        "energy_mae": 247.9,
+        "energy_rmse_natoms": 5.5,
+        "energy_mae_natoms": 4.2,
+        "force_rmse": 223.8,
+        "force_mae": 150.8,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "HEA25_S": {
+        "energy_rmse": 5961.7,
+        "energy_mae": 4035.5,
+        "energy_rmse_natoms": 137.2,
+        "energy_mae_natoms": 93.8,
+        "force_rmse": 414.8,
+        "force_mae": 285.2,
+        "virial_rmse": 25960.9,
+        "virial_mae": 14963.8,
+        "virial_rmse_natoms": 603.4,
+        "virial_mae_natoms": 349.6
+      },
+      "HPt_NC_2022": {
+        "energy_rmse": 697.9,
+        "energy_mae": 513.2,
+        "energy_rmse_natoms": 10.4,
+        "energy_mae_natoms": 7.3,
+        "force_rmse": 175.0,
+        "force_mae": 112.9,
+        "virial_rmse": 5109.5,
+        "virial_mae": 3057.5,
+        "virial_rmse_natoms": 71.1,
+        "virial_mae_natoms": 42.6
+      },
+      "ANI": {
+        "energy_rmse": 655.2,
+        "energy_mae": 508.1,
+        "energy_rmse_natoms": 46.0,
+        "energy_mae_natoms": 33.1,
+        "force_rmse": 548.8,
+        "force_mae": 348.4,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Collision": {
+        "energy_rmse": 557.0,
+        "energy_mae": 432.8,
+        "energy_rmse_natoms": 75.5,
+        "energy_mae_natoms": 49.9,
+        "force_rmse": 530.5,
+        "force_mae": 313.6,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Ca_batteries_CM2021": {
+        "energy_rmse": 242.3,
+        "energy_mae": 164.0,
+        "energy_rmse_natoms": 2.6,
+        "energy_mae_natoms": 1.6,
+        "force_rmse": 181.7,
+        "force_mae": 127.6,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "REANN_CO2_Ni100": {
+        "energy_rmse": 3547.2,
+        "energy_mae": 2847.9,
+        "energy_rmse_natoms": 91.0,
+        "energy_mae_natoms": 73.0,
+        "force_rmse": 353.0,
+        "force_mae": 156.2,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Torsionnet500": {
+        "energy_rmse": 441.4,
+        "energy_mae": 345.6,
+        "energy_rmse_natoms": 20.7,
+        "energy_mae_natoms": 15.3,
+        "force_rmse": 350.2,
+        "force_mae": 207.1,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Cu_MgO_catalysts": {
+        "energy_rmse": 447.7,
+        "energy_mae": 295.4,
+        "energy_rmse_natoms": 6.0,
+        "energy_mae_natoms": 4.3,
+        "force_rmse": 145.2,
+        "force_mae": 98.6,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "NequIP_NC_2022": {
+        "energy_rmse": 139.4,
+        "energy_mae": 105.0,
+        "energy_rmse_natoms": 1.0,
+        "energy_mae_natoms": 0.8,
+        "force_rmse": 118.1,
+        "force_mae": 86.4,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "H_nature_2022": {
+        "energy_rmse": 462.0,
+        "energy_mae": 335.0,
+        "energy_rmse_natoms": 122.3,
+        "energy_mae_natoms": 81.3,
+        "force_rmse": 988.4,
+        "force_mae": 642.6,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Subalex_9k": {
+        "energy_rmse": 2320.4,
+        "energy_mae": 408.8,
+        "energy_rmse_natoms": 249.3,
+        "energy_mae_natoms": 42.5,
+        "force_rmse": 639.0,
+        "force_mae": 91.8,
+        "virial_rmse": 5397.1,
+        "virial_mae": 761.0,
+        "virial_rmse_natoms": 442.2,
+        "virial_mae_natoms": 76.0
+      },
+      "WBM_downsampled": {
+        "energy_rmse": 297.3,
+        "energy_mae": 147.5,
+        "energy_rmse_natoms": 42.2,
+        "energy_mae_natoms": 19.9,
+        "force_rmse": null,
+        "force_mae": null,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Si_ZEO22": {
+        "energy_rmse": 1241.9,
+        "energy_mae": 734.3,
+        "energy_rmse_natoms": 8.6,
+        "energy_mae_natoms": 5.4,
+        "force_rmse": 178.6,
+        "force_mae": 42.4,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "HEA25_bulk": {
+        "energy_rmse": 8163.5,
+        "energy_mae": 6586.2,
+        "energy_rmse_natoms": 193.4,
+        "energy_mae_natoms": 158.4,
+        "force_rmse": 385.4,
+        "force_mae": 250.9,
+        "virial_rmse": 27420.0,
+        "virial_mae": 15549.2,
+        "virial_rmse_natoms": 646.9,
+        "virial_mae_natoms": 373.4
+      },
+      "AIMD-Chig": {
+        "energy_rmse": 773.1,
+        "energy_mae": 592.8,
+        "energy_rmse_natoms": 4.7,
+        "energy_mae_natoms": 3.6,
+        "force_rmse": 327.3,
+        "force_mae": 222.1,
+        "virial_rmse": null,
+        "virial_mae": null,
+        "virial_rmse_natoms": null,
+        "virial_mae_natoms": null
+      },
+      "Weighted": {
+        "energy_mae": 651.4,
+        "energy_mae_natoms": 18.7,
+        "energy_rmse": 1005.4,
+        "energy_rmse_natoms": 30.2,
+        "force_mae": 186.7,
+        "force_rmse": 333.7,
+        "virial_mae": 4515.7,
+        "virial_mae_natoms": 125.7,
+        "virial_rmse": 10312.3,
+        "virial_rmse_natoms": 275.8
+      }
+    },
+    "finetune_task_results": {},
+    "calculator_task_results": {
+      "phonon_mdr": {
+        "mae_entropy": 19.792200927923805,
+        "mae_max_freq": 29.743369935666717,
+        "success_rate": 1.0,
+        "mae_free_energy": 7.925156358957533,
+        "mae_heat_capacity": 5.767068570161099
+      },
+      "inference_efficiency": {
+        "average_time_per_step": 0.108457
+      }
+    },
+    "model": {
+      "model_name": "mace_medium-mpa-0",
+      "model_family": "MACE",
+      "model_type": "ASE",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
+      "model_metadata": {
+        "num_parameters": 9063204,
+        "model_description": "https://github.com/ACEsuit/mace-mp/releases/download/mace_mpa_0/mace-mpa-0-medium.model"
       },
       "show_direct_task": true,
       "show_finetune_task": false,
@@ -1091,7 +1348,7 @@
       "model_name": "orb_v2",
       "model_family": "ORB",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
       "model_metadata": {
         "num_parameters": 25161727,
         "model_description": "https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt"
@@ -1358,7 +1615,7 @@
       "model_name": "7net-0",
       "model_family": "SevenNet",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
       "model_metadata": {
         "num_parameters": 842440,
         "model_description": "https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth"
@@ -1625,7 +1882,7 @@
       "model_name": "7net-l3i5",
       "model_family": "SevenNet",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
       "model_metadata": {
         "num_parameters": 1171144,
         "model_description": "https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth"
@@ -1892,7 +2149,7 @@
       "model_name": "MatterSim_v1.0.0_5M",
       "model_family": "MatterSim",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
       "model_metadata": {
         "num_parameters": 4549142,
         "model_description": "mattersim_v1_5M"
@@ -2159,7 +2416,7 @@
       "model_name": "GRACE_2L_OAM_28Jan25",
       "model_family": "GRACE",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.5",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.6",
       "model_metadata": {
         "num_parameters": 12597516,
         "model_description": "A two-layer semi-local GRACE model, pre-fitted on the OMat24 and fine-tuned on sAlex+MPTraj datasets, with fixed 6 \u00c5 cutoff."
