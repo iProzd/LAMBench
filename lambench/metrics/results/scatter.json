@@ -21,6 +21,13 @@
     "zeroshot": 0.33
   },
   {
+    "name": "mace_medium-mpa-0",
+    "family": "MACE",
+    "nparams": 9063204,
+    "efficiency": 9.22,
+    "zeroshot": 0.3
+  },
+  {
     "name": "orb_v2",
     "family": "ORB",
     "nparams": 25161727,
