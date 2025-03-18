@@ -34,7 +34,7 @@
     num_parameters: 2592390
   show_finetune_task: False
   show_calculator_task: True
-  SkipTaskType: [PropertyFinetuneTask]
+  skip_tasks: [PropertyFinetuneTask]
 
 - model_name: mace_mp_0_medium
   model_type: ASE
