@@ -26,7 +26,7 @@
 - model_name: dpa3_250307_v3_0_0_3M
   model_type: DP
   model_family: DP
-  model_path: /bohr/lambench-model-55c1/v6/dpa3_250307_v3_0_0_3M/dp_dpa3_v3.0.0_0307_426w.pt
+  model_path: /bohr/lambench-model-55c1/v8/dpa3_250307_v3_0_0_3M/dp_dpa3_v3.0.0_0307_426w.pt
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: DPA-3.0-3M
