@@ -149,9 +149,9 @@ def main():
     results = {}
     leaderboard_models = get_leaderboard_models()
     for model in leaderboard_models:
-        results[model.model_name] = process_results_for_one_model(model)
+        r = results[model.model_metadata.pretty_name] = process_results_for_one_model(model)
         # PosixPath is not JSON serializable
-        results[model.model_name]["model"] = model.model_dump(exclude={"model_path"})
+        r["model"] = model.model_dump(exclude={"model_path"})
 
     json.dump(
         results,
