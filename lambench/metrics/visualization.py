@@ -143,7 +143,7 @@ def aggregate_domain_results() -> dict[str, dict[str, float]]:
     leaderboard_models = get_leaderboard_models()
     for model in leaderboard_models:
         domain_results = aggregate_domain_results_for_one_model(model)
-        results[model.model_name] = domain_results
+        results[model.model_metadata.pretty_name] = domain_results
 
     return results
 
@@ -183,7 +183,7 @@ def generate_scatter_plot() -> list[dict]:
     for model in leaderboard_models:
         results.append(
             {
-                "name": model.model_name,
+                "name": model.model_metadata.pretty_name,
                 "family": model.model_family,
                 "nparams": model.model_metadata.num_parameters,
                 "efficiency": np.round(
@@ -314,7 +314,10 @@ def _build_radar_chart_config(
                 "name": "LAMBench Leaderboard",
                 "type": "radar",
                 "data": [
-                    {"value": values, "name": model}
+                    {
+                        "name": model,
+                        "value": values,
+                    }
                     for model, values in normalized_metrics.items()
                 ],
             }
