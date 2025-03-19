@@ -92,7 +92,10 @@ class ASEModel(BaseLargeAtomModel):
             from sevenn.sevennet_calculator import SevenNetCalculator  # type: ignore
 
             # model_name in ["7net-0" (i.e. 7net-0_11july2024), "7net-0_22may2024", "7net-l3i5"]
-            return SevenNetCalculator(self.model_name, device="cuda")
+            model_config = {"model": self.model_name, "device": "cuda"}
+            if self.model_name == "7net-mf-ompa":
+                model_config["modal"] = "mpa"
+            return SevenNetCalculator(**model_config)
         elif self.model_family == "Equiformer":
             from fairchem.core import OCPCalculator  # type: ignore
 
