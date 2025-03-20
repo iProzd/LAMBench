@@ -38,6 +38,7 @@ jobs:
         secret: ${{ github.token }}
         approvers: ${{ vars.APPROVERS }}
         minimum-approvals: 1
+        fail-on-denial: false
 
     - name: Run LAMBench
       env:
