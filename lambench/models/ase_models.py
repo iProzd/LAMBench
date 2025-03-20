@@ -15,6 +15,8 @@ from ase.optimize import FIRE
 from ase.constraints import FixSymmetry
 from ase.filters import FrechetCellFilter
 
+# pyright: reportMissingImports=false
+
 
 class ASEModel(BaseLargeAtomModel):
     """
@@ -89,7 +91,7 @@ class ASEModel(BaseLargeAtomModel):
         return calculator_dispatch[self.model_family]()
 
     def _init_mace_calculator(self) -> Calculator:
-        from mace.calculators import mace_mp  # type: ignore
+        from mace.calculators import mace_mp
 
         return mace_mp(
             model=self.model_name.split("_")[-1],
@@ -98,14 +100,14 @@ class ASEModel(BaseLargeAtomModel):
         )
 
     def _init_orb_calculator(self) -> Calculator:
-        from orb_models.forcefield import pretrained  # type: ignore
-        from orb_models.forcefield.calculator import ORBCalculator  # type: ignore
+        from orb_models.forcefield import pretrained
+        from orb_models.forcefield.calculator import ORBCalculator
 
         orbff = pretrained.orb_v2(device="cuda")
         return ORBCalculator(orbff, device="cuda")
 
     def _init_sevennet_calculator(self) -> Calculator:
-        from sevenn.sevennet_calculator import SevenNetCalculator  # type: ignore
+        from sevenn.sevennet_calculator import SevenNetCalculator
 
         model_config = {"model": self.model_name, "device": "cuda"}
         if self.model_name == "7net-mf-ompa":
@@ -113,7 +115,7 @@ class ASEModel(BaseLargeAtomModel):
         return SevenNetCalculator(**model_config)
 
     def _init_equiformer_calculator(self) -> Calculator:
-        from fairchem.core import OCPCalculator  # type: ignore
+        from fairchem.core import OCPCalculator
 
         return OCPCalculator(
             checkpoint_path=self.model_path,
@@ -121,7 +123,7 @@ class ASEModel(BaseLargeAtomModel):
         )
 
     def _init_mattersim_calculator(self) -> Calculator:
-        from mattersim.forcefield import MatterSimCalculator  # type: ignore
+        from mattersim.forcefield import MatterSimCalculator
 
         return MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
 
@@ -222,9 +224,9 @@ class ASEModel(BaseLargeAtomModel):
                 sys.load_systems_from_file(filepth, fmt="deepmd/npy/mixed")
             else:
                 sys = dpdata.LabeledSystem(filepth, fmt="deepmd/npy")
-            for ls in tqdm(sys, desc="Set", leave=False):  # type: ignore
+            for ls in tqdm(sys, desc="Set", leave=False):
                 for frame in tqdm(ls, desc="Frames", leave=False):
-                    atoms: Atoms = frame.to_ase_structure()[0]  # type: ignore
+                    atoms: Atoms = frame.to_ase_structure()[0]
                     atoms.calc = calc
 
                     # Energy
@@ -301,7 +303,7 @@ class ASEModel(BaseLargeAtomModel):
         unbiased_energy_err_per_a = unbiased_energy / atom_num.sum(-1)
 
         res = {
-            "energy_mae": [np.mean(np.abs(np.stack(unbiased_energy)))],  # type: ignore
+            "energy_mae": [np.mean(np.abs(np.stack(unbiased_energy)))],
             "energy_rmse": [np.sqrt(np.mean(np.square(unbiased_energy)))],
             "energy_mae_natoms": [np.mean(np.abs(np.stack(unbiased_energy_err_per_a)))],
             "energy_rmse_natoms": [
