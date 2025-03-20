@@ -181,16 +181,18 @@ def generate_scatter_plot() -> list[dict]:
     results = []
     leaderboard_models = get_leaderboard_models()
     for model in leaderboard_models:
+        efficiency_raw = fetch_inference_efficiency_results(model)
+        zeroshot_raw = fetch_overall_zero_shot_results(model)
+        if efficiency_raw is None or zeroshot_raw is None:
+            continue
         results.append(
             {
                 "name": model.model_metadata.pretty_name,
                 "family": model.model_family,
                 "nparams": model.model_metadata.num_parameters,
-                "efficiency": np.round(
-                    1 / fetch_inference_efficiency_results(model), 2
-                ),  # frames per second
+                "efficiency": np.round(1 / efficiency_raw, 2),  # frames per second
                 "zeroshot": np.round(
-                    fetch_overall_zero_shot_results(model), 2
+                    zeroshot_raw, 2
                 ),  # unitless zero-shot metric across domains
             }
         )
@@ -202,10 +204,11 @@ def generate_barplot(domain_results: dict) -> dict:
     results = {}
     for model, domain_result in domain_results.items():
         for domain, metrics in domain_result.items():
-            if metrics is not None:
-                if domain not in results:
-                    results[domain] = {}
-                results[domain][model] = np.round(metrics, 2)
+            if domain not in results:
+                results[domain] = {}
+            results[domain][model] = (
+                np.round(metrics, 2) if metrics is not None else None
+            )
     return results
 
 
