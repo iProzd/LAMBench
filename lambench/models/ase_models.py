@@ -1,19 +1,19 @@
-from functools import cached_property
 import logging
+from functools import cached_property
 from pathlib import Path
-from typing import Optional, Callable
+from typing import Callable, Optional
 
 import dpdata
 import numpy as np
-from ase.calculators.calculator import Calculator
 from ase import Atoms
+from ase.calculators.calculator import Calculator
+from ase.constraints import FixSymmetry
+from ase.filters import FrechetCellFilter
 from ase.io import write
+from ase.optimize import FIRE
 from tqdm import tqdm
 
 from lambench.models.basemodel import BaseLargeAtomModel
-from ase.optimize import FIRE
-from ase.constraints import FixSymmetry
-from ase.filters import FrechetCellFilter
 
 # pyright: reportMissingImports=false
 
