@@ -190,12 +190,10 @@ def generate_scatter_plot() -> list[dict]:
                 "name": model.model_metadata.pretty_name,
                 "family": model.model_family,
                 "nparams": model.model_metadata.num_parameters,
-                "efficiency": np.round(1 / efficiency_raw, 2)
-                if efficiency_raw
-                else None,  # frames per second
-                "zeroshot": np.round(zeroshot_raw, 2)
-                if zeroshot_raw
-                else None,  # unitless zero-shot metric across domains
+                "efficiency": np.round(1 / efficiency_raw, 2),  # frames per second
+                "zeroshot": np.round(
+                    zeroshot_raw, 2
+                ),  # unitless zero-shot metric across domains
             }
         )
     return results
