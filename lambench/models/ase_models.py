@@ -72,66 +72,81 @@ class ASEModel(BaseLargeAtomModel):
     @cached_property
     def calc(self, head=None) -> Calculator:
         """ASE Calculator with the model loaded."""
+        calculator_dispatch = {
+            "MACE": self._init_mace_calculator,
+            "ORB": self._init_orb_calculator,
+            "SevenNet": self._init_sevennet_calculator,
+            "Equiformer": self._init_equiformer_calculator,
+            "MatterSim": self._init_mattersim_calculator,
+            "DP": self._init_dp_calculator,
+            "GRACE": self._init_grace_calculator,
+            "PET-MAD": self._init_petmad_calculator,
+        }
 
-        if self.model_family == "MACE":
-            from mace.calculators import mace_mp  # type: ignore
-
-            # "small", "medium", "large", "small-0b", "medium-0b", "small-0b2", "medium-0b2", "large-0b2", "medium-0b3", "medium-mpa-0"
-            return mace_mp(
-                model=self.model_name.split("_")[-1],  # mace_mp_0_medium -> medium
-                device="cuda",
-                default_dtype="float64",
-            )
-        elif self.model_family == "ORB":
-            from orb_models.forcefield import pretrained  # type: ignore
-            from orb_models.forcefield.calculator import ORBCalculator  # type: ignore
-
-            orbff = pretrained.orb_v2(device="cuda")  # orb-v2-20241011.ckpt
-            return ORBCalculator(orbff, device="cuda")
-        elif self.model_family == "SevenNet":
-            from sevenn.sevennet_calculator import SevenNetCalculator  # type: ignore
-
-            # model_name in ["7net-0" (i.e. 7net-0_11july2024), "7net-0_22may2024", "7net-l3i5"]
-            model_config = {"model": self.model_name, "device": "cuda"}
-            if self.model_name == "7net-mf-ompa":
-                model_config["modal"] = "mpa"
-            return SevenNetCalculator(**model_config)
-        elif self.model_family == "Equiformer":
-            from fairchem.core import OCPCalculator  # type: ignore
-
-            return OCPCalculator(
-                checkpoint_path=self.model_path,
-                # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints with agreement with the license
-                # NOTE: check the list of public model at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
-                # Uncomment the following lines to use one:
-                # model_name="EquiformerV2-153M-S2EF-OC20-All+MD",
-                # local_cache=str(Path.home().joinpath(".cache")),
-                cpu=False,
-            )
-        elif self.model_family == "MatterSim":
-            from mattersim.forcefield import MatterSimCalculator  # type: ignore
-
-            return MatterSimCalculator(
-                load_path="MatterSim-v1.0.0-5M.pth", device="cuda"
-            )
-        elif self.model_family == "DP":
-            from deepmd.calculator import DP
-
-            return DP(
-                model=self.model_path,
-                head="MP_traj_v024_alldata_mixu",
-            )
-        elif self.model_family == "GRACE":
-            from tensorpotential.calculator import grace_fm
-
-            return grace_fm(
-                self.model_name,
-                pad_neighbors_fraction=0.05,
-                pad_atoms_number=2,
-                min_dist=0.5,
-            )
-        else:
+        if self.model_family not in calculator_dispatch:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
+
+        return calculator_dispatch[self.model_family]()
+
+    def _init_mace_calculator(self) -> Calculator:
+        from mace.calculators import mace_mp  # type: ignore
+
+        return mace_mp(
+            model=self.model_name.split("_")[-1],
+            device="cuda",
+            default_dtype="float64",
+        )
+
+    def _init_orb_calculator(self) -> Calculator:
+        from orb_models.forcefield import pretrained  # type: ignore
+        from orb_models.forcefield.calculator import ORBCalculator  # type: ignore
+
+        orbff = pretrained.orb_v2(device="cuda")
+        return ORBCalculator(orbff, device="cuda")
+
+    def _init_sevennet_calculator(self) -> Calculator:
+        from sevenn.sevennet_calculator import SevenNetCalculator  # type: ignore
+
+        model_config = {"model": self.model_name, "device": "cuda"}
+        if self.model_name == "7net-mf-ompa":
+            model_config["modal"] = "mpa"
+        return SevenNetCalculator(**model_config)
+
+    def _init_equiformer_calculator(self) -> Calculator:
+        from fairchem.core import OCPCalculator  # type: ignore
+
+        return OCPCalculator(
+            checkpoint_path=self.model_path,
+            cpu=False,
+        )
+
+    def _init_mattersim_calculator(self) -> Calculator:
+        from mattersim.forcefield import MatterSimCalculator  # type: ignore
+
+        return MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
+
+    def _init_dp_calculator(self) -> Calculator:
+        from deepmd.calculator import DP
+
+        return DP(
+            model=self.model_path,
+            head="MP_traj_v024_alldata_mixu",
+        )
+
+    def _init_grace_calculator(self) -> Calculator:
+        from tensorpotential.calculator import grace_fm
+
+        return grace_fm(
+            self.model_name,
+            pad_neighbors_fraction=0.05,
+            pad_atoms_number=2,
+            min_dist=0.5,
+        )
+
+    def _init_petmad_calculator(self) -> Calculator:
+        from pet_mad.calculator import PETMADCalculator
+
+        return PETMADCalculator(checkpoint_path=str(self.model_path), device="cuda")
 
     def evaluate(self, task) -> Optional[dict[str, float]]:
         from lambench.tasks.calculator.calculator_tasks import CalculatorTask
