@@ -150,7 +150,10 @@ class ASEModel(BaseLargeAtomModel):
 
         return PETMADCalculator(checkpoint_path=str(self.model_path), device="cuda")
 
-    def evaluate(self, task) -> Optional[dict[str, float]]:
+    def evaluate(
+        self, task
+    ) -> dict[str, dict[str, float]] | dict[str, dict[str, dict[str, float]]]:
+        # DirectPredictTask | CalculatorTask
         from lambench.tasks.calculator.calculator_tasks import CalculatorTask
         from lambench.tasks.direct.direct_tasks import DirectPredictTask
 
@@ -179,6 +182,7 @@ class ASEModel(BaseLargeAtomModel):
                     run_phonon_simulation,
                 )
 
+                assert task.test_data is not None
                 task.workdir.mkdir(exist_ok=True)
                 distance = task.calculator_params.get("distance", 0.01)
                 return {
@@ -191,6 +195,7 @@ class ASEModel(BaseLargeAtomModel):
                     run_inference,
                 )
 
+                assert task.test_data is not None
                 warmup_ratio = task.calculator_params.get("warmup_ratio", 0.2)
                 return {"metrics": run_inference(self, task.test_data, warmup_ratio)}
             else:
