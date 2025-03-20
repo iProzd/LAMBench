@@ -14,6 +14,13 @@
     "zeroshot": 0.19
   },
   {
+    "name": "DPA-3.0-3M",
+    "family": "DP",
+    "nparams": 2592390,
+    "efficiency": 10.45,
+    "zeroshot": 0.26
+  },
+  {
     "name": "MACE-MP-0",
     "family": "MACE",
     "nparams": 4688656,
@@ -46,6 +53,13 @@
     "family": "SevenNet",
     "nparams": 1171144,
     "efficiency": 8.39,
+    "zeroshot": 0.29
+  },
+  {
+    "name": "SevenNet-MF-ompa",
+    "family": "SevenNet",
+    "nparams": 26734966,
+    "efficiency": 2.87,
     "zeroshot": 0.29
   },
   {
