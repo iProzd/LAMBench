@@ -3,7 +3,7 @@
   model_type: DP
   model_family: DP
   model_path: /bohr/lambench-model-55c1/v3/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
-  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.7
+  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8
   model_metadata:
     pretty_name: DPA-2.4-7M
     model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
@@ -125,4 +125,15 @@
     pretty_name: GRACE-2L-OAM
     model_description: A two-layer semi-local GRACE model, pre-fitted on the OMat24 and fine-tuned on sAlex+MPTraj datasets, with fixed 6 Å cutoff.
     num_parameters: 12597516
+  show_calculator_task: True
+
+- model_name: PET-MAD
+  model_type: ASE
+  model_family: PET-MAD
+  model_path: /bohr/lambench-model-55c1/v9/pet_mad_v1_0/pet-mad-latest.ckpt
+  virtualenv: *bohrium_image
+  model_metadata:
+    pretty_name: PET-MAD
+    model_description: PET-MAD v1.0 model trained on the MAD dataset, which contains 95,595 structures, including 3D and 2D inorganic crystals, surfaces, molecular crystals, nanoclusters, and molecules.
+    num_parameters: 4208394
   show_calculator_task: True

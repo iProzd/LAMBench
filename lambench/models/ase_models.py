@@ -1,19 +1,21 @@
-from functools import cached_property
 import logging
+from functools import cached_property
 from pathlib import Path
-from typing import Optional, Callable
+from typing import Callable, Optional
 
 import dpdata
 import numpy as np
-from ase.calculators.calculator import Calculator
 from ase import Atoms
+from ase.calculators.calculator import Calculator
+from ase.constraints import FixSymmetry
+from ase.filters import FrechetCellFilter
 from ase.io import write
+from ase.optimize import FIRE
 from tqdm import tqdm
 
 from lambench.models.basemodel import BaseLargeAtomModel
-from ase.optimize import FIRE
-from ase.constraints import FixSymmetry
-from ase.filters import FrechetCellFilter
+
+# pyright: reportMissingImports=false
 
 
 class ASEModel(BaseLargeAtomModel):
@@ -72,68 +74,86 @@ class ASEModel(BaseLargeAtomModel):
     @cached_property
     def calc(self, head=None) -> Calculator:
         """ASE Calculator with the model loaded."""
+        calculator_dispatch = {
+            "MACE": self._init_mace_calculator,
+            "ORB": self._init_orb_calculator,
+            "SevenNet": self._init_sevennet_calculator,
+            "Equiformer": self._init_equiformer_calculator,
+            "MatterSim": self._init_mattersim_calculator,
+            "DP": self._init_dp_calculator,
+            "GRACE": self._init_grace_calculator,
+            "PET-MAD": self._init_petmad_calculator,
+        }
 
-        if self.model_family == "MACE":
-            from mace.calculators import mace_mp  # type: ignore
-
-            # "small", "medium", "large", "small-0b", "medium-0b", "small-0b2", "medium-0b2", "large-0b2", "medium-0b3", "medium-mpa-0"
-            return mace_mp(
-                model=self.model_name.split("_")[-1],  # mace_mp_0_medium -> medium
-                device="cuda",
-                default_dtype="float64",
-            )
-        elif self.model_family == "ORB":
-            from orb_models.forcefield import pretrained  # type: ignore
-            from orb_models.forcefield.calculator import ORBCalculator  # type: ignore
-
-            orbff = pretrained.orb_v2(device="cuda")  # orb-v2-20241011.ckpt
-            return ORBCalculator(orbff, device="cuda")
-        elif self.model_family == "SevenNet":
-            from sevenn.sevennet_calculator import SevenNetCalculator  # type: ignore
-
-            # model_name in ["7net-0" (i.e. 7net-0_11july2024), "7net-0_22may2024", "7net-l3i5"]
-            model_config = {"model": self.model_name, "device": "cuda"}
-            if self.model_name == "7net-mf-ompa":
-                model_config["modal"] = "mpa"
-            return SevenNetCalculator(**model_config)
-        elif self.model_family == "Equiformer":
-            from fairchem.core import OCPCalculator  # type: ignore
-
-            return OCPCalculator(
-                checkpoint_path=self.model_path,
-                # Model retrieved from https://huggingface.co/fairchem/OMAT24#model-checkpoints with agreement with the license
-                # NOTE: check the list of public model at https://github.com/FAIR-Chem/fairchem/blob/main/src/fairchem/core/models/pretrained_models.yml
-                # Uncomment the following lines to use one:
-                # model_name="EquiformerV2-153M-S2EF-OC20-All+MD",
-                # local_cache=str(Path.home().joinpath(".cache")),
-                cpu=False,
-            )
-        elif self.model_family == "MatterSim":
-            from mattersim.forcefield import MatterSimCalculator  # type: ignore
-
-            return MatterSimCalculator(
-                load_path="MatterSim-v1.0.0-5M.pth", device="cuda"
-            )
-        elif self.model_family == "DP":
-            from deepmd.calculator import DP
-
-            return DP(
-                model=self.model_path,
-                head="MP_traj_v024_alldata_mixu",
-            )
-        elif self.model_family == "GRACE":
-            from tensorpotential.calculator import grace_fm
-
-            return grace_fm(
-                self.model_name,
-                pad_neighbors_fraction=0.05,
-                pad_atoms_number=2,
-                min_dist=0.5,
-            )
-        else:
+        if self.model_family not in calculator_dispatch:
             raise ValueError(f"Model {self.model_name} is not supported by ASEModel")
 
-    def evaluate(self, task) -> Optional[dict[str, float]]:
+        return calculator_dispatch[self.model_family]()
+
+    def _init_mace_calculator(self) -> Calculator:
+        from mace.calculators import mace_mp
+
+        return mace_mp(
+            model=self.model_name.split("_")[-1],
+            device="cuda",
+            default_dtype="float64",
+        )
+
+    def _init_orb_calculator(self) -> Calculator:
+        from orb_models.forcefield import pretrained
+        from orb_models.forcefield.calculator import ORBCalculator
+
+        orbff = pretrained.orb_v2(device="cuda")
+        return ORBCalculator(orbff, device="cuda")
+
+    def _init_sevennet_calculator(self) -> Calculator:
+        from sevenn.sevennet_calculator import SevenNetCalculator
+
+        model_config = {"model": self.model_name, "device": "cuda"}
+        if self.model_name == "7net-mf-ompa":
+            model_config["modal"] = "mpa"
+        return SevenNetCalculator(**model_config)
+
+    def _init_equiformer_calculator(self) -> Calculator:
+        from fairchem.core import OCPCalculator
+
+        return OCPCalculator(
+            checkpoint_path=self.model_path,
+            cpu=False,
+        )
+
+    def _init_mattersim_calculator(self) -> Calculator:
+        from mattersim.forcefield import MatterSimCalculator
+
+        return MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device="cuda")
+
+    def _init_dp_calculator(self) -> Calculator:
+        from deepmd.calculator import DP
+
+        return DP(
+            model=self.model_path,
+            head="MP_traj_v024_alldata_mixu",
+        )
+
+    def _init_grace_calculator(self) -> Calculator:
+        from tensorpotential.calculator import grace_fm
+
+        return grace_fm(
+            self.model_name,
+            pad_neighbors_fraction=0.05,
+            pad_atoms_number=2,
+            min_dist=0.5,
+        )
+
+    def _init_petmad_calculator(self) -> Calculator:
+        from pet_mad.calculator import PETMADCalculator
+
+        return PETMADCalculator(checkpoint_path=str(self.model_path), device="cuda")
+
+    def evaluate(
+        self, task
+    ) -> dict[str, dict[str, float]] | dict[str, dict[str, dict[str, float]]]:
+        # DirectPredictTask | CalculatorTask
         from lambench.tasks.calculator.calculator_tasks import CalculatorTask
         from lambench.tasks.direct.direct_tasks import DirectPredictTask
 
@@ -162,6 +182,7 @@ class ASEModel(BaseLargeAtomModel):
                     run_phonon_simulation,
                 )
 
+                assert task.test_data is not None
                 task.workdir.mkdir(exist_ok=True)
                 distance = task.calculator_params.get("distance", 0.01)
                 return {
@@ -174,6 +195,7 @@ class ASEModel(BaseLargeAtomModel):
                     run_inference,
                 )
 
+                assert task.test_data is not None
                 warmup_ratio = task.calculator_params.get("warmup_ratio", 0.2)
                 return {"metrics": run_inference(self, task.test_data, warmup_ratio)}
             else:
@@ -207,9 +229,9 @@ class ASEModel(BaseLargeAtomModel):
                 sys.load_systems_from_file(filepth, fmt="deepmd/npy/mixed")
             else:
                 sys = dpdata.LabeledSystem(filepth, fmt="deepmd/npy")
-            for ls in tqdm(sys, desc="Set", leave=False):  # type: ignore
+            for ls in tqdm(sys, desc="Set", leave=False):
                 for frame in tqdm(ls, desc="Frames", leave=False):
-                    atoms: Atoms = frame.to_ase_structure()[0]  # type: ignore
+                    atoms: Atoms = frame.to_ase_structure()[0]
                     atoms.calc = calc
 
                     # Energy
@@ -286,7 +308,7 @@ class ASEModel(BaseLargeAtomModel):
         unbiased_energy_err_per_a = unbiased_energy / atom_num.sum(-1)
 
         res = {
-            "energy_mae": [np.mean(np.abs(np.stack(unbiased_energy)))],  # type: ignore
+            "energy_mae": [np.mean(np.abs(np.stack(unbiased_energy)))],
             "energy_rmse": [np.sqrt(np.mean(np.square(unbiased_energy)))],
             "energy_mae_natoms": [np.mean(np.abs(np.stack(unbiased_energy_err_per_a)))],
             "energy_rmse_natoms": [
