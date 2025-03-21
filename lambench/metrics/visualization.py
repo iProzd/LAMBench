@@ -298,6 +298,7 @@ def _build_radar_chart_config(
     normalized_metrics: dict[str, list[float | None]],
     models: list[str],
     best_model: str | None,
+    text_color: str = "white",
 ) -> dict:
     """Build the radar chart configuration"""
     # Define area style for the best model
@@ -308,9 +309,17 @@ def _build_radar_chart_config(
     # Build chart configuration
     chart_config: dict = {
         "title": {"text": "LAMBench Leaderboard"},
-        "legend": {"data": models},
+        "legend": {
+            "data": models,
+            "textStyle": {
+                "color": text_color,
+            },
+        },
         "radar": {
-            "indicator": [{"name": category, "max": 1} for category in categories]
+            "indicator": [{"name": category, "max": 1} for category in categories],
+            "axisName": {
+                "color": text_color,
+            },
         },
         "series": [
             {
