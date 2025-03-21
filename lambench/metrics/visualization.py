@@ -311,6 +311,7 @@ def _build_radar_chart_config(
         "title": {"text": "LAMBench Leaderboard"},
         "legend": {
             "data": models,
+            "bottom": 0,
             "textStyle": {
                 "color": text_color,
             },
