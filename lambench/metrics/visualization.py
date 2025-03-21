@@ -308,7 +308,7 @@ def _build_radar_chart_config(
 
     # Build chart configuration
     chart_config: dict = {
-        "title": {"text": "LAMBench Leaderboard"},
+        # "title": {"text": "LAMBench Leaderboard"},
         "legend": {
             "data": models,
             "bottom": 0,
