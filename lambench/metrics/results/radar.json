@@ -1,7 +1,4 @@
 {
-  "title": {
-    "text": "LAMBench Leaderboard"
-  },
   "legend": {
     "data": [
       "DPA-2.4-7M",
@@ -16,7 +13,11 @@
       "MatterSim-v1-5M",
       "GRACE-2L-OAM",
       "PET-MAD"
-    ]
+    ],
+    "bottom": 0,
+    "textStyle": {
+      "color": "white"
+    }
   },
   "radar": {
     "indicator": [
@@ -40,7 +41,10 @@
         "name": "Catalysis",
         "max": 1
       }
-    ]
+    ],
+    "axisName": {
+      "color": "white"
+    }
   },
   "series": [
     {
