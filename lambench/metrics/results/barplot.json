@@ -24,8 +24,7 @@
     "SevenNet-l3i5": 0.14,
     "SevenNet-MF-ompa": 0.11,
     "MatterSim-v1-5M": 0.14,
-    "GRACE-2L-OAM": 0.12,
-    "PET-MAD": null
+    "GRACE-2L-OAM": 0.12
   },
   "Biomoleculars & Supramoleculars": {
     "DPA-2.4-7M": 0.19,
