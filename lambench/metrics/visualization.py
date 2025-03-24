@@ -207,7 +207,7 @@ def generate_barplot(domain_results: dict) -> dict:
             if domain not in results:
                 results[domain] = {}
             if metrics is not None:
-                [domain][model] = np.round(metrics, 2)
+                results[domain][model] = np.round(metrics, 2)
     return results
 
 
