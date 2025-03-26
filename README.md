@@ -45,7 +45,9 @@ To reproduce the results locally or test a custom model, please refer to the `AS
             model_family="<FAMILY_NAME>",
             virtualenv="test",
             model_metadata={
-                "test":"test"
+                "test":"test",
+                "pretty_name":"test",
+                "num_parameters":1,
             }
         )
     # Note: the corresponding ASE calculator needs to be defined in ASEModel.calc.
