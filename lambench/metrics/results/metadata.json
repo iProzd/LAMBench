@@ -976,7 +976,7 @@
         "DESCRIPTION": "The number of simulation steps."
       },
       "momenta_diff": {
-        "DISPLAY_NAME": "Momentum Difference (amu \u00b7 \u00c5/fs)",
+        "DISPLAY_NAME": "Momentum Difference (AMU \u00b7 \u00c5/fs)",
         "DESCRIPTION": "The mean momentum difference."
       },
       "simulation_time": {

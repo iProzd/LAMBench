@@ -60,7 +60,7 @@ def nve_simulation_single(
             - 'simulation_time': Time taken for the simulation (s).
             - 'steps': Total steps completed (int).
             - 'std': Energy standard deviation (eV/atom).
-            - 'momenta_diff': Average momenta difference (amu \u00b7 \u00c5/fs).
+            - 'momenta_diff': Average momenta difference (AMU \u00b7 \u00c5/fs).
             - 'slope': Energy drift per step (eV/atom/ps).
     """
     LOG_INTERVAL = max(1, num_steps // 100)
@@ -118,7 +118,7 @@ def nve_simulation_single(
         "simulation_time": simulation_time,  # Simulation efficiency, s
         "steps": dyn.nsteps,  # Simulation stability
         "std": np.std(energies) / len(atoms),  # Energy standard deviation eV/atom
-        "momenta_diff": momenta_diff,  # Momentum conservation, amu · Å/fs
+        "momenta_diff": momenta_diff,  # Momentum conservation, AMU · Å/fs
         "slope": np.abs(1000 * slope / len(atoms))
         if slope is not None
         else None,  # Energy drift, eV/atom/ps
