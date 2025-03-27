@@ -106,6 +106,7 @@
     num_parameters: 86589068
     model_description: eqV2_153M_omat_mp_salex
   show_direct_task: False # Hide EqV2 test results due to license restrictions.
+  skip_tasks: [CalculatorTask, DirectPredictTask] # skip to avoid rerun failed tasks
 
 - model_name: MatterSim_v1.0.0_5M
   model_type: ASE
@@ -137,3 +138,4 @@
     model_description: PET-MAD v1.0 model trained on the MAD dataset, which contains 95,595 structures, including 3D and 2D inorganic crystals, surfaces, molecular crystals, nanoclusters, and molecules.
     num_parameters: 4208394
   show_calculator_task: True
+  skip_tasks: [DirectPredictTask] # skip to avoid rerun failed tasks
