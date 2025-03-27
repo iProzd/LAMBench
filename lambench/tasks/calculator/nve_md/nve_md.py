@@ -91,7 +91,7 @@ def nve_simulation_single(
     try:
         dyn.run(num_steps)
     except Exception as e:
-        print(f"Simulation crashed after {dyn.nsteps} steps: {e}")
+        logging.error(f"Simulation crashed after {dyn.nsteps} steps: {e}")
     end_time = time.time()
 
     # Compute metrics

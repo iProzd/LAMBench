@@ -127,6 +127,7 @@ def aggregated_inference_efficiency_results(
         return {"average_time_per_step": None}
     return {
         "average_time_per_step": np.round(np.exp(np.mean(np.log(system_level_avg))), 6),
+        "standard_deviation": np.round(np.std(system_level_avg), 6),
     }
 
 
