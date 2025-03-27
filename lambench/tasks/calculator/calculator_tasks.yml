@@ -10,5 +10,6 @@ phonon_mdr:
     distance: 0.01
 inference_efficiency:
   test_data: /bohr/lambench-efficiency-rg7a/v1/efficiency
+  machine_type: 1 * NVIDIA L20_48g
   calculator_params:
     warmup_ratio: 0.2
