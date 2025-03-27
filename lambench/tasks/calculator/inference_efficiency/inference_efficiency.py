@@ -7,10 +7,7 @@ import numpy as np
 from pathlib import Path
 
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    filemode="w",
-    filename="infer.log",
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 
@@ -64,7 +61,7 @@ def run_one_inference(
     """
     Infer for one system, return averaged time and success rate, starting timing at warmup_ratio.
     """
-    test_files = list(test_data.glob("*.vasp"))
+    test_files = list(test_data.glob("*.cif"))
     test_atoms = [read(file) for file in test_files]
     start_index = int(len(test_atoms) * warmup_ratio)
     total_time = 0
