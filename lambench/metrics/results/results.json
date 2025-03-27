@@ -843,6 +843,13 @@
         "momenta_diff": 2e-06,
         "simulation_time": 337.130004,
         "success_rate": 1.0
+      },
+      "phonon_mdr": {
+        "mae_entropy": 38.584759248273905,
+        "mae_max_freq": 52.05879906693441,
+        "success_rate": 1.0,
+        "mae_free_energy": 15.98325348492614,
+        "mae_heat_capacity": 10.500105946252637
       }
     },
     "model": {
@@ -2440,6 +2447,13 @@
         "momenta_diff": 4e-06,
         "simulation_time": 1151.081351,
         "success_rate": 1.0
+      },
+      "phonon_mdr": {
+        "mae_entropy": 10.521018433833763,
+        "mae_max_freq": 14.864098631387863,
+        "success_rate": 1.0,
+        "mae_free_energy": 4.072773106969722,
+        "mae_heat_capacity": 3.1007030427448767
       }
     },
     "model": {
@@ -3199,6 +3213,13 @@
         "momenta_diff": 2e-06,
         "simulation_time": 508.37608,
         "success_rate": 1.0
+      },
+      "phonon_mdr": {
+        "mae_entropy": 59.70336643274108,
+        "mae_max_freq": 177.0336111518226,
+        "success_rate": 0.9827274553123118,
+        "mae_free_energy": 25.07083861862849,
+        "mae_heat_capacity": 24.43781623541462
       }
     },
     "model": {
