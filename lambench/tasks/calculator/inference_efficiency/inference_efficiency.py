@@ -40,10 +40,10 @@ def run_inference(
         system_name = subfolder.name
         try:
             system_result = run_one_inference(model, subfolder, warmup_ratio)
-            average_time = system_result["average_time_per_step"]
+            average_time = system_result["average_time"]
             success_rate = system_result["success_rate"]
             results[system_name] = {
-                "average_time_per_step": average_time,
+                "average_time": average_time,
                 "success_rate": success_rate,
             }
             logging.info(
@@ -51,7 +51,7 @@ def run_inference(
             )
         except Exception as e:
             logging.error(f"Error in inference for system {system_name}: {e}")
-            results[system_name] = {"average_time_per_step": None, "success_rate": 0.0}
+            results[system_name] = {"average_time": None, "success_rate": 0.0}
     return results
 
 
@@ -68,6 +68,7 @@ def run_one_inference(
     valid_steps = 0
     successful_inferences = 0
     total_inferences = len(test_atoms)
+    n_atoms = len(test_atoms[0])
 
     for i, atoms in enumerate(test_atoms):
         atoms.calc = model.calc
@@ -101,6 +102,8 @@ def run_one_inference(
         success_rate = 0.0
 
     return {
-        "average_time_per_step": average_time_per_step,
+        "average_time": average_time_per_step
+        / n_atoms
+        * 1e6,  # inference speed in us/atom
         "success_rate": success_rate,
     }
