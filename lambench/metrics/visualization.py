@@ -119,7 +119,7 @@ def fetch_conservativeness_results(
     ) / 100  # to penalize failed simulations
 
 
-def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> float:
+def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> dict[str, float]:
     task_results = CalculatorRecord.query(
         model_name=model.model_name, task_name="inference_efficiency"
     )
@@ -130,8 +130,7 @@ def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> float:
         )
         return None
 
-    metrics = aggregated_inference_efficiency_results(task_results[0].metrics)
-    return metrics["average_time_per_step"]
+    return aggregated_inference_efficiency_results(task_results[0].metrics)
 
 
 def aggregate_domain_results() -> dict[str, dict[str, float]]:
@@ -190,7 +189,8 @@ def generate_scatter_plot() -> list[dict]:
                 "name": model.model_metadata.pretty_name,
                 "family": model.model_family,
                 "nparams": model.model_metadata.num_parameters,
-                "efficiency": np.round(1 / efficiency_raw, 2),  # frames per second
+                "efficiency": np.round(efficiency_raw["average_time"], 2),  # us/atom
+                "std": np.round(efficiency_raw["standard_deviation"], 2),
                 "zeroshot": np.round(
                     zeroshot_raw, 2
                 ),  # unitless zero-shot metric across domains
