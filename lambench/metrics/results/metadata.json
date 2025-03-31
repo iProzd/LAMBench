@@ -8,11 +8,13 @@
       "domain": "Catalysis",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -32,11 +34,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -53,11 +57,13 @@
       "domain": "Biomoleculars & Supramoleculars",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -77,11 +83,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -98,11 +106,13 @@
       "domain": "Inorganic Materials",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -122,11 +132,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -143,11 +155,13 @@
       "domain": "Inorganic Materials",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -167,11 +181,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -188,11 +204,13 @@
       "domain": "Small Molecules",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -212,11 +230,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -233,11 +253,13 @@
       "domain": "Catalysis",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -257,11 +279,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -278,11 +302,13 @@
       "domain": "Reactions",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -302,11 +328,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -323,11 +351,13 @@
       "domain": "Catalysis",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -347,11 +377,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -368,11 +400,13 @@
       "domain": "Inorganic Materials",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -392,11 +426,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -413,11 +449,13 @@
       "domain": "Small Molecules",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -437,11 +475,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -458,11 +498,13 @@
       "domain": "Catalysis",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -482,11 +524,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -503,11 +547,13 @@
       "domain": "Inorganic Materials",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -527,11 +573,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -548,11 +596,13 @@
       "domain": "Biomoleculars & Supramoleculars",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -572,11 +622,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -593,11 +645,13 @@
       "domain": "Inorganic Materials",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -617,11 +671,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -638,11 +694,13 @@
       "domain": "Inorganic Materials",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -662,11 +720,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -683,11 +743,13 @@
       "domain": "Inorganic Materials",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -707,11 +769,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -728,11 +792,13 @@
       "domain": "Inorganic Materials",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -752,11 +818,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -773,11 +841,13 @@
       "domain": "Reactions",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -797,11 +867,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
@@ -817,11 +889,13 @@
       "DESCRIPTION": "Weighted results of all the aformentioned datasets.",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the energy prediction."
+        "DESCRIPTION": "The root mean squared error of the energy prediction.",
+        "hide": true
       },
       "energy_mae": {
         "DISPLAY_NAME": "E MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the energy prediction."
+        "DESCRIPTION": "The mean absolute error of the energy prediction.",
+        "hide": true
       },
       "energy_rmse_natoms": {
         "DISPLAY_NAME": "E RMSE (meV/atom)",
@@ -841,11 +915,13 @@
       },
       "virial_rmse": {
         "DISPLAY_NAME": "V RMSE (meV)",
-        "DESCRIPTION": "The root mean squared error of the virial prediction."
+        "DESCRIPTION": "The root mean squared error of the virial prediction.",
+        "hide": true
       },
       "virial_mae": {
         "DISPLAY_NAME": "V MAE (meV)",
-        "DESCRIPTION": "The mean absolute error of the virial prediction."
+        "DESCRIPTION": "The mean absolute error of the virial prediction.",
+        "hide": true
       },
       "virial_rmse_natoms": {
         "DISPLAY_NAME": "V RMSE (meV/atom)",
