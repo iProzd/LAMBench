@@ -1068,8 +1068,8 @@
       "DISPLAY_NAME": "Inference Efficiency",
       "DESCRIPTION": "Evaluation metrics for the computational efficiency of inference tasks.",
       "average_time_per_step": {
-        "DISPLAY_NAME": "Inference Efficiency (s/frame)",
-        "DESCRIPTION": "The average computational time of e/f/v inference on 1000 frames with a 20% warmup ratio from 5 sets of structures in second.",
+        "DISPLAY_NAME": "Inference Efficiency (µs/atom)",
+        "DESCRIPTION": "The average computational time of e/f/v inference on 2000 frames with a 20% warmup ratio in micro second per atom."
       }
     },
     "phonon_mdr": {
