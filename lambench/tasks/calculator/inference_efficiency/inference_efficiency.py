@@ -32,18 +32,20 @@ def run_inference(
     model: ASEModel, test_data: Path, warmup_ratio: float
 ) -> dict[str, dict[str, float]]:
     """
-    Inference for all systems, return average time and success rate for each system.
+    Inference for all trajectories, return average time and success rate for each system.
     """
     results = {}
-    subfolders = [subfolder for subfolder in test_data.iterdir() if subfolder.is_dir()]
-    for subfolder in subfolders:
-        system_name = subfolder.name
+    trajs = list(test_data.rglob("*.traj"))
+    for traj in trajs:
+        system_name = traj.name
         try:
-            system_result = run_one_inference(model, subfolder, warmup_ratio)
+            system_result = run_one_inference(model, traj, warmup_ratio)
             average_time = system_result["average_time"]
+            std_time = system_result["std_time"]
             success_rate = system_result["success_rate"]
             results[system_name] = {
                 "average_time": average_time,
+                "std_time": std_time,
                 "success_rate": success_rate,
             }
             logging.info(
@@ -51,27 +53,30 @@ def run_inference(
             )
         except Exception as e:
             logging.error(f"Error in inference for system {system_name}: {e}")
-            results[system_name] = {"average_time": None, "success_rate": 0.0}
+            results[system_name] = {
+                "average_time": None,
+                "std_time": None,
+                "success_rate": 0.0,
+            }
     return results
 
 
 def run_one_inference(
-    model: ASEModel, test_data: Path, warmup_ratio: float
+    model: ASEModel, test_traj: Path, warmup_ratio: float
 ) -> dict[str, float]:
     """
-    Infer for one system, return averaged time and success rate, starting timing at warmup_ratio.
+    Infer for one trajectory, return averaged time and success rate, starting timing at warmup_ratio.
     """
-    test_files = list(test_data.glob("*.cif"))
-    test_atoms = [read(file) for file in test_files]
+    test_atoms = read(test_traj, ":")
     start_index = int(len(test_atoms) * warmup_ratio)
-    total_time = 0
     valid_steps = 0
     successful_inferences = 0
     total_inferences = len(test_atoms)
-    n_atoms = len(test_atoms[0])
 
+    efficiency = []
     for i, atoms in enumerate(test_atoms):
         atoms.calc = model.calc
+        n_atoms = len(atoms)
         start = time.time()
         try:
             get_efv(atoms)
@@ -84,17 +89,17 @@ def run_one_inference(
         elapsed_time = end - start
 
         if i >= start_index:
-            total_time += elapsed_time
+            efficiency.append(
+                elapsed_time / n_atoms * 1e6
+            )  # inference efficiency in µs/atom
             valid_steps += 1
 
-        logging.info(
-            f"Inference completed for system {str(atoms.symbols)} in {elapsed_time} s"
-        )
-
     if valid_steps > 0:
-        average_time_per_step = total_time / valid_steps
+        average_efficiency = np.mean(efficiency)
+        std_efficiency = np.std(efficiency)
     else:
-        average_time_per_step = None
+        average_efficiency = None
+        std_efficiency = None
 
     if total_inferences > 0:
         success_rate = (successful_inferences / total_inferences) * 100
@@ -102,8 +107,7 @@ def run_one_inference(
         success_rate = 0.0
 
     return {
-        "average_time": average_time_per_step
-        / n_atoms
-        * 1e6,  # inference speed in us/atom
+        "average_time": average_efficiency,
+        "std_time": std_efficiency,
         "success_rate": success_rate,
     }
