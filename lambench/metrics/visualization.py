@@ -182,7 +182,11 @@ def generate_scatter_plot() -> list[dict]:
     for model in leaderboard_models:
         efficiency_raw = fetch_inference_efficiency_results(model)
         zeroshot_raw = fetch_overall_zero_shot_results(model)
-        if efficiency_raw is None or zeroshot_raw is None:
+        if (
+            efficiency_raw is None
+            or efficiency_raw["average_time"] is None
+            or zeroshot_raw is None
+        ):
             continue
         results.append(
             {

@@ -117,17 +117,24 @@ def aggregated_inference_efficiency_results(
     results: dict[str, dict[str, float]],
 ) -> dict[str, float]:
     system_level_avg = []
+    system_level_std = []
+    system_level_success_rate = []
     success_count = len(results)
     for _, result in results.items():
         if result["average_time"] is None:
             success_count -= 1
             continue
         system_level_avg.append(result["average_time"])
+        system_level_std.append(result["std_time"])
+        system_level_success_rate.append(result["success_rate"])
     if success_count != len(results):
-        return {"average_time": None}
+        return {"average_time": None, "std_time": None, "success_rate": 0.0}
     return {
-        "average_time": np.round(np.exp(np.mean(np.log(system_level_avg))), 6),
-        "standard_deviation": np.round(np.std(system_level_avg), 6),
+        "average_time": np.round(np.mean(system_level_avg), 6),
+        "standard_deviation": np.round(
+            np.sqrt(np.mean(np.square(system_level_std))), 6
+        ),
+        "success_rate": np.round(np.mean(system_level_success_rate), 2),
     }
 
 

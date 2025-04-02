@@ -43,12 +43,11 @@ To reproduce the results locally or test a custom model, please refer to the `AS
             model_name="dummy",
             model_type="ASE",
             model_family="<FAMILY_NAME>",
-            virtualenv="test",
+            virtualenv="dummy-env", # not used in local tests
             model_metadata={
-                "test":"test",
-                "pretty_name":"test",
+                "pretty_name":"<DUMMY_NAME>",
                 "num_parameters":1,
-                "packages": {"pydummy": "1.0.0"}
+                "packages": {"pydummy": "1.0.0"} # for pydantic validations
             }
         )
     # Note: the corresponding ASE calculator needs to be defined in ASEModel.calc.
@@ -74,6 +73,8 @@ The file contains a list of models with the following structure:
     model_metadata:
       pretty_name: a human-readable name for the model
       num_parameters: the number of parameters in the model
+      packages:
+        package_name: package_version
       model_description:
   ```
 
