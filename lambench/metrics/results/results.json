@@ -273,25 +273,30 @@
         "simulation_time": 522.475765,
         "success_rate": 1.0
       },
-      "inference_efficiency": {
-        "average_time_per_step": 0.055171
-      },
       "phonon_mdr": {
         "mae_entropy": 45.63501336946129,
         "mae_max_freq": 58.8845033213924,
         "success_rate": 1.0,
         "mae_free_energy": 18.086146747785406,
         "mae_heat_capacity": 12.786991948205577
+      },
+      "inference_efficiency": {
+        "average_time": 162.753934,
+        "standard_deviation": 0.930471,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "dpa2_241126_v2_4_0",
       "model_family": "DP",
       "model_type": "DP",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "DPA-2.4-7M",
         "num_parameters": 6637036,
+        "packages": {
+          "deepmd-kit": "P0131"
+        },
         "model_description": "DP 2024 Q4, 37head share fitting 120GPU pretrain"
       },
       "show_direct_task": true,
@@ -574,25 +579,30 @@
         "simulation_time": 922.083964,
         "success_rate": 1.0
       },
-      "inference_efficiency": {
-        "average_time_per_step": 0.175654
-      },
       "phonon_mdr": {
         "mae_entropy": 34.926428590311,
         "mae_max_freq": 41.27278342281858,
         "success_rate": 1.0,
         "mae_free_energy": 13.797322398955483,
         "mae_heat_capacity": 8.625339810449255
+      },
+      "inference_efficiency": {
+        "average_time": 663.344007,
+        "standard_deviation": 134.896808,
+        "success_rate": 89.15
       }
     },
     "model": {
       "model_name": "dpa3_250211_v3_0_0_7M",
       "model_family": "DP",
       "model_type": "DP",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "DPA-3.0-7M",
         "num_parameters": 7021990,
+        "packages": {
+          "deepmd-kit": "P0131"
+        },
         "model_description": "DP 2025 Q1, 7M parameters"
       },
       "show_direct_task": true,
@@ -833,9 +843,6 @@
       }
     },
     "calculator_task_results": {
-      "inference_efficiency": {
-        "average_time_per_step": 0.095705
-      },
       "nve_md": {
         "std": 0.000396,
         "slope": 0.000406,
@@ -850,16 +857,24 @@
         "success_rate": 1.0,
         "mae_free_energy": 15.98325348492614,
         "mae_heat_capacity": 10.500105946252637
+      },
+      "inference_efficiency": {
+        "average_time": 338.278736,
+        "standard_deviation": 2.946885,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "dpa3_250307_v3_0_0_3M",
       "model_family": "DP",
       "model_type": "DP",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "DPA-3.0-3M",
         "num_parameters": 2592390,
+        "packages": {
+          "deepmd-kit": "P0131"
+        },
         "model_description": "DP 2025 Q1, 3M parameters"
       },
       "show_direct_task": true,
@@ -1110,25 +1125,30 @@
         "simulation_time": 307.221136,
         "success_rate": 1.0
       },
-      "inference_efficiency": {
-        "average_time_per_step": 0.10297
-      },
       "phonon_mdr": {
         "mae_entropy": 59.62454567811744,
         "mae_max_freq": 60.96969555273101,
         "success_rate": 0.99989957822856,
         "mae_free_energy": 23.79722672606042,
         "mae_heat_capacity": 13.095865350175824
+      },
+      "inference_efficiency": {
+        "average_time": 343.68152,
+        "standard_deviation": 35.185258,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "mace_mp_0_medium",
       "model_family": "MACE",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "MACE-MP-0",
         "num_parameters": 4688656,
+        "packages": {
+          "macetorch": "0.3.12"
+        },
         "model_description": "https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model"
       },
       "show_direct_task": true,
@@ -1376,9 +1396,6 @@
         "mae_free_energy": 7.925156358957533,
         "mae_heat_capacity": 5.767068570161099
       },
-      "inference_efficiency": {
-        "average_time_per_step": 0.108457
-      },
       "nve_md": {
         "std": 2.4e-05,
         "slope": 4e-06,
@@ -1386,16 +1403,24 @@
         "momenta_diff": 0.0,
         "simulation_time": 352.35066,
         "success_rate": 1.0
+      },
+      "inference_efficiency": {
+        "average_time": 343.739854,
+        "standard_deviation": 34.354173,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "mace_medium-mpa-0",
       "model_family": "MACE",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "MACE-MPA-0",
         "num_parameters": 9063204,
+        "packages": {
+          "macetorch": "0.3.12"
+        },
         "model_description": "https://github.com/ACEsuit/mace-mp/releases/download/mace_mpa_0/mace-mpa-0-medium.model"
       },
       "show_direct_task": true,
@@ -1644,25 +1669,30 @@
         "simulation_time": 244.124377,
         "success_rate": 1.0
       },
-      "inference_efficiency": {
-        "average_time_per_step": 0.026948
-      },
       "phonon_mdr": {
         "mae_entropy": 446.4680652588644,
         "mae_max_freq": 308.04449347243985,
         "success_rate": 1.0,
         "mae_free_energy": 184.3280534688863,
         "mae_heat_capacity": 58.518131078301735
+      },
+      "inference_efficiency": {
+        "average_time": 74.459948,
+        "standard_deviation": 1.47446,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "orb_v2",
       "model_family": "ORB",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "ORB",
         "num_parameters": 25161727,
+        "packages": {
+          "orb-models": "0.4.2"
+        },
         "model_description": "https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt"
       },
       "show_direct_task": true,
@@ -1911,25 +1941,30 @@
         "simulation_time": 492.06394,
         "success_rate": 0.89
       },
-      "inference_efficiency": {
-        "average_time_per_step": 0.058234
-      },
       "phonon_mdr": {
         "mae_entropy": 48.20582523928629,
         "mae_max_freq": 39.70437905731396,
         "success_rate": 1.0,
         "mae_free_energy": 18.487830753915087,
         "mae_heat_capacity": 8.540958568778475
+      },
+      "inference_efficiency": {
+        "average_time": 131.561757,
+        "standard_deviation": 26.71478,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "7net-0",
       "model_family": "SevenNet",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "SevenNet-0",
         "num_parameters": 842440,
+        "packages": {
+          "sevenn": "0.11.0"
+        },
         "model_description": "https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth"
       },
       "show_direct_task": true,
@@ -2178,25 +2213,30 @@
         "simulation_time": 789.280086,
         "success_rate": 1.0
       },
-      "inference_efficiency": {
-        "average_time_per_step": 0.119123
-      },
       "phonon_mdr": {
         "mae_entropy": 25.90493808803761,
         "mae_max_freq": 25.588377605458252,
         "success_rate": 0.99989957822856,
         "mae_free_energy": 9.64729443050092,
         "mae_heat_capacity": 4.867889781053313
+      },
+      "inference_efficiency": {
+        "average_time": 358.592392,
+        "standard_deviation": 78.492219,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "7net-l3i5",
       "model_family": "SevenNet",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "SevenNet-l3i5",
         "num_parameters": 1171144,
+        "packages": {
+          "sevenn": "0.11.0"
+        },
         "model_description": "https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth"
       },
       "show_direct_task": true,
@@ -2437,9 +2477,6 @@
       }
     },
     "calculator_task_results": {
-      "inference_efficiency": {
-        "average_time_per_step": 0.348826
-      },
       "nve_md": {
         "std": 2.7e-05,
         "slope": 1e-05,
@@ -2454,16 +2491,24 @@
         "success_rate": 1.0,
         "mae_free_energy": 4.072773106969722,
         "mae_heat_capacity": 3.1007030427448767
+      },
+      "inference_efficiency": {
+        "average_time": 1137.204721,
+        "standard_deviation": 126.441658,
+        "success_rate": 95.3
       }
     },
     "model": {
       "model_name": "7net-mf-ompa",
       "model_family": "SevenNet",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "SevenNet-MF-ompa",
         "num_parameters": 26734966,
+        "packages": {
+          "sevenn": "0.11.0"
+        },
         "model_description": "https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_MF_ompa/checkpoint_sevennet_mf_ompa.pth"
       },
       "show_direct_task": true,
@@ -2712,25 +2757,30 @@
         "simulation_time": 542.634729,
         "success_rate": 1.0
       },
-      "inference_efficiency": {
-        "average_time_per_step": 0.149034
-      },
       "phonon_mdr": {
         "mae_entropy": 15.157340492770084,
         "mae_max_freq": 16.446275508200237,
         "success_rate": 0.99979915645712,
         "mae_free_energy": 5.212281200176133,
         "mae_heat_capacity": 3.139642297176636
+      },
+      "inference_efficiency": {
+        "average_time": 257.637527,
+        "standard_deviation": 49.236405,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "MatterSim_v1.0.0_5M",
       "model_family": "MatterSim",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "MatterSim-v1-5M",
         "num_parameters": 4549142,
+        "packages": {
+          "mattersim": "1.1.2"
+        },
         "model_description": "mattersim_v1_5M"
       },
       "show_direct_task": true,
@@ -2971,9 +3021,6 @@
       }
     },
     "calculator_task_results": {
-      "inference_efficiency": {
-        "average_time_per_step": 0.047002
-      },
       "nve_md": {
         "std": 8.9e-05,
         "slope": 1e-05,
@@ -2988,16 +3035,24 @@
         "success_rate": 1.0,
         "mae_free_energy": 5.455513687870125,
         "mae_heat_capacity": 3.736701900431374
+      },
+      "inference_efficiency": {
+        "average_time": 147.446563,
+        "standard_deviation": 135.555693,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "GRACE_2L_OAM_28Jan25",
       "model_family": "GRACE",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "GRACE-2L-OAM",
         "num_parameters": 12597516,
+        "packages": {
+          "tensorpotential": "0.4.5"
+        },
         "model_description": "A two-layer semi-local GRACE model, pre-fitted on the OMat24 and fine-tuned on sAlex+MPTraj datasets, with fixed 6 \u00c5 cutoff."
       },
       "show_direct_task": true,
@@ -3203,9 +3258,6 @@
       "Weighted": null
     },
     "calculator_task_results": {
-      "inference_efficiency": {
-        "average_time_per_step": 0.151777
-      },
       "nve_md": {
         "std": 3.2e-05,
         "slope": 9e-06,
@@ -3220,22 +3272,32 @@
         "success_rate": 0.9827274553123118,
         "mae_free_energy": 25.07083861862849,
         "mae_heat_capacity": 24.43781623541462
+      },
+      "inference_efficiency": {
+        "average_time": 482.600646,
+        "standard_deviation": 75.131328,
+        "success_rate": 100.0
       }
     },
     "model": {
       "model_name": "PET-MAD",
       "model_family": "PET-MAD",
       "model_type": "ASE",
-      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.8",
+      "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
         "pretty_name": "PET-MAD",
         "num_parameters": 4208394,
+        "packages": {
+          "pet-mad": "1.0.0"
+        },
         "model_description": "PET-MAD v1.0 model trained on the MAD dataset, which contains 95,595 structures, including 3D and 2D inorganic crystals, surfaces, molecular crystals, nanoclusters, and molecules."
       },
       "show_direct_task": true,
       "show_finetune_task": false,
       "show_calculator_task": true,
-      "skip_tasks": []
+      "skip_tasks": [
+        "DirectPredictTask"
+      ]
     }
   }
 }

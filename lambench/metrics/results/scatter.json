@@ -3,77 +3,88 @@
     "name": "DPA-2.4-7M",
     "family": "DP",
     "nparams": 6637036,
-    "efficiency": 18.13,
+    "efficiency": 162.75,
+    "std": 0.93,
     "zeroshot": 0.22
   },
   {
     "name": "DPA-3.0-7M",
     "family": "DP",
     "nparams": 7021990,
-    "efficiency": 5.69,
+    "efficiency": 663.34,
+    "std": 134.9,
     "zeroshot": 0.19
   },
   {
     "name": "DPA-3.0-3M",
     "family": "DP",
     "nparams": 2592390,
-    "efficiency": 10.45,
+    "efficiency": 338.28,
+    "std": 2.95,
     "zeroshot": 0.26
   },
   {
     "name": "MACE-MP-0",
     "family": "MACE",
     "nparams": 4688656,
-    "efficiency": 9.71,
+    "efficiency": 343.68,
+    "std": 35.19,
     "zeroshot": 0.33
   },
   {
     "name": "MACE-MPA-0",
     "family": "MACE",
     "nparams": 9063204,
-    "efficiency": 9.22,
+    "efficiency": 343.74,
+    "std": 34.35,
     "zeroshot": 0.3
   },
   {
     "name": "ORB",
     "family": "ORB",
     "nparams": 25161727,
-    "efficiency": 37.11,
+    "efficiency": 74.46,
+    "std": 1.47,
     "zeroshot": 0.28
   },
   {
     "name": "SevenNet-0",
     "family": "SevenNet",
     "nparams": 842440,
-    "efficiency": 17.17,
+    "efficiency": 131.56,
+    "std": 26.71,
     "zeroshot": 0.3
   },
   {
     "name": "SevenNet-l3i5",
     "family": "SevenNet",
     "nparams": 1171144,
-    "efficiency": 8.39,
+    "efficiency": 358.59,
+    "std": 78.49,
     "zeroshot": 0.29
   },
   {
     "name": "SevenNet-MF-ompa",
     "family": "SevenNet",
     "nparams": 26734966,
-    "efficiency": 2.87,
+    "efficiency": 1137.2,
+    "std": 126.44,
     "zeroshot": 0.29
   },
   {
     "name": "MatterSim-v1-5M",
     "family": "MatterSim",
     "nparams": 4549142,
-    "efficiency": 6.71,
+    "efficiency": 257.64,
+    "std": 49.24,
     "zeroshot": 0.32
   },
   {
     "name": "GRACE-2L-OAM",
     "family": "GRACE",
     "nparams": 12597516,
-    "efficiency": 21.28,
+    "efficiency": 147.45,
+    "std": 135.56,
     "zeroshot": 0.28
   }
 ]
