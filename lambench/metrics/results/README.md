@@ -69,25 +69,4 @@ To assess model performance across these domains, we use zero-shot inference wit
 
 ### Efficiency
 
-To evaluate model efficiency, we measure inference speed and success rate across different atomic systems using the following methodology:
-
-**Testing Protocol**:
-
-1. **Warmup Phase**: Initial 20% of test samples are excluded from timing.
-2. **Timed Inference**: Measure the execution time for the remaining samples.
-3. **Metrics Calculation**:
-   - Success Rate ($\omega$): Percentage of completed inferences
-
-     $$\omega = \frac{n_{\text{success}}}{n_{\text{total}}} \times 100\%$$
-
-   - Time Consumed ($\bar T$): Average time per inference step
-
-     $$\bar T = \frac{1}{n_{\text{valid}}}\sum_{i=1}^{n_{\text{valid}}} t_i$$
-
-   - Efficiency ($\eta$): Average inference speed in frames/s
-
-     $$\eta = \frac{1}{\bar T}$$
-
-**Benchmark Structure**:
-![Efficiency Test Architecture](image/structures_efficiency.png)
-*Benchmark structures with five configurations: (a)–(e) feature different elemental compositions while maintaining an identical atom count (N = 256). Each configuration was tested separately, and the average metrics were reported.*
+To assess the efficiency of the model, we randomly selected 2000 frames from the domain of Inorganic Materials and Catalysis using the aforementioned out-of-distribution datasets. Each frame was expanded to include 800 to 1000 atoms through the replication of the unit cell, ensuring that measurements of inference efficiency occurred within the regime of convergence. The initial 20% of the test samples were considered a warm-up phase and thus were excluded from the efficiency timing. We have reported the average efficiency across the remaining 1600 frames.
