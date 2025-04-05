@@ -31,7 +31,7 @@ HEMC_HEMB:
   force_std: 1.8089415904253994
   virial_std: 0.4589409203427954
 MD22:
-  domain: Biomoleculars & Supramoleculars
+  domain: Biomolecules & Supramolecules
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null
@@ -71,7 +71,7 @@ NequIP_NC_2022:
   force_std: 0.9434954645234603
   virial_std: null
 AIMD-Chig:
-  domain: Biomoleculars & Supramoleculars
+  domain: Biomolecules & Supramolecules
   energy_weight: 1.0
   force_weight: 1.0
   virial_weight: null

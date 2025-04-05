@@ -32,7 +32,7 @@ We categorize all zero-shot prediction tasks into 5 domains:
 - **Small Molecules**: `ANI-1x`, `Torsionnet500`
 - **Catalysis**: `Vandermause2022Active`, `Zhang2019Bridging`, `Zhang2024Active`, `Villanueva2024Water`
 - **Reactions**: `Gasteiger2020Fast`, `Guan2022Benchmark`
-- **Biomoleculars/Supramoleculars**: `MD22`, `AIMD-Chig`
+- **Biomolecules/Supramolecules**: `MD22`, `AIMD-Chig`
 
 To assess model performance across these domains, we use zero-shot inference with energy-bias term adjustments based on test dataset statistics. Performance metrics are aggregated as follows:
 
