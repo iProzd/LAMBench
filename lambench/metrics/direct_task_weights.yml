@@ -134,11 +134,13 @@ Subalex_9k:
   energy_std: 0.7749643377228371
   force_std: 1.1503770816187873
   virial_std: 0.8678699239404154
-Torsionnet500:
-  domain: Small Molecules
-  energy_weight: 1.0
-  force_weight: 1.0
-  virial_weight: null
-  energy_std: 0.033879357854299824
-  force_std: 0.05088788030453556
-  virial_std: null
+
+## DEPRECATED
+# Torsionnet500:
+#   domain: Small Molecules
+#   energy_weight: 1.0
+#   force_weight: 1.0
+#   virial_weight: null
+#   energy_std: 0.033879357854299824
+#   force_std: 0.05088788030453556
+#   virial_std: null
