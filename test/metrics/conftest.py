@@ -227,22 +227,6 @@ RECORDS = [
         virial_rmse_natoms=0.382751,
         virial_mae_natoms=0.0371473,
     ),
-    DirectPredictRecord(
-        id=18,
-        model_name="test_dp",
-        task_name="Torsionnet500",
-        create_time=None,
-        energy_rmse=0.197847,
-        energy_mae=0.123274,
-        energy_rmse_natoms=0.00938567,
-        energy_mae_natoms=0.00549091,
-        force_rmse=0.201489,
-        force_mae=0.126824,
-        virial_rmse=None,
-        virial_mae=None,
-        virial_rmse_natoms=None,
-        virial_mae_natoms=None,
-    ),
 ]
 
 
