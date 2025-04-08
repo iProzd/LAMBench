@@ -198,6 +198,13 @@ class ASEModel(BaseLargeAtomModel):
                 assert task.test_data is not None
                 warmup_ratio = task.calculator_params.get("warmup_ratio", 0.2)
                 return {"metrics": run_inference(self, task.test_data, warmup_ratio)}
+            elif task.task_name == "torsionnet":
+                from lambench.tasks.calculator.torsionnet.torsionnet import (
+                    run_torsionnet,
+                )
+
+                assert task.test_data is not None
+                return {"metrics": run_torsionnet(self, task.test_data)}
             else:
                 raise NotImplementedError(f"Task {task.task_name} is not implemented.")
 

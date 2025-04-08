@@ -12,7 +12,7 @@ class CalculatorTask(BaseTask):
     record_type: ClassVar = CalculatorRecord
     task_config: ClassVar = Path(__file__).parent / "calculator_tasks.yml"
     test_data: Optional[Path]
-    calculator_params: dict
+    calculator_params: Optional[dict]
 
     def __init__(self, task_name: str, **kwargs):
         super().__init__(task_name=task_name, **kwargs)
