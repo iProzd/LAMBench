@@ -5,7 +5,6 @@ import dpdata
 import sklearn.metrics as metrics
 import pandas as pd
 from lambench.models.ase_models import ASEModel
-from lambench.models.dp_models import DPModel
 from tqdm import tqdm
 
 
