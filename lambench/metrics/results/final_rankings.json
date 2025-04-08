@@ -1,0 +1,68 @@
+[
+  {
+    "Rank": 1,
+    "Model": "DPA-2.4-7M",
+    "Generalizability": 0.828,
+    "Applicability": 0.958
+  },
+  {
+    "Rank": 2,
+    "Model": "GRACE-2L-OAM",
+    "Generalizability": 0.786,
+    "Applicability": 0.965
+  },
+  {
+    "Rank": 3,
+    "Model": "SevenNet-0",
+    "Generalizability": 0.769,
+    "Applicability": 0.911
+  },
+  {
+    "Rank": 4,
+    "Model": "DPA-3.0-3M",
+    "Generalizability": 0.79,
+    "Applicability": 0.874
+  },
+  {
+    "Rank": 5,
+    "Model": "MatterSim-v1-5M",
+    "Generalizability": 0.749,
+    "Applicability": 0.914
+  },
+  {
+    "Rank": 6,
+    "Model": "MACE-MPA-0",
+    "Generalizability": 0.774,
+    "Applicability": 0.873
+  },
+  {
+    "Rank": 7,
+    "Model": "SevenNet-l3i5",
+    "Generalizability": 0.775,
+    "Applicability": 0.866
+  },
+  {
+    "Rank": 8,
+    "Model": "MACE-MP-0",
+    "Generalizability": 0.742,
+    "Applicability": 0.873
+  },
+  {
+    "Rank": 9,
+    "Model": "DPA-3.0-7M",
+    "Generalizability": 0.851,
+    "Applicability": 0.722
+  },
+  {
+    "Rank": 10,
+    "Model": "SevenNet-MF-ompa",
+    "Generalizability": 0.779,
+    "Applicability": 0.5
+  },
+  {
+    "Rank": 11,
+    "Model": "ORB",
+    "Generalizability": 0.776,
+    "Applicability": 0.5
+  }
+]

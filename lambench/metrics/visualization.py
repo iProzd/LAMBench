@@ -21,6 +21,9 @@ from lambench.models.basemodel import BaseLargeAtomModel
 
 
 def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
+    """
+    This function fetch and process the raw results to calculate $\bar{M}_{\text{domain}}$ across all 5 domains for a single LAM.
+    """
     domain_results = {}
     for domain, tasks in get_domain_to_direct_task_mapping(DIRECT_TASK_WEIGHTS).items():
         norm_log_results = []
@@ -58,8 +61,25 @@ def aggregate_domain_results_for_one_model(model: BaseLargeAtomModel):
 
 
 def fetch_overall_zero_shot_results(model: BaseLargeAtomModel) -> float:
+    """
+    This function average $\bar{M}_{\text{domain}}$ over all 5 domains for a single LAM. result used in scatter plot.
+    """
     domain_results = list(aggregate_domain_results_for_one_model(model).values())
     return np.mean(domain_results) if None not in domain_results else None
+
+
+def fetch_generalizability_ood_results() -> dict[str, float]:
+    leaderboard_models = get_leaderboard_models()
+    generalizability_ood = {}
+    for model in leaderboard_models:
+        zero_shot_result = fetch_overall_zero_shot_results(model)
+        if zero_shot_result is not None:
+            generalizability_ood[model.model_metadata.pretty_name] = (
+                1 - zero_shot_result
+            )
+    if not generalizability_ood:
+        return None
+    return generalizability_ood
 
 
 def fetch_stability_results() -> dict[str, float]:
@@ -128,9 +148,7 @@ def fetch_applicability_results() -> dict[str, float]:
         model: (df_eff.loc[model]["efficiency_score"] + stability_results[model]) / 2
         for model in shared_models
     }
-    return dict(
-        sorted(applicability_results.items(), key=lambda item: item[1], reverse=True)
-    )
+    return applicability_results
 
 
 def fetch_inference_efficiency_results(model: BaseLargeAtomModel) -> dict[str, float]:
@@ -304,11 +322,60 @@ def _build_radar_chart_config(
     return chart_config
 
 
+def summarize_final_rankings():
+    generalizability_ood = fetch_generalizability_ood_results()
+    applicability = fetch_applicability_results()
+    # Skip if either result set is empty
+    if not generalizability_ood or not applicability:
+        logging.warning("Missing data for generalizability or applicability metrics")
+        return
+
+    # Find models that appear in both metrics
+    shared_models = set(generalizability_ood.keys()).intersection(
+        set(applicability.keys())
+    )
+
+    if not shared_models:
+        logging.warning(
+            "No models have both generalizability and applicability metrics"
+        )
+        return
+
+    # Create a dataframe with both metrics
+    summary_df = pd.DataFrame(
+        {
+            "model": list(shared_models),
+            "generalizability": [
+                generalizability_ood[model] for model in shared_models
+            ],
+            "applicability": [applicability[model] for model in shared_models],
+        }
+    )
+
+    summary_df = summary_df.sort_values("generalizability")
+
+    # Calculate overall ranking (you can adjust the weights as needed)
+    summary_df["overall_score"] = (
+        0.5 * summary_df["generalizability"] + 0.5 * summary_df["applicability"]
+    )
+
+    # Sort by overall score for final ranking
+    summary_df = summary_df.sort_values("overall_score", ascending=False)
+    summary_df.reset_index(drop=True, inplace=True)
+    summary_df["rank"] = summary_df.index + 1
+    summary_df = summary_df[["rank", "model", "generalizability", "applicability"]]
+    summary_df.columns = ["Rank", "Model", "Generalizability", "Applicability"]
+    summary_df = summary_df.round(3)
+
+    return summary_df
+
+
 def main():
     domain_results = aggregate_domain_results()
     radar_chart_config = generate_radar_plot(domain_results)
     scatter_plot_data = generate_scatter_plot()
     barplot_data = generate_barplot(domain_results)
+    final_ranking = summarize_final_rankings()
 
     result_path = Path(lambench.__file__).parent / "metrics/results"
     with open(result_path / "radar.json", "w") as f:
@@ -317,6 +384,8 @@ def main():
         json.dump(scatter_plot_data, f, indent=2)
     with open(result_path / "barplot.json", "w") as f:
         json.dump(barplot_data, f, indent=2)
+    with open(result_path / "final_rankings.json", "w") as f:
+        json.dump(final_ranking.to_dict(orient="records"), f, indent=2)
     print("All plots saved to metrics/results/")
 
 
