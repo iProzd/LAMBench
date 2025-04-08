@@ -14,3 +14,4 @@ inference_efficiency:
     warmup_ratio: 0.2
 torsionnet:
   test_data: /bohr/lambench-torsionnet-u7sa/v1/torsionnet500_wB97m
+  calculator_params: null
