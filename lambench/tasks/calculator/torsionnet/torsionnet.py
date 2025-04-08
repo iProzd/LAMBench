@@ -43,7 +43,7 @@ def run_torsionnet(
         result_barrier,
     )
 
-    # percentage of molecules with error of a barrier highr more than 1 kcal/mol
+    # percentage of molecules with error of a barrier higher more than 1 kcal/mol
     barrier_diff = (result_barrier - label_barrier).abs()
     print(barrier_diff.mean(axis=None))
     metric["percentage"] = sum(barrier_diff > (1 / 23.0609)) / len(barrier_diff)
