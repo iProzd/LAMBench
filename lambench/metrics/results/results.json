@@ -73,18 +73,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 211.9,
-        "energy_mae": 163.4,
-        "energy_rmse_natoms": 9.3,
-        "energy_mae_natoms": 7.1,
-        "force_rmse": 212.4,
-        "force_mae": 142.9,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "HEMC_HEMB": {
         "energy_rmse": 3699.8,
         "energy_mae": 2631.0,
@@ -218,12 +206,12 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 580.5,
-        "energy_mae_natoms": 16.6,
-        "energy_rmse": 853.2,
-        "energy_rmse_natoms": 25.5,
-        "force_mae": 158.1,
-        "force_rmse": 265.1,
+        "energy_mae": 625.4,
+        "energy_mae_natoms": 17.4,
+        "energy_rmse": 926.0,
+        "energy_rmse_natoms": 27.0,
+        "force_mae": 159.1,
+        "force_rmse": 268.8,
         "virial_mae": 4683.8,
         "virial_mae_natoms": 131.5,
         "virial_rmse": 10255.5,
@@ -439,18 +427,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 156.1,
-        "energy_mae": 106.8,
-        "energy_rmse_natoms": 7.2,
-        "energy_mae_natoms": 4.7,
-        "force_rmse": 194.0,
-        "force_mae": 125.3,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "Cu_MgO_catalysts": {
         "energy_rmse": 220.5,
         "energy_mae": 178.4,
@@ -524,12 +500,12 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 500.5,
-        "energy_mae_natoms": 14.5,
-        "energy_rmse": 768.4,
-        "energy_rmse_natoms": 23.1,
-        "force_mae": 131.7,
-        "force_rmse": 254.4,
+        "energy_mae": 548.1,
+        "energy_mae_natoms": 15.5,
+        "energy_rmse": 844.0,
+        "energy_rmse_natoms": 24.8,
+        "force_mae": 132.1,
+        "force_rmse": 258.7,
         "virial_mae": 4714.3,
         "virial_mae_natoms": 131.6,
         "virial_rmse": 11613.2,
@@ -757,18 +733,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 245.6,
-        "energy_mae": 176.1,
-        "energy_rmse_natoms": 11.1,
-        "energy_mae_natoms": 7.6,
-        "force_rmse": 189.6,
-        "force_mae": 130.0,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "WBM_downsampled": {
         "energy_rmse": 379.5,
         "energy_mae": 225.7,
@@ -830,12 +794,12 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 651.6,
-        "energy_mae_natoms": 18.7,
-        "energy_rmse": 995.7,
-        "energy_rmse_natoms": 30.0,
-        "force_mae": 168.3,
-        "force_rmse": 298.8,
+        "energy_mae": 703.7,
+        "energy_mae_natoms": 19.7,
+        "energy_rmse": 1081.2,
+        "energy_rmse_natoms": 31.8,
+        "force_mae": 171.1,
+        "force_rmse": 307.4,
         "virial_mae": 4551.8,
         "virial_mae_natoms": 127.3,
         "virial_rmse": 10283.1,
@@ -1031,18 +995,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 382.8,
-        "energy_mae": 290.4,
-        "energy_rmse_natoms": 17.4,
-        "energy_mae_natoms": 12.7,
-        "force_rmse": 331.3,
-        "force_mae": 198.3,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "Si_ZEO22": {
         "energy_rmse": 1257.8,
         "energy_mae": 752.2,
@@ -1104,12 +1056,12 @@
         "virial_mae_natoms": 34.7
       },
       "Weighted": {
-        "energy_mae": 780.9,
-        "energy_mae_natoms": 22.0,
-        "energy_rmse": 1195.9,
-        "energy_rmse_natoms": 33.8,
-        "force_mae": 228.4,
-        "force_rmse": 426.6,
+        "energy_mae": 827.7,
+        "energy_mae_natoms": 22.7,
+        "energy_rmse": 1278.8,
+        "energy_rmse_natoms": 35.1,
+        "force_mae": 230.5,
+        "force_rmse": 433.4,
         "virial_mae": 5171.7,
         "virial_mae_natoms": 146.3,
         "virial_rmse": 13088.2,
@@ -1267,18 +1219,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 441.4,
-        "energy_mae": 345.6,
-        "energy_rmse_natoms": 20.7,
-        "energy_mae_natoms": 15.3,
-        "force_rmse": 350.2,
-        "force_mae": 207.1,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "Cu_MgO_catalysts": {
         "energy_rmse": 447.7,
         "energy_mae": 295.4,
@@ -1376,12 +1316,12 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 651.4,
-        "energy_mae_natoms": 18.7,
-        "energy_rmse": 1005.4,
-        "energy_rmse_natoms": 30.2,
-        "force_mae": 186.7,
-        "force_rmse": 333.7,
+        "energy_mae": 676.1,
+        "energy_mae_natoms": 18.9,
+        "energy_rmse": 1055.3,
+        "energy_rmse_natoms": 30.9,
+        "force_mae": 185.5,
+        "force_rmse": 332.7,
         "virial_mae": 4515.7,
         "virial_mae_natoms": 125.7,
         "virial_rmse": 10312.3,
@@ -1599,18 +1539,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 312.2,
-        "energy_mae": 226.0,
-        "energy_rmse_natoms": 14.1,
-        "energy_mae_natoms": 9.8,
-        "force_rmse": 209.1,
-        "force_mae": 131.5,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "HEA25_S": {
         "energy_rmse": 6440.2,
         "energy_mae": 4183.6,
@@ -1648,12 +1576,12 @@
         "virial_mae_natoms": 74.3
       },
       "Weighted": {
-        "energy_mae": 663.3,
-        "energy_mae_natoms": 19.2,
-        "energy_rmse": 1120.7,
-        "energy_rmse_natoms": 33.4,
-        "force_mae": 157.0,
-        "force_rmse": 273.5,
+        "energy_mae": 706.6,
+        "energy_mae_natoms": 20.0,
+        "energy_rmse": 1208.2,
+        "energy_rmse_natoms": 35.1,
+        "force_mae": 158.7,
+        "force_rmse": 278.2,
         "virial_mae": 6740.9,
         "virial_mae_natoms": 184.9,
         "virial_rmse": 14924.3,
@@ -1847,18 +1775,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 353.9,
-        "energy_mae": 274.9,
-        "energy_rmse_natoms": 16.2,
-        "energy_mae_natoms": 12.1,
-        "force_rmse": 314.4,
-        "force_mae": 189.4,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "Si_ZEO22": {
         "energy_rmse": 1095.8,
         "energy_mae": 662.2,
@@ -1920,12 +1836,12 @@
         "virial_mae_natoms": 51.9
       },
       "Weighted": {
-        "energy_mae": 671.2,
-        "energy_mae_natoms": 19.2,
-        "energy_rmse": 1015.5,
-        "energy_rmse_natoms": 29.9,
-        "force_mae": 225.2,
-        "force_rmse": 428.3,
+        "energy_mae": 707.4,
+        "energy_mae_natoms": 19.7,
+        "energy_rmse": 1080.5,
+        "energy_rmse_natoms": 31.0,
+        "force_mae": 227.7,
+        "force_rmse": 436.7,
         "virial_mae": 5235.1,
         "virial_mae_natoms": 145.2,
         "virial_rmse": 11059.9,
@@ -2107,18 +2023,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 343.8,
-        "energy_mae": 260.5,
-        "energy_rmse_natoms": 15.4,
-        "energy_mae_natoms": 11.3,
-        "force_rmse": 290.1,
-        "force_mae": 181.2,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "Cu_MgO_catalysts": {
         "energy_rmse": 337.9,
         "energy_mae": 247.3,
@@ -2192,12 +2096,12 @@
         "virial_mae_natoms": 312.6
       },
       "Weighted": {
-        "energy_mae": 635.0,
-        "energy_mae_natoms": 18.1,
-        "energy_rmse": 962.3,
-        "energy_rmse_natoms": 28.0,
-        "force_mae": 210.6,
-        "force_rmse": 393.3,
+        "energy_mae": 669.1,
+        "energy_mae_natoms": 18.6,
+        "energy_rmse": 1022.4,
+        "energy_rmse_natoms": 29.0,
+        "force_mae": 212.6,
+        "force_rmse": 400.8,
         "virial_mae": 5297.7,
         "virial_mae_natoms": 146.4,
         "virial_rmse": 11550.2,
@@ -2367,18 +2271,6 @@
         "virial_rmse_natoms": 428.6,
         "virial_mae_natoms": 60.1
       },
-      "Torsionnet500": {
-        "energy_rmse": 368.8,
-        "energy_mae": 283.2,
-        "energy_rmse_natoms": 17.2,
-        "energy_mae_natoms": 12.5,
-        "force_rmse": 333.2,
-        "force_mae": 209.8,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "NequIP_NC_2022": {
         "energy_rmse": 106.5,
         "energy_mae": 81.1,
@@ -2464,12 +2356,12 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 646.2,
-        "energy_mae_natoms": 18.4,
-        "energy_rmse": 1038.5,
-        "energy_rmse_natoms": 30.9,
-        "force_mae": 162.8,
-        "force_rmse": 305.9,
+        "energy_mae": 678.3,
+        "energy_mae_natoms": 18.8,
+        "energy_rmse": 1103.8,
+        "energy_rmse_natoms": 32.0,
+        "force_mae": 160.2,
+        "force_rmse": 304.3,
         "virial_mae": 3774.6,
         "virial_mae_natoms": 104.7,
         "virial_rmse": 9122.6,
@@ -2627,18 +2519,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 367.9,
-        "energy_mae": 269.2,
-        "energy_rmse_natoms": 17.0,
-        "energy_mae_natoms": 11.9,
-        "force_rmse": 292.6,
-        "force_mae": 186.8,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "Si_ZEO22": {
         "energy_rmse": 1232.7,
         "energy_mae": 690.3,
@@ -2736,12 +2616,12 @@
         "virial_mae_natoms": 45.8
       },
       "Weighted": {
-        "energy_mae": 733.6,
-        "energy_mae_natoms": 21.2,
-        "energy_rmse": 1119.3,
-        "energy_rmse_natoms": 33.9,
-        "force_mae": 190.1,
-        "force_rmse": 337.9,
+        "energy_mae": 778.2,
+        "energy_mae_natoms": 21.9,
+        "energy_rmse": 1195.0,
+        "energy_rmse_natoms": 35.3,
+        "force_mae": 190.3,
+        "force_rmse": 341.0,
         "virial_mae": 4931.8,
         "virial_mae_natoms": 136.6,
         "virial_rmse": 11331.2,
@@ -2923,18 +2803,6 @@
         "virial_rmse_natoms": null,
         "virial_mae_natoms": null
       },
-      "Torsionnet500": {
-        "energy_rmse": 359.9,
-        "energy_mae": 254.5,
-        "energy_rmse_natoms": 17.1,
-        "energy_mae_natoms": 11.3,
-        "force_rmse": 311.6,
-        "force_mae": 187.4,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
       "CGM_MLP_NC2023": {
         "energy_rmse": 11788.8,
         "energy_mae": 6461.7,
@@ -3008,12 +2876,12 @@
         "virial_mae_natoms": null
       },
       "Weighted": {
-        "energy_mae": 618.0,
-        "energy_mae_natoms": 17.6,
-        "energy_rmse": 978.6,
-        "energy_rmse_natoms": 29.6,
-        "force_mae": 171.9,
-        "force_rmse": 316.3,
+        "energy_mae": 651.1,
+        "energy_mae_natoms": 18.1,
+        "energy_rmse": 1037.9,
+        "energy_rmse_natoms": 30.6,
+        "force_mae": 170.9,
+        "force_rmse": 316.6,
         "virial_mae": 4004.3,
         "virial_mae_natoms": 111.3,
         "virial_rmse": 10041.7,
@@ -3154,18 +3022,6 @@
         "energy_mae_natoms": 93.3,
         "force_rmse": 555.3,
         "force_mae": 345.6,
-        "virial_rmse": null,
-        "virial_mae": null,
-        "virial_rmse_natoms": null,
-        "virial_mae_natoms": null
-      },
-      "Torsionnet500": {
-        "energy_rmse": 217.4,
-        "energy_mae": 152.4,
-        "energy_rmse_natoms": 9.8,
-        "energy_mae_natoms": 6.6,
-        "force_rmse": 174.9,
-        "force_mae": 137.0,
         "virial_rmse": null,
         "virial_mae": null,
         "virial_rmse_natoms": null,

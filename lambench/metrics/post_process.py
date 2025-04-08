@@ -66,6 +66,11 @@ def process_direct_task_for_one_model(model: BaseLargeAtomModel):
     direct_task_results = {}
     norm_log_results = []
     for record in direct_task_records:
+        if record.task_name not in DIRECT_TASK_WEIGHTS:
+            logging.warning(
+                f"Deprecated direct task {record.task_name} for {model.model_name}"
+            )
+            continue
         direct_task_results[record.task_name] = record.to_dict(ev_to_mev=True)
         normalized_result = filter_direct_task_results(
             direct_task_results[record.task_name],
@@ -73,9 +78,9 @@ def process_direct_task_for_one_model(model: BaseLargeAtomModel):
         )
         norm_log_results.append(normalized_result)
 
-    if len(direct_task_records) != len(DIRECT_TASK_WEIGHTS):
+    missing_tasks = DIRECT_TASK_WEIGHTS.keys() - direct_task_results.keys()
+    if missing_tasks:
         direct_task_results["Weighted"] = None
-        missing_tasks = DIRECT_TASK_WEIGHTS.keys() - direct_task_results.keys()
         logging.warning(
             f"Weighted results for {model.model_name} are marked as None due to missing tasks: {missing_tasks}"
         )
@@ -145,7 +150,9 @@ def main():
     results = {}
     leaderboard_models = get_leaderboard_models()
     for model in leaderboard_models:
-        r = results[model.model_metadata.pretty_name] = process_results_for_one_model(model)
+        r = results[model.model_metadata.pretty_name] = process_results_for_one_model(
+            model
+        )
         # PosixPath is not JSON serializable
         r["model"] = model.model_dump(exclude={"model_path"})
 
