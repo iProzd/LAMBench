@@ -26,11 +26,12 @@ Subalex_9k:
   test_data: "/bohr/lambench-ood-zwtr/v1/OOD_test_data_v2/subalex_downsample_9k"
 WBM_downsampled:
   test_data: "/bohr/lambench-ood-zwtr/v1/OOD_test_data_v2/WBM_downsampled"
-Torsionnet500:
-  test_data: "/bohr/lambench-ood-zwtr/v1/OOD_test_data_v2/raw_torsionnet500"
 Si_ZEO22:
   test_data: "/bohr/lambench-ood-zwtr/v1/OOD_test_data_v2/Si_ZEO22"
 HPt_NC_2022:
   test_data: "/bohr/lambench-ood-zwtr/v1/OOD_test_data_v2/HPt_NC2022"
 Ca_batteries_CM2021:
   test_data: "/bohr/lambench-ood-zwtr/v1/OOD_test_data_v2/Ca_batteries"
+## DEPRECATED
+# Torsionnet500:
+#   test_data: "/bohr/lambench-ood-zwtr/v1/OOD_test_data_v2/raw_torsionnet500"
