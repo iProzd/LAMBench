@@ -12,7 +12,7 @@ from tqdm import tqdm
 def run_torsionnet(
     model: ASEModel,
     test_data: Path,
-) -> dict[str, float]:
+) -> dict:
     metric = {}
     result = {}  # predicted energy
     label = {}  # label energy
@@ -38,7 +38,7 @@ def run_torsionnet(
     # barrier height MAE (barrier height is the max energy - min energy of the fragment)
     result_barrier = result_df.max(axis=1) - result_df.min(axis=1)
     label_barrier = label_df.max(axis=1) - label_df.min(axis=1)
-    metric["barrier_mae"] = metrics.mean_absolute_error(
+    metric["MAEB"] = metrics.mean_absolute_error(
         label_barrier,
         result_barrier,
     )
@@ -46,13 +46,13 @@ def run_torsionnet(
     # percentage of molecules with error of a barrier higher more than 1 kcal/mol
     barrier_diff = (result_barrier - label_barrier).abs()
     print(barrier_diff.mean(axis=None))
-    metric["percentage"] = sum(barrier_diff > (1 / 23.0609)) / len(barrier_diff)
+    metric["NABH_h"] = sum(barrier_diff > (1 / 23.0609))
 
     # normalize the energies
     result_df = result_df.sub(result_df.min(axis=1), axis=0)
     ## label is already normalized
     # label_df = label_df.sub(label_df.min(axis=1), axis=0)
     assert label_df.min(axis=1).max(axis=0) == 0
-    metric["energy_mae"] = metrics.mean_absolute_error(label_df, result_df)
-    metric["energy_rmse"] = metrics.root_mean_squared_error(label_df, result_df)
+    metric["MAE"] = metrics.mean_absolute_error(label_df, result_df)
+    metric["RMSE"] = metrics.root_mean_squared_error(label_df, result_df)
     return metric
