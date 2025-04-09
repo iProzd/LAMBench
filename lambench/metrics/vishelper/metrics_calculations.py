@@ -1,22 +1,27 @@
 import logging
+from typing import Optional
 import numpy as np
 import pandas as pd
 from collections import defaultdict
+from lambench.metrics.vishelper.results_fetcher import DOWNSTREAM_TASK_METRICS
 
 
 class MetricsCalculator:
-    def __init__(self, raw_results):
-        self.raw_results = raw_results
+    def __init__(self, fetcher):
+        self.fetcher = fetcher
 
     def calculate_mean_m_bar_domain(self, model) -> float:
         """This calculates $\bar{M}_{\text{domain}}$ for a given LAM across all domains."""
         domain_results = list(
-            self.raw_results.aggregate_ood_results_for_one_model(model).values()
+            self.fetcher.aggregate_ood_results_for_one_model(model).values()
         )
         return np.mean(domain_results) if None not in domain_results else None
 
     def convert_metric_to_score(
-        self, metric_dict: dict[str, float], method: str = "minmax"
+        self,
+        metric_dict: dict[str, float],
+        method: str = "minmax",
+        dummy: Optional[float] = None,
     ) -> dict[str, float]:
         """Convert metric values (where lower is better) to normalized scores in range [0, 1] (where higher is better)."""
         if not metric_dict:
@@ -24,7 +29,10 @@ class MetricsCalculator:
         scores = {}
         if method == "minmax":
             min_value = min(metric_dict.values())
-            max_value = max(metric_dict.values())
+            if dummy is not None:
+                max_value = dummy
+            else:
+                max_value = max(metric_dict.values())
 
             # If all values are the same, return 1.0 for all
             if max_value == min_value:
@@ -50,7 +58,7 @@ class MetricsCalculator:
         0 indicates baseline performance, 1 indicates best performance across all domains.
         """
         # Get model performances by domain
-        m_bar_domain = self.raw_results.aggregate_ood_results()
+        m_bar_domain = self.fetcher.aggregate_ood_results()
         # filter out models with missing domain results
         m_bar_domain = {
             model: domains
@@ -89,9 +97,74 @@ class MetricsCalculator:
 
         return generalizability_scores
 
+    def calculate_generalizability_downstream_score(self) -> dict[str, float]:
+        raw_results = self.fetcher.fetch_downstream_results()
+        penalty_dict = {}
+        for task_name, task_config in DOWNSTREAM_TASK_METRICS.items():
+            if task_config.get("penalty", None) is not None:
+                penalty_dict[f'{task_name}::{task_config["penalty"]}'] = [
+                    f"{task_name}::{metrics_name}"
+                    for metrics_name in task_config["metrics"]
+                ]
+
+        # apply minmax normalization for all metrics, use dummy when available
+        for column in raw_results.columns:
+            if column not in penalty_dict:
+                check_dummy = column.split(
+                    "::"
+                )  # split the column name back to task name and metric name
+                assert (
+                    len(check_dummy) == 2
+                ), f"Column name {column} is not in the expected format"
+                # extract dummy max value when available
+                if (
+                    DOWNSTREAM_TASK_METRICS[check_dummy[0]].get("dummy", None)
+                    is not None
+                ):
+                    dummy = DOWNSTREAM_TASK_METRICS[check_dummy[0]]["dummy"][
+                        check_dummy[1]
+                    ]
+                else:
+                    dummy = None
+                raw_results[column] = self.convert_metric_to_score(
+                    raw_results[column].to_dict(), method="minmax", dummy=dummy
+                )
+
+        # apply penalty for each task
+        for task_name, penalty in penalty_dict.items():
+            for penalty_metric in penalty:
+                if penalty_metric not in raw_results.columns:
+                    logging.error(f"Metric {penalty_metric} not found in raw results")
+                    continue
+                # apply penalty
+                # Apply penalty based on sign of the metric
+                positive_mask = raw_results[penalty_metric] >= 0
+                negative_mask = raw_results[penalty_metric] < 0
+
+                # Create a copy to avoid SettingWithCopyWarning
+                new_values = raw_results[penalty_metric].copy()
+
+                # For positive values, multiply
+                new_values[positive_mask] = (
+                    raw_results[penalty_metric][positive_mask]
+                    * raw_results[task_name][positive_mask]
+                )
+
+                # For negative values, divide
+                new_values[negative_mask] = (
+                    raw_results[penalty_metric][negative_mask]
+                    / raw_results[task_name][negative_mask]
+                )
+
+                raw_results[penalty_metric] = new_values
+
+        # aggregate all metrics for each model
+        downstream_score = raw_results.drop(columns=penalty_dict.keys()).mean(axis=1)
+        return downstream_score.to_dict()
+
     def calculate_stability_results(self) -> dict[str, float]:
         """This calculates the stability score for a given LAM."""
-        stability_results = self.raw_results.fetch_stability_results()
+        stability_results = self.fetcher.fetch_stability_results()
         # filter out models with missing stability results
         stability_results = {
             model: metrics
@@ -123,11 +196,11 @@ class MetricsCalculator:
             stability_scores[model] = (
                 raw_stability_scores["std"][model] * 0.5
                 + raw_stability_scores["slope"][model] * 0.5
-            ) * stability_results[model]["success_rate"]
+            ) * stability_results[model]["success_rate"]  # penalty for success rate
         return stability_scores
 
     def calculate_efficiency_results(self) -> dict[str, float]:
-        efficiency_results = self.raw_results.fetch_inference_efficiency_results()
+        efficiency_results = self.fetcher.fetch_inference_efficiency_results()
         # filter out models with missing efficiency results
         efficiency_results = {
             model: metrics
@@ -169,6 +242,12 @@ class MetricsCalculator:
 
     def summarize_final_rankings(self):
         generalizability_ood = self.calculate_generalizability_ood_score()
+        generalizability_downstream = self.calculate_generalizability_downstream_score()
+        if not generalizability_ood or not generalizability_downstream:
+            logging.warning(
+                "Missing data for generalizability metrics (ood or downstream)"
+            )
+            return
         applicability = self.calculate_applicability_results()
         if not generalizability_ood or not applicability:
             logging.warning(
@@ -176,10 +255,11 @@ class MetricsCalculator:
             )
             return
 
-        shared_models = set(generalizability_ood.keys()).intersection(
-            set(applicability.keys())
+        shared_models = (
+            set(generalizability_ood.keys())
+            .intersection(set(applicability.keys()))
+            .intersection(set(generalizability_downstream.keys()))
         )
-
         if not shared_models:
             logging.warning(
                 "No models have both generalizability and applicability metrics"
@@ -189,23 +269,37 @@ class MetricsCalculator:
         summary_df = pd.DataFrame(
             {
                 "model": list(shared_models),
-                "generalizability": [
+                "generalizability-ood": [
                     generalizability_ood[model] for model in shared_models
+                ],
+                "generalizability-downstream": [
+                    generalizability_downstream[model] for model in shared_models
                 ],
                 "applicability": [applicability[model] for model in shared_models],
             }
         )
 
-        summary_df = summary_df.sort_values("generalizability")
-
-        summary_df["overall_score"] = (
-            0.5 * summary_df["generalizability"] + 0.5 * summary_df["applicability"]
-        )
+        summary_df["overall_score"] = summary_df[
+            ["generalizability-ood", "generalizability-downstream", "applicability"]
+        ].mean(axis=1)
 
         summary_df = summary_df.sort_values("overall_score", ascending=False)
         summary_df.reset_index(drop=True, inplace=True)
         summary_df["rank"] = summary_df.index + 1
-        summary_df = summary_df[["rank", "model", "generalizability", "applicability"]]
-        summary_df.columns = ["Rank", "Model", "Generalizability", "Applicability"]
+        summary_df = summary_df[
+            [
+                "rank",
+                "model",
+                "generalizability-ood",
+                "generalizability-downstream" "applicability",
+            ]
+        ]
+        summary_df.columns = [
+            "Rank",
+            "Model",
+            "Generalizability-OOD",
+            "Generalizability-Downstream",
+            "Applicability",
+        ]
         summary_df = summary_df.round(3)
         return summary_df
