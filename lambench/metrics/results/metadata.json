@@ -1099,6 +1099,30 @@
         "DISPLAY_NAME": "Success Rate",
         "DESCRIPTION": "The success rate of phonon calculations."
       }
+    },
+    "torsionnet": {
+      "DISPLAY_NAME": "Torsional Barrier",
+      "DESCRIPTION": "Evaluation of torsional barrier related metrics on the TorsionNet-500 dataset at the ωB97M-D3(BJ)/def2-TZVPPD level.",
+      "MAE": {
+        "DISPLAY_NAME": "MAE (meV/atom)",
+        "DESCRIPTION": "The mean absolute error of the energy prediction across all configurations.",
+        "scale":1000
+      },
+      "RMSE": {
+        "DISPLAY_NAME": "RMSE (meV/atom)",
+        "DESCRIPTION": "The root mean squared error of the energy prediction across all configurations.",
+        "scale":1000
+      },
+      "MAEB":{
+        "DISPLAY_NAME": "Torsional Barrier MAE (meV/atom)",
+        "DESCRIPTION": "The mean absolute error of the torsional barrier height.",
+        "scale":1000
+      },
+      "NABH_h":{
+        "DISPLAY_NAME": "Number of Molecules",
+        "DESCRIPTION": "The number of molecules (total = 500) for which the model prediction of potential barrier height has an error of more than 1 kcal/mol.",
+        "scale":1000
+      }
     }
   }
 }

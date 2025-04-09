@@ -137,8 +137,9 @@ def process_calculator_task_for_one_model(model: BaseLargeAtomModel):
             calculator_task_results[record.task_name] = (
                 aggregated_inference_efficiency_results(record.metrics)
             )
-        elif record.task_name == "phonon_mdr":
+        elif record.task_name in ["phonon_mdr", "torsionnet"]:
             calculator_task_results[record.task_name] = record.metrics
+
         else:
             logging.warning(
                 f"Unsupported calculator task {record.task_name} for {model.model_name}"
