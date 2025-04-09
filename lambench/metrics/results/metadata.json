@@ -1120,7 +1120,7 @@
       },
       "NABH_h":{
         "DISPLAY_NAME": "Number of Molecules",
-        "DESCRIPTION": "The number of molecules (total = 500) for which the model prediction of potential barrier height has an error of more than 1 kcal/mol."
+        "DESCRIPTION": "The number of molecules (total = 500) for which the model prediction of potential barrier height has an error of more than 1 kcal/mol (43 meV)."
       }
     }
   }
