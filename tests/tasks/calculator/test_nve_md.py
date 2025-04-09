@@ -136,7 +136,7 @@ def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
     ), "Result should have keys 'simulation_time', 'steps', 'std', 'slope', 'momenta_diff'."
 
 
-def test_aggreated_results():
+def test_aggregated_results():
     """Test aggregation of results."""
     results = {
         "Cs8N2": {

@@ -2,9 +2,9 @@ import numpy as np
 
 
 class PlotGeneration:
-    def __init__(self, domain_results, metrics_calculations):
-        self.domain_results = domain_results
-        self.metrics_calculations = metrics_calculations
+    def __init__(self, raw_results, metrics_calculator):
+        self.raw_results = raw_results
+        self.metrics_calculator = metrics_calculator
 
     def generate_radar_plot(self, domain_results: dict) -> dict:
         first_model = list(domain_results.keys())[0]
@@ -15,6 +15,7 @@ class PlotGeneration:
         normalized_metrics = self._normalize_metrics(
             domain_results, metrics_data["category_max"], categories
         )
+        print("normalized_metrics", normalized_metrics)
         model_rankings = self._calculate_model_rankings(
             models, categories, metrics_data["category_values"]
         )
@@ -26,13 +27,11 @@ class PlotGeneration:
 
     def generate_scatter_plot(self) -> list[dict]:
         results = []
-        for model in self.domain_results.leaderboard_models:
+        for model in self.raw_results.leaderboard_models:
             efficiency_raw = (
-                self.metrics_calculations.fetch_inference_efficiency_results(model)
+                self.raw_results.fetch_inference_efficiency_results_for_one_model(model)
             )
-            zeroshot_raw = self.metrics_calculations.fetch_overall_zero_shot_results(
-                model
-            )
+            zeroshot_raw = self.metrics_calculator.calculate_mean_m_bar_domain(model)
             if (
                 efficiency_raw is None
                 or efficiency_raw["average_time"] is None
