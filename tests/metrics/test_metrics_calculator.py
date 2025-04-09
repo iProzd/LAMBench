@@ -84,6 +84,9 @@ def test_summarize_final_rankings(metrics_calculator):
     metrics_calculator.calculate_generalizability_ood_score = MagicMock(
         return_value={"model1": 0.8, "model2": 0.6}
     )
+    metrics_calculator.calculate_generalizability_downstream_score = MagicMock(
+        return_value={"model1": 0.4, "model2": 0.3}
+    )
     metrics_calculator.calculate_applicability_results = MagicMock(
         return_value={"model1": 0.9, "model2": 0.7}
     )
