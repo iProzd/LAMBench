@@ -15,7 +15,6 @@ class PlotGeneration:
         normalized_metrics = self._normalize_metrics(
             domain_results, metrics_data["category_max"], categories
         )
-        print("normalized_metrics", normalized_metrics)
         model_rankings = self._calculate_model_rankings(
             models, categories, metrics_data["category_values"]
         )

@@ -80,7 +80,6 @@ class MetricsCalculator:
             domain: self.convert_metric_to_score(metrics, method="-log")
             for domain, metrics in reorg_m_bar_domain.items()
         }
-        print("s_domain", s_domain)
 
         # Calculate average score across all domains for each model
         mean_s_domain = defaultdict(list)
@@ -160,6 +159,7 @@ class MetricsCalculator:
 
         # aggregate all metrics for each model
         downstream_score = raw_results.drop(columns=penalty_dict.keys()).mean(axis=1)
+        print(raw_results)
         return downstream_score.to_dict()
 
     def calculate_stability_results(self) -> dict[str, float]:
@@ -291,7 +291,8 @@ class MetricsCalculator:
                 "rank",
                 "model",
                 "generalizability-ood",
-                "generalizability-downstream" "applicability",
+                "generalizability-downstream",
+                "applicability",
             ]
         ]
         summary_df.columns = [
@@ -302,4 +303,8 @@ class MetricsCalculator:
             "Applicability",
         ]
         summary_df = summary_df.round(3)
+        print(
+            "Final Rankings:\n",
+            summary_df.to_string(index=False),
+        )
         return summary_df
