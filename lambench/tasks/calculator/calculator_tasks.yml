@@ -13,5 +13,5 @@ inference_efficiency:
   calculator_params:
     warmup_ratio: 0.2
 torsionnet:
-  test_data: /bohr/lambench-torsionnet-e4sc/v1
+  test_data: /bohr/lambench-torsionnet-e4sc/v1/torsionnet500_wB97m
   calculator_params: null
