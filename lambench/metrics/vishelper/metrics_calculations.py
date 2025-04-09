@@ -60,7 +60,7 @@ class MetricsCalculator:
 
         if not m_bar_domain:
             logging.warning("No domain results found.")
-            return None
+            return {}
 
         # Reorganize data {model: {domain: value}} to {domain: {model: value}}
         reorg_m_bar_domain = defaultdict(dict)
@@ -87,7 +87,7 @@ class MetricsCalculator:
             if scores  # Skip models with no scores
         }
 
-        return generalizability_scores if generalizability_scores else None
+        return generalizability_scores
 
     def calculate_stability_results(self) -> dict[str, float]:
         """This calculates the stability score for a given LAM."""
