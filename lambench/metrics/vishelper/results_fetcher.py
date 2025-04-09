@@ -1,0 +1,107 @@
+import logging
+from lambench.databases.direct_predict_table import DirectPredictRecord
+from lambench.metrics.post_process import DIRECT_TASK_WEIGHTS
+from lambench.metrics.utils import (
+    exp_average,
+    filter_direct_task_results,
+    get_domain_to_direct_task_mapping,
+    get_leaderboard_models,
+    aggregated_nve_md_results,
+    aggregated_inference_efficiency_results,
+)
+from lambench.models.basemodel import BaseLargeAtomModel
+from lambench.databases.calculator_table import CalculatorRecord
+
+
+class ResultsFetcher:
+    def __init__(self):
+        self.leaderboard_models = get_leaderboard_models()
+
+    def aggregate_ood_results_for_one_model(
+        self, model: BaseLargeAtomModel
+    ) -> dict[str, float]:
+        """This function retuns the generalizability test results $\bar{M}_{\text{domain}}$ for a given model across all domains."""
+        domain_results = {}
+        for domain, tasks in get_domain_to_direct_task_mapping(
+            DIRECT_TASK_WEIGHTS
+        ).items():
+            norm_log_results = []
+            weight_virial = False
+            for task in tasks:
+                task_result = DirectPredictRecord.query(
+                    model_name=model.model_name, task_name=task
+                )
+                task_config = DIRECT_TASK_WEIGHTS[task]
+                if task_config["virial_weight"] is not None:
+                    weight_virial = True
+                if len(task_result) != 1:
+                    logging.warning(
+                        f"Expect one record for {model.model_name} and {task}, but got {len(task_result)}"
+                    )
+                    continue
+                norm_log_results.append(
+                    filter_direct_task_results(
+                        task_result[0].to_dict(), task_config, normalize=True
+                    )
+                )
+            if len(norm_log_results) != len(tasks):
+                domain_results[domain] = None
+            else:
+                domain_result = exp_average(norm_log_results)
+                normalized_e = domain_result["energy_mae_natoms"]
+                normalized_f = domain_result["force_mae"]
+                normalized_v = domain_result["virial_mae_natoms"]
+                domain_results[domain] = (
+                    0.45 * normalized_e + 0.45 * normalized_f + 0.1 * normalized_v
+                    if weight_virial
+                    else 0.5 * normalized_e + 0.5 * normalized_f
+                )
+        return domain_results
+
+    def aggregate_ood_results(self) -> dict[str, dict[str, float]]:
+        """This function summarizes the generalizability test results $\bar{M}_{\text{domain}}$ for all models across all domains."""
+        results = {}
+        for model in self.leaderboard_models:
+            results[model.model_metadata.pretty_name] = (
+                self.aggregate_ood_results_for_one_model(model)
+            )
+        return results
+
+    def fetch_stability_results(self) -> dict[str, float]:
+        """This calculates the stability score for a given LAM."""
+        stability_results = {}
+        for model in self.leaderboard_models:
+            task_results = CalculatorRecord.query(
+                model_name=model.model_name, task_name="nve_md"
+            )
+            if len(task_results) != 1:
+                logging.warning(
+                    f"Expected one record for {model.model_name} and nve_md, but got {len(task_results)}"
+                )
+                continue
+            metrics = aggregated_nve_md_results(task_results[0].metrics)
+            stability_results[model.model_metadata.pretty_name] = metrics
+
+        return stability_results
+
+    def fetch_inference_efficiency_results_for_one_model(
+        self, model: BaseLargeAtomModel
+    ) -> dict[str, float]:
+        """This function returns the inference efficiency results for a given LAM."""
+        task_results = CalculatorRecord.query(
+            model_name=model.model_name, task_name="inference_efficiency"
+        )
+        if len(task_results) != 1:
+            logging.warning(
+                f"Expected one record for {model.model_name} and inference_efficiency, but got {len(task_results)}"
+            )
+        return aggregated_inference_efficiency_results(task_results[0].metrics)
+
+    def fetch_inference_efficiency_results(self) -> dict[str, dict[str, float]]:
+        """This function summarizes the inference efficiency results for all models."""
+        results = {}
+        for model in self.leaderboard_models:
+            results[model.model_metadata.pretty_name] = (
+                self.fetch_inference_efficiency_results_for_one_model(model)
+            )
+        return results

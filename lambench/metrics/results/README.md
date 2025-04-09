@@ -29,7 +29,7 @@ Figure 2: Accuracy-Efficiency Trade-off
 We categorize all zero-shot prediction tasks into 5 domains:
 
 - **Inorganic Materials**: `Torres2019Analysis`, `Batzner2022equivariant`, `SubAlex_9k`, `Sours2023Applications`, `Lopanitsyna2023Modeling_A`, `Lopanitsyna2023Modeling_B`, `Dai2024Deep`, `WBM_25k`
-- **Small Molecules**: `ANI-1x`, `Torsionnet500`
+- **Small Molecules**: `ANI-1x`
 - **Catalysis**: `Vandermause2022Active`, `Zhang2019Bridging`, `Zhang2024Active`, `Villanueva2024Water`
 - **Reactions**: `Gasteiger2020Fast`, `Guan2022Benchmark`
 - **Biomolecules/Supramolecules**: `MD22`, `AIMD-Chig`
@@ -47,20 +47,20 @@ To assess model performance across these domains, we use zero-shot inference wit
     - $j$ indexes over the $n$ datasets in a domain
 
 2. **Domain Aggregation**: For each domain, we compute the log-average of normalized metrics across tasks:
-    $$S_i = \exp\left(\frac{1}{n}\sum_{j=1}^{n}\log \hat{M}_{i,j}\right)$$
+    $$\bar{M}_i = \exp\left(\frac{1}{n}\sum_{j=1}^{n}\log \hat{M}_{i,j}\right)$$
 
 3. **Combined Score**: We calculate a weighted domain score (lower is better):
-    $$S_{\text{domain}} = \begin{cases}
-    0.45 \times S_E + 0.45 \times S_F + 0.1 \times S_V & \text{if virial data available} \\
-    0.5 \times S_E + 0.5 \times S_F & \text{otherwise}
+    $$\bar{M}_{\text{domain}} = \begin{cases}
+    0.45 \times \bar{M}_E + 0.45 \times \bar{M}_F + 0.1 \times \bar{M}_V & \text{if virial data available} \\
+    0.5 \times \bar{M}_E + 0.5 \times \bar{M}_F & \text{otherwise}
     \end{cases}$$
 
-    **Note**: $S_{\text{domain}}$ values are displayed on the bar plot of each domain.
+    **Note**: $\bar{M}_{\text{domain}}$ values are displayed on the bar plot of each domain.
 
 4. **Cross-Model Normalization**: We normalize using negative logarithm:
-    $$\hat{S}_{\text{domain}} = \frac{-\log(S_{\text{domain}})}{\max_{\text{models}}(-\log(S_{\text{domain}}))}$$
+    $$S_{\text{domain}} = \frac{-\log(\bar{M}_{\text{domain}})}{\max_{\text{models}}(-\log(\bar{M}_{\text{domain}}))}$$
 
-    **Note**: $\hat{S}_{\text{domain}}$ values are displayed on the radar plot.
+    **Note**: $S_{\text{domain}}$ values are displayed on the radar plot.
 
 5. **Overall Performance**: The final model score is the arithmetic mean of all domain scores:
     $$S_{\text{overall}} = \frac{1}{D}\sum_{d=1}^{D} S_{\text{domain}}^d, \quad D=5$$

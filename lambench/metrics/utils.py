@@ -94,6 +94,11 @@ NVEMD_NSTEPS = yaml.safe_load(
 
 
 def aggregated_nve_md_results(results: dict[str, dict[str, float]]) -> dict[str, float]:
+    """
+    This function aggregates the NVE MD results from multiple systems for one LAM.
+    It calculates the average and standard deviation of each metric across systems,
+    and returns the aggregated results.
+    """
     aggregated_result = {}
     success_count = len(results)
     for test_system, result in results.items():

@@ -1,6 +1,6 @@
 from lambench.tasks import DirectPredictTask
 from lambench.models.dp_models import DPModel
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 import logging
 
 
@@ -59,7 +59,9 @@ def test_run_task_existing_record(
         f"TASK {direct_task_data['task_name']} record found in database, SKIPPING."
         in caplog.text
     )
-    mock_record_count.assert_called_once_with(task_name=direct_task_data["task_name"], model_name="model1")
+    mock_record_count.assert_called_once_with(
+        task_name=direct_task_data["task_name"], model_name="model1"
+    )
 
 
 def test_run_task_no_existing_record(
@@ -79,7 +81,8 @@ def test_run_task_no_existing_record(
 
     mock_run_task.assert_called_once()
     assert (
-        f"TASK {direct_task_data['task_name']}"+" OUTPUT: {'energy_rmse': 0.42}, INSERTING."
+        f"TASK {direct_task_data['task_name']}"
+        + " OUTPUT: {'energy_rmse': 0.42}, INSERTING."
         in caplog.text
     )
     mock_record_count.assert_called_once_with(

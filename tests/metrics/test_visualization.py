@@ -1,10 +1,10 @@
-from lambench.metrics.visualization import aggregate_domain_results_for_one_model
+from lambench.metrics.visualization import ResultsFetcher
 from lambench.models.dp_models import DPModel
 import logging
 import numpy as np
 
 
-def test_aggregate_domain_results_for_one_model(
+def test_aggregate_ood_results_for_one_model(
     mock_direct_predict_query, valid_model_data, caplog
 ):
     model = DPModel(**valid_model_data)
@@ -12,7 +12,8 @@ def test_aggregate_domain_results_for_one_model(
     model.show_direct_task = True
     model.show_finetune_task = False
     model.show_calculator_task = False
-    result = aggregate_domain_results_for_one_model(model)
+    aggregator = ResultsFetcher()
+    result = aggregator.aggregate_ood_results_for_one_model(model=model)
     np.testing.assert_almost_equal(result["Small Molecules"], 0.1167862, decimal=5)
     np.testing.assert_almost_equal(result["Inorganic Materials"], 0.124034, decimal=5)
     assert result["Catalysis"] is None
