@@ -114,6 +114,7 @@ class MetricsCalculator:
 
         # Filter dataframe to include only the necessary columns
         raw_results = raw_results[necessary_columns]
+        print("Raw results:\n", raw_results)
 
         # Normalize all metrics by dummy baseline dimensionless metrics
         # This gives values equivalent to $\bar{M}_i$, where $i$ is the task name, no log average needed
@@ -143,6 +144,7 @@ class MetricsCalculator:
                     # normalize the metric by dummy value
                     raw_results[column] = raw_results[column] / dummy
 
+        print("Normalized results:\n", raw_results)
         # Apply penalty for specified metrics directly to $\bar{M}_i$ before domain level aggregation.
         # $\bar{M}_i$ is an error metric, the lower the better, so we want to penalize it by dividing
         # by the penalty column (success rate in range [0,1])
@@ -152,7 +154,7 @@ class MetricsCalculator:
                     logging.error(f"Metric {metric} not found in raw results")
                     continue
                 raw_results[metric] = raw_results[metric] / raw_results[penalty_column]
-        print(raw_results)
+        print("Penalized results:\n", raw_results)
 
         # Aggregate all metrics for each domain to get domain level error metrics equivalent to $\bar{M}_{\text{domain}}$
         domain_level_metrics = {}
@@ -162,6 +164,8 @@ class MetricsCalculator:
 
         domain_results = pd.DataFrame(domain_level_metrics)
 
+        print("Domain level metrics:\n", domain_results)
+
         # Now convert each domain's metrics to scores (0-1 where higher is better), equivalent to $S_{\text{domain}}$
         domain_scores = {}
         for domain in domain_results.columns:
@@ -169,8 +173,12 @@ class MetricsCalculator:
                 domain_results[domain].to_dict(), method="-log"
             )
 
+        print("Domain scores:\n", domain_scores)
+
         domain_results = pd.DataFrame(domain_scores)
         # Now aggregate all domains to get the final generalizability score for each model
+
+        print("Final domain results:\n", domain_results)
         return domain_results.mean(axis=1).to_dict()
 
     def calculate_stability_results(self) -> dict[str, float]:
