@@ -1119,7 +1119,7 @@
         "scale":1000
       },
       "NABH_h":{
-        "DISPLAY_NAME": "Number of Molecules",
+        "DISPLAY_NAME": "Molecules with Barrier MAE > 1 kcal/mol",
         "DESCRIPTION": "The number of molecules (total = 500) for which the model prediction of potential barrier height has an error of more than 1 kcal/mol."
       }
     }
