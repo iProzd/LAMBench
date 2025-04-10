@@ -14,7 +14,11 @@ class MetricsCalculator:
         domain_results = list(
             self.fetcher.aggregate_ood_results_for_one_model(model).values()
         )
-        return np.mean(domain_results) if None not in domain_results else None
+        return (
+            np.mean(domain_results)
+            if None not in domain_results and len(domain_results) > 0
+            else None
+        )
 
     def convert_metric_to_score(
         self,
@@ -114,7 +118,6 @@ class MetricsCalculator:
 
         # Filter dataframe to include only the necessary columns
         raw_results = raw_results[necessary_columns]
-        print("Raw results:\n", raw_results)
 
         # Normalize all metrics by dummy baseline dimensionless metrics
         # This gives values equivalent to $\bar{M}_i$, where $i$ is the task name, no log average needed
@@ -141,10 +144,9 @@ class MetricsCalculator:
                         f"Dummy value not found for {column}, skipping normalization"
                     )
                 else:
-                    # normalize the metric by dummy value
+                    # normalize the metric by dummy value, TODO: check if dummy is 0
                     raw_results[column] = raw_results[column] / dummy
 
-        print("Normalized results:\n", raw_results)
         # Apply penalty for specified metrics directly to $\bar{M}_i$ before domain level aggregation.
         # $\bar{M}_i$ is an error metric, the lower the better, so we want to penalize it by dividing
         # by the penalty column (success rate in range [0,1])
@@ -154,17 +156,13 @@ class MetricsCalculator:
                     logging.error(f"Metric {metric} not found in raw results")
                     continue
                 raw_results[metric] = raw_results[metric] / raw_results[penalty_column]
-        print("Penalized results:\n", raw_results)
 
         # Aggregate all metrics for each domain to get domain level error metrics equivalent to $\bar{M}_{\text{domain}}$
         domain_level_metrics = {}
         for domain, columns in domain_columns.items():
             domain_df = raw_results[columns]
             domain_level_metrics[domain] = domain_df.mean(axis=1)
-
         domain_results = pd.DataFrame(domain_level_metrics)
-
-        print("Domain level metrics:\n", domain_results)
 
         # Now convert each domain's metrics to scores (0-1 where higher is better), equivalent to $S_{\text{domain}}$
         domain_scores = {}
@@ -173,12 +171,8 @@ class MetricsCalculator:
                 domain_results[domain].to_dict(), method="-log"
             )
 
-        print("Domain scores:\n", domain_scores)
-
         domain_results = pd.DataFrame(domain_scores)
         # Now aggregate all domains to get the final generalizability score for each model
-
-        print("Final domain results:\n", domain_results)
         return domain_results.mean(axis=1).to_dict()
 
     def calculate_stability_results(self) -> dict[str, float]:
