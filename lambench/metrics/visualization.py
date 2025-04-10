@@ -9,17 +9,15 @@ from lambench.metrics.vishelper.plot_generation import PlotGeneration
 
 class LAMBenchMetrics:
     def __init__(self):
-        self.domain_results = ResultsFetcher()
-        self.metrics_calculations = MetricsCalculator(self.domain_results)
-        self.plot_generation = PlotGeneration(
-            self.domain_results, self.metrics_calculations
-        )
+        self.fetcher = ResultsFetcher()
+        self.metrics_calculations = MetricsCalculator(self.fetcher)
+        self.plot_generation = PlotGeneration(self.fetcher, self.metrics_calculations)
 
     def save_results(self):
-        domain_results = self.domain_results.aggregate_ood_results()
-        radar_chart_config = self.plot_generation.generate_radar_plot(domain_results)
+        raw_results = self.fetcher.aggregate_ood_results()
+        radar_chart_config = self.plot_generation.generate_radar_plot(raw_results)
         scatter_plot_data = self.plot_generation.generate_scatter_plot()
-        barplot_data = self.plot_generation.generate_barplot(domain_results)
+        barplot_data = self.plot_generation.generate_barplot(raw_results)
         final_ranking = self.metrics_calculations.summarize_final_rankings()
 
         result_path = Path(lambench.__file__).parent / "metrics/results"

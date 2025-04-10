@@ -2,21 +2,28 @@ import logging
 import numpy as np
 import pandas as pd
 from collections import defaultdict
+from lambench.metrics.vishelper.results_fetcher import DOWNSTREAM_TASK_METRICS
 
 
 class MetricsCalculator:
-    def __init__(self, raw_results):
-        self.raw_results = raw_results
+    def __init__(self, fetcher):
+        self.fetcher = fetcher
 
     def calculate_mean_m_bar_domain(self, model) -> float:
         """This calculates $\bar{M}_{\text{domain}}$ for a given LAM across all domains."""
         domain_results = list(
-            self.raw_results.aggregate_ood_results_for_one_model(model).values()
+            self.fetcher.aggregate_ood_results_for_one_model(model).values()
         )
-        return np.mean(domain_results) if None not in domain_results else None
+        return (
+            np.mean(domain_results)
+            if None not in domain_results and len(domain_results) > 0
+            else None
+        )
 
     def convert_metric_to_score(
-        self, metric_dict: dict[str, float], method: str = "minmax"
+        self,
+        metric_dict: dict[str, float],
+        method: str = "minmax",
     ) -> dict[str, float]:
         """Convert metric values (where lower is better) to normalized scores in range [0, 1] (where higher is better)."""
         if not metric_dict:
@@ -50,7 +57,7 @@ class MetricsCalculator:
         0 indicates baseline performance, 1 indicates best performance across all domains.
         """
         # Get model performances by domain
-        m_bar_domain = self.raw_results.aggregate_ood_results()
+        m_bar_domain = self.fetcher.aggregate_ood_results()
         # filter out models with missing domain results
         m_bar_domain = {
             model: domains
@@ -72,26 +79,105 @@ class MetricsCalculator:
             domain: self.convert_metric_to_score(metrics, method="-log")
             for domain, metrics in reorg_m_bar_domain.items()
         }
-        print("s_domain", s_domain)
-
-        # Calculate average score across all domains for each model
-        mean_s_domain = defaultdict(list)
-        for domain_scores in s_domain.values():
-            for model, score in domain_scores.items():
-                mean_s_domain[model].append(score)
 
         # Calculate final generalizability score as mean across domains
+        s_domain_values = defaultdict(list)
+        for domain_scores in s_domain.values():
+            for model, score in domain_scores.items():
+                s_domain_values[model].append(score)
+
         generalizability_scores = {
             model: np.mean(scores)
-            for model, scores in mean_s_domain.items()
+            for model, scores in s_domain_values.items()
             if scores  # Skip models with no scores
         }
 
         return generalizability_scores
 
+    def calculate_generalizability_downstream_score(self) -> dict[str, float]:
+        raw_results = self.fetcher.fetch_downstream_results()
+
+        # Extract necessary columns and prepare penalty dict
+        necessary_columns = []
+        penalty_dict = {}
+        domain_columns = defaultdict(list)  # use in domain level aggregation
+        for task_name, task_config in DOWNSTREAM_TASK_METRICS.items():
+            # Add all metric columns
+            metrics_columns = [
+                f"{task_name}::{metrics_name}"
+                for metrics_name in task_config["metrics"]
+            ]
+            domain_columns[task_config["domain"]].extend(metrics_columns)
+            necessary_columns.extend(metrics_columns)
+
+            # Add penalty column and mapping if available
+            if "penalty" in task_config:
+                penalty_column = f'{task_name}::{task_config["penalty"]}'
+                necessary_columns.append(penalty_column)
+                penalty_dict[penalty_column] = metrics_columns
+
+        # Filter dataframe to include only the necessary columns
+        raw_results = raw_results[necessary_columns]
+
+        # Normalize all metrics by dummy baseline dimensionless metrics
+        # This gives values equivalent to $\bar{M}_i$, where $i$ is the task name, no log average needed
+        for column in raw_results.columns:
+            if column not in penalty_dict:
+                check_dummy = column.split(
+                    "::"
+                )  # split the column name back to task name and metric name
+                assert (
+                    len(check_dummy) == 2
+                ), f"Column name {column} is not in the expected format"
+                if (
+                    DOWNSTREAM_TASK_METRICS[check_dummy[0]].get("dummy", None)
+                    is not None
+                ):
+                    dummy = DOWNSTREAM_TASK_METRICS[check_dummy[0]]["dummy"][
+                        check_dummy[1]
+                    ]
+                else:
+                    dummy = None
+
+                if dummy is None:
+                    logging.warning(
+                        f"Dummy value not found for {column}, skipping normalization"
+                    )
+                else:
+                    # normalize the metric by dummy value, TODO: check if dummy is 0
+                    raw_results[column] = raw_results[column] / dummy
+
+        # Apply penalty for specified metrics directly to $\bar{M}_i$ before domain level aggregation.
+        # $\bar{M}_i$ is an error metric, the lower the better, so we want to penalize it by dividing
+        # by the penalty column (success rate in range [0,1])
+        for penalty_column, metrics_to_penalize in penalty_dict.items():
+            for metric in metrics_to_penalize:
+                if metric not in raw_results.columns:
+                    logging.error(f"Metric {metric} not found in raw results")
+                    continue
+                raw_results[metric] = raw_results[metric] / raw_results[penalty_column]
+
+        # Aggregate all metrics for each domain to get domain level error metrics equivalent to $\bar{M}_{\text{domain}}$
+        domain_level_metrics = {}
+        for domain, columns in domain_columns.items():
+            domain_df = raw_results[columns]
+            domain_level_metrics[domain] = domain_df.mean(axis=1)
+        domain_results = pd.DataFrame(domain_level_metrics)
+
+        # Now convert each domain's metrics to scores (0-1 where higher is better), equivalent to $S_{\text{domain}}$
+        domain_scores = {}
+        for domain in domain_results.columns:
+            domain_scores[domain] = self.convert_metric_to_score(
+                domain_results[domain].to_dict(), method="-log"
+            )
+
+        domain_results = pd.DataFrame(domain_scores)
+        # Now aggregate all domains to get the final generalizability score for each model
+        return domain_results.mean(axis=1).to_dict()
+
     def calculate_stability_results(self) -> dict[str, float]:
         """This calculates the stability score for a given LAM."""
-        stability_results = self.raw_results.fetch_stability_results()
+        stability_results = self.fetcher.fetch_stability_results()
         # filter out models with missing stability results
         stability_results = {
             model: metrics
@@ -123,11 +209,11 @@ class MetricsCalculator:
             stability_scores[model] = (
                 raw_stability_scores["std"][model] * 0.5
                 + raw_stability_scores["slope"][model] * 0.5
-            ) * stability_results[model]["success_rate"]
+            ) * stability_results[model]["success_rate"]  # penalty for success rate
         return stability_scores
 
     def calculate_efficiency_results(self) -> dict[str, float]:
-        efficiency_results = self.raw_results.fetch_inference_efficiency_results()
+        efficiency_results = self.fetcher.fetch_inference_efficiency_results()
         # filter out models with missing efficiency results
         efficiency_results = {
             model: metrics
@@ -169,6 +255,12 @@ class MetricsCalculator:
 
     def summarize_final_rankings(self):
         generalizability_ood = self.calculate_generalizability_ood_score()
+        generalizability_downstream = self.calculate_generalizability_downstream_score()
+        if not generalizability_ood or not generalizability_downstream:
+            logging.warning(
+                "Missing data for generalizability metrics (ood or downstream)"
+            )
+            return
         applicability = self.calculate_applicability_results()
         if not generalizability_ood or not applicability:
             logging.warning(
@@ -176,10 +268,11 @@ class MetricsCalculator:
             )
             return
 
-        shared_models = set(generalizability_ood.keys()).intersection(
-            set(applicability.keys())
+        shared_models = (
+            set(generalizability_ood.keys())
+            .intersection(set(applicability.keys()))
+            .intersection(set(generalizability_downstream.keys()))
         )
-
         if not shared_models:
             logging.warning(
                 "No models have both generalizability and applicability metrics"
@@ -189,23 +282,42 @@ class MetricsCalculator:
         summary_df = pd.DataFrame(
             {
                 "model": list(shared_models),
-                "generalizability": [
+                "generalizability-ood": [
                     generalizability_ood[model] for model in shared_models
+                ],
+                "generalizability-downstream": [
+                    generalizability_downstream[model] for model in shared_models
                 ],
                 "applicability": [applicability[model] for model in shared_models],
             }
         )
 
-        summary_df = summary_df.sort_values("generalizability")
-
-        summary_df["overall_score"] = (
-            0.5 * summary_df["generalizability"] + 0.5 * summary_df["applicability"]
-        )
+        summary_df["overall_score"] = summary_df[
+            ["generalizability-ood", "generalizability-downstream", "applicability"]
+        ].mean(axis=1)
 
         summary_df = summary_df.sort_values("overall_score", ascending=False)
         summary_df.reset_index(drop=True, inplace=True)
         summary_df["rank"] = summary_df.index + 1
-        summary_df = summary_df[["rank", "model", "generalizability", "applicability"]]
-        summary_df.columns = ["Rank", "Model", "Generalizability", "Applicability"]
+        summary_df = summary_df[
+            [
+                "rank",
+                "model",
+                "generalizability-ood",
+                "generalizability-downstream",
+                "applicability",
+            ]
+        ]
+        summary_df.columns = [
+            "Rank",
+            "Model",
+            "Generalizability-OOD",
+            "Generalizability-Downstream",
+            "Applicability",
+        ]
         summary_df = summary_df.round(3)
+        print(
+            "Final Rankings:\n",
+            summary_df.to_string(index=False),
+        )
         return summary_df

@@ -1,4 +1,8 @@
 import logging
+from pathlib import Path
+import yaml
+import lambench
+from lambench.databases.calculator_table import CalculatorRecord
 from lambench.databases.direct_predict_table import DirectPredictRecord
 from lambench.metrics.post_process import DIRECT_TASK_WEIGHTS
 from lambench.metrics.utils import (
@@ -10,7 +14,11 @@ from lambench.metrics.utils import (
     aggregated_inference_efficiency_results,
 )
 from lambench.models.basemodel import BaseLargeAtomModel
-from lambench.databases.calculator_table import CalculatorRecord
+import pandas as pd
+
+DOWNSTREAM_TASK_METRICS = yaml.safe_load(
+    open(Path(lambench.__file__).parent / "metrics/downstream_tasks_metrics.yml", "r")
+)
 
 
 class ResultsFetcher:
@@ -105,3 +113,41 @@ class ResultsFetcher:
                 self.fetch_inference_efficiency_results_for_one_model(model)
             )
         return results
+
+    def fetch_downstream_results(self) -> pd.DataFrame:
+        """Returns downstream task results as a DataFrame with models as rows and task metrics as columns."""
+
+        # Initialize an empty DataFrame with model names as index
+        model_names = [
+            model.model_metadata.pretty_name for model in self.leaderboard_models
+        ]
+        results_df = pd.DataFrame(index=model_names)
+
+        # Populate the DataFrame
+        for task in DOWNSTREAM_TASK_METRICS:
+            for model in self.leaderboard_models:
+                model_name = model.model_metadata.pretty_name
+                task_results = self.fetch_one_downstream_results(task, model)
+
+                if task_results is None:
+                    continue
+
+                # Add each metric as a column with task name prefix
+                for metric_name, metric_value in task_results.items():
+                    column_name = f"{task}::{metric_name}"
+                    results_df.at[model_name, column_name] = metric_value
+        return results_df
+
+    def fetch_one_downstream_results(
+        self, task_name: str, model: BaseLargeAtomModel
+    ) -> dict[str, float]:
+        """This function returns the downstream task results for a given LAM."""
+        task_results = CalculatorRecord.query(
+            model_name=model.model_name, task_name=task_name
+        )
+        if len(task_results) != 1:
+            logging.warning(
+                f"Expected one record for {model.model_name} and {task_name}, but got {len(task_results)}"
+            )
+            return None
+        return task_results[0].metrics
