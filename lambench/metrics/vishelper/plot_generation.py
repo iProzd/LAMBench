@@ -2,8 +2,8 @@ import numpy as np
 
 
 class PlotGeneration:
-    def __init__(self, raw_results, metrics_calculator):
-        self.raw_results = raw_results
+    def __init__(self, fetcher, metrics_calculator):
+        self.fetcher = fetcher
         self.metrics_calculator = metrics_calculator
 
     def generate_radar_plot(self, domain_results: dict) -> dict:
@@ -26,9 +26,9 @@ class PlotGeneration:
 
     def generate_scatter_plot(self) -> list[dict]:
         results = []
-        for model in self.raw_results.leaderboard_models:
+        for model in self.fetcher.leaderboard_models:
             efficiency_raw = (
-                self.raw_results.fetch_inference_efficiency_results_for_one_model(model)
+                self.fetcher.fetch_inference_efficiency_results_for_one_model(model)
             )
             zeroshot_raw = self.metrics_calculator.calculate_mean_m_bar_domain(model)
             if (

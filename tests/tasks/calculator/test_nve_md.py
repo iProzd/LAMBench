@@ -33,6 +33,7 @@ def setup_model(setup_calculator):
         model_name="",
         model_metadata={
             "pretty_name": "test",
+            "date_added": "2023-10-01",
             "num_parameters": 1000,
             "packages": {"torch": "2.0.0"},
         },

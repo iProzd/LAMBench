@@ -1,15 +1,17 @@
 import json
 from pathlib import Path
+from typing import Optional
 
 import lambench
 from lambench.metrics.vishelper.results_fetcher import ResultsFetcher
 from lambench.metrics.vishelper.metrics_calculations import MetricsCalculator
 from lambench.metrics.vishelper.plot_generation import PlotGeneration
+from datetime import datetime
 
 
 class LAMBenchMetrics:
-    def __init__(self):
-        self.fetcher = ResultsFetcher()
+    def __init__(self, timestamp: Optional[datetime] = None):
+        self.fetcher = ResultsFetcher(timestamp)
         self.metrics_calculations = MetricsCalculator(self.fetcher)
         self.plot_generation = PlotGeneration(self.fetcher, self.metrics_calculations)
 
@@ -32,8 +34,8 @@ class LAMBenchMetrics:
         print("All plots saved to metrics/results/")
 
 
-def main():
-    metrics = LAMBenchMetrics()
+def main(timestamp: Optional[datetime] = None):
+    metrics = LAMBenchMetrics(timestamp)
     metrics.save_results()
 
 

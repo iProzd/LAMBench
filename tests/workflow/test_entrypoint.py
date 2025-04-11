@@ -14,6 +14,7 @@ def _create_dp_model(skip_tasks=[]):
         virtualenv="test_env",
         model_metadata={
             "pretty_name": "test",
+            "date_added": "2023-10-01",
             "extra_content": "test",
             "num_parameters": 1000,
             "packages": {"torch": "2.0.0"},

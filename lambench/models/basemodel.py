@@ -3,6 +3,7 @@ from typing import Optional
 from pydantic import BaseModel, ConfigDict
 from enum import Enum
 from abc import abstractmethod
+from datetime import datetime
 
 
 class ModelType(str, Enum):
@@ -17,9 +18,10 @@ class SkipTaskType(str, Enum):
 
 
 class ModelMetadata(BaseModel):
-    pretty_name: str
     model_config = ConfigDict(extra="allow")
+    pretty_name: str
     num_parameters: int
+    date_added: datetime
     packages: dict[str, str]
 
 
