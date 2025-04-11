@@ -6,6 +6,7 @@
   virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9
   model_metadata:
     pretty_name: DPA-2.4-7M
+    date_added: 2025-04-01
     model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
     num_parameters: 6637036
     packages:
@@ -20,6 +21,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: DPA-3.0-7M
+    date_added: 2025-04-01
     model_description: DP 2025 Q1, 7M parameters
     num_parameters: 7021990
     packages:
@@ -34,6 +36,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: DPA-3.0-3M
+    date_added: 2025-04-10
     model_description: DP 2025 Q1, 3M parameters
     num_parameters: 2592390
     packages:
@@ -48,6 +51,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: MACE-MP-0
+    date_added: 2025-04-01
     model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model
     num_parameters: 4688656
     packages:
@@ -60,6 +64,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: MACE-MPA-0
+    date_added: 2025-04-01
     model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mpa_0/mace-mpa-0-medium.model
     num_parameters: 9063204
     packages:
@@ -72,6 +77,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: ORB
+    date_added: 2025-04-01
     model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt
     num_parameters: 25161727
     packages:
@@ -84,6 +90,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: SevenNet-0
+    date_added: 2025-04-10
     model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth
     num_parameters: 842440
     packages:
@@ -96,6 +103,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: SevenNet-l3i5
+    date_added: 2025-04-01
     model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth
     num_parameters: 1171144
     packages:
@@ -108,6 +116,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: SevenNet-MF-ompa
+    date_added: 2025-04-01
     model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_MF_ompa/checkpoint_sevennet_mf_ompa.pth
     num_parameters: 26734966
     packages:
@@ -121,6 +130,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: eqV2 M
+    date_added: 2025-04-10
     num_parameters: 86589068
     model_description: eqV2_153M_omat_mp_salex
     packages:
@@ -134,6 +144,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: MatterSim-v1-5M
+    date_added: 2025-04-01
     model_description: mattersim_v1_5M
     num_parameters: 4549142
     packages:
@@ -146,6 +157,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: GRACE-2L-OAM
+    date_added: 2025-04-01
     model_description: A two-layer semi-local GRACE model, pre-fitted on the OMat24 and fine-tuned on sAlex+MPTraj datasets, with fixed 6 Å cutoff.
     num_parameters: 12597516
     packages:
@@ -159,6 +171,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: PET-MAD
+    date_added: 2025-04-10
     model_description: PET-MAD v1.0 model trained on the MAD dataset, which contains 95,595 structures, including 3D and 2D inorganic crystals, surfaces, molecular crystals, nanoclusters, and molecules.
     num_parameters: 4208394
     packages:

@@ -10,7 +10,10 @@ def test_load_model_valid(valid_model_data):
             assert getattr(model, key) == value
         else:
             for k, v in value.items():
-                assert getattr(model.model_metadata, k) == v
+                if k == "date_added":
+                    assert getattr(model.model_metadata, k).strftime("%Y-%m-%d") == v
+                else:
+                    assert getattr(model.model_metadata, k) == v
 
 
 def test_load_model_invalid(invalid_model_data):

@@ -98,6 +98,7 @@ def valid_model_data():
         "virtualenv": "oss://lambench/DP/model1/venv",
         "model_metadata": {
             "pretty_name": "fancy model",
+            "date_added": "2025-04-01",
             "author": "author1",
             "description": "description1",
             "num_parameters": 1000,
@@ -117,6 +118,7 @@ def invalid_model_data():
         # "virtualenv": "oss://lambench/DP/model1/venv",
         "model_metadata": {
             "pretty_name": "fancy model",
+            "date_added": "2025-04-01",
             "author": "author1",
             "description": "description1",
             "num_parameters": 1000,
