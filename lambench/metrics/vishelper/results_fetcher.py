@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from typing import Optional
 import yaml
 import lambench
 from lambench.databases.calculator_table import CalculatorRecord
@@ -15,6 +16,7 @@ from lambench.metrics.utils import (
 )
 from lambench.models.basemodel import BaseLargeAtomModel
 import pandas as pd
+from datetime import datetime
 
 DOWNSTREAM_TASK_METRICS = yaml.safe_load(
     open(Path(lambench.__file__).parent / "metrics/downstream_tasks_metrics.yml", "r")
@@ -22,8 +24,8 @@ DOWNSTREAM_TASK_METRICS = yaml.safe_load(
 
 
 class ResultsFetcher:
-    def __init__(self):
-        self.leaderboard_models = get_leaderboard_models()
+    def __init__(self, timestamp: Optional[datetime] = None):
+        self.leaderboard_models = get_leaderboard_models(timestamp=timestamp)
 
     def aggregate_ood_results_for_one_model(
         self, model: BaseLargeAtomModel

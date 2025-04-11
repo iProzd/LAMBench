@@ -5,14 +5,19 @@ import lambench
 from pathlib import Path
 from collections import defaultdict
 from lambench.workflow.entrypoint import gather_models
+from datetime import datetime
 
 #############################
 # General utility functions #
 #############################
 
 
-def get_leaderboard_models():
+def get_leaderboard_models(timestamp: Optional[datetime] = None) -> list:
     models = gather_models()
+    if timestamp is not None:
+        models = [
+            model for model in models if model.model_metadata.date_added <= timestamp
+        ]
     return [
         model
         for model in models
