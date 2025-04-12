@@ -593,7 +593,7 @@
     "AIMD-Chig": {
       "DISPLAY_NAME": "AIMD-Chig",
       "DESCRIPTION": "MD dataset including 2 million conformations of 166-atom protein Chignolin sampled at the density functional theory (DFT) level. Ab initio simulations were driven by M062X/6-31G* with a Berendsen thermostat at 340 K.[https://www.nature.com/articles/s41597-023-02465-9]",
-      "domain": "Biomoleculars & Supramoleculars",
+      "domain": "Biomolecules & Supramolecules",
       "energy_rmse": {
         "DISPLAY_NAME": "E RMSE (meV)",
         "DESCRIPTION": "The root mean squared error of the energy prediction.",
