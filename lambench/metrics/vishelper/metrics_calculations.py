@@ -295,8 +295,16 @@ class MetricsCalculator:
         summary_df["overall_score"] = summary_df[
             ["generalizability-ood", "generalizability-downstream", "applicability"]
         ].mean(axis=1)
-
-        summary_df = summary_df.sort_values("overall_score", ascending=False)
+        summary_df = summary_df.round(3)
+        summary_df = summary_df.sort_values(
+            [
+                "overall_score",
+                "generalizability-ood",
+                "generalizability-downstream",
+                "applicability",
+            ],
+            ascending=False,
+        )
         summary_df.reset_index(drop=True, inplace=True)
         summary_df["rank"] = summary_df.index + 1
         summary_df = summary_df[
@@ -306,6 +314,7 @@ class MetricsCalculator:
                 "generalizability-ood",
                 "generalizability-downstream",
                 "applicability",
+                "overall_score",
             ]
         ]
         summary_df.columns = [
@@ -314,6 +323,7 @@ class MetricsCalculator:
             "Generalizability-OOD",
             "Generalizability-Downstream",
             "Applicability",
+            "Overall Score",
         ]
         summary_df = summary_df.round(3)
         print(
