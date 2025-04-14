@@ -18,7 +18,9 @@ def test_process_results_for_one_model(
     model.show_calculator_task = False
     result = process_results_for_one_model(model)
 
-    assert DIRECT_TASK_WEIGHTS.keys() - result["direct_task_results"].keys() == {
+    assert DIRECT_TASK_WEIGHTS.keys() - result[
+        "generalizability_force_field_results"
+    ].keys() == {
         "Collision",
         "CGM_MLP_NC2023",
         "H_nature_2022",
@@ -28,9 +30,12 @@ def test_process_results_for_one_model(
             "Weighted results for test_dp are marked as None due to missing tasks: "
             in caplog.text
         )
-    assert result["direct_task_results"]["Weighted"] is None
-    assert result["direct_task_results"]["ANI"]["energy_rmse"] == 467.7
-    assert result["direct_task_results"]["WBM_downsampled"]["force_rmse"] is None
+    assert result["generalizability_force_field_results"]["Weighted"] is None
+    assert result["generalizability_force_field_results"]["ANI"]["energy_rmse"] == 467.7
+    assert (
+        result["generalizability_force_field_results"]["WBM_downsampled"]["force_rmse"]
+        is None
+    )
 
 
 def test_average():

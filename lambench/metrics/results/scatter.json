@@ -40,7 +40,7 @@
     "zeroshot": 0.36
   },
   {
-    "name": "ORB",
+    "name": "Orb-v2",
     "family": "ORB",
     "nparams": 25161727,
     "efficiency": 74.46,

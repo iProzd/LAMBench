@@ -8,7 +8,7 @@ from lambench.databases.direct_predict_table import DirectPredictRecord
 from lambench.metrics.post_process import DIRECT_TASK_WEIGHTS
 from lambench.metrics.utils import (
     exp_average,
-    filter_direct_task_results,
+    filter_generalizability_force_field_results,
     get_domain_to_direct_task_mapping,
     get_leaderboard_models,
     aggregated_nve_md_results,
@@ -50,7 +50,7 @@ class ResultsFetcher:
                     )
                     continue
                 norm_log_results.append(
-                    filter_direct_task_results(
+                    filter_generalizability_force_field_results(
                         task_result[0].to_dict(), task_config, normalize=True
                     )
                 )

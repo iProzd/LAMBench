@@ -6,7 +6,7 @@
       "DPA-3.0-3M",
       "MACE-MP-0",
       "MACE-MPA-0",
-      "ORB",
+      "Orb-v2",
       "SevenNet-0",
       "SevenNet-l3i5",
       "SevenNet-MF-ompa",
@@ -105,7 +105,7 @@
           ]
         },
         {
-          "name": "ORB",
+          "name": "Orb-v2",
           "value": [
             0.9104060153957636,
             0.882461680048775,

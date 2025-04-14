@@ -53,7 +53,7 @@ def exp_average(log_results: list[dict]) -> dict[str, Optional[float]]:
 #################################
 
 
-def filter_direct_task_results(
+def filter_generalizability_force_field_results(
     task_result: dict, task_config: dict, normalize: Optional[bool] = False
 ) -> dict:
     """
