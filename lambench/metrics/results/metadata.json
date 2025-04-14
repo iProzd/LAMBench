@@ -1071,9 +1071,17 @@
     "inference_efficiency": {
       "DISPLAY_NAME": "Inference Efficiency",
       "DESCRIPTION": "Evaluation metrics for the computational efficiency of inference tasks.",
-      "average_time_per_step": {
-        "DISPLAY_NAME": "Inference Efficiency (µs/atom)",
-        "DESCRIPTION": "The average computing time of e/f/v inference on the final 80% of 2000 frames in microsecond per atom."
+      "average_time": {
+        "DISPLAY_NAME": "Inference Time (µs/atom)",
+        "DESCRIPTION": "The inference time of e/f/v inference on 2000 differenct structures, in microsecond per atom."
+      },
+      "standard_deviation":{
+        "DISPLAY_NAME": "Time Standard Deviation (µs/atom)",
+        "DESCRIPTION": "The standard deviation of inference time."
+      },
+      "success_rate":{
+        "DISPLAY_NAME": "Success Rate",
+        "DESCRIPTION": "The ratio of the structures inferred without error."
       }
     },
     "phonon_mdr": {
