@@ -58,9 +58,9 @@ class ResultsFetcher:
                 domain_results[domain] = None
             else:
                 domain_result = exp_average(norm_log_results)
-                normalized_e = domain_result["energy_mae_natoms"]
-                normalized_f = domain_result["force_mae"]
-                normalized_v = domain_result["virial_mae_natoms"]
+                normalized_e = domain_result["energy_rmse_natoms"]
+                normalized_f = domain_result["force_rmse"]
+                normalized_v = domain_result["virial_rmse_natoms"]
                 domain_results[domain] = (
                     0.45 * normalized_e + 0.45 * normalized_f + 0.1 * normalized_v
                     if weight_virial
