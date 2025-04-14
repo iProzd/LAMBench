@@ -36,19 +36,25 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
     This function fetch and process the raw results from corresponding tables for one model across required tasks.
     """
     single_model_results = {}
-    # Direct Task
+    # Generalizability Force Field Task
     if model.show_direct_task:
         single_model_results["generalizability_force_field_results"] = (
             process_force_field_for_one_model(model)
         )
 
-    # Finetune Task
+    # Generalizability Domain Specif Task
+    if model.show_calculator_task:
+        single_model_results["generalizability_domain_specific_results"] = (
+            process_domain_specific_for_one_model(model)
+        )
+
+    # Adaptability Task
     if model.show_finetune_task:
         single_model_results["adaptability_results"] = (
             process_adaptability_for_one_model(model)
         )
 
-    # Calculator Task
+    # Applicability Task
     if model.show_calculator_task:
         single_model_results["applicability_results"] = (
             process_applicability_task_for_one_model(model)
@@ -97,6 +103,19 @@ def process_force_field_for_one_model(model: BaseLargeAtomModel):
     return generalizability_force_field_results
 
 
+def process_domain_specific_for_one_model(model: BaseLargeAtomModel):
+    calculator_task_records = CalculatorRecord.query(model_name=model.model_name)
+    if not calculator_task_records:
+        logging.warning(f"No calculator task records found for {model.model_name}")
+        return {}
+
+    applicability_results = {}
+    for record in calculator_task_records:
+        if record.task_name in ["phonon_mdr", "torsionnet"]:
+            applicability_results[record.task_name] = record.metrics
+    return applicability_results
+
+
 def process_adaptability_for_one_model(model: BaseLargeAtomModel):
     property_task_records = PropertyRecord.query(model_name=model.model_name)
     if not property_task_records:
@@ -140,13 +159,6 @@ def process_applicability_task_for_one_model(model: BaseLargeAtomModel):
         elif record.task_name == "inference_efficiency":
             applicability_results[record.task_name] = (
                 aggregated_inference_efficiency_results(record.metrics)
-            )
-        elif record.task_name in ["phonon_mdr", "torsionnet"]:
-            applicability_results[record.task_name] = record.metrics
-
-        else:
-            logging.warning(
-                f"Unsupported calculator task {record.task_name} for {model.model_name}"
             )
     return applicability_results
 

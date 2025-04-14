@@ -1,6 +1,6 @@
 {
   "DPA-2.4-7M": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "HPt_NC_2022": {
         "energy_rmse": 1107.9,
         "energy_mae": 870.5,
@@ -218,7 +218,22 @@
         "virial_rmse_natoms": 276.3
       }
     },
-    "finetune_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 45.63501336946129,
+        "mae_max_freq": 58.8845033213924,
+        "success_rate": 1.0,
+        "mae_free_energy": 18.086146747785406,
+        "mae_heat_capacity": 12.786991948205577
+      },
+      "torsionnet": {
+        "MAE": 0.7266213750130098,
+        "MAEB": 1.2200434311486803,
+        "RMSE": 1.025907034410764,
+        "NABH_h": 267
+      }
+    },
+    "adaptability_results": {
       "Matbench_mp_e_form": {
         "property_rmse": 0.0632188,
         "property_mae": 0.0311199
@@ -252,7 +267,7 @@
         "property_mae": 0.0606332
       }
     },
-    "calculator_task_results": {
+    "applicability_results": {
       "nve_md": {
         "std": 4.2e-05,
         "slope": 1.8e-05,
@@ -261,23 +276,10 @@
         "simulation_time": 522.475765,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 45.63501336946129,
-        "mae_max_freq": 58.8845033213924,
-        "success_rate": 1.0,
-        "mae_free_energy": 18.086146747785406,
-        "mae_heat_capacity": 12.786991948205577
-      },
       "inference_efficiency": {
         "average_time": 162.753934,
         "standard_deviation": 0.930471,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 0.7266213750130098,
-        "MAEB": 1.2200434311486803,
-        "RMSE": 1.025907034410764,
-        "NABH_h": 267
       }
     },
     "model": {
@@ -301,7 +303,7 @@
     }
   },
   "DPA-3.0-7M": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "HEA25_S": {
         "energy_rmse": 5108.5,
         "energy_mae": 3546.6,
@@ -519,7 +521,22 @@
         "virial_rmse_natoms": 315.7
       }
     },
-    "finetune_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 34.926428590311,
+        "mae_max_freq": 41.27278342281858,
+        "success_rate": 1.0,
+        "mae_free_energy": 13.797322398955483,
+        "mae_heat_capacity": 8.625339810449255
+      },
+      "torsionnet": {
+        "MAE": 0.5635395572143987,
+        "MAEB": 1.006006731604527,
+        "RMSE": 0.8047071495613892,
+        "NABH_h": 206
+      }
+    },
+    "adaptability_results": {
       "Matbench_jdft2d": {
         "property_rmse": 98.8723,
         "property_mae": 41.84264
@@ -553,7 +570,7 @@
         "property_mae": 0.0456035
       }
     },
-    "calculator_task_results": {
+    "applicability_results": {
       "nve_md": {
         "std": 0.000382,
         "slope": 0.000215,
@@ -562,23 +579,10 @@
         "simulation_time": 922.083964,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 34.926428590311,
-        "mae_max_freq": 41.27278342281858,
-        "success_rate": 1.0,
-        "mae_free_energy": 13.797322398955483,
-        "mae_heat_capacity": 8.625339810449255
-      },
       "inference_efficiency": {
         "average_time": 663.344007,
         "standard_deviation": 134.896808,
         "success_rate": 89.15
-      },
-      "torsionnet": {
-        "MAE": 0.5635395572143987,
-        "MAEB": 1.006006731604527,
-        "RMSE": 0.8047071495613892,
-        "NABH_h": 206
       }
     },
     "model": {
@@ -602,7 +606,7 @@
     }
   },
   "DPA-3.0-3M": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "HPt_NC_2022": {
         "energy_rmse": 1142.6,
         "energy_mae": 668.7,
@@ -820,7 +824,22 @@
         "virial_rmse_natoms": 276.7
       }
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 38.584759248273905,
+        "mae_max_freq": 52.05879906693441,
+        "success_rate": 1.0,
+        "mae_free_energy": 15.98325348492614,
+        "mae_heat_capacity": 10.500105946252637
+      },
+      "torsionnet": {
+        "MAE": 0.9914951256293396,
+        "MAEB": 1.7954138939937956,
+        "RMSE": 1.3642760763800954,
+        "NABH_h": 326
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 0.000396,
         "slope": 0.000406,
@@ -829,23 +848,10 @@
         "simulation_time": 337.130004,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 38.584759248273905,
-        "mae_max_freq": 52.05879906693441,
-        "success_rate": 1.0,
-        "mae_free_energy": 15.98325348492614,
-        "mae_heat_capacity": 10.500105946252637
-      },
       "inference_efficiency": {
         "average_time": 338.278736,
         "standard_deviation": 2.946885,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 0.9914951256293396,
-        "MAEB": 1.7954138939937956,
-        "RMSE": 1.3642760763800954,
-        "NABH_h": 326
       }
     },
     "model": {
@@ -871,7 +877,7 @@
     }
   },
   "MACE-MP-0": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "ANI": {
         "energy_rmse": 780.9,
         "energy_mae": 590.7,
@@ -1089,7 +1095,22 @@
         "virial_rmse_natoms": 416.5
       }
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 59.62454567811744,
+        "mae_max_freq": 60.96969555273101,
+        "success_rate": 0.99989957822856,
+        "mae_free_energy": 23.79722672606042,
+        "mae_heat_capacity": 13.095865350175824
+      },
+      "torsionnet": {
+        "MAE": 1.6526762228580392,
+        "MAEB": 2.4254561007085647,
+        "RMSE": 2.323307794124125,
+        "NABH_h": 354
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 2.7e-05,
         "slope": 5e-06,
@@ -1098,23 +1119,10 @@
         "simulation_time": 307.221136,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 59.62454567811744,
-        "mae_max_freq": 60.96969555273101,
-        "success_rate": 0.99989957822856,
-        "mae_free_energy": 23.79722672606042,
-        "mae_heat_capacity": 13.095865350175824
-      },
       "inference_efficiency": {
         "average_time": 343.68152,
         "standard_deviation": 35.185258,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 1.6526762228580392,
-        "MAEB": 2.4254561007085647,
-        "RMSE": 2.323307794124125,
-        "NABH_h": 354
       }
     },
     "model": {
@@ -1138,7 +1146,7 @@
     }
   },
   "MACE-MPA-0": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "CGM_MLP_NC2023": {
         "energy_rmse": 11259.3,
         "energy_mae": 6626.4,
@@ -1356,7 +1364,7 @@
         "virial_rmse_natoms": 275.8
       }
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
       "phonon_mdr": {
         "mae_entropy": 19.792200927923805,
         "mae_max_freq": 29.743369935666717,
@@ -1364,6 +1372,14 @@
         "mae_free_energy": 7.925156358957533,
         "mae_heat_capacity": 5.767068570161099
       },
+      "torsionnet": {
+        "MAE": 1.485758789869516,
+        "MAEB": 2.1785138528116668,
+        "RMSE": 2.062299037112741,
+        "NABH_h": 339
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 2.4e-05,
         "slope": 4e-06,
@@ -1376,12 +1392,6 @@
         "average_time": 343.739854,
         "standard_deviation": 34.354173,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 1.485758789869516,
-        "MAEB": 2.1785138528116668,
-        "RMSE": 2.062299037112741,
-        "NABH_h": 339
       }
     },
     "model": {
@@ -1404,8 +1414,8 @@
       "skip_tasks": []
     }
   },
-  "ORB": {
-    "direct_task_results": {
+  "Orb-v2": {
+    "generalizability_force_field_results": {
       "HEMC_HEMB": {
         "energy_rmse": 4946.6,
         "energy_mae": 2674.1,
@@ -1623,26 +1633,13 @@
         "virial_rmse_natoms": 392.5
       }
     },
-    "calculator_task_results": {
-      "nve_md": {
-        "std": 0.079079,
-        "slope": 0.22282,
-        "steps": 10000.0,
-        "momenta_diff": 1.1e-05,
-        "simulation_time": 244.124377,
-        "success_rate": 1.0
-      },
+    "generalizability_domain_specific_results": {
       "phonon_mdr": {
         "mae_entropy": 446.4680652588644,
         "mae_max_freq": 308.04449347243985,
         "success_rate": 1.0,
         "mae_free_energy": 184.3280534688863,
         "mae_heat_capacity": 58.518131078301735
-      },
-      "inference_efficiency": {
-        "average_time": 74.459948,
-        "standard_deviation": 1.47446,
-        "success_rate": 100.0
       },
       "torsionnet": {
         "MAE": 1.2384848498788703,
@@ -1651,13 +1648,28 @@
         "NABH_h": 345
       }
     },
+    "applicability_results": {
+      "nve_md": {
+        "std": 0.079079,
+        "slope": 0.22282,
+        "steps": 10000.0,
+        "momenta_diff": 1.1e-05,
+        "simulation_time": 244.124377,
+        "success_rate": 1.0
+      },
+      "inference_efficiency": {
+        "average_time": 74.459948,
+        "standard_deviation": 1.47446,
+        "success_rate": 100.0
+      }
+    },
     "model": {
       "model_name": "orb_v2",
       "model_family": "ORB",
       "model_type": "ASE",
       "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9",
       "model_metadata": {
-        "pretty_name": "ORB",
+        "pretty_name": "Orb-v2",
         "num_parameters": 25161727,
         "date_added": "2025-04-01 00:00:00",
         "packages": {
@@ -1672,7 +1684,7 @@
     }
   },
   "SevenNet-0": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "ANI": {
         "energy_rmse": 646.8,
         "energy_mae": 484.9,
@@ -1890,7 +1902,22 @@
         "virial_rmse_natoms": 291.1
       }
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 48.20582523928629,
+        "mae_max_freq": 39.70437905731396,
+        "success_rate": 1.0,
+        "mae_free_energy": 18.487830753915087,
+        "mae_heat_capacity": 8.540958568778475
+      },
+      "torsionnet": {
+        "MAE": 1.092778015855382,
+        "MAEB": 1.56921404229293,
+        "RMSE": 1.5912995220896855,
+        "NABH_h": 284
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 1.6e-05,
         "slope": 2e-06,
@@ -1899,23 +1926,10 @@
         "simulation_time": 492.06394,
         "success_rate": 0.89
       },
-      "phonon_mdr": {
-        "mae_entropy": 48.20582523928629,
-        "mae_max_freq": 39.70437905731396,
-        "success_rate": 1.0,
-        "mae_free_energy": 18.487830753915087,
-        "mae_heat_capacity": 8.540958568778475
-      },
       "inference_efficiency": {
         "average_time": 131.561757,
         "standard_deviation": 26.71478,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 1.092778015855382,
-        "MAEB": 1.56921404229293,
-        "RMSE": 1.5912995220896855,
-        "NABH_h": 284
       }
     },
     "model": {
@@ -1939,7 +1953,7 @@
     }
   },
   "SevenNet-l3i5": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "HPt_NC_2022": {
         "energy_rmse": 1379.0,
         "energy_mae": 1047.2,
@@ -2157,7 +2171,22 @@
         "virial_rmse_natoms": 300.8
       }
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 25.90493808803761,
+        "mae_max_freq": 25.588377605458252,
+        "success_rate": 0.99989957822856,
+        "mae_free_energy": 9.64729443050092,
+        "mae_heat_capacity": 4.867889781053313
+      },
+      "torsionnet": {
+        "MAE": 1.1133948309908603,
+        "MAEB": 1.6410738012054915,
+        "RMSE": 1.6063097572554648,
+        "NABH_h": 300
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 2.8e-05,
         "slope": 1.2e-05,
@@ -2166,23 +2195,10 @@
         "simulation_time": 789.280086,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 25.90493808803761,
-        "mae_max_freq": 25.588377605458252,
-        "success_rate": 0.99989957822856,
-        "mae_free_energy": 9.64729443050092,
-        "mae_heat_capacity": 4.867889781053313
-      },
       "inference_efficiency": {
         "average_time": 358.592392,
         "standard_deviation": 78.492219,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 1.1133948309908603,
-        "MAEB": 1.6410738012054915,
-        "RMSE": 1.6063097572554648,
-        "NABH_h": 300
       }
     },
     "model": {
@@ -2206,7 +2222,7 @@
     }
   },
   "SevenNet-MF-ompa": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "HPt_NC_2022": {
         "energy_rmse": 955.8,
         "energy_mae": 521.5,
@@ -2424,7 +2440,22 @@
         "virial_rmse_natoms": 241.5
       }
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 10.521018433833763,
+        "mae_max_freq": 14.864098631387863,
+        "success_rate": 1.0,
+        "mae_free_energy": 4.072773106969722,
+        "mae_heat_capacity": 3.1007030427448767
+      },
+      "torsionnet": {
+        "MAE": 1.5988748113857512,
+        "MAEB": 2.3094322047732914,
+        "RMSE": 2.2360731103679656,
+        "NABH_h": 354
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 2.7e-05,
         "slope": 1e-05,
@@ -2433,23 +2464,10 @@
         "simulation_time": 1151.081351,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 10.521018433833763,
-        "mae_max_freq": 14.864098631387863,
-        "success_rate": 1.0,
-        "mae_free_energy": 4.072773106969722,
-        "mae_heat_capacity": 3.1007030427448767
-      },
       "inference_efficiency": {
         "average_time": 1137.204721,
         "standard_deviation": 126.441658,
         "success_rate": 95.3
-      },
-      "torsionnet": {
-        "MAE": 1.5988748113857512,
-        "MAEB": 2.3094322047732914,
-        "RMSE": 2.2360731103679656,
-        "NABH_h": 354
       }
     },
     "model": {
@@ -2473,7 +2491,7 @@
     }
   },
   "MatterSim-v1-5M": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "ANI": {
         "energy_rmse": 595.5,
         "energy_mae": 448.6,
@@ -2691,7 +2709,22 @@
         "virial_rmse_natoms": 296.9
       }
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 15.157340492770084,
+        "mae_max_freq": 16.446275508200237,
+        "success_rate": 0.99979915645712,
+        "mae_free_energy": 5.212281200176133,
+        "mae_heat_capacity": 3.139642297176636
+      },
+      "torsionnet": {
+        "MAE": 1.3475199353425995,
+        "MAEB": 2.2399379411871196,
+        "RMSE": 1.885723686249993,
+        "NABH_h": 345
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 3.2e-05,
         "slope": 7e-06,
@@ -2700,23 +2733,10 @@
         "simulation_time": 542.634729,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 15.157340492770084,
-        "mae_max_freq": 16.446275508200237,
-        "success_rate": 0.99979915645712,
-        "mae_free_energy": 5.212281200176133,
-        "mae_heat_capacity": 3.139642297176636
-      },
       "inference_efficiency": {
         "average_time": 257.637527,
         "standard_deviation": 49.236405,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 1.3475199353425995,
-        "MAEB": 2.2399379411871196,
-        "RMSE": 1.885723686249993,
-        "NABH_h": 345
       }
     },
     "model": {
@@ -2740,7 +2760,7 @@
     }
   },
   "GRACE-2L-OAM": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "HPt_NC_2022": {
         "energy_rmse": 391.7,
         "energy_mae": 315.0,
@@ -2958,7 +2978,22 @@
         "virial_rmse_natoms": 270.9
       }
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 14.140753770395971,
+        "mae_max_freq": 19.46785604390929,
+        "success_rate": 1.0,
+        "mae_free_energy": 5.455513687870125,
+        "mae_heat_capacity": 3.736701900431374
+      },
+      "torsionnet": {
+        "MAE": 1.3865696402794931,
+        "MAEB": 1.9915663695055228,
+        "RMSE": 2.0154866905770135,
+        "NABH_h": 303
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 8.9e-05,
         "slope": 1e-05,
@@ -2967,23 +3002,10 @@
         "simulation_time": 88.798527,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 14.140753770395971,
-        "mae_max_freq": 19.46785604390929,
-        "success_rate": 1.0,
-        "mae_free_energy": 5.455513687870125,
-        "mae_heat_capacity": 3.736701900431374
-      },
       "inference_efficiency": {
         "average_time": 147.446563,
         "standard_deviation": 135.555693,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 1.3865696402794931,
-        "MAEB": 1.9915663695055228,
-        "RMSE": 2.0154866905770135,
-        "NABH_h": 303
       }
     },
     "model": {
@@ -3007,7 +3029,7 @@
     }
   },
   "PET-MAD": {
-    "direct_task_results": {
+    "generalizability_force_field_results": {
       "HPt_NC_2022": {
         "energy_rmse": 1249.7,
         "energy_mae": 974.2,
@@ -3190,7 +3212,22 @@
       },
       "Weighted": null
     },
-    "calculator_task_results": {
+    "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 59.70336643274108,
+        "mae_max_freq": 177.0336111518226,
+        "success_rate": 0.9827274553123118,
+        "mae_free_energy": 25.07083861862849,
+        "mae_heat_capacity": 24.43781623541462
+      },
+      "torsionnet": {
+        "MAE": 0.8443617243461721,
+        "MAEB": 1.5322911634329766,
+        "RMSE": 1.2218090348489006,
+        "NABH_h": 294
+      }
+    },
+    "applicability_results": {
       "nve_md": {
         "std": 3.2e-05,
         "slope": 9e-06,
@@ -3199,23 +3236,10 @@
         "simulation_time": 508.37608,
         "success_rate": 1.0
       },
-      "phonon_mdr": {
-        "mae_entropy": 59.70336643274108,
-        "mae_max_freq": 177.0336111518226,
-        "success_rate": 0.9827274553123118,
-        "mae_free_energy": 25.07083861862849,
-        "mae_heat_capacity": 24.43781623541462
-      },
       "inference_efficiency": {
         "average_time": 482.600646,
         "standard_deviation": 75.131328,
         "success_rate": 100.0
-      },
-      "torsionnet": {
-        "MAE": 0.8443617243461721,
-        "MAEB": 1.5322911634329766,
-        "RMSE": 1.2218090348489006,
-        "NABH_h": 294
       }
     },
     "model": {
