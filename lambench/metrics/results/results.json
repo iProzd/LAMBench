@@ -288,6 +288,7 @@
       "model_metadata": {
         "pretty_name": "DPA-2.4-7M",
         "num_parameters": 6637036,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "deepmd-kit": "P0131"
         },
@@ -588,6 +589,7 @@
       "model_metadata": {
         "pretty_name": "DPA-3.0-7M",
         "num_parameters": 7021990,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "deepmd-kit": "P0131"
         },
@@ -854,6 +856,7 @@
       "model_metadata": {
         "pretty_name": "DPA-3.0-3M",
         "num_parameters": 2592390,
+        "date_added": "2025-04-10 00:00:00",
         "packages": {
           "deepmd-kit": "P0131"
         },
@@ -1122,6 +1125,7 @@
       "model_metadata": {
         "pretty_name": "MACE-MP-0",
         "num_parameters": 4688656,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "macetorch": "0.3.12"
         },
@@ -1388,6 +1392,7 @@
       "model_metadata": {
         "pretty_name": "MACE-MPA-0",
         "num_parameters": 9063204,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "macetorch": "0.3.12"
         },
@@ -1654,6 +1659,7 @@
       "model_metadata": {
         "pretty_name": "ORB",
         "num_parameters": 25161727,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "orb-models": "0.4.2"
         },
@@ -1920,6 +1926,7 @@
       "model_metadata": {
         "pretty_name": "SevenNet-0",
         "num_parameters": 842440,
+        "date_added": "2025-04-10 00:00:00",
         "packages": {
           "sevenn": "0.11.0"
         },
@@ -2186,6 +2193,7 @@
       "model_metadata": {
         "pretty_name": "SevenNet-l3i5",
         "num_parameters": 1171144,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "sevenn": "0.11.0"
         },
@@ -2452,6 +2460,7 @@
       "model_metadata": {
         "pretty_name": "SevenNet-MF-ompa",
         "num_parameters": 26734966,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "sevenn": "0.11.0"
         },
@@ -2718,6 +2727,7 @@
       "model_metadata": {
         "pretty_name": "MatterSim-v1-5M",
         "num_parameters": 4549142,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "mattersim": "1.1.2"
         },
@@ -2984,6 +2994,7 @@
       "model_metadata": {
         "pretty_name": "GRACE-2L-OAM",
         "num_parameters": 12597516,
+        "date_added": "2025-04-01 00:00:00",
         "packages": {
           "tensorpotential": "0.4.5"
         },
@@ -3215,6 +3226,7 @@
       "model_metadata": {
         "pretty_name": "PET-MAD",
         "num_parameters": 4208394,
+        "date_added": "2025-04-10 00:00:00",
         "packages": {
           "pet-mad": "1.0.0"
         },

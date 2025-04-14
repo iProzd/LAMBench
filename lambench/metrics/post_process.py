@@ -155,7 +155,9 @@ def main():
             model
         )
         # PosixPath is not JSON serializable
-        r["model"] = model.model_dump(exclude={"model_path"})
+        r["model"] = json.loads(
+            json.dumps(model.model_dump(exclude={"model_path"}), default=str)
+        )
 
     json.dump(
         results,
