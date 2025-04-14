@@ -12,7 +12,7 @@ from lambench.databases.calculator_table import CalculatorRecord
 from lambench.databases.property_table import PropertyRecord
 from lambench.models.basemodel import BaseLargeAtomModel
 from lambench.metrics.utils import (
-    filter_direct_task_results,
+    filter_generalizability_force_field_results,
     exp_average,
     aggregated_nve_md_results,
     aggregated_inference_efficiency_results,
@@ -38,32 +38,32 @@ def process_results_for_one_model(model: BaseLargeAtomModel):
     single_model_results = {}
     # Direct Task
     if model.show_direct_task:
-        single_model_results["direct_task_results"] = process_direct_task_for_one_model(
-            model
+        single_model_results["generalizability_force_field_results"] = (
+            process_force_field_for_one_model(model)
         )
 
     # Finetune Task
     if model.show_finetune_task:
-        single_model_results["finetune_task_results"] = (
-            process_finetune_task_for_one_model(model)
+        single_model_results["adaptability_results"] = (
+            process_adaptability_for_one_model(model)
         )
 
     # Calculator Task
     if model.show_calculator_task:
-        single_model_results["calculator_task_results"] = (
-            process_calculator_task_for_one_model(model)
+        single_model_results["applicability_results"] = (
+            process_applicability_task_for_one_model(model)
         )
 
     return single_model_results
 
 
-def process_direct_task_for_one_model(model: BaseLargeAtomModel):
+def process_force_field_for_one_model(model: BaseLargeAtomModel):
     direct_task_records = DirectPredictRecord.query(model_name=model.model_name)
     if not direct_task_records:
         logging.warning(f"No direct task records found for {model.model_name}")
         return {}
 
-    direct_task_results = {}
+    generalizability_force_field_results = {}
     norm_log_results = []
     for record in direct_task_records:
         if record.task_name not in DIRECT_TASK_WEIGHTS:
@@ -71,29 +71,33 @@ def process_direct_task_for_one_model(model: BaseLargeAtomModel):
                 f"Deprecated direct task {record.task_name} for {model.model_name}"
             )
             continue
-        direct_task_results[record.task_name] = record.to_dict(ev_to_mev=True)
-        normalized_result = filter_direct_task_results(
-            direct_task_results[record.task_name],
+        generalizability_force_field_results[record.task_name] = record.to_dict(
+            ev_to_mev=True
+        )
+        normalized_result = filter_generalizability_force_field_results(
+            generalizability_force_field_results[record.task_name],
             DIRECT_TASK_WEIGHTS[record.task_name],
         )
         norm_log_results.append(normalized_result)
 
-    missing_tasks = DIRECT_TASK_WEIGHTS.keys() - direct_task_results.keys()
+    missing_tasks = (
+        DIRECT_TASK_WEIGHTS.keys() - generalizability_force_field_results.keys()
+    )
     if missing_tasks:
-        direct_task_results["Weighted"] = None
+        generalizability_force_field_results["Weighted"] = None
         logging.warning(
             f"Weighted results for {model.model_name} are marked as None due to missing tasks: {missing_tasks}"
         )
     else:
         weighted_results = exp_average(norm_log_results)
-        direct_task_results["Weighted"] = {
+        generalizability_force_field_results["Weighted"] = {
             k: np.round(v, 1) if v is not None else None
             for k, v in weighted_results.items()
         }
-    return direct_task_results
+    return generalizability_force_field_results
 
 
-def process_finetune_task_for_one_model(model: BaseLargeAtomModel):
+def process_adaptability_for_one_model(model: BaseLargeAtomModel):
     property_task_records = PropertyRecord.query(model_name=model.model_name)
     if not property_task_records:
         logging.warning(f"No property task records found for {model.model_name}")
@@ -121,30 +125,30 @@ def process_finetune_task_for_one_model(model: BaseLargeAtomModel):
     return property_task_results
 
 
-def process_calculator_task_for_one_model(model: BaseLargeAtomModel):
+def process_applicability_task_for_one_model(model: BaseLargeAtomModel):
     calculator_task_records = CalculatorRecord.query(model_name=model.model_name)
     if not calculator_task_records:
         logging.warning(f"No calculator task records found for {model.model_name}")
         return {}
 
-    calculator_task_results = {}
+    applicability_results = {}
     for record in calculator_task_records:
         if record.task_name == "nve_md":
-            calculator_task_results[record.task_name] = aggregated_nve_md_results(
+            applicability_results[record.task_name] = aggregated_nve_md_results(
                 record.metrics
             )
         elif record.task_name == "inference_efficiency":
-            calculator_task_results[record.task_name] = (
+            applicability_results[record.task_name] = (
                 aggregated_inference_efficiency_results(record.metrics)
             )
         elif record.task_name in ["phonon_mdr", "torsionnet"]:
-            calculator_task_results[record.task_name] = record.metrics
+            applicability_results[record.task_name] = record.metrics
 
         else:
             logging.warning(
                 f"Unsupported calculator task {record.task_name} for {model.model_name}"
             )
-    return calculator_task_results
+    return applicability_results
 
 
 def main():
