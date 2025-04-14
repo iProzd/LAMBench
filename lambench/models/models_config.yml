@@ -76,7 +76,7 @@
   model_family: ORB
   virtualenv: *bohrium_image
   model_metadata:
-    pretty_name: ORB
+    pretty_name: Orb-v2
     date_added: 2025-04-01
     model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt
     num_parameters: 25161727
