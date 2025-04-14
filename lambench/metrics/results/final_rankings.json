@@ -81,7 +81,7 @@
   },
   {
     "Rank": 11,
-    "Model": "ORB",
+    "Model": "Orb-v2",
     "Generalizability-OOD": 0.73,
     "Generalizability-Downstream": 0.315,
     "Applicability": 0.5,
