@@ -21,7 +21,7 @@
   virtualenv: *bohrium_image
   model_metadata:
     pretty_name: DPA-3.0-7M
-    date_added: 2025-04-01
+    date_added: 2025-04-10
     model_description: DP 2025 Q1, 7M parameters
     num_parameters: 7021990
     packages:

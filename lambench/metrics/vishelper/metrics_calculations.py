@@ -69,30 +69,12 @@ class MetricsCalculator:
             logging.warning("No domain results found.")
             return {}
 
-        # Reorganize data {model: {domain: value}} to {domain: {model: value}}
-        reorg_m_bar_domain = defaultdict(dict)
+        s_domain = defaultdict(list)
         for model, domains in m_bar_domain.items():
             for domain, value in domains.items():
-                reorg_m_bar_domain[domain][model] = value
+                s_domain[model].append(1 - value)
 
-        s_domain = {
-            domain: self.convert_metric_to_score(metrics, method="-log")
-            for domain, metrics in reorg_m_bar_domain.items()
-        }
-
-        # Calculate final generalizability score as mean across domains
-        s_domain_values = defaultdict(list)
-        for domain_scores in s_domain.values():
-            for model, score in domain_scores.items():
-                s_domain_values[model].append(score)
-
-        generalizability_scores = {
-            model: np.mean(scores)
-            for model, scores in s_domain_values.items()
-            if scores  # Skip models with no scores
-        }
-
-        return generalizability_scores
+        return {model: np.mean(values) for model, values in s_domain.items()}
 
     def calculate_generalizability_downstream_score(self) -> dict[str, float]:
         raw_results = self.fetcher.fetch_downstream_results()
@@ -156,7 +138,6 @@ class MetricsCalculator:
                     logging.error(f"Metric {metric} not found in raw results")
                     continue
                 raw_results[metric] = raw_results[metric] / raw_results[penalty_column]
-
         # Aggregate all metrics for each domain to get domain level error metrics equivalent to $\bar{M}_{\text{domain}}$
         domain_level_metrics = {}
         for domain, columns in domain_columns.items():
@@ -164,16 +145,11 @@ class MetricsCalculator:
             domain_level_metrics[domain] = domain_df.mean(axis=1)
         domain_results = pd.DataFrame(domain_level_metrics)
 
-        # Now convert each domain's metrics to scores (0-1 where higher is better), equivalent to $S_{\text{domain}}$
-        domain_scores = {}
-        for domain in domain_results.columns:
-            domain_scores[domain] = self.convert_metric_to_score(
-                domain_results[domain].to_dict(), method="-log"
-            )
+        # # Now convert each domain's metrics to scores (0-1 where higher is better), equivalent to $S_{\text{domain}}$
+        domain_scores = domain_results.apply(lambda x: 1 - x, axis=1)
 
-        domain_results = pd.DataFrame(domain_scores)
-        # Now aggregate all domains to get the final generalizability score for each model
-        return domain_results.mean(axis=1).to_dict()
+        # # Now aggregate all domains to get the final generalizability score for each model
+        return domain_scores.mean(axis=1).to_dict()
 
     def calculate_stability_results(self) -> dict[str, float]:
         """This calculates the stability score for a given LAM."""
@@ -188,29 +164,26 @@ class MetricsCalculator:
             logging.warning("No stability results found.")
             return {}
 
-        # reorganize data {model: {metric: value}} to {metric: {model: value}}
-        stability_results_reorg = defaultdict(dict)
-        for model, metrics in stability_results.items():
-            for metric, value in metrics.items():
-                stability_results_reorg[metric][model] = value
+        stability_results = pd.DataFrame.from_dict(stability_results, orient="index")[
+            ["std", "slope", "success_rate"]
+        ]
 
-        # apply minmax normalization
-        raw_stability_scores = {}
-        for metric, models in stability_results_reorg.items():
-            if metric == "success_rate":
-                continue
-            raw_stability_scores[metric] = self.convert_metric_to_score(
-                models, method="minmax"
-            )
+        # convert the metrics to a score in range [0,1] where higher is better
+        stability_results[["std"]] = stability_results[["std"]].apply(
+            lambda x: np.clip(np.log(x) / np.log(0.0001), a_min=0, a_max=1), axis=1
+        )
+        stability_results[["slope"]] = stability_results[["slope"]].apply(
+            lambda x: np.clip(np.log(x) / np.log(0.00001), a_min=0, a_max=1), axis=1
+        )
 
-        # compute final stability score
-        stability_scores = {}
-        for model in stability_results:
-            stability_scores[model] = (
-                raw_stability_scores["std"][model] * 0.5
-                + raw_stability_scores["slope"][model] * 0.5
-            ) * stability_results[model]["success_rate"]  # penalty for success rate
-        return stability_scores
+        # penalize the metrics by success rate
+        stability_results["std"] = (
+            stability_results["std"] * stability_results["success_rate"]
+        )
+        stability_results["slope"] = (
+            stability_results["slope"] * stability_results["success_rate"]
+        )
+        return stability_results[["std", "slope"]].mean(axis=1).to_dict()
 
     def calculate_efficiency_results(self) -> dict[str, float]:
         efficiency_results = self.fetcher.fetch_inference_efficiency_results()
@@ -223,55 +196,30 @@ class MetricsCalculator:
         if not efficiency_results:
             logging.warning("No inference efficiency results found.")
             return {}
+
         # extract inference time and calculate efficiency score
-
-        efficiency_scores = {}
-        for model, metrics in efficiency_results.items():
-            if metrics["average_time"] is None:
-                continue
-            efficiency_scores[model] = metrics["average_time"]
-        efficiency_scores = self.convert_metric_to_score(
-            efficiency_scores, method="minmax"
-        )
-        return efficiency_scores
-
-    def calculate_applicability_results(self) -> dict[str, float]:
-        """This function summarizes the applicability results for all models."""
-
-        efficiency_results = self.calculate_efficiency_results()
-        stability_results = self.calculate_stability_results()
-        shared_models = set(efficiency_results.keys()).intersection(
-            set(stability_results.keys())
-        )
-        if not shared_models:
-            logging.warning("No models have both efficiency and stability metrics")
-            return {}
-        applicability_scores = {}
-        for model in shared_models:
-            applicability_scores[model] = (
-                0.5 * efficiency_results[model] + 0.5 * stability_results[model]
-            )
-        return applicability_scores
+        efficiency_results = {
+            model: 100 / metrics["average_time"]
+            for model, metrics in efficiency_results.items()
+        }
+        return efficiency_results
 
     def summarize_final_rankings(self):
         generalizability_ood = self.calculate_generalizability_ood_score()
         generalizability_downstream = self.calculate_generalizability_downstream_score()
+        stability_results = self.calculate_stability_results()
+        efficiency_results = self.calculate_efficiency_results()
         if not generalizability_ood or not generalizability_downstream:
             logging.warning(
                 "Missing data for generalizability metrics (ood or downstream)"
             )
             return
-        applicability = self.calculate_applicability_results()
-        if not generalizability_ood or not applicability:
-            logging.warning(
-                "Missing data for generalizability or applicability metrics"
-            )
-            return
 
         shared_models = (
             set(generalizability_ood.keys())
-            .intersection(set(applicability.keys()))
             .intersection(set(generalizability_downstream.keys()))
+            .intersection(set(stability_results.keys()))
+            .intersection(set(efficiency_results.keys()))
         )
         if not shared_models:
             logging.warning(
@@ -279,53 +227,41 @@ class MetricsCalculator:
             )
             return
 
-        summary_df = pd.DataFrame(
-            {
-                "model": list(shared_models),
-                "generalizability-ood": [
-                    generalizability_ood[model] for model in shared_models
-                ],
-                "generalizability-downstream": [
-                    generalizability_downstream[model] for model in shared_models
-                ],
-                "applicability": [applicability[model] for model in shared_models],
-            }
-        )
+        # Create multi-level column DataFrame
+        data = {
+            "Generalizability-FF": [
+                generalizability_ood[model] for model in shared_models
+            ],
+            "Generalizability-DS": [
+                generalizability_downstream[model] for model in shared_models
+            ],
+            "Applicability-Stability": [
+                stability_results[model] for model in shared_models
+            ],
+            "Applicability-Efficiency": [
+                efficiency_results[model] for model in shared_models
+            ],
+        }
 
-        summary_df["overall_score"] = summary_df[
-            ["generalizability-ood", "generalizability-downstream", "applicability"]
-        ].mean(axis=1)
+        # Create DataFrame with models as index
+        summary_df = pd.DataFrame(data, index=list(shared_models))
+        summary_df.index.name = "Model"
+
+        # Reset index to make 'Model' a regular column
+        summary_df = summary_df.reset_index()
+
+        summary_df.reset_index(drop=True, inplace=True)
+
         summary_df = summary_df.round(3)
         summary_df = summary_df.sort_values(
-            [
-                "overall_score",
-                "generalizability-ood",
-                "generalizability-downstream",
-                "applicability",
+            by=[
+                "Generalizability-FF",
+                "Generalizability-DS",
+                "Applicability-Stability",
+                "Applicability-Efficiency",
             ],
-            ascending=False,
+            ascending=[False, False, False, False],
         )
-        summary_df.reset_index(drop=True, inplace=True)
-        summary_df["rank"] = summary_df.index + 1
-        summary_df = summary_df[
-            [
-                "rank",
-                "model",
-                "generalizability-ood",
-                "generalizability-downstream",
-                "applicability",
-                "overall_score",
-            ]
-        ]
-        summary_df.columns = [
-            "Rank",
-            "Model",
-            "Generalizability-OOD",
-            "Generalizability-Downstream",
-            "Applicability",
-            "Overall Score",
-        ]
-        summary_df = summary_df.round(3)
         print(
             "Final Rankings:\n",
             summary_df.to_string(index=False),
