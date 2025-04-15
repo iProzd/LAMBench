@@ -45,18 +45,18 @@ def test_calculate_generalizability_ood_score(metrics_calculator, mock_raw_resul
         "model2": {"domain1": 0.7, "domain2": 0.6},
     }
     result = metrics_calculator.calculate_generalizability_ood_score()
-    np.testing.assert_almost_equal(result["model2"], 1)
-    np.testing.assert_almost_equal(result["model1"], 0.41594, decimal=5)
+    np.testing.assert_almost_equal(result["model1"], 0.15)
+    np.testing.assert_almost_equal(result["model2"], 0.35)
 
 
 def test_calculate_stability_results(metrics_calculator, mock_raw_results):
     mock_raw_results.fetch_stability_results.return_value = {
-        "model1": {"std": 0.1, "slope": 0.2, "success_rate": 0.9},
-        "model2": {"std": 0.3, "slope": 0.1, "success_rate": 0.8},
+        "model1": {"std": 0.0001, "slope": 0.00001, "success_rate": 0.9},
+        "model2": {"std": 0.1, "slope": 1.0, "success_rate": 1},
     }
     result = metrics_calculator.calculate_stability_results()
-    assert "model1" in result and "model2" in result
-    assert result["model1"] > result["model2"]
+    np.testing.assert_almost_equal(result["model1"], 0.9)
+    np.testing.assert_almost_equal(result["model2"], 0.125)
 
 
 def test_calculate_efficiency_results(metrics_calculator, mock_raw_results):
@@ -65,20 +65,8 @@ def test_calculate_efficiency_results(metrics_calculator, mock_raw_results):
         "model2": {"average_time": 0.8},
     }
     result = metrics_calculator.calculate_efficiency_results()
-    np.testing.assert_almost_equal(result["model1"], 1)
-    np.testing.assert_almost_equal(result["model2"], 0)
-
-
-def test_calculate_applicability_results(metrics_calculator, mock_raw_results):
-    metrics_calculator.calculate_efficiency_results = MagicMock(
-        return_value={"model1": 0.9, "model2": 0.7}
-    )
-    metrics_calculator.calculate_stability_results = MagicMock(
-        return_value={"model1": 0.8, "model2": 0.6}
-    )
-    result = metrics_calculator.calculate_applicability_results()
-    np.testing.assert_almost_equal(result["model1"], 0.85)
-    np.testing.assert_almost_equal(result["model2"], 0.65)
+    np.testing.assert_almost_equal(result["model1"], 200)
+    np.testing.assert_almost_equal(result["model2"], 125)
 
 
 def test_summarize_final_rankings(metrics_calculator):
@@ -88,8 +76,11 @@ def test_summarize_final_rankings(metrics_calculator):
     metrics_calculator.calculate_generalizability_downstream_score = MagicMock(
         return_value={"model1": 0.4, "model2": 0.3}
     )
-    metrics_calculator.calculate_applicability_results = MagicMock(
+    metrics_calculator.calculate_efficiency_results = MagicMock(
         return_value={"model1": 0.9, "model2": 0.7}
+    )
+    metrics_calculator.calculate_stability_results = MagicMock(
+        return_value={"model1": 0.2, "model2": 0.5}
     )
     result = metrics_calculator.summarize_final_rankings()
     assert result is not None
@@ -140,11 +131,11 @@ def test_calculate_generalizability_downstream_score(
     model1   0.069314
     model2   0.056273
 
-    Step 4: Convert to score using - log max
+    Step 4: Convert to score by subtracting from 1
 
              Inorganic Materials
-    model1   -np.(0.069314)/-np.log(0.056273) ==> 0.9275658971691824
-    model2   -np.(0.056273)/-np.log(0.056273) ==> 1
+    model1   1 - 0.069314 ==> 0.930686
+    model2   1 - 0.056273 ==> 0.943727
     """
 
     with patch(
@@ -169,5 +160,5 @@ def test_calculate_generalizability_downstream_score(
         },
     ):
         result = metrics_calculator.calculate_generalizability_downstream_score()
-    np.testing.assert_almost_equal(result["model1"], 0.927565, decimal=5)
-    np.testing.assert_almost_equal(result["model2"], 1.0, decimal=5)
+    np.testing.assert_almost_equal(result["model1"], 0.930686, decimal=5)
+    np.testing.assert_almost_equal(result["model2"], 0.943727, decimal=5)
