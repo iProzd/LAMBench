@@ -17,9 +17,9 @@ class LAMBenchMetrics:
 
     def save_results(self):
         raw_results = self.fetcher.aggregate_ood_results()
-        radar_chart_config = self.plot_generation.generate_radar_plot(raw_results)
-        scatter_plot_data = self.plot_generation.generate_scatter_plot()
         barplot_data = self.plot_generation.generate_barplot(raw_results)
+        radar_chart_config = self.plot_generation.generate_radar_plot(barplot_data)
+        scatter_plot_data = self.plot_generation.generate_scatter_plot()
         final_ranking = self.metrics_calculations.summarize_final_rankings()
 
         result_path = Path(lambench.__file__).parent / "metrics/results"

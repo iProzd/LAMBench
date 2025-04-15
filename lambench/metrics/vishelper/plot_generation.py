@@ -6,22 +6,26 @@ class PlotGeneration:
         self.fetcher = fetcher
         self.metrics_calculator = metrics_calculator
 
-    def generate_radar_plot(self, domain_results: dict) -> dict:
-        first_model = list(domain_results.keys())[0]
-        categories = list(domain_results[first_model].keys())
-        models = list(domain_results.keys())
+    def generate_radar_plot(self, barplot_data: dict) -> dict:
+        categories = list(barplot_data.keys())
+        models = list(barplot_data[categories[0]].keys())
 
-        metrics_data = self._collect_metrics_data(domain_results, categories, models)
-        normalized_metrics = self._normalize_metrics(
-            domain_results, metrics_data["category_max"], categories
+        radar_values = {}
+        for domain, domain_results in barplot_data.items():
+            for model, value in domain_results.items():
+                if model not in radar_values:
+                    radar_values[model] = [None] * len(categories)
+                radar_values[model][categories.index(domain)] = (
+                    1 - value if value is not None else None
+                )
+        best_model = min(
+            radar_values,
+            key=lambda k: np.sum(radar_values[k])
+            if None not in radar_values[k]
+            else float("inf"),
         )
-        model_rankings = self._calculate_model_rankings(
-            models, categories, metrics_data["category_values"]
-        )
-        best_model = self._find_best_model(model_rankings["total_rankings"])
-
         return self._build_radar_chart_config(
-            categories, normalized_metrics, models, best_model
+            categories, radar_values, models, best_model
         )
 
     def generate_scatter_plot(self) -> list[dict]:
@@ -57,82 +61,14 @@ class PlotGeneration:
                     results[domain] = {}
                 if metrics is not None:
                     results[domain][model] = np.round(metrics, 2)
-        return results
-
-    def _collect_metrics_data(
-        self,
-        domain_results: dict[str, dict[str, float]],
-        categories: list[str],
-        models: list[str],
-    ) -> dict[str, dict]:
-        category_values = {category: [] for category in categories}
-        for model in models:
-            for category in categories:
-                if domain_results[model][category]:
-                    category_values[category].append(
-                        -np.log(domain_results[model][category])
-                    )
-        category_max = {
-            category: max(values) if values else 1.0
-            for category, values in category_values.items()
-        }
-        return {"category_values": category_values, "category_max": category_max}
-
-    def _normalize_metrics(
-        self,
-        domain_results: dict[str, dict[str, float]],
-        category_max: dict[str, float],
-        categories: list[str],
-    ) -> dict[str, list[float | None]]:
-        normalized_metrics = {}
-        for model, res in domain_results.items():
-            normalized_metrics[model] = []
-            for category in categories:
-                if res[category]:
-                    normalized_value = (-np.log(res[category])) / category_max[category]
-                    normalized_metrics[model].append(normalized_value)
                 else:
-                    normalized_metrics[model].append(None)
-        return normalized_metrics
-
-    def _calculate_model_rankings(
-        self,
-        models: list[str],
-        categories: list[str],
-        category_values: dict[str, list[float]],
-    ) -> dict[str, dict]:
-        category_rankings = {}
-        for category in categories:
-            category_rankings[category] = {}
-            values = category_values[category]
-            if values:
-                sorted_values = sorted(values, reverse=True)
-                model_values = {
-                    model: value
-                    for model, value in zip(models, values)
-                    if value is not None
-                }
-                for model, value in model_values.items():
-                    rank = sorted_values.index(value) + 1
-                    category_rankings[category][model] = rank
-        total_rankings = {
-            model: sum(
-                category_rankings[category].get(model, 0) for category in categories
-            )
-            for model in models
-        }
-        return {
-            "category_rankings": category_rankings,
-            "total_rankings": total_rankings,
-        }
-
-    def _find_best_model(self, total_rankings: dict[str, int]) -> str | None:
-        return min(total_rankings, key=total_rankings.get) if total_rankings else None
+                    results[domain][model] = None
+        return results
 
     def _build_radar_chart_config(
         self,
         categories: list[str],
-        normalized_metrics: dict[str, list[float | None]],
+        radar_values: dict[str, list[float | None]],
         models: list[str],
         best_model: str | None,
         text_color: str = "white",
@@ -150,7 +86,7 @@ class PlotGeneration:
                     "type": "radar",
                     "data": [
                         {"name": model, "value": values}
-                        for model, values in normalized_metrics.items()
+                        for model, values in radar_values.items()
                     ],
                 }
             ],
