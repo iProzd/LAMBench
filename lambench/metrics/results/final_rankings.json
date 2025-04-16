@@ -1,90 +1,79 @@
 [
   {
-    "Rank": 1,
-    "Model": "DPA-2.4-7M",
-    "Generalizability-OOD": 0.911,
-    "Generalizability-Downstream": 0.73,
-    "Applicability": 0.958,
-    "Overall Score": 0.867
-  },
-  {
-    "Rank": 2,
     "Model": "DPA-3.0-7M",
-    "Generalizability-OOD": 0.972,
-    "Generalizability-Downstream": 0.859,
-    "Applicability": 0.722,
-    "Overall Score": 0.851
+    "Generalizability-FF": 0.755,
+    "Generalizability-DS": 0.839,
+    "Applicability-Stability": 0.794,
+    "Applicability-Efficiency": 0.151
   },
   {
-    "Rank": 3,
-    "Model": "GRACE-2L-OAM",
-    "Generalizability-OOD": 0.747,
-    "Generalizability-Downstream": 0.73,
-    "Applicability": 0.965,
-    "Overall Score": 0.814
+    "Model": "DPA-2.4-7M",
+    "Generalizability-FF": 0.735,
+    "Generalizability-DS": 0.792,
+    "Applicability-Stability": 0.974,
+    "Applicability-Efficiency": 0.614
   },
   {
-    "Rank": 4,
-    "Model": "SevenNet-l3i5",
-    "Generalizability-OOD": 0.716,
-    "Generalizability-Downstream": 0.716,
-    "Applicability": 0.866,
-    "Overall Score": 0.766
-  },
-  {
-    "Rank": 5,
-    "Model": "MatterSim-v1-5M",
-    "Generalizability-OOD": 0.677,
-    "Generalizability-Downstream": 0.709,
-    "Applicability": 0.914,
-    "Overall Score": 0.766
-  },
-  {
-    "Rank": 6,
     "Model": "DPA-3.0-3M",
-    "Generalizability-OOD": 0.774,
-    "Generalizability-Downstream": 0.643,
-    "Applicability": 0.874,
-    "Overall Score": 0.764
+    "Generalizability-FF": 0.662,
+    "Generalizability-DS": 0.743,
+    "Applicability-Stability": 0.764,
+    "Applicability-Efficiency": 0.296
   },
   {
-    "Rank": 7,
-    "Model": "SevenNet-0",
-    "Generalizability-OOD": 0.687,
-    "Generalizability-Downstream": 0.658,
-    "Applicability": 0.918,
-    "Overall Score": 0.754
+    "Model": "GRACE-2L-OAM",
+    "Generalizability-FF": 0.66,
+    "Generalizability-DS": 0.738,
+    "Applicability-Stability": 1.0,
+    "Applicability-Efficiency": 0.678
   },
   {
-    "Rank": 8,
+    "Model": "SevenNet-l3i5",
+    "Generalizability-FF": 0.645,
+    "Generalizability-DS": 0.76,
+    "Applicability-Stability": 0.992,
+    "Applicability-Efficiency": 0.279
+  },
+  {
     "Model": "MACE-MPA-0",
-    "Generalizability-OOD": 0.719,
-    "Generalizability-Downstream": 0.649,
-    "Applicability": 0.873,
-    "Overall Score": 0.747
+    "Generalizability-FF": 0.644,
+    "Generalizability-DS": 0.709,
+    "Applicability-Stability": 1.0,
+    "Applicability-Efficiency": 0.291
   },
   {
-    "Rank": 9,
-    "Model": "MACE-MP-0",
-    "Generalizability-OOD": 0.626,
-    "Generalizability-Downstream": 0.495,
-    "Applicability": 0.873,
-    "Overall Score": 0.665
-  },
-  {
-    "Rank": 10,
-    "Model": "SevenNet-MF-ompa",
-    "Generalizability-OOD": 0.731,
-    "Generalizability-Downstream": 0.707,
-    "Applicability": 0.5,
-    "Overall Score": 0.646
-  },
-  {
-    "Rank": 11,
     "Model": "Orb-v2",
-    "Generalizability-OOD": 0.73,
-    "Generalizability-Downstream": 0.315,
-    "Applicability": 0.5,
-    "Overall Score": 0.515
+    "Generalizability-FF": 0.644,
+    "Generalizability-DS": 0.44,
+    "Applicability-Stability": 0.203,
+    "Applicability-Efficiency": 1.343
+  },
+  {
+    "Model": "SevenNet-MF-ompa",
+    "Generalizability-FF": 0.642,
+    "Generalizability-DS": 0.7,
+    "Applicability-Stability": 1.0,
+    "Applicability-Efficiency": 0.088
+  },
+  {
+    "Model": "SevenNet-0",
+    "Generalizability-FF": 0.631,
+    "Generalizability-DS": 0.754,
+    "Applicability-Stability": 0.89,
+    "Applicability-Efficiency": 0.76
+  },
+  {
+    "Model": "MatterSim-v1-5M",
+    "Generalizability-FF": 0.611,
+    "Generalizability-DS": 0.72,
+    "Applicability-Stability": 1.0,
+    "Applicability-Efficiency": 0.388
+  },
+  {
+    "Model": "MACE-MP-0",
+    "Generalizability-FF": 0.595,
+    "Generalizability-DS": 0.659,
+    "Applicability-Stability": 1.0,
+    "Applicability-Efficiency": 0.291
   }
 ]
