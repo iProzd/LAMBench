@@ -14,6 +14,7 @@ dependencies = [
 	"SQLAlchemy[pymysql]",
 	"tqdm",
 	"dpdata >= 0.2.22",
+	"pandas",
 ]
 
 authors = [
