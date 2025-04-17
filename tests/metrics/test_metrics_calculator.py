@@ -39,14 +39,16 @@ def test_convert_metric_to_score_log(metrics_calculator):
     assert result["model1"] > result["model3"] > result["model2"]
 
 
-def test_calculate_generalizability_ood_score(metrics_calculator, mock_raw_results):
+def test_calculate_generalizability_ood_error_metric(
+    metrics_calculator, mock_raw_results
+):
     mock_raw_results.aggregate_ood_results.return_value = {
         "model1": {"domain1": 0.8, "domain2": 0.9},
         "model2": {"domain1": 0.7, "domain2": 0.6},
     }
-    result = metrics_calculator.calculate_generalizability_ood_score()
-    np.testing.assert_almost_equal(result["model1"], 0.15)
-    np.testing.assert_almost_equal(result["model2"], 0.35)
+    result = metrics_calculator.calculate_generalizability_ood_error_metric()
+    np.testing.assert_almost_equal(result["model1"], 0.85)
+    np.testing.assert_almost_equal(result["model2"], 0.65)
 
 
 def test_calculate_stability_results(metrics_calculator, mock_raw_results):
@@ -70,7 +72,7 @@ def test_calculate_efficiency_results(metrics_calculator, mock_raw_results):
 
 
 def test_summarize_final_rankings(metrics_calculator):
-    metrics_calculator.calculate_generalizability_ood_score = MagicMock(
+    metrics_calculator.calculate_generalizability_ood_error_metric = MagicMock(
         return_value={"model1": 0.8, "model2": 0.6}
     )
     metrics_calculator.calculate_generalizability_downstream_score = MagicMock(
