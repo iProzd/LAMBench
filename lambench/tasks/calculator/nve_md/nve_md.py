@@ -98,6 +98,7 @@ def nve_simulation_single(
     simulation_time = end_time - start_time
 
     slope = None
+    std = None
     # Perform linear fit on energies using np.linalg.lstsq
     if energies:
         warmup_idx = WARMUP_STEPS // LOG_INTERVAL
@@ -108,7 +109,14 @@ def nve_simulation_single(
             times = steps_after_warmup * timestep * fs
             A = np.vstack([times, np.ones(len(times))]).T
             energies_after_warmup = energies[warmup_idx:]
-            slope, _ = np.linalg.lstsq(A, energies_after_warmup, rcond=None)[0]
+            slope, intercept = np.linalg.lstsq(A, energies_after_warmup, rcond=None)[0]
+
+            # Calculate the linear trend line
+            trend_line = A @ [slope, intercept]
+            # Calculate residuals (difference between actual values and trend line)
+            residuals = energies_after_warmup - trend_line
+            # Calculate standard deviation of residuals
+            std = np.std(residuals) / len(atoms) if len(residuals) > 0 else None
 
     try:
         momenta_diff = np.linalg.norm(atoms.get_momenta().sum(axis=0))
@@ -117,7 +125,7 @@ def nve_simulation_single(
     return {
         "simulation_time": simulation_time,  # Simulation efficiency, s
         "steps": dyn.nsteps,  # Simulation stability
-        "std": np.std(energies) / len(atoms),  # Energy standard deviation eV/atom
+        "std": std,  # Energy stability after detrending, eV/atom
         "momenta_diff": momenta_diff,  # Momentum conservation, AMU · Å/fs
         "slope": np.abs(1000 * slope / len(atoms))
         if slope is not None
