@@ -54,11 +54,11 @@ def test_calculate_generalizability_ood_error_metric(
 def test_calculate_stability_results(metrics_calculator, mock_raw_results):
     mock_raw_results.fetch_stability_results.return_value = {
         "model1": {"std": 0.0001, "slope": 0.00001, "success_rate": 0.9},
-        "model2": {"std": 0.1, "slope": 1.0, "success_rate": 1},
+        "model2": {"std": 0.1, "slope": 0.01, "success_rate": 1},
     }
     result = metrics_calculator.calculate_stability_results()
-    np.testing.assert_almost_equal(result["model1"], 0.9)
-    np.testing.assert_almost_equal(result["model2"], 0.125)
+    np.testing.assert_almost_equal(result["model1"], 0.1)
+    np.testing.assert_almost_equal(result["model2"], np.log(1000))
 
 
 def test_calculate_efficiency_results(metrics_calculator, mock_raw_results):
@@ -86,8 +86,8 @@ def test_summarize_final_rankings(metrics_calculator):
     )
     result = metrics_calculator.summarize_final_rankings()
     assert result is not None
-    assert result.iloc[0]["Model"] == "model1"
-    assert result.iloc[1]["Model"] == "model2"
+    assert result.iloc[0]["Model"] == "model2"
+    assert result.iloc[1]["Model"] == "model1"
 
 
 def test_calculate_generalizability_downstream_score(
@@ -132,12 +132,6 @@ def test_calculate_generalizability_downstream_score(
              Inorganic Materials
     model1   0.069314
     model2   0.056273
-
-    Step 4: Convert to score by subtracting from 1
-
-             Inorganic Materials
-    model1   1 - 0.069314 ==> 0.930686
-    model2   1 - 0.056273 ==> 0.943727
     """
 
     with patch(
@@ -162,5 +156,5 @@ def test_calculate_generalizability_downstream_score(
         },
     ):
         result = metrics_calculator.calculate_generalizability_downstream_score()
-    np.testing.assert_almost_equal(result["model1"], 0.930686, decimal=5)
-    np.testing.assert_almost_equal(result["model2"], 0.943727, decimal=5)
+    np.testing.assert_almost_equal(result["model1"], 0.069314, decimal=5)
+    np.testing.assert_almost_equal(result["model2"], 0.056273, decimal=5)
