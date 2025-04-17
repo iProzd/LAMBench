@@ -230,13 +230,13 @@ class MetricsCalculator:
 
         # Create multi-level column DataFrame
         data = {
-            "Generalizability-FF ↓": [
+            "Generalizability-FF Error ↓": [
                 generalizability_ood[model] for model in shared_models
             ],
-            "Generalizability-DS ↓": [
+            "Generalizability-DS Error ↓": [
                 generalizability_downstream[model] for model in shared_models
             ],
-            "Applicability-Stability ↓": [
+            "Applicability-Instability ↓": [
                 stability_results[model] for model in shared_models
             ],
             "Applicability-Efficiency ↑": [
@@ -256,9 +256,9 @@ class MetricsCalculator:
         summary_df = summary_df.round(3)
         summary_df = summary_df.sort_values(
             by=[
-                "Generalizability-FF ↓",
-                "Generalizability-DS ↓",
-                "Applicability-Stability ↓",
+                "Generalizability-FF Error ↓",
+                "Generalizability-DS Error ↓",
+                "Applicability-Instability ↓",
                 "Applicability-Efficiency ↑",
             ],
             ascending=[True, True, True, False],
