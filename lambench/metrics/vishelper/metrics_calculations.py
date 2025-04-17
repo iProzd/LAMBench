@@ -170,16 +170,20 @@ class MetricsCalculator:
         stability_results = pd.DataFrame.from_dict(stability_results, orient="index")[
             ["std", "slope", "success_rate"]
         ]
-        print(stability_results)
 
-        # normalize the metrics by log scale with respect to reference values,
+        # normalize the metrics by log scale with respect to reference values, and penalize by success rate
         stability_results["std"] = stability_results.apply(
-            lambda x: np.log(x["std"] / x["success_rate"] / 1e-4), axis=1
+            lambda x: np.clip(np.log(x["std"] / 1e-4), a_min=0, a_max=None)
+            + 1
+            - x["success_rate"],
+            axis=1,
         )
         stability_results["slope"] = stability_results.apply(
-            lambda x: np.log(x["slope"] / x["success_rate"] / 1e-5), axis=1
+            lambda x: np.clip(np.log(x["slope"] / 1e-5), a_min=0, a_max=None)
+            + 1
+            - x["success_rate"],
+            axis=1,
         )
-        print(stability_results)
         return stability_results[["std", "slope"]].mean(axis=1).to_dict()
 
     def calculate_efficiency_results(self) -> dict[str, float]:
@@ -226,16 +230,16 @@ class MetricsCalculator:
 
         # Create multi-level column DataFrame
         data = {
-            "Generalizability-FF": [
+            "Generalizability-FF ↓": [
                 generalizability_ood[model] for model in shared_models
             ],
-            "Generalizability-DS": [
+            "Generalizability-DS ↓": [
                 generalizability_downstream[model] for model in shared_models
             ],
-            "Applicability-Stability": [
+            "Applicability-Stability ↓": [
                 stability_results[model] for model in shared_models
             ],
-            "Applicability-Efficiency": [
+            "Applicability-Efficiency ↑": [
                 efficiency_results[model] for model in shared_models
             ],
         }
@@ -252,10 +256,10 @@ class MetricsCalculator:
         summary_df = summary_df.round(3)
         summary_df = summary_df.sort_values(
             by=[
-                "Generalizability-FF",
-                "Generalizability-DS",
-                "Applicability-Stability",
-                "Applicability-Efficiency",
+                "Generalizability-FF ↓",
+                "Generalizability-DS ↓",
+                "Applicability-Stability ↓",
+                "Applicability-Efficiency ↑",
             ],
             ascending=[True, True, True, False],
         )
