@@ -1091,10 +1091,6 @@
     "nve_md": {
       "DISPLAY_NAME": "NVE Molecular Dynamics",
       "DESCRIPTION": "A standard NVE MD simulation over 9 different atomic systems, sampled from multiple domains.",
-      "std": {
-        "DISPLAY_NAME": "Energy standard deviation (eV/atom)",
-        "DESCRIPTION": "The standard deviation of the energy during NVE-MD."
-      },
       "slope": {
         "DISPLAY_NAME": "Energy Drift Slope (eV/atom/ps)",
         "DESCRIPTION": "The slope of the energy drift during NVE-MD."

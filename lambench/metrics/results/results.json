@@ -268,18 +268,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 1.8e-05,
+        "steps": 10000.0,
+        "momenta_diff": 3e-06,
+        "simulation_time": 522.475765,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 162.753934,
         "standard_deviation": 0.930471,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 3.2e-05,
-        "slope": 3.2e-05,
-        "steps": 10000.0,
-        "momenta_diff": 3e-06,
-        "simulation_time": 500.285671,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -571,18 +570,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 0.000215,
+        "steps": 10000.0,
+        "momenta_diff": 3e-06,
+        "simulation_time": 922.083964,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 663.344007,
         "standard_deviation": 134.896808,
         "success_rate": 89.15
-      },
-      "nve_md": {
-        "std": 0.000275,
-        "slope": 0.000208,
-        "steps": 10000.0,
-        "momenta_diff": 2e-06,
-        "simulation_time": 844.214506,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -840,18 +838,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 0.000406,
+        "steps": 10000.0,
+        "momenta_diff": 2e-06,
+        "simulation_time": 337.130004,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 338.278736,
         "standard_deviation": 2.946885,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 0.000266,
-        "slope": 0.000268,
-        "steps": 10000.0,
-        "momenta_diff": 2e-06,
-        "simulation_time": 320.738724,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -1111,18 +1108,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 5e-06,
+        "steps": 10000.0,
+        "momenta_diff": 0.0,
+        "simulation_time": 307.221136,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 343.68152,
         "standard_deviation": 35.185258,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 2e-05,
-        "slope": 4e-06,
-        "steps": 10000.0,
-        "momenta_diff": 0.0,
-        "simulation_time": 281.389558,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -1380,18 +1376,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 4e-06,
+        "steps": 10000.0,
+        "momenta_diff": 0.0,
+        "simulation_time": 352.35066,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 343.739854,
         "standard_deviation": 34.354173,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 1.7e-05,
-        "slope": 4e-06,
-        "steps": 10000.0,
-        "momenta_diff": 0.0,
-        "simulation_time": 329.283023,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -1649,18 +1644,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 0.22282,
+        "steps": 10000.0,
+        "momenta_diff": 1.1e-05,
+        "simulation_time": 244.124377,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 74.459948,
         "standard_deviation": 1.47446,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 0.02307,
-        "slope": 0.219867,
-        "steps": 10000.0,
-        "momenta_diff": 9e-06,
-        "simulation_time": 246.002492,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -1918,18 +1912,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 2e-06,
+        "steps": 10000.0,
+        "momenta_diff": 2e-06,
+        "simulation_time": 492.06394,
+        "success_rate": 0.89
+      },
       "inference_efficiency": {
         "average_time": 131.561757,
         "standard_deviation": 26.71478,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 1.6e-05,
-        "slope": 2e-06,
-        "steps": 10000.0,
-        "momenta_diff": 2e-06,
-        "simulation_time": 448.578712,
-        "success_rate": 0.89
       }
     },
     "model": {
@@ -2187,18 +2180,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 1.2e-05,
+        "steps": 10000.0,
+        "momenta_diff": 3e-06,
+        "simulation_time": 789.280086,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 358.592392,
         "standard_deviation": 78.492219,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 1.9e-05,
-        "slope": 1.2e-05,
-        "steps": 10000.0,
-        "momenta_diff": 2e-06,
-        "simulation_time": 686.050108,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -2456,18 +2448,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 1e-05,
+        "steps": 10000.0,
+        "momenta_diff": 4e-06,
+        "simulation_time": 1151.081351,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 1137.204721,
         "standard_deviation": 126.441658,
         "success_rate": 95.3
-      },
-      "nve_md": {
-        "std": 1.8e-05,
-        "slope": 7e-06,
-        "steps": 10000.0,
-        "momenta_diff": 3e-06,
-        "simulation_time": 1038.20362,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -2725,18 +2716,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 7e-06,
+        "steps": 10000.0,
+        "momenta_diff": 2e-06,
+        "simulation_time": 542.634729,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 257.637527,
         "standard_deviation": 49.236405,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 1.9e-05,
-        "slope": 3e-06,
-        "steps": 10000.0,
-        "momenta_diff": 3e-06,
-        "simulation_time": 519.397772,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -2994,18 +2984,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 1e-05,
+        "steps": 10000.0,
+        "momenta_diff": 0.0,
+        "simulation_time": 88.798527,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 147.446563,
         "standard_deviation": 135.555693,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 3.4e-05,
-        "slope": 1.2e-05,
-        "steps": 10000.0,
-        "momenta_diff": 0.0,
-        "simulation_time": 81.515786,
-        "success_rate": 1.0
       }
     },
     "model": {
@@ -3228,18 +3217,17 @@
       }
     },
     "applicability_results": {
+      "nve_md": {
+        "slope": 9e-06,
+        "steps": 10000.0,
+        "momenta_diff": 2e-06,
+        "simulation_time": 508.37608,
+        "success_rate": 1.0
+      },
       "inference_efficiency": {
         "average_time": 482.600646,
         "standard_deviation": 75.131328,
         "success_rate": 100.0
-      },
-      "nve_md": {
-        "std": 2.6e-05,
-        "slope": 9e-06,
-        "steps": 10000.0,
-        "momenta_diff": 2e-06,
-        "simulation_time": 549.017921,
-        "success_rate": 1.0
       }
     },
     "model": {
