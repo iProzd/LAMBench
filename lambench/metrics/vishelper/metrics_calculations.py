@@ -168,23 +168,17 @@ class MetricsCalculator:
             return {}
 
         stability_results = pd.DataFrame.from_dict(stability_results, orient="index")[
-            ["std", "slope", "success_rate"]
+            ["slope", "success_rate"]
         ]
 
         # normalize the metrics by log scale with respect to reference values, and penalize by success rate
-        stability_results["std"] = stability_results.apply(
-            lambda x: np.clip(np.log(x["std"] / 1e-4), a_min=0, a_max=None)
-            + 1
-            - x["success_rate"],
-            axis=1,
-        )
         stability_results["slope"] = stability_results.apply(
             lambda x: np.clip(np.log(x["slope"] / 1e-5), a_min=0, a_max=None)
             + 1
             - x["success_rate"],
             axis=1,
         )
-        return stability_results[["std", "slope"]].mean(axis=1).to_dict()
+        return stability_results[["slope"]].mean(axis=1).to_dict()
 
     def calculate_efficiency_results(self) -> dict[str, float]:
         efficiency_results = self.fetcher.fetch_inference_efficiency_results()

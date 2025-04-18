@@ -86,16 +86,12 @@ def test_run_md_nve_simulation(setup_testing_data, setup_model):
     assert set(result.keys()) == {
         "H2O",
     }, "Result should have keys 'H2O'."
-    assert (
-        set(result["H2O"].keys())
-        == {
-            "simulation_time",
-            "steps",
-            "slope",
-            "std",
-            "momenta_diff",
-        }
-    ), "Result should have keys 'simulation_time', 'steps', 'std', 'slope', 'momenta_diff'."
+    assert set(result["H2O"].keys()) == {
+        "simulation_time",
+        "steps",
+        "slope",
+        "momenta_diff",
+    }, "Result should have keys 'simulation_time', 'steps', 'slope', 'momenta_diff'."
     assert result["H2O"]["steps"] > 0, "Steps should be greater than zero."
     assert isinstance(
         result["H2O"]["simulation_time"], float
@@ -125,16 +121,12 @@ def test_run_md_nve_simulation_crash_handling(setup_model, setup_testing_data):
     assert set(result.keys()) == {
         "H2O",
     }, "Result should have keys 'H2O'."
-    assert (
-        set(result["H2O"].keys())
-        == {
-            "simulation_time",
-            "steps",
-            "slope",
-            "std",
-            "momenta_diff",
-        }
-    ), "Result should have keys 'simulation_time', 'steps', 'std', 'slope', 'momenta_diff'."
+    assert set(result["H2O"].keys()) == {
+        "simulation_time",
+        "steps",
+        "slope",
+        "momenta_diff",
+    }, "Result should have keys 'simulation_time', 'steps', 'slope', 'momenta_diff'."
 
 
 def test_aggregated_results():
