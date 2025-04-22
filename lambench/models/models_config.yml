@@ -3,7 +3,7 @@
   model_type: DP
   model_family: DP
   model_path: /bohr/lambench-model-55c1/v3/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
-  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9
+  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.10
   model_metadata:
     pretty_name: DPA-2.4-7M
     date_added: 2025-04-01
@@ -82,6 +82,19 @@
     num_parameters: 25161727
     packages:
       orb-models: 0.4.2
+  show_calculator_task: True
+
+- model_name: orb_v3_conservative_inf_omat
+  model_type: ASE
+  model_family: ORB
+  virtualenv: *bohrium_image
+  model_metadata:
+    pretty_name: Orb-v3
+    date_added: 2025-04-22
+    model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v3/orb-v3-conservative-inf-omat-20250404.ckpt
+    num_parameters: 25161727
+    packages:
+      orb-models: 0.5.2
   show_calculator_task: True
 
 - model_name: 7net-0
