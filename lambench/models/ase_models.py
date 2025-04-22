@@ -103,7 +103,7 @@ class ASEModel(BaseLargeAtomModel):
         from orb_models.forcefield import pretrained
         from orb_models.forcefield.calculator import ORBCalculator
 
-        orbff = pretrained.orb_v2(device="cuda")
+        orbff = pretrained.ORB_PRETRAINED_MODELS[self.model_name.replace('_', '-')](device="cuda")
         return ORBCalculator(orbff, device="cuda")
 
     def _init_sevennet_calculator(self) -> Calculator:
