@@ -18,11 +18,9 @@ class PlotGeneration:
                 radar_values[model][categories.index(domain)] = (
                     1 - value if value is not None else None
                 )
-        best_model = min(
+        best_model = max(
             radar_values,
-            key=lambda k: np.sum(radar_values[k])
-            if None not in radar_values[k]
-            else float("inf"),
+            key=lambda k: np.sum(radar_values[k]) if None not in radar_values[k] else 0,
         )
         return self._build_radar_chart_config(
             categories, radar_values, models, best_model
@@ -48,7 +46,7 @@ class PlotGeneration:
                     "nparams": model.model_metadata.num_parameters,
                     "efficiency": np.round(efficiency_raw["average_time"], 2),
                     "std": np.round(efficiency_raw["standard_deviation"], 2),
-                    "zeroshot": np.round(zeroshot_raw, 2),
+                    "generalizability error": np.round(zeroshot_raw, 2),
                 }
             )
         return results
