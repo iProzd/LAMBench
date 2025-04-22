@@ -3,7 +3,7 @@
   model_type: DP
   model_family: DP
   model_path: /bohr/lambench-model-55c1/v3/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
-  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.10
+  virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9
   model_metadata:
     pretty_name: DPA-2.4-7M
     date_added: 2025-04-01
@@ -87,7 +87,7 @@
 - model_name: orb_v3_conservative_inf_omat
   model_type: ASE
   model_family: ORB
-  virtualenv: *bohrium_image
+  virtualenv: &bohrium_image_v2.10 registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.10
   model_metadata:
     pretty_name: Orb-v3
     date_added: 2025-04-22
@@ -155,7 +155,7 @@
   model_type: ASE
   model_family: Equiformer
   model_path: /bohr/lambench-model-55c1/v10/esen_30m_omat/esen_30m_omat.pt
-  virtualenv: *bohrium_image
+  virtualenv: *bohrium_image_v2.10
   model_metadata:
     pretty_name: eSEN_30M
     date_added: 2025-04-22
