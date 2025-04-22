@@ -100,11 +100,10 @@ where $\eta_{i}^{m}$ is the inference time of configuration $i$ for model $m$.
 ### Stability
 For stability, we normalize the total energy drift with respect to artificial reference values on a logarithmic scale. This results in an instability metric, bounded in the range of [0, $+\infty$], where a score of zero indicates better performance.
 
-$$\tilde{S}_{\Phi_{\mathrm{Drift}}}^m = \max\left(0, \ln\frac{\Phi_{\mathrm{Drift}}}{ \lambda^0}\right), \quad
-\lambda^0 =10^{-5} \ \mathrm{eV/atom/ps}$$
+$$\tilde{S}\_{\Phi_{\mathrm{Drift}}}^m = \max\left(0, \ln\frac{\Phi_{\mathrm{Drift}}}{\lambda^0}\right), \quad \lambda^0 =10^{-5} \ \mathrm{eV/atom/ps}$$
 
 This, if applicable, is penalized by adding the fail rate to obtain the final instability metric.
 
-$$\bar S^m_{\mathrm{S}} = \tilde{S}_{\Phi_{\mathrm{Drift}}}^m + (1 - \omega^m)$$
+$$\bar S^m\_{\mathrm{S}} = \tilde{S}\_{\Phi_{\mathrm{Drift}}}^m + (1 - \omega^m)$$
 
 where $\omega^m$ is the success rate.
