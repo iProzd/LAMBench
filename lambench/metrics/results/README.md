@@ -45,7 +45,7 @@ For the specific domain of Reactions, the test sets are indexed as $ i \in \{\te
 
 2. For each domain, we compute the log-average of normalized metrics across all datasets  within this domain by
 
-    $$\bar{M}^m_{k,p} = \exp\left(\frac{1}{n_{k,p}}\sum_{j=1}^{n_{k,p}}\log \hat{M}^m_{k,p,i}\right)$$
+    $$\bar{M}^m_{k,p} = \exp\left(\frac{1}{n_{k,p}}\sum_{i=1}^{n_{k,p}}\log \hat{M}^m_{k,p,i}\right)$$
 
 where $n_{k,p}$ denotes the number of test sets for domain $k$ and prediction type $p$.
 
@@ -55,38 +55,35 @@ where $n_{k,p}$ denotes the number of test sets for domain $k$ and prediction ty
 
 where $ w_{p} $ denotes the weights assigned to each prediction type $p$.
 
-4. The dimensionless domain error metric $ \bar{M}^m_{k} $ is normalized using the negative logarithm to obtain a comparable generalizability score across models:
+4. Finally the generalizability error metric of a model across all the domains is defined by the average of the domain-wise error metric,
 
-$${S}^m_{k} = \frac{-\log \bar{M}^m_{k} }{\max_{m}\left(-\log\bar{M}^m_{k}\right)}$$
-
-In this equation, $\max_{m}$ represents the maximum value obtained from all LAM models under comparison.
-Thus, a model achieving a score of 1 indicates optimal generalizability among all the models evaluated, whereas the dummy baseline yields a score of 0.
-
-5. Finally the generalizability score of a model across all the domains is defined by the average of the domain scores,
-
-$${S^m}= \frac{1}{n_D}\sum_{i=1}^{n_D}{S^m_{k}}$$
+$${\bar M^m}= \frac{1}{n_D}\sum_{k=1}^{n_D}{\bar M^m_{k}}$$
 
 where $n_D$ denotes the number of domains under consideration.
 
-The score $ S^m $ allows for the comparison of generalizability across different models.
-It reflects the overall generalization capability across all domains, prediction types, and test sets, with a higher score indicating superior performance.
+The generalizability error metric $ \bar M^m $ allows for the comparison of generalizability across different models.
+It reflects the overall generalization capability across all domains, prediction types, and test sets, with a lower error indicating superior performance.
 The only tunable parameter is the weights assigned to prediction types, thereby minimizing arbitrariness in the comparison system.
-It is important to note that the score is a relative measure against the best model in the comparison set.
-Consequently, the score may change if a better-performing model is introduced into the comparison.
 
 For the force field generalizability tasks, we adopt RMSE as error metric.
 The prediction types include energy and force, with weights assigned as $ w_E = w_F = 0.5 $.
 When periodic boundary conditions are assumed and virial labels are available, virial predictions are also considered.
 In this scenario, the prediction weights are adjusted to $ w_E = w_F = 0.45 $ and $ w_V = 0.1 $.
-The resulting score is referred to as $S^{m}_{FF}$.
-### Domain Specific Properties
+The resulting error is referred to as $\bar M^{m}_{FF}$.
+
+The error metric is designed such that a dummy model, which predicts system energy solely based on chemical formulae, results in $\bar{M}^m_{\mathrm{FF}}=1$.
+In contrast, an ideal model that perfectly matches Density Functional Theory (DFT) labels achieves a value of $\bar{M}^m_{\mathrm{FF}}=0$.
+
+
+
+### Domain Specific Property Calculation
 
 For the domain-specific property tasks, we adopt the MAE as the error metric.
 In the Inorganic Materials domain, the MDR phonon benchmark predicts maximum phonon
 frequency, entropy, free energy, and heat capacity at constant volume, with each prediction type assigned a weight of 0.25.
 In the Small Molecules domain, the TorsionNet500 benchmark predicts the torsion profile energy, torsion barrier height, and the number of molecules for which the model's prediction of the torsional barrier height has an error exceeding 1 kcal/mol.
 Each prediction type in this domain is assigned a weight of $\frac{1}{3}$.
-The resulting score is denoted as $S^{m}_{DS}$.
+The resulting score is denoted as $\bar M^{m}_{PC}$.
 
 
 ## Applicability
@@ -94,26 +91,20 @@ The resulting score is denoted as $S^{m}_{DS}$.
 
 To assess the efficiency of the model, we randomly selected 2000 frames from the domain of Inorganic Materials and Catalysis using the aforementioned out-of-distribution datasets. Each frame was expanded to include 800 to 1000 atoms through the replication of the unit cell, ensuring that measurements of inference efficiency occurred within the regime of convergence. The initial 20% of the test samples were considered a warm-up phase and thus were excluded from the efficiency timing. We have reported the average efficiency across the remaining 1600 frames.
 
-We apply min-max normalization to the average inference efficiency across all LAMs, rescaling it to a range between zero and one. This normalized metric is then subtracted
-from one to yield an efficiency score, where a score of one indicates the most efficient model.
+We define an efficiency score,  $\tilde{\eta}^m$, by normalizing the average inference time (with unit $\mathrm{\mu s/atom}$), $\bar \eta^m$, of a given LAM measured over 1600 configurations with respect to an artificial reference value, thereby rescaling it to a range between zero and positive infinity. A larger value indicates higher efficiency.
 
-$$S_{\eta}^m  = 1 - \frac{\eta^m - \eta_{\min}}{\eta_{\max} - \eta_{\min}}$$
+$$\tilde{\eta}^m = \frac{\eta^0 }{\bar \eta^m },\quad \eta^0= 100\  \mathrm{\mu s/atom}, \quad \bar \eta^m = \frac{1}{1600}\sum_{i}^{1600} \eta_{i}^{m}$$
 
-where $ \eta^m $ is the average inference efficiency of the $ m $-th LAM, and $ \eta_{\min} $, $ \eta_{\max} $ are the minimum and maximum efficiency values across all LAMs, respectively.
+where $\eta_{i}^{m}$ is the inference time of configuration $i$ for model $m$.
 
 ### Stability
-For stability, the same normalization procedure is applied to both the total energy STD and the total energy drift metrics in `NVE Molecular Dynamics`, resulting in two individual stability scores.
-$$\tilde{S}_p^m = 1- \frac{S_p^m - S_{\min,p}}{S_{\max,p} - S_{\min,p}} \quad p \in \{{\Phi_{STD}}, {\Phi_{Drift}}\}$$
-These are averaged and, if applicable, penalized by multiplying with the success rate to obtain the final stability score.
+For stability, we normalize the total energy drift with respect to artificial reference values on a logarithmic scale. This results in an instability metric, bounded in the range of [0, $+\infty$], where a score of zero indicates better performance.
 
-$$\bar{S^m} = (0.5\times \tilde{S}_{,\Phi_{STD}}^m + 0.5\times \tilde{S}_{\Phi_{Drift}}^m) \times \omega^m$$
+$$\tilde{S}_{\Phi_{\mathrm{Drift}}}^m = \max\left(0, \ln\frac{\Phi_{\mathrm{Drift}}}{ \lambda^0}\right), \quad
+\lambda^0 =10^{-5} \ \mathrm{eV/atom/ps}$$
 
-The overall applicability score is then calculated as the average of the stability and efficiency scores.
+This, if applicable, is penalized by adding the fail rate to obtain the final instability metric.
 
-$$S_{A}^m = 0.5\times \bar{S^m} + 0.5\times S_{\eta}^m$$
+$$\bar S^m_{\mathrm{S}} = \tilde{S}_{\Phi_{\mathrm{Drift}}}^m + (1 - \omega^m)$$
 
-
-## Overall Score
-The overall score is computed by averaging the two generalizability scores (for force-field and domain-specific tasks) and the applicability score.
-
-$$\text{Overall Score} = \frac{S^{m}_{\text{FF}} + S^{m}_{\text{DS}} + S_A^m}{3}$$
+where $\omega^m$ is the success rate.
