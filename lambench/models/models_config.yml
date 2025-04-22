@@ -164,7 +164,7 @@
     packages:
       fairchem-core: 1.9.0
   show_direct_task: False # Hide test results due to license restrictions.
-  skip_tasks: [CalculatorTask, DirectPredictTask] # skip to avoid rerun failed tasks
+  # skip_tasks: [CalculatorTask, DirectPredictTask] # skip to avoid rerun failed tasks
 
 - model_name: MatterSim_v1.0.0_5M
   model_type: ASE
