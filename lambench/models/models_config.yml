@@ -151,6 +151,21 @@
   show_direct_task: False # Hide EqV2 test results due to license restrictions.
   skip_tasks: [CalculatorTask, DirectPredictTask] # skip to avoid rerun failed tasks
 
+- model_name: esen_30m_omat
+  model_type: ASE
+  model_family: Equiformer
+  model_path: /bohr/lambench-model-55c1/v10/esen_30m_omat/esen_30m_omat.pt
+  virtualenv: *bohrium_image
+  model_metadata:
+    pretty_name: eSEN_30M
+    date_added: 2025-04-22
+    num_parameters: 30161153
+    model_description: eSEN_30M_OMat
+    packages:
+      fairchem-core: 1.9.0
+  show_direct_task: False # Hide test results due to license restrictions.
+  skip_tasks: [CalculatorTask, DirectPredictTask] # skip to avoid rerun failed tasks
+
 - model_name: MatterSim_v1.0.0_5M
   model_type: ASE
   model_family: MatterSim
