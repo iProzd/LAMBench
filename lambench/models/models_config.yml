@@ -162,7 +162,7 @@
     num_parameters: 30161153
     model_description: eSEN_30M_OMat
     packages:
-      fairchem-core: 1.9.0
+      fairchem-core: 1.10.0
   show_direct_task: False # Hide test results due to license restrictions.
 
 - model_name: MatterSim_v1.0.0_5M
