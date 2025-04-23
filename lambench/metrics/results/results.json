@@ -1925,7 +1925,7 @@
       "virtualenv": "registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.10",
       "model_metadata": {
         "pretty_name": "Orb-v3",
-        "num_parameters": 25161727,
+        "num_parameters": 25510582,
         "date_added": "2025-04-22 00:00:00",
         "packages": {
           "orb-models": "0.5.2"

@@ -50,7 +50,7 @@
   {
     "name": "Orb-v3",
     "family": "ORB",
-    "nparams": 25161727,
+    "nparams": 25510582,
     "efficiency": 249.83,
     "std": 32.71,
     "generalizability error": 0.28
