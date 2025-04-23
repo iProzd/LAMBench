@@ -92,7 +92,7 @@
     pretty_name: Orb-v3
     date_added: 2025-04-22
     model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v3/orb-v3-conservative-inf-omat-20250404.ckpt
-    num_parameters: 25161727
+    num_parameters: 25510582
     packages:
       orb-models: 0.5.2
   show_calculator_task: True
