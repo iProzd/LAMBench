@@ -16,13 +16,17 @@ Large atomic models (LAM), also known as machine learning interatomic potentials
 - **Detailed Reports**: Generates detailed performance reports and visualizations.
 
 # LAMBench Leaderboard
+The LAMBench Leaderboard.
+$\bar M^m_{\mathrm{FF}}$ refers to the generalizability error on force field prediction tasks, while $\bar M^m_{\mathrm{PC}}$ denotes the generalizability error on domain-specific tasks.
+$M_{\mathrm{E}}^m$ stands for the efficiency metric, and $M^m_{\mathrm{IS}}$ refers to the instability metric. Arrows alongside the metrics denote whether a higher or lower value corresponds to better performance.
 
 <!-- radar plot -->
-Figure 1: Generalizability score ${S}^m_{k}$ on force field prediction tasks.
+Figure 1: Generalizability on force field prediction tasks, 1 - $\bar{M}^m_{FF}$.
 <!-- scatter plot -->
-Figure 2: Accuracy-Efficiency Trade-off, $\bar{M}^m$ vs $\eta^m$.
+Figure 2: Accuracy-Efficiency Trade-off, $\bar{M}^m_{FF}$ vs $M_E^m$.
 
 # LAMBench Metrics Calculations
+
 ## Generalizability
 
 ### Force Field Prediction
@@ -91,19 +95,32 @@ The resulting score is denoted as $\bar M^{m}_{PC}$.
 
 To assess the efficiency of the model, we randomly selected 2000 frames from the domain of Inorganic Materials and Catalysis using the aforementioned out-of-distribution datasets. Each frame was expanded to include 800 to 1000 atoms through the replication of the unit cell, ensuring that measurements of inference efficiency occurred within the regime of convergence. The initial 20% of the test samples were considered a warm-up phase and thus were excluded from the efficiency timing. We have reported the average efficiency across the remaining 1600 frames.
 
-We define an efficiency score,  $\tilde{\eta}^m$, by normalizing the average inference time (with unit $\mathrm{\mu s/atom}$), $\bar \eta^m$, of a given LAM measured over 1600 configurations with respect to an artificial reference value, thereby rescaling it to a range between zero and positive infinity. A larger value indicates higher efficiency.
+We define an efficiency score,  $M_E^m$, by normalizing the average inference time (with unit $\mathrm{\mu s/atom}$), $\bar \eta^m$, of a given LAM measured over 1600 configurations with respect to an artificial reference value, thereby rescaling it to a range between zero and positive infinity. A larger value indicates higher efficiency.
 
-$$\tilde{\eta}^m = \frac{\eta^0 }{\bar \eta^m },\quad \eta^0= 100\  \mathrm{\mu s/atom}, \quad \bar \eta^m = \frac{1}{1600}\sum_{i}^{1600} \eta_{i}^{m}$$
+$$M_E^m = \frac{\eta^0 }{\bar \eta^m },\quad \eta^0= 100\  \mathrm{\mu s/atom}, \quad \bar \eta^m = \frac{1}{1600}\sum_{i}^{1600} \eta_{i}^{m}$$
 
 where $\eta_{i}^{m}$ is the inference time of configuration $i$ for model $m$.
 
 ### Stability
-For stability, we normalize the total energy drift with respect to artificial reference values on a logarithmic scale. This results in an instability metric, bounded in the range of [0, $+\infty$], where a score of zero indicates better performance.
+Stability is quantified by measuring the total energy drift in NVE simulations across nine structures.
+For each simulation trajectory, an instability metric is defined based on the magnitude of the slope obtained via linear regression of total energy per atom versus simulation time. A tolerance value, $5\times10^{-4} \ \mathrm{eV/atom/ps}$,  is determined as three times the statistical uncertainty in calculating the slope from a 10 ps NVE-MD trajectory using the MACE-MPA-0 model. If the measured slope is smaller than the tolerance value, the energy drift is considered negligible. We define the dimensionless measure of instability for structure $i$ as follows:
 
-$$\tilde{S}\_{\Phi_{\mathrm{Drift}}}^m = \max\left(0, \ln\frac{\Phi_{\mathrm{Drift}}}{\lambda^0}\right), \quad \lambda^0 =10^{-5} \ \mathrm{eV/atom/ps}$$
+If the computation is successful:
 
-This, if applicable, is penalized by adding the fail rate to obtain the final instability metric.
+$$M^m_{\mathrm{IS},i} = \max\left(0, \log_{10}\left(\frac{\Phi_{i}}{\Phi_{\mathrm{tol}}}\right)\right)$$
 
-$$\bar S^m\_{\mathrm{S}} = \tilde{S}\_{\Phi_{\mathrm{Drift}}}^m + (1 - \omega^m)$$
+Otherwise:
 
-where $\omega^m$ is the success rate.
+$$M^m_{\mathrm{IS},i} = 5$$
+
+with
+$$\Phi_{\mathrm{tol}} = 5 \times 10^{-4} \ \mathrm{eV/atom/ps}$$
+where $\Phi_i$ represents the total energy drift , and $\Phi_{\mathrm{tol}}$ denotes the tolerance.
+This metric indicates the relative order of magnitude of the slope compared to the tolerance. 
+In cases where a MD simulation fails, a penalty of 5 is assigned, representing a drift five orders of magnitude larger than the typical statistical uncertainty in measuring the slope.
+The final instability metric is computed as the average over all nine structures.
+
+$$M^m_{\mathrm{IS}} = \frac{1}{9}\sum_{i=1}^{9} M^m_{\mathrm{IS},i}$$
+
+This result is bounded within the range [0, $+\infty$], where a lower value signifies greater stability.
+
