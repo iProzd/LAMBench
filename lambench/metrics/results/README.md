@@ -46,9 +46,9 @@ To assess model performance across these domains, we use zero-shot inference wit
 
     $$\hat{M}^m_{k,p,i} = \frac{M^m_{k,p,i}}{M^{\mathrm{dummy}}_{k,p,i}}$$
 
-    where $ M^m_{k,p,i} $ is the original error metric, $ m $ indicates the model, $ k $ denotes the domain index, $ p $ signifies the prediction index, and $ i $ represents the test set index.
-    For instance, in force field tasks, the domains include Small Molecules, Inorganic Materials, Biomolecules, Reactions, and Catalysis, such that $ k \in \{\text{Small Molecules, Inorganic Materials, Biomolecules, Reactions, Catalysis}\} $. The prediction types are categorized as energy ($E$), force ($F$), or virial ($V$), with $ p \in \{E, F, V\} $.
-    For the specific domain of Reactions, the test sets are indexed as $ i \in \{\text{Guan2022Benchmark, Gasteiger2020Fast}\} $. This baseline model predicts energy based solely on the chemical formula, disregarding any structural details, thereby providing a reference point for evaluating the improvement offered by more sophisticated models.
+    where $M^m_{k,p,i}$ is the original error metric, $m$ indicates the model, $k$ denotes the domain index, $p$ signifies the prediction index, and $i$ represents the test set index.
+    For instance, in force field tasks, the domains include Small Molecules, Inorganic Materials, Biomolecules, Reactions, and Catalysis, such that $k \in \{\text{Small Molecules, Inorganic Materials, Biomolecules, Reactions, Catalysis}\}$. The prediction types are categorized as energy ($E$), force ($F$), or virial ($V$), with $p \in \{E, F, V\}$.
+    For the specific domain of Reactions, the test sets are indexed as $i \in \{\text{Guan2022Benchmark, Gasteiger2020Fast}\}$. This baseline model predicts energy based solely on the chemical formula, disregarding any structural details, thereby providing a reference point for evaluating the improvement offered by more sophisticated models.
 
 2. For each domain, we compute the log-average of normalized metrics across all datasets  within this domain by
 
@@ -60,7 +60,7 @@ To assess model performance across these domains, we use zero-shot inference wit
 
     $$\bar{M}^m_{k}  = \sum_p w_{p} \bar{M}^m_{k,p} \Bigg/ \sum_p w_{p}$$
 
-    where $ w_{p} $ denotes the weights assigned to each prediction type $p$.
+    where $w_{p}$ denotes the weights assigned to each prediction type $p$.
 
 4. Finally the generalizability error metric of a model across all the domains is defined by the average of the domain-wise error metric,
 
@@ -68,14 +68,14 @@ To assess model performance across these domains, we use zero-shot inference wit
 
     where $n_D$ denotes the number of domains under consideration.
 
-The generalizability error metric $ \bar M^m $ allows for the comparison of generalizability across different models.
+The generalizability error metric $\bar M^m$ allows for the comparison of generalizability across different models.
 It reflects the overall generalization capability across all domains, prediction types, and test sets, with a lower error indicating superior performance.
 The only tunable parameter is the weights assigned to prediction types, thereby minimizing arbitrariness in the comparison system.
 
 For the force field generalizability tasks, we adopt RMSE as error metric.
-The prediction types include energy and force, with weights assigned as $ w_E = w_F = 0.5 $.
+The prediction types include energy and force, with weights assigned as $w_E = w_F = 0.5$.
 When periodic boundary conditions are assumed and virial labels are available, virial predictions are also considered.
-In this scenario, the prediction weights are adjusted to $ w_E = w_F = 0.45 $ and $ w_V = 0.1 $.
+In this scenario, the prediction weights are adjusted to $w_E = w_F = 0.45$ and $w_V = 0.1$.
 The resulting error is referred to as $\bar M^{m}_{FF}$.
 
 The error metric is designed such that a dummy model, which predicts system energy solely based on chemical formulae, results in $\bar{M}^m_{\mathrm{FF}}=1$.
