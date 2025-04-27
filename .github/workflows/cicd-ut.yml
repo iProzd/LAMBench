@@ -22,4 +22,10 @@ jobs:
 
     - name: Run tests
       run: |
-        python -m pytest tests -vv
+        python -m pytest tests -vv --cov --cov-branch --cov-report=xml
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: deepmodeling/LAMBench
