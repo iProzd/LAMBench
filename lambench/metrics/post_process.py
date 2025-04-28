@@ -175,11 +175,12 @@ def main():
             json.dumps(model.model_dump(exclude={"model_path"}), default=str)
         )
 
-    json.dump(
-        results,
-        open(Path(lambench.__file__).parent / "metrics/results/results.json", "w"),
-        indent=2,
-    )
+    with open(
+        Path(lambench.__file__).parent / "metrics/results/results.json", "w"
+    ) as f:
+        json.dump(results, f, indent=2)
+        f.write("\n")
+
     print("Results saved to results.json")
 
 

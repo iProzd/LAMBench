@@ -25,12 +25,16 @@ class LAMBenchMetrics:
         result_path = Path(lambench.__file__).parent / "metrics/results"
         with open(result_path / "radar.json", "w") as f:
             json.dump(radar_chart_config, f, indent=2)
+            f.write("\n")
         with open(result_path / "scatter.json", "w") as f:
             json.dump(scatter_plot_data, f, indent=2)
+            f.write("\n")
         with open(result_path / "barplot.json", "w") as f:
             json.dump(barplot_data, f, indent=2)
+            f.write("\n")
         with open(result_path / "final_rankings.json", "w") as f:
             json.dump(final_ranking.to_dict(orient="records"), f, indent=2)
+            f.write("\n")
         print("All plots saved to metrics/results/")
 
 
