@@ -16,7 +16,7 @@
   {
     "Model": "Orb-v3",
     "Generalizability-FF Error \u2193": 0.28,
-    "Generalizability-DS Error \u2193": 0.43,
+    "Generalizability-DS Error \u2193": 0.24,
     "Applicability-Instability \u2193": 0.0,
     "Applicability-Efficiency \u2191": 0.4
   },

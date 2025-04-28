@@ -1897,6 +1897,13 @@
       }
     },
     "generalizability_domain_specific_results": {
+      "phonon_mdr": {
+        "mae_entropy": 32.38591728194254,
+        "mae_max_freq": 93.89442414761066,
+        "success_rate": 0.9945772243422374,
+        "mae_free_energy": 5.695154547210946,
+        "mae_heat_capacity": 15.914308827078742
+      },
       "torsionnet": {
         "MAE": 1.0631052526512048,
         "MAEB": 1.5584775105560302,
