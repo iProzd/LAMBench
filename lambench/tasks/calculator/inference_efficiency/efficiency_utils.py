@@ -2,17 +2,6 @@ from ase.atoms import Atoms
 from lambench.models.ase_models import ASEModel
 import numpy as np
 import math
-# from deepmd.calculator import DP
-# CALC = DP("/mnt/workspace/public/multitask/training_exps/0415_h20_dpa3a_shareft_nosel_128_64_32_scp1_e1a_csilu3_rc6_arc_4_expsw_l16_128GPU_240by3/model.ckpt-3360000.pt",head="MP_traj_v024_alldata_mixu")
-
-from orb_models.forcefield import pretrained
-from orb_models.forcefield.calculator import ORBCalculator
-
-orbff = pretrained.ORB_PRETRAINED_MODELS[
-    "orb_v3_conservative_inf_omat".replace("_", "-")
-](device="cuda")
-CALC = ORBCalculator(orbff, device="cuda")
-
 
 def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
     """
