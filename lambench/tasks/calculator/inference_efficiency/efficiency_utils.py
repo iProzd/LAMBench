@@ -79,14 +79,14 @@ def find_even_factors(num: int) -> tuple[int, int, int]:
 
 
 def binary_search_max_natoms(
-    model: ASEModel, atoms: Atoms, upper_limit: int = 1000, safe_guard: int = 15
+    model: ASEModel, atoms: Atoms, upper_limit: int = 1000, max_iterations: int = 15
 ) -> int:
     """
     Binary search for the maximum number of atoms that can be processed by the model.
 
     """
     low, high, iteration = 1, upper_limit, 0
-    while low < high and iteration < safe_guard:
+    while low < high and iteration < max_iterations:
         mid = (low + high + 1) // 2
         scaling_factor = np.int32(np.floor(mid / len(atoms)))
         scaled_atoms = atoms.copy()
