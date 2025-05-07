@@ -3,6 +3,7 @@ from lambench.models.ase_models import ASEModel
 import numpy as np
 import math
 
+
 def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
     """
     Perfrom force field prediction for one system, return energy, forces and stress.
