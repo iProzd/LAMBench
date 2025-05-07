@@ -8,6 +8,7 @@ def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
     """
     Perfrom force field prediction for one system, return energy, forces and stress.
     """
+    print(f"Running inference for {len(atoms)} atoms")
     e = atoms.get_potential_energy()
     f = atoms.get_forces()
     stress = atoms.get_stress()
