@@ -85,6 +85,7 @@ def run_one_inference(
         a, b, c = find_even_factors(scaling_factor)
         atoms = atoms.repeat((a, b, c))
         atoms.calc = model.calc
+        n_atoms = len(atoms)
         start = time.time()
         try:
             get_efv(atoms)
