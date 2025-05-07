@@ -1,5 +1,9 @@
 from lambench.models.ase_models import ASEModel
-from lambench.tasks.calculator.inference_efficiency.efficiency_utils import binary_search_max_natoms, get_efv, find_even_factors
+from lambench.tasks.calculator.inference_efficiency.efficiency_utils import (
+    binary_search_max_natoms,
+    get_efv,
+    find_even_factors,
+)
 from ase.io import read
 from ase.atoms import Atoms
 import logging
@@ -12,17 +16,18 @@ logging.basicConfig(
 )
 
 OOM_TEST_ATOM = Atoms(
-        symbols="Mg",
-        pbc=True,
-        cell=[
-            [-2.244256, -2.244256, 0.0], 
-            [-2.244256, 0.0, -2.244256], 
-            [0.0, -2.244256, -2.244256]
-        ],
-        positions=[
-            [0,0,0],
-        ],
-    ) # mp-1056702
+    symbols="Mg",
+    pbc=True,
+    cell=[
+        [-2.244256, -2.244256, 0.0],
+        [-2.244256, 0.0, -2.244256],
+        [0.0, -2.244256, -2.244256],
+    ],
+    positions=[
+        [0, 0, 0],
+    ],
+)  # mp-1056702
+
 
 def run_inference(
     model: ASEModel, test_data: Path, warmup_ratio: float
@@ -32,7 +37,7 @@ def run_inference(
     """
     results = {}
     trajs = list(test_data.rglob("*.traj"))
-    # find maximum allowed natoms 
+    # find maximum allowed natoms
     max_natoms = binary_search_max_natoms(model, OOM_TEST_ATOM)
     for traj in trajs:
         system_name = traj.name
@@ -73,12 +78,12 @@ def run_one_inference(
 
     efficiency = []
     for i, atoms in enumerate(test_atoms):
-        # on-the-fly expand atoms 
+        # on-the-fly expand atoms
         scaling_factor = np.int32(np.floor(max_natoms / len(test_atoms)))
         while 1 in find_even_factors(scaling_factor) and scaling_factor > 1:
             scaling_factor -= 1
         a, b, c = find_even_factors(scaling_factor)
-        atoms = atoms.repeat((a,b,c))
+        atoms = atoms.repeat((a, b, c))
         atoms.calc = model.calc
         start = time.time()
         try:

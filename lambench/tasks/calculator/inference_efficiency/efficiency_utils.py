@@ -1,5 +1,4 @@
 from ase.atoms import Atoms
-from ase.io import read
 from lambench.models.ase_models import ASEModel
 import numpy as np
 import math
@@ -9,10 +8,11 @@ import math
 from orb_models.forcefield import pretrained
 from orb_models.forcefield.calculator import ORBCalculator
 
-orbff = pretrained.ORB_PRETRAINED_MODELS["orb_v3_conservative_inf_omat".replace("_", "-")](
-    device="cuda"
-)
-CALC= ORBCalculator(orbff, device="cuda")
+orbff = pretrained.ORB_PRETRAINED_MODELS[
+    "orb_v3_conservative_inf_omat".replace("_", "-")
+](device="cuda")
+CALC = ORBCalculator(orbff, device="cuda")
+
 
 def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
     """
@@ -32,6 +32,7 @@ def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
         * atoms.get_volume()
     )
     return e, f, v
+
 
 def catch_oom_error(atoms: Atoms) -> bool:
     """
@@ -55,6 +56,7 @@ def get_divisors(num: int) -> list[int]:
             divisors.add(num // i)
     return sorted(divisors)
 
+
 def find_even_factors(num: int) -> tuple[int, int, int]:
     """
     Find three factors of a number that are as evenly distributed as possible.
@@ -63,7 +65,7 @@ def find_even_factors(num: int) -> tuple[int, int, int]:
     """
     divisors = get_divisors(num)
     best = None
-    min_spread = float('inf')
+    min_spread = float("inf")
 
     for a in divisors:
         num_div_a = num // a
@@ -85,18 +87,20 @@ def find_even_factors(num: int) -> tuple[int, int, int]:
     return best
 
 
-def binary_search_max_natoms(model:ASEModel, atoms: Atoms, upper_limit: int = 1000, safe_guard: int=15) -> int:
+def binary_search_max_natoms(
+    model: ASEModel, atoms: Atoms, upper_limit: int = 1000, safe_guard: int = 15
+) -> int:
     """
     Binary search for the maximum number of atoms that can be processed by the model.
 
     """
     low, high, iteration = 1, upper_limit, 0
-    while low < high and iteration <safe_guard:
+    while low < high and iteration < safe_guard:
         mid = (low + high + 1) // 2
         scaling_factor = np.int32(np.floor(mid / len(atoms)))
         scaled_atoms = atoms.copy()
         a, b, c = find_even_factors(scaling_factor)
-        scaled_atoms = scaled_atoms.repeat((a,b,c))
+        scaled_atoms = scaled_atoms.repeat((a, b, c))
         scaled_atoms.calc = model.calc
         if catch_oom_error(scaled_atoms):
             high = mid - 1
