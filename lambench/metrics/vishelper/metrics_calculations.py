@@ -167,7 +167,7 @@ class MetricsCalculator:
         }
 
         stability_results = pd.DataFrame.from_dict(stability_results, orient="index")
-        stability_results = stability_results.applymap(
+        stability_results = stability_results.map(
             lambda cell: self._calculate_instability_error(cell)
         )
         # average over all systems

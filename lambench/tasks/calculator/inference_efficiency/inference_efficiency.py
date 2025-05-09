@@ -1,6 +1,10 @@
 from lambench.models.ase_models import ASEModel
+from lambench.tasks.calculator.inference_efficiency.efficiency_utils import (
+    binary_search_max_natoms,
+    get_efv,
+    find_even_factors,
+)
 from ase.io import read
-from ase.atoms import Atoms
 import logging
 import time
 import numpy as np
@@ -9,23 +13,6 @@ from pathlib import Path
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-
-
-def get_efv(atoms: Atoms) -> tuple[float, np.ndarray]:
-    e = atoms.get_potential_energy()
-    f = atoms.get_forces()
-    stress = atoms.get_stress()
-    v = (
-        -np.array(
-            [
-                [stress[0], stress[5], stress[4]],
-                [stress[5], stress[1], stress[3]],
-                [stress[4], stress[3], stress[2]],
-            ]
-        )
-        * atoms.get_volume()
-    )
-    return e, f, v
 
 
 def run_inference(
@@ -62,7 +49,9 @@ def run_inference(
 
 
 def run_one_inference(
-    model: ASEModel, test_traj: Path, warmup_ratio: float
+    model: ASEModel,
+    test_traj: Path,
+    warmup_ratio: float,
 ) -> dict[str, float]:
     """
     Infer for one trajectory, return averaged time and success rate, starting timing at warmup_ratio.
@@ -75,6 +64,14 @@ def run_one_inference(
 
     efficiency = []
     for i, atoms in enumerate(test_atoms):
+        # find maximum allowed natoms
+        max_natoms = binary_search_max_natoms(model, atoms)
+        # on-the-fly expand atoms
+        scaling_factor = np.int32(np.floor(max_natoms / len(atoms)))
+        while 1 in find_even_factors(scaling_factor) and scaling_factor > 1:
+            scaling_factor -= 1
+        a, b, c = find_even_factors(scaling_factor)
+        atoms = atoms.repeat((a, b, c))
         atoms.calc = model.calc
         n_atoms = len(atoms)
         start = time.time()
