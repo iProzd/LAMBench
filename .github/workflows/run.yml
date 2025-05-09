@@ -6,13 +6,6 @@ on:
       args:
         description: Arguments to pass to `lambench`
         required: false
-  push:
-    branches:
-      - main
-    paths:
-      - lambench/models/**.yml
-      - lambench/tasks/**.yml
-
 
 jobs:
   run-lambench:

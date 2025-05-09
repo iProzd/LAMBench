@@ -1,207 +1,200 @@
 # Please see README on how to add new models
-- model_name: dpa2_241126_v2_4_0
+- model_name: dpa3_250218
   model_type: DP
   model_family: DP
-  model_path: /bohr/lambench-model-55c1/v3/dpa2_241126_v2_4_0/dp_dpa2_v2.4.0_1126_800w.pt
+  model_path: /bohr/testmodel-gevy/v1/test_model/model.ckpt-2940000.pt
   virtualenv: &bohrium_image registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.9
   model_metadata:
-    pretty_name: DPA-2.4-7M
+    pretty_name: dpa3_250218
     date_added: 2025-04-01
     model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
     num_parameters: 6637036
     packages:
       deepmd-kit: P0131
-  show_finetune_task: True
-  show_calculator_task: True
 
-- model_name: dpa3_250211_v3_0_0_7M
+# Please see README on how to add new models
+- model_name: dpa3_250218_best_XC
   model_type: DP
   model_family: DP
-  model_path: /bohr/lambench-model-55c1/v4/dpa3_250211_v3_0_0_7M/dp_dpa3_v3.0.0_0211_280w.pt
+  model_path: /bohr/testmodel-gevy/v1/test_model/model.ckpt-2940000.pt
   virtualenv: *bohrium_image
   model_metadata:
-    pretty_name: DPA-3.0-7M
-    date_added: 2025-04-10
-    model_description: DP 2025 Q1, 7M parameters
-    num_parameters: 7021990
-    packages:
-      deepmd-kit: P0131
-  show_finetune_task: True
-  show_calculator_task: True
-
-- model_name: dpa3_250307_v3_0_0_3M
-  model_type: DP
-  model_family: DP
-  model_path: /bohr/lambench-model-55c1/v8/dpa3_250307_v3_0_0_3M/dp_dpa3_v3.0.0_0307_426w.pt
-  virtualenv: *bohrium_image
-  model_metadata:
-    pretty_name: DPA-3.0-3M
-    date_added: 2025-04-10
-    model_description: DP 2025 Q1, 3M parameters
-    num_parameters: 2592390
-    packages:
-      deepmd-kit: P0131
-  show_finetune_task: False
-  show_calculator_task: True
-  skip_tasks: [PropertyFinetuneTask]
-
-- model_name: mace_mp_0_medium
-  model_type: ASE
-  model_family: MACE
-  virtualenv: *bohrium_image
-  model_metadata:
-    pretty_name: MACE-MP-0
+    pretty_name: dpa3_250218_best_XC
     date_added: 2025-04-01
-    model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+# Please see README on how to add new models
+- model_name: dpa2_241126_singletask
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/testmodel-gevy/v1/test_model/model.ckpt-2940000.pt
+  virtualenv: *bohrium_image
+  model_metadata:
+    pretty_name: dpa2_241126_singletask
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+- model_name: dpa3_250415
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/testmodel-gevy/v2/test_0415/model.ckpt-3200000.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.11
+  model_metadata:
+    pretty_name: dpa3_250415
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+- model_name: dpa3_250415_best_XC
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/testmodel-gevy/v2/test_0415/model.ckpt-3200000.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.11
+  model_metadata:
+    pretty_name: dpa3_250415_best_XC
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+
+- model_name: dpa3_250420_50w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/testmodel-gevy/v3/test_dpa3/model.ckpt-500000.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.11
+  model_metadata:
+    pretty_name: dpa3_250420_50w
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+
+- model_name: dpa3_250420_200w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/testmodel-gevy/v3/test_dpa3/model.ckpt-2000000.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.11
+  model_metadata:
+    pretty_name: dpa3_250420_200w
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+- model_name: dpa3_250409_60w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/testmodel-gevy/v4/test_0409/model.ckpt-600000.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.11
+  model_metadata:
+    pretty_name: dpa3_250409_60w
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+- model_name: dpa3_250409_150w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/testmodel-gevy/v4/test_0409/model.ckpt-1500000.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.11
+  model_metadata:
+    pretty_name: dpa3_250409_150w
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+- model_name: dpa3_250503_90w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/testmodel-gevy/v4/test_0503/model.ckpt-900000.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.12
+  model_metadata:
+    pretty_name: dpa3_250503_90w
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
+
+- model_name: eSEN-30M-mptraj
+  model_type: ASE
+  model_family: eSEN
+  model_path: /bohr/esen-mptrj-80gj/v1/esen_30m_mptrj.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.12
+  model_metadata:
+    pretty_name: eSEN-30M-mptraj
+    date_added: 2025-05-09
+    model_description: test mptraj esen
     num_parameters: 4688656
     packages:
       macetorch: 0.3.12
   show_calculator_task: True
 
-- model_name: mace_medium-mpa-0
-  model_type: ASE
-  model_family: MACE
-  virtualenv: *bohrium_image
+- model_name: 0415_l6_expsw_baseline_100w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/lambench-model-test-ood-u0hf/v1/0509_l6_models/0415_l6_expsw_baseline_100w.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.12
   model_metadata:
-    pretty_name: MACE-MPA-0
+    pretty_name: 0415_l6_expsw_baseline_100w
     date_added: 2025-04-01
-    model_description: https://github.com/ACEsuit/mace-mp/releases/download/mace_mpa_0/mace-mpa-0-medium.model
-    num_parameters: 9063204
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
     packages:
-      macetorch: 0.3.12
-  show_calculator_task: True
+      deepmd-kit: P0131
 
-- model_name: orb_v2
-  model_type: ASE
-  model_family: ORB
-  virtualenv: *bohrium_image
+- model_name: 0421_l6_expsw_dist_90w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/lambench-model-test-ood-u0hf/v1/0509_l6_models/0421_l6_expsw_dist_90w.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.12
   model_metadata:
-    pretty_name: Orb-v2
+    pretty_name: 0421_l6_expsw_dist_90w
     date_added: 2025-04-01
-    model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt
-    num_parameters: 25161727
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
     packages:
-      orb-models: 0.4.2
-  show_calculator_task: True
+      deepmd-kit: P0131
 
-- model_name: orb_v3_conservative_inf_omat
-  model_type: ASE
-  model_family: ORB
-  virtualenv: &bohrium_image_v2_10 registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.10
+- model_name: 0428_l6_expsw_dist_arc4.5_100w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/lambench-model-test-ood-u0hf/v1/0509_l6_models/0428_l6_expsw_dist_arc4.5_100w.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.12
   model_metadata:
-    pretty_name: Orb-v3
-    date_added: 2025-04-22
-    model_description: https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v3/orb-v3-conservative-inf-omat-20250404.ckpt
-    num_parameters: 25510582
-    packages:
-      orb-models: 0.5.2
-  show_calculator_task: True
-
-- model_name: 7net-0
-  model_type: ASE
-  model_family: SevenNet
-  virtualenv: *bohrium_image
-  model_metadata:
-    pretty_name: SevenNet-0
-    date_added: 2025-04-10
-    model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth
-    num_parameters: 842440
-    packages:
-      sevenn: 0.11.0
-  show_calculator_task: True
-
-- model_name: 7net-l3i5
-  model_type: ASE
-  model_family: SevenNet
-  virtualenv: *bohrium_image
-  model_metadata:
-    pretty_name: SevenNet-l3i5
+    pretty_name: 0428_l6_expsw_dist_arc4.5_100w
     date_added: 2025-04-01
-    model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth
-    num_parameters: 1171144
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
     packages:
-      sevenn: 0.11.0
-  show_calculator_task: True
+      deepmd-kit: P0131
 
-- model_name: 7net-mf-ompa
-  model_type: ASE
-  model_family: SevenNet
-  virtualenv: *bohrium_image
+- model_name: 0501_l6_expsw_dist_adamW_100w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/lambench-model-test-ood-u0hf/v1/0509_l6_models/0501_l6_expsw_dist_adamW_100w.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-375/lambench:v2.12
   model_metadata:
-    pretty_name: SevenNet-MF-ompa
+    pretty_name: 0501_l6_expsw_dist_adamW_100w
     date_added: 2025-04-01
-    model_description: https://github.com/MDIL-SNU/SevenNet/blob/main/sevenn/pretrained_potentials/SevenNet_MF_ompa/checkpoint_sevennet_mf_ompa.pth
-    num_parameters: 26734966
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
     packages:
-      sevenn: 0.11.0
-  show_calculator_task: True
-
-- model_name: eqV2_153M_omat_mp_salex
-  model_type: ASE
-  model_family: Equiformer
-  model_path: /bohr/lambench-model-55c1/v3/eqV2_153M_omat_mp_salex/eqV2_153M_omat_mp_salex.pt
-  virtualenv: *bohrium_image
-  model_metadata:
-    pretty_name: eqV2 M
-    date_added: 2025-04-10
-    num_parameters: 86589068
-    model_description: eqV2_153M_omat_mp_salex
-    packages:
-      fairchem-core: 1.4.0
-  show_direct_task: False # Hide EqV2 test results due to license restrictions.
-  skip_tasks: [CalculatorTask, DirectPredictTask] # skip to avoid rerun failed tasks
-
-- model_name: esen_30m_omat
-  model_type: ASE
-  model_family: Equiformer
-  model_path: /bohr/lambench-model-55c1/v10/esen_30m_omat/esen_30m_omat.pt
-  virtualenv: *bohrium_image_v2_10
-  model_metadata:
-    pretty_name: eSEN_30M
-    date_added: 2025-04-22
-    num_parameters: 30161153
-    model_description: eSEN_30M_OMat
-    packages:
-      fairchem-core: 1.10.0
-  show_direct_task: False # Hide test results due to license restrictions.
-
-- model_name: MatterSim_v1.0.0_5M
-  model_type: ASE
-  model_family: MatterSim
-  virtualenv: *bohrium_image
-  model_metadata:
-    pretty_name: MatterSim-v1-5M
-    date_added: 2025-04-01
-    model_description: mattersim_v1_5M
-    num_parameters: 4549142
-    packages:
-      mattersim: 1.1.2
-  show_calculator_task: True
-
-- model_name: GRACE_2L_OAM_28Jan25
-  model_type: ASE
-  model_family: GRACE
-  virtualenv: *bohrium_image
-  model_metadata:
-    pretty_name: GRACE-2L-OAM
-    date_added: 2025-04-01
-    model_description: A two-layer semi-local GRACE model, pre-fitted on the OMat24 and fine-tuned on sAlex+MPTraj datasets, with fixed 6 Å cutoff.
-    num_parameters: 12597516
-    packages:
-      tensorpotential: 0.4.5
-  show_calculator_task: True
-
-- model_name: PET-MAD
-  model_type: ASE
-  model_family: PET-MAD
-  model_path: /bohr/lambench-model-55c1/v9/pet_mad_v1_0/pet-mad-latest.ckpt
-  virtualenv: *bohrium_image
-  model_metadata:
-    pretty_name: PET-MAD
-    date_added: 2025-04-10
-    model_description: PET-MAD v1.0 model trained on the MAD dataset, which contains 95,595 structures, including 3D and 2D inorganic crystals, surfaces, molecular crystals, nanoclusters, and molecules.
-    num_parameters: 4208394
-    packages:
-      pet-mad: 1.0.0
-  show_calculator_task: True
-  skip_tasks: [DirectPredictTask] # skip to avoid rerun failed tasks
+      deepmd-kit: P0131
