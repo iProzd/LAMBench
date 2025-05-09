@@ -44,9 +44,9 @@ To assess model performance across these domains, we use zero-shot inference wit
 
 1. The error metric is normalized against the error metric of a baseline model (dummy model) as follows:
 
-    $$\hat{M}^m_{k,p,i} = \frac{M^m_{k,p,i}}{M^{\mathrm{dummy}}_{k,p,i}}$$
+    $$\hat{M}^m_{k,p,i} = \min\left(\frac{M^m_{k,p,i}}{M^{\mathrm{dummy}}_{k,p,i}},\quad 1\right)$$
 
-    where $M^m_{k,p,i}$ is the original error metric, $m$ indicates the model, $k$ denotes the domain index, $p$ signifies the prediction index, and $i$ represents the test set index.
+    where $M^m_{k,p,i}$ is the original error metric, $m$ indicates the model, $k$ denotes the domain index, $p$ signifies the prediction index, and $i$ represents the test set index. For a model with worse accuracy than a dummy model, the error metric is set to 1.
     For instance, in force field tasks, the domains include Small Molecules, Inorganic Materials, Biomolecules, Reactions, and Catalysis, such that $k \in \{\text{Small Molecules, Inorganic Materials, Biomolecules, Reactions, Catalysis}\}$. The prediction types are categorized as energy ($E$), force ($F$), or virial ($V$), with $p \in \{E, F, V\}$.
     For the specific domain of Reactions, the test sets are indexed as $i \in \{\text{Guan2022Benchmark, Gasteiger2020Fast}\}$. This baseline model predicts energy based solely on the chemical formula, disregarding any structural details, thereby providing a reference point for evaluating the improvement offered by more sophisticated models.
 

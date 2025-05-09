@@ -135,6 +135,9 @@ class MetricsCalculator:
                 else:
                     # normalize the metric by dummy value, TODO: check if dummy is 0
                     raw_results[column] = raw_results[column] / dummy
+        raw_results = raw_results.map(
+            lambda x: np.clip(x, 0, 1), na_action="ignore"
+        )  # for models that are worse than the dummy baseline, set the value to 1.0
 
         # Apply penalty for specified metrics directly to $\bar{M}_i$ before domain level aggregation.
         # $\bar{M}_i$ is an error metric, the lower the better, so we want to penalize it by dividing
