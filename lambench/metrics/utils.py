@@ -80,7 +80,9 @@ def filter_generalizability_force_field_results(
 
         if v is not None:
             if normalize:
-                v = v / std
+                v = np.min(
+                    [v / std, 1]
+                )  # cap the normalized value to 1, for models worese than a dummy baseline, use dummy baseline.
             filtered_metrics[k] = np.log(v) * weight
             # else the filtered_metrics will not have this key.
             # Metrics with weight != None should have a value,
