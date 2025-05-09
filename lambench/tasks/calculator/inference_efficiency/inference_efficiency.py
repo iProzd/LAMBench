@@ -67,7 +67,7 @@ def run_one_inference(
         # find maximum allowed natoms
         max_natoms = binary_search_max_natoms(model, atoms)
         # on-the-fly expand atoms
-        scaling_factor = np.int32(np.floor(max_natoms / len(test_atoms)))
+        scaling_factor = np.int32(np.floor(max_natoms / len(atoms)))
         while 1 in find_even_factors(scaling_factor) and scaling_factor > 1:
             scaling_factor -= 1
         a, b, c = find_even_factors(scaling_factor)
