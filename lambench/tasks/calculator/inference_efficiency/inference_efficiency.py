@@ -5,7 +5,6 @@ from lambench.tasks.calculator.inference_efficiency.efficiency_utils import (
     find_even_factors,
 )
 from ase.io import read
-from ase.atoms import Atoms
 import logging
 import time
 import numpy as np
@@ -14,19 +13,6 @@ from pathlib import Path
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-
-OOM_TEST_ATOM = Atoms(
-    symbols="Mg",
-    pbc=True,
-    cell=[
-        [-2.244256, -2.244256, 0.0],
-        [-2.244256, 0.0, -2.244256],
-        [0.0, -2.244256, -2.244256],
-    ],
-    positions=[
-        [0, 0, 0],
-    ],
-)  # mp-1056702
 
 
 def run_inference(
@@ -37,12 +23,10 @@ def run_inference(
     """
     results = {}
     trajs = list(test_data.rglob("*.traj"))
-    # find maximum allowed natoms
-    max_natoms = binary_search_max_natoms(model, OOM_TEST_ATOM)
     for traj in trajs:
         system_name = traj.name
         try:
-            system_result = run_one_inference(model, traj, warmup_ratio, max_natoms)
+            system_result = run_one_inference(model, traj, warmup_ratio)
             average_time = system_result["average_time"]
             std_time = system_result["std_time"]
             success_rate = system_result["success_rate"]
@@ -65,7 +49,9 @@ def run_inference(
 
 
 def run_one_inference(
-    model: ASEModel, test_traj: Path, warmup_ratio: float, max_natoms: int
+    model: ASEModel,
+    test_traj: Path,
+    warmup_ratio: float,
 ) -> dict[str, float]:
     """
     Infer for one trajectory, return averaged time and success rate, starting timing at warmup_ratio.
@@ -78,6 +64,8 @@ def run_one_inference(
 
     efficiency = []
     for i, atoms in enumerate(test_atoms):
+        # find maximum allowed natoms
+        max_natoms = binary_search_max_natoms(model, atoms)
         # on-the-fly expand atoms
         scaling_factor = np.int32(np.floor(max_natoms / len(test_atoms)))
         while 1 in find_even_factors(scaling_factor) and scaling_factor > 1:

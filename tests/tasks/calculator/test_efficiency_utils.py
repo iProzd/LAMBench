@@ -2,12 +2,23 @@ from lambench.tasks.calculator.inference_efficiency.efficiency_utils import (
     find_even_factors,
     binary_search_max_natoms,
 )
-from lambench.tasks.calculator.inference_efficiency.inference_efficiency import (
-    OOM_TEST_ATOM,
-)
 import pytest
 import numpy as np
+from ase.atoms import Atoms
 from unittest.mock import MagicMock
+
+OOM_TEST_ATOM = Atoms(
+    symbols="Mg",
+    pbc=True,
+    cell=[
+        [-2.244256, -2.244256, 0.0],
+        [-2.244256, 0.0, -2.244256],
+        [0.0, -2.244256, -2.244256],
+    ],
+    positions=[
+        [0, 0, 0],
+    ],
+)  # mp-1056702
 
 
 @pytest.mark.parametrize(

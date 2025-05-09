@@ -8,7 +8,6 @@ def get_efv(atoms: Atoms) -> tuple[float, np.ndarray, np.ndarray]:
     """
     Perform force field prediction for one system, return energy, forces and stress.
     """
-    print(f"Running inference for {len(atoms)} atoms")
     e = atoms.get_potential_energy()
     f = atoms.get_forces()
     stress = atoms.get_stress()
@@ -88,7 +87,7 @@ def binary_search_max_natoms(
     low, high, iteration = 1, upper_limit, 0
     while low < high and iteration < max_iterations:
         mid = (low + high + 1) // 2
-        scaling_factor = np.int32(np.floor(mid / len(atoms)))
+        scaling_factor = np.int32(np.ceil(mid / len(atoms)))
         scaled_atoms = atoms.copy()
         a, b, c = find_even_factors(scaling_factor)
         scaled_atoms = scaled_atoms.repeat((a, b, c))
