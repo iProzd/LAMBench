@@ -65,87 +65,87 @@
     packages:
       deepmd-kit: P0131
 
-- model_name: 0501_l6_expsw_dist_adamW_70w
+#- model_name: 0501_l6_expsw_dist_adamW_70w
+#  model_type: DP
+#  model_family: DP
+#  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0501_l6_expsw_dist_adamW_70w.pt
+#  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
+#  model_metadata:
+#    pretty_name: 0501_l6_expsw_dist_adamW_70w
+#    date_added: 2025-04-01
+#    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+#    num_parameters: 6637036
+#    packages:
+#      deepmd-kit: P0131
+#- model_name: 0509_l6_expsw_adamw_70w
+#  model_type: DP
+#  model_family: DP
+#  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_adamw_70w.pt
+#  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
+#  model_metadata:
+#    pretty_name: 0509_l6_expsw_adamw_70w
+#    date_added: 2025-04-01
+#    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+#    num_parameters: 6637036
+#    packages:
+#      deepmd-kit: P0131
+#- model_name: 0509_l6_expsw_adamw_arc4.5_70w
+#  model_type: DP
+#  model_family: DP
+#  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_adamw_arc4.5_70w.pt
+#  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
+#  model_metadata:
+#    pretty_name: 0509_l6_expsw_adamw_arc4.5_70w
+#    date_added: 2025-04-01
+#    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+#    num_parameters: 6637036
+#    packages:
+#      deepmd-kit: P0131
+- model_name: 0509_l6_expsw_adamw_arc4.5_combinedout_70w
   model_type: DP
   model_family: DP
-  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0501_l6_expsw_dist_adamW_70w.pt
+  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_adamw_arc4.5_combinedout_70w.pt
   virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
   model_metadata:
-    pretty_name: 0501_l6_expsw_dist_adamW_70w
+    pretty_name: 0509_l6_expsw_adamw_arc4.5_combinedout_70w
     date_added: 2025-04-01
     model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
     num_parameters: 6637036
     packages:
       deepmd-kit: P0131
-- model_name: 0509_l6_expsw_adamw_70w
+- model_name: 0509_l6_expsw_dist_adamw_smallpf_70w
   model_type: DP
   model_family: DP
-  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_adamw_70w.pt
+  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_dist_adamw_smallpf_70w.pt
   virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
   model_metadata:
-    pretty_name: 0509_l6_expsw_adamw_70w
+    pretty_name: 0509_l6_expsw_dist_adamw_smallpf_70w
     date_added: 2025-04-01
     model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
     num_parameters: 6637036
     packages:
       deepmd-kit: P0131
-- model_name: 0509_l6_expsw_adamw_arc4.5_70w
+- model_name: 0509_l6_expsw_dist_adamw_largepv_70w
   model_type: DP
   model_family: DP
-  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_adamw_arc4.5_70w.pt
+  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_dist_adamw_largepv_70w.pt
   virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
   model_metadata:
-    pretty_name: 0509_l6_expsw_adamw_arc4.5_70w
+    pretty_name: 0509_l6_expsw_dist_adamw_largepv_70w
     date_added: 2025-04-01
     model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
     num_parameters: 6637036
     packages:
       deepmd-kit: P0131
-#- model_name: 0509_l6_expsw_adamw_arc4.5_combinedout_70w
-#  model_type: DP
-#  model_family: DP
-#  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_adamw_arc4.5_combinedout_70w.pt
-#  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
-#  model_metadata:
-#    pretty_name: 0509_l6_expsw_adamw_arc4.5_combinedout_70w
-#    date_added: 2025-04-01
-#    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
-#    num_parameters: 6637036
-#    packages:
-#      deepmd-kit: P0131
-#- model_name: 0509_l6_expsw_dist_adamw_smallpf_70w
-#  model_type: DP
-#  model_family: DP
-#  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_dist_adamw_smallpf_70w.pt
-#  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
-#  model_metadata:
-#    pretty_name: 0509_l6_expsw_dist_adamw_smallpf_70w
-#    date_added: 2025-04-01
-#    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
-#    num_parameters: 6637036
-#    packages:
-#      deepmd-kit: P0131
-#- model_name: 0509_l6_expsw_dist_adamw_largepv_70w
-#  model_type: DP
-#  model_family: DP
-#  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_dist_adamw_largepv_70w.pt
-#  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
-#  model_metadata:
-#    pretty_name: 0509_l6_expsw_dist_adamw_largepv_70w
-#    date_added: 2025-04-01
-#    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
-#    num_parameters: 6637036
-#    packages:
-#      deepmd-kit: P0131
-#- model_name: 0509_l6_expsw_dist_adamw_largepf_70w
-#  model_type: DP
-#  model_family: DP
-#  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_dist_adamw_largepf_70w.pt
-#  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
-#  model_metadata:
-#    pretty_name: 0509_l6_expsw_dist_adamw_largepf_70w
-#    date_added: 2025-04-01
-#    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
-#    num_parameters: 6637036
-#    packages:
-#      deepmd-kit: P0131
+- model_name: 0509_l6_expsw_dist_adamw_largepf_70w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/lambenc-models-0511-jre0/v1/0511_l6_models/0509_l6_expsw_dist_adamw_largepf_70w.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
+  model_metadata:
+    pretty_name: 0509_l6_expsw_dist_adamw_largepf_70w
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
