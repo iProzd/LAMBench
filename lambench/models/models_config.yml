@@ -149,3 +149,15 @@
     num_parameters: 6637036
     packages:
       deepmd-kit: P0131
+- model_name: 0510_l24_expsw_dist_adamW_ft_20w
+  model_type: DP
+  model_family: DP
+  model_path: /bohr/lambenc-models-0511-l24-zlkt/v1/0510_l24_expsw_dist_adamW_ft_20w.pt
+  virtualenv: registry.dp.tech/dptech/dp/native/prod-150/lambench-test:0511
+  model_metadata:
+    pretty_name: 0510_l24_expsw_dist_adamW_ft_20w
+    date_added: 2025-04-01
+    model_description: DP 2024 Q4, 37head share fitting 120GPU pretrain
+    num_parameters: 6637036
+    packages:
+      deepmd-kit: P0131
